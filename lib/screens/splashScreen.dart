@@ -14,7 +14,7 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 10), () {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const Onboard()));
     });
@@ -33,7 +33,8 @@ class _SplashscreenState extends State<Splashscreen> {
                 child: Center(
                   child: Image.asset(
                     'assets/logo.png',
-
+                    width: 150,
+                    height: 150,
                   ),
                 ),
               )),

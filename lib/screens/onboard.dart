@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../constant.dart';
 import '../widgets/button.dart';
 import '../widgets/facebook.dart';
 import 'number.dart';
@@ -28,11 +27,13 @@ class Onboard extends StatelessWidget {
                 child: Center(
                   child: Image.asset(
                     'assets/logo.png',
+                    width: 150,
+                    height: 150,
                   ),
                 ),
               )),
           Expanded(
-              flex: 2,
+              flex: 1,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Container(
