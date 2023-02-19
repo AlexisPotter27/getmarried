@@ -227,6 +227,8 @@ class _PhoneState extends State<Phone> {
                                               ),
                                               GestureDetector(
                                                   onTap: () {
+                                                    //Phone Verification
+
                                                     Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
@@ -267,5 +269,8 @@ class _PhoneState extends State<Phone> {
         ),
       ),
     );
+  }
+  void verifyNumber(){
+
   }
 }

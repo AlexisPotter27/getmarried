@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "594283361767",
+    "firebase_url": "https://getmarriedapp-810aa-default-rtdb.firebaseio.com",
+    "project_id": "getmarriedapp-810aa",
+    "storage_bucket": "getmarriedapp-810aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594283361767:android:002966bf4e4ab247e17942",
+        "android_client_info": {
+          "package_name": "com.getmarried.getmarried"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594283361767-ls6jplecjcehuktcbhhunbbsrl1fr7sf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.getmarried.getmarried",
+            "certificate_hash": "102a3a45e2663ebfd7b23bf22fcaeb677464fa2c"
+          }
+        },
+        {
+          "client_id": "594283361767-7rd8423gsdq9p5ltce55j9fq4bi979ga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkqo0k8xh_cqUJ3VgbG52Bind--dTG8j8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594283361767-7rd8423gsdq9p5ltce55j9fq4bi979ga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
