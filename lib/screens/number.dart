@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,6 +16,9 @@ TextEditingController countryCode = TextEditingController();
 TextEditingController phoneController = TextEditingController();
 String number = countryCode.text + phoneController.text;
 String num = number;
+FirebaseAuth auth = FirebaseAuth.instance;
+String verificationIDReceived = "";
+
 
 class _PhoneState extends State<Phone> {
   @override
@@ -66,27 +70,35 @@ class _PhoneState extends State<Phone> {
                 children: [
                   Container(
                     height: 40,
-                    width: 120,
+                    width: 135,
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 10),
+                          padding: const EdgeInsets.only(left: 15,  ),
                           child: IntlPhoneField(
                             decoration: const InputDecoration(
                               border:
                               OutlineInputBorder(borderSide: BorderSide.none),
                             ),
-                            showCountryFlag: false,
+                          //  showCountryFlag: true,
                             style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500),
+                                fontSize: 17, fontWeight: FontWeight.w500),
                             controller: countryCode,
                             dropdownIconPosition: IconPosition.trailing,
                             disableLengthCheck: true,
-                            initialCountryCode: 'US',
+                          //  initialCountryCode: 'US',
+
+                          //  onCountryChanged: (),
                             onChanged: (phone) {
-                              print(phone.completeNumber);
+                              print('FullNumber: ' + phone.completeNumber);
+                              number = phone.completeNumber;
+                              print(number);
+                            },
+                            onCountryChanged: (country){
+                              countryCode.text = '+${country.dialCode}';
+                              print('Code:${countryCode.text}');
                             },
                           ),
                         )),
@@ -228,7 +240,7 @@ class _PhoneState extends State<Phone> {
                                               GestureDetector(
                                                   onTap: () {
                                                     //Phone Verification
-
+                                                    verifyNumber();
                                                     Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
@@ -272,5 +284,28 @@ class _PhoneState extends State<Phone> {
   }
   void verifyNumber(){
 
+    print('This is with code: $number');
+    print('Only Number: $phoneController');
+    print('Country Code: $countryCode');
+
+    auth.verifyPhoneNumber(
+        phoneNumber: number,
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await auth.signInWithCredential(credential).then((value){
+            print("You are logged in successfully");
+          });
+        },
+        verificationFailed: (FirebaseAuthException exception){
+          print(exception.message);
+        },
+        codeSent: (String verificationID, int? resendToken){
+          verificationIDReceived = verificationID;
+          setState(() {
+
+          });
+        },
+        codeAutoRetrievalTimeout: (String verificationID){
+
+        });
   }
 }

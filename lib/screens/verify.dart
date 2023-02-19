@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/screens/location.dart';
 import '../constant.dart';
@@ -150,6 +151,7 @@ class _VerifyState extends State<Verify> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    verifyCode();
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -169,5 +171,14 @@ class _VerifyState extends State<Verify> {
         ),
       ),
     );
+  }
+  void verifyCode() async {
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationIDReceived,
+        smsCode: phoneController.text);
+
+    await auth.signInWithCredential(credential).then((value){
+      print('Verification successfully');
+    });
   }
 }
