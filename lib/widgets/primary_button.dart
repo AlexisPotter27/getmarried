@@ -20,7 +20,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
           child: ElevatedButton(
             onPressed:widget.onPressed,
             style: ElevatedButton.styleFrom(
-              primary: Colors.white,
+              primary: primaryColour,
               shape: const StadiumBorder(),
               padding: const EdgeInsets.all(18),
               onPrimary: Colors.black,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'models/chip_choice_mode.dart';
+import 'package:getmarried/data/models/chip_choice_mode.dart';
+import 'package:getmarried/data/models/feature_model.dart';
 
-const Color primaryColour = Color(0xFF856DFD);
+// const Color primaryColour = Color(0xFF856DFD);
+const Color primaryColour = Colors.indigoAccent;
 const Color ksecond = Color(0XFFf38321);
 
 InputDecoration inputDecoration(BuildContext context) => InputDecoration(
@@ -15,7 +17,6 @@ InputDecoration inputDecoration(BuildContext context) => InputDecoration(
       fillColor: Theme.of(context).cardColor,
       enabledBorder: OutlineInputBorder(
           borderSide: BorderSide.none,
-
           borderRadius: BorderRadius.circular(8.0)),
       focusedBorder: OutlineInputBorder(
           borderSide: BorderSide.none,
@@ -40,7 +41,6 @@ InputDecoration inputDecoration(BuildContext context) => InputDecoration(
 // )
 // )
     );
-
 
 List<ChipChoiceModel> creativityChoices = [
   ChipChoiceModel(label: 'Art', icon: Icons.emoji_objects),
@@ -100,9 +100,7 @@ List<String> starSigns = [
   'Capricorn',
   'Aquarius',
   'Pisces',
-
 ];
-
 
 List<String> educations = [
   'High school',
@@ -111,7 +109,6 @@ List<String> educations = [
   'Undergraduate degree',
   'In grad school',
   'Graduate degree',
-
 ];
 
 List<String> drinkingOptions = [
@@ -120,7 +117,6 @@ List<String> drinkingOptions = [
   'Rarely',
   'Never',
   'Sober',
-
 ];
 
 List<String> smokeOptions = [
@@ -157,7 +153,6 @@ List<String> ploiticalLeanings = [
   'Jain'
 ];
 
-
 List<String> maleGenders = [
   'Inter sex',
   'Trans man ',
@@ -178,7 +173,50 @@ List<String> nonBinaryGenders = [
   'Genderfluid',
   'Genderqueer',
   'Gender questioning'
-  'Neutrois'
-  'Nonbinary man'
-
+      'Neutrois'
+      'Nonbinary man'
 ];
+
+List<FeatureModel> features = [
+  FeatureModel(
+      feature: 'Unlimited', description: '', plans: ['premium', 'boost']),
+  FeatureModel(feature: 'Beeline', description: '', plans: [
+    'premium',
+  ]),
+  FeatureModel(feature: 'Advanced filters', description: '', plans: [
+    'premium',
+  ]),
+  FeatureModel(feature: 'Incognito mode', description: '', plans: [
+    'premium',
+  ]),
+  FeatureModel(feature: 'Travel mode', description: '', plans: [
+    'premium',
+  ]),
+  FeatureModel(
+      feature: '5 SuperWipes a week',
+      description: '',
+      plans: ['premium', 'boost']),
+  FeatureModel(
+      feature: '1 Spotlight a week',
+      description: '',
+      plans: ['premium', 'boost']),
+  FeatureModel(
+      feature: 'Unlimited Extends',
+      description: '',
+      plans: ['premium', 'boost']),
+  FeatureModel(
+      feature: 'Unlimited Rematch',
+      description: '',
+      plans: ['premium', 'boost']),
+  FeatureModel(
+      feature: 'Unlimited Backtrack',
+      description: '',
+      plans: ['premium', 'boost']),
+];
+
+Size getDeviceSize({BuildContext? context}) =>
+    WidgetsBinding.instance.window.physicalSize.flipped;
+
+double deviceWidth() =>
+    WidgetsBinding.instance.window.physicalSize.width /
+    WidgetsBinding.instance.window.devicePixelRatio;
