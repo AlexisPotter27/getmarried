@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Facebook extends StatelessWidget {
+class SocialButton extends StatelessWidget {
   final Color colour;
   final Color textcolour;
   final String title;
   final VoidCallback ontap;
-  final IconData icons ;
+  final Icon icons ;
 
-  const Facebook({required this.colour, required this.title,required this.ontap,required this.textcolour, required this.icons});
+  const SocialButton({required this.colour, required this.title,required this.ontap,required this.textcolour, required this.icons});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class Facebook extends StatelessWidget {
       onTap: ontap,
       child: Container(
           width: MediaQuery.of(context).size.width,
-          height: 40,
+        padding: const EdgeInsets.all(10),
 
           decoration: BoxDecoration(
               color: colour,
@@ -28,11 +28,11 @@ class Facebook extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(icons,color: Colors.blue,size: 25,),
-                  SizedBox(width: 20,),
+                 icons,
+                  const SizedBox(width: 10,),
                   Text(
                     title,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500,
                       color: textcolour,),
                   ),
                 ],
