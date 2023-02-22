@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/widgets/button.dart';
-import 'package:getmarried/widgets/facebook.dart';
-
+import '../../../widgets/social_button.dart';
 import '../number.dart';
 
 class Onboard extends StatelessWidget {

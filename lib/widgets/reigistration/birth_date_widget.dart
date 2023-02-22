@@ -19,6 +19,7 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
   final yearController = TextEditingController();
   final monthController = TextEditingController();
 
+
   @override
   void initState() {
     super.initState();
@@ -132,5 +133,11 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
         ),
       ],
     );
+  }
+  void age(){
+    String year = yearController.text.toString();
+    int birthYear = int.parse(year);
+
+
   }
 }
