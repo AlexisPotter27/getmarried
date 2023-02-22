@@ -44,6 +44,10 @@ dependencies:
   chips_choice_null_safety: ^2.0.6
   geolocator: ^8.2.0
   geocoding: ^2.0.4
+  image_picker:
+  firebase_database: ^10.0.14
+  fluttertoast: ^8.2.1
+  cloud_firestore:
 
   flutter_polygon: ^0.3.0+2
 
@@ -73,6 +77,7 @@ flutter:
   # assets:
   assets:
     - assets/
+    - assets/jpeg/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

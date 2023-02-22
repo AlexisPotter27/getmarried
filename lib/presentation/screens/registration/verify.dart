@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
+import 'package:getmarried/helper/toastMessage.dart';
 import 'package:getmarried/presentation/screens/number.dart';
 import 'package:getmarried/presentation/screens/registration/location.dart';
 
@@ -17,6 +18,13 @@ TextEditingController phoneController = TextEditingController();
 String number = countryCode.text + phoneController.text;
 
 class _VerifyState extends State<Verify> {
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    phoneController.dispose();
+    countryCode.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +56,7 @@ class _VerifyState extends State<Verify> {
                 height: 10,
               ),
               const Text(
-                'Enter the last 6 numbers of the\nphone number we call you on',
+                'Enter the 6 digit verification code sent to your \nphone number',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),textAlign: TextAlign.start,
               ),
               Row(
@@ -137,7 +145,6 @@ class _VerifyState extends State<Verify> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
                 GestureDetector(
                   child: const Text(
                     'Didn\'t get a call?',
@@ -152,11 +159,15 @@ class _VerifyState extends State<Verify> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    verifyCode();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Location()));
+                    if(phoneController.text.length == 6){
+                      verifyCode();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Location()));
+                    } else {
+                      ToastMessage.showToast('Please the 6 digit code sent to your phone number.');
+                    }
                   },
                   child: const CircleAvatar(
                     radius: 20,
@@ -179,6 +190,7 @@ class _VerifyState extends State<Verify> {
         smsCode: phoneController.text);
 
     await auth.signInWithCredential(credential).then((value){
+      ToastMessage.showToast('Verification successful');
       print('Verification successfully');
     });
   }

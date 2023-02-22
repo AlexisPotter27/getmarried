@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:getmarried/screens/privacy_screen.dart';
-import '../constant.dart';
-import '../widgets/button.dart';
 import 'package:getmarried/presentation/screens/registration/privacy_screen.dart';
 import 'package:getmarried/widgets/button.dart';
 
+import '../../../helper/toastMessage.dart';
 
 class Location extends StatefulWidget {
   const Location({Key? key}) : super(key: key);
@@ -17,7 +15,6 @@ class Location extends StatefulWidget {
 
 //Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 class _LocationState extends State<Location> {
-
   String? _currentAddress;
   Position? _currentPosition;
 
@@ -29,7 +26,8 @@ class _LocationState extends State<Location> {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Location services are disabled. Please enable the services')));
+          content: Text(
+              'Location services are disabled. Please enable the services')));
       return false;
     }
     permission = await Geolocator.checkPermission();
@@ -43,7 +41,8 @@ class _LocationState extends State<Location> {
     }
     if (permission == LocationPermission.deniedForever) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Location permissions are permanently denied, we cannot request permissions.')));
+          content: Text(
+              'Location permissions are permanently denied, we cannot request permissions.')));
       return false;
     }
     return true;
@@ -58,6 +57,7 @@ class _LocationState extends State<Location> {
         .then((Position position) {
       setState(() => _currentPosition = position);
       _getAddressFromLatLng(_currentPosition!);
+      ToastMessage.showToast('Location enabled!');
     }).catchError((e) {
       debugPrint(e);
     });
@@ -66,12 +66,12 @@ class _LocationState extends State<Location> {
   // Get Address From Lat and Lng
   Future<void> _getAddressFromLatLng(Position position) async {
     await placemarkFromCoordinates(
-        _currentPosition!.latitude, _currentPosition!.longitude)
+            _currentPosition!.latitude, _currentPosition!.longitude)
         .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
       setState(() {
         _currentAddress =
-        '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+            '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
       });
     }).catchError((e) {
       debugPrint(e);

@@ -2,6 +2,7 @@
     package="com.getmarried.getmarried">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
    <application
+        android:requestLegacyExternalStorage="true"
         android:label="GetMarriedApp"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/presentation/screens/registration/registration_screen.dart';
 import 'package:getmarried/widgets/primary_button.dart';
@@ -100,7 +101,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                 height: 10,
               ),
               TransaparentButton(
-                  onPressed: () {}, child: const Text('Change or reject', style: TextStyle(color: Colors.white,),)),
+                  onPressed: () {}, child: const Text('Change or reject', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
               const SizedBox(
                 height: 30,
               ),
