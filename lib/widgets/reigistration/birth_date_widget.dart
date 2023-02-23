@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-
 import 'form_field.dart';
 
 class BirthDateWidget extends StatefulWidget {
@@ -8,22 +7,29 @@ class BirthDateWidget extends StatefulWidget {
 
   @override
   State<BirthDateWidget> createState() => _BirthDateWidgetState();
+
 }
 
 class _BirthDateWidgetState extends State<BirthDateWidget> {
   final dayFocusNode = FocusNode();
   final monthFocusNode = FocusNode();
   final yearFocusNode = FocusNode();
+  late final int britYear;
 
-  final dayController = TextEditingController();
-  final yearController = TextEditingController();
-  final monthController = TextEditingController();
+  TextEditingController dayController = TextEditingController();
+  TextEditingController yearController = TextEditingController();
+  TextEditingController monthController = TextEditingController();
 
+   void yearBirth(){
+    String year = yearController.text.toString();
+    britYear = int.parse(year);
+  }
 
   @override
   void initState() {
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +58,7 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                 onChanged: (val) {
+
                   log(val.length.toString());
                   if (val.length == 2) {
                     dayFocusNode.unfocus();
@@ -123,8 +130,10 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                 onChanged: (val) {
                   log(val.length.toString());
+                  yearBirth();
                   if (val.length == 4) {
                     yearFocusNode.unfocus();
+
                   }
                 },
               ),
@@ -133,11 +142,5 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
         ),
       ],
     );
-  }
-  void age(){
-    String year = yearController.text.toString();
-    int birthYear = int.parse(year);
-
-
   }
 }

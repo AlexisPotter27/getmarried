@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getmarried/helper/toastMessage.dart';
 import 'package:getmarried/widgets/reigistration/form_field.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
@@ -62,7 +63,11 @@ class _FirstNameScreenState extends State<FirstNameScreen> {
               ],
             ),
             NextButton(onPressed: () {
-              widget.onComplete();
+              if(_firstNameController.text.isEmpty){
+                ToastMessage.showToast('Please enter your name!');
+              }else{
+                widget.onComplete();
+              }
             }),
           ],
         )

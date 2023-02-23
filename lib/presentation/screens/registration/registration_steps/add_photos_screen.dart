@@ -42,12 +42,12 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
               SizedBox(
                 height: 150,
                 child: Row(
-                  children: const [
-                    Expanded(child: ImagePickeCard()),
-                    SizedBox(
+                  children:  [
+                    Expanded(child: ImagePickerCard()),
+                    const SizedBox(
                       width: 16,
                     ),
-                    Expanded(child: ImagePickeCard()),
+                    Expanded(child: ImagePickerCard()),
                   ],
                 ),
               ),

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/widgets/reigistration/birth_date_widget.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
+import '../../../../helper/calculateAge.dart';
+
 class BirthdayScreen extends StatefulWidget {
-  const BirthdayScreen({Key? key, required this.onComplete}) : super(key: key);
+   const BirthdayScreen({Key? key, required this.onComplete}) : super(key: key);
   final Function onComplete;
+
 
   @override
   State<BirthdayScreen> createState() => _BirthdayScreenState();
@@ -58,6 +61,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
               width: 6,
             ),
             NextButton(onPressed: () {
+              Age().age();
               widget.onComplete();
             }),
           ],

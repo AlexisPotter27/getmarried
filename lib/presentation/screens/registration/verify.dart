@@ -18,13 +18,8 @@ TextEditingController phoneController = TextEditingController();
 String number = countryCode.text + phoneController.text;
 
 class _VerifyState extends State<Verify> {
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    phoneController.dispose();
-    countryCode.dispose();
-    super.dispose();
-  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,14 +123,7 @@ class _VerifyState extends State<Verify> {
                             border: InputBorder.none),
                         keyboardType: TextInputType.number,
                         controller: phoneController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'please enter your phone number';
-                          } else if (value.length < 14) {
-                            return 'phone number should be more than 14 characters';
-                          }
-                          return null;
-                        },
+
                       ),
                     ),
                   )
@@ -160,6 +148,8 @@ class _VerifyState extends State<Verify> {
                 GestureDetector(
                   onTap: () {
                     if(phoneController.text.length == 6){
+                      phoneController.clear();
+                      countryCode.clear();
                       verifyCode();
                       Navigator.push(
                           context,

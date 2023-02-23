@@ -35,41 +35,41 @@ class Onboard extends StatelessWidget {
                       SocialButton(
                           icons: const Icon(Icons.mail,color: Colors.white,),
                           colour: Colors.redAccent,
-                          title: 'Continue with google',
+                          title: 'Continue with Google',
                           textcolour: Colors.white,
                           ontap: () {
-                            Navigator.push(
+                            /*Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Phone()));
+                                    builder: (context) => const Phone()));*/
                           }),
                       const SizedBox(
                         height: 16,
                       ),
                   SocialButton(
-                      icons: const Icon(Icons.apple,color: Colors.white,),
+                      icons: const Icon(Icons.apple_rounded, color: Colors.white,),
                       colour: Colors.black,
-                      title: 'Continue with apple',
+                      title: 'Continue with Apple ID',
                       textcolour: Colors.white,
                       ontap: () {
-                        Navigator.push(
+                        /*Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Phone()));
+                                builder: (context) => const Phone()));*/
                       }),
                   const SizedBox(
                     height: 16,
                   ),
                   SocialButton(
-                      icons: const Icon(Icons.facebook,color: Colors.white,),
-                      colour: Colors.blueAccent,
+                      icons:  const Icon(Icons.facebook,color: Colors.yellowAccent,),
+                      colour: Colors.blue,
                       title: 'Continue with Facebook',
                       textcolour: Colors.white,
                       ontap: () {
-                        Navigator.push(
+                        /*Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Phone()));
+                                builder: (context) => const Phone()));*/
                       }),
                   const SizedBox(
                     height: 16,

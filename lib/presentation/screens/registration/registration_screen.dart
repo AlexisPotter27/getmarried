@@ -7,6 +7,7 @@ import 'package:getmarried/presentation/screens/registration/registration_steps/
 import 'package:getmarried/presentation/screens/registration/registration_steps/email_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/first_name_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/gender_screen.dart';
+import 'package:getmarried/widgets/reigistration/birth_date_widget.dart';
 import 'build_profile_onboard.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _pageController = PageController();
   double progress = 0.11;
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     switchPage(2);
                   }),
                   BirthdayScreen(onComplete: () {
-                    showDialog(
+                    /*showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
                           actionsPadding: const EdgeInsets.all(16),
@@ -60,7 +62,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: const [
                               Text(
-                                'You are 29',
+                                'You are ' ,
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w500),
                               ),
@@ -73,9 +75,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                           actions: [
                             GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 Navigator.pop(context);
-
                               },
                               child: const Text(
                                 'CANCEL',
@@ -83,7 +84,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                             ),
                             GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 Navigator.pop(context);
                                 switchPage(3);
                               },
@@ -93,8 +94,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                             ),
                           ]),
-                    );
-                    // switchPage(3);
+                    );*/
+                    switchPage(3);
                   }),
                   GenderScreen(
                     onComplete: () {

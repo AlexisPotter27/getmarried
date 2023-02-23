@@ -49,6 +49,7 @@ dependencies:
   fluttertoast: ^8.2.1
   cloud_firestore:
 
+
   flutter_polygon: ^0.3.0+2
 
 dev_dependencies:

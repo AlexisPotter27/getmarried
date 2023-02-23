@@ -22,12 +22,7 @@ String verificationIDReceived = "";
 
 class _PhoneState extends State<Phone> {
   @override
-  void dispose() {
-    // TODO: implement dispose
-    countryCode.dispose();
-    phoneController.dispose();
-    super.dispose();
-  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,6 +138,7 @@ class _PhoneState extends State<Phone> {
                             border: InputBorder.none),
                         keyboardType: TextInputType.number,
                         controller: phoneController,
+
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'please enter your phone number';
@@ -247,6 +243,8 @@ class _PhoneState extends State<Phone> {
                                               children: [
                                                 GestureDetector(
                                                     onTap: () {
+                                                      phoneController.clear();
+                                                      countryCode.clear();
                                                       Navigator.pop(context);
                                                     },
                                                     child: const Text(
@@ -316,6 +314,8 @@ class _PhoneState extends State<Phone> {
         verificationCompleted: (PhoneAuthCredential credential) async {
           await auth.signInWithCredential(credential).then((value) {
             ToastMessage.showToast('Verification successful.');
+            phoneController.clear();
+            countryCode.clear();
             print("You are logged in successfully");
           });
         },

@@ -6,7 +6,7 @@ class ToastMessage{
       msg: msg,
       fontSize: 18,
       gravity: ToastGravity.CENTER,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.greenAccent,
       textColor: Colors.black
   );
 }
