@@ -61,7 +61,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
               width: 6,
             ),
             NextButton(onPressed: () {
-              Age().age();
+
               widget.onComplete();
             }),
           ],

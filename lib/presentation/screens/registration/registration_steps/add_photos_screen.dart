@@ -1,15 +1,34 @@
+import 'dart:io' as io;
 import 'package:flutter/material.dart';
-import 'package:getmarried/widgets/reigistration/image_picker_card.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 import 'package:getmarried/widgets/reigistration/not_sure_widget.dart';
-
+import 'package:image_picker/image_picker.dart';
+import '../../../../widgets/reigistration/file_upload_sheet.dart';
 
 class AddPhotosScreen extends StatefulWidget {
   const AddPhotosScreen({Key? key, required this.onComplete}) : super(key: key);
- final Function onComplete;
+  final Function onComplete;
 
   @override
   State<AddPhotosScreen> createState() => _AddPhotosScreenState();
+  static String image = '';
+  static void pickImage() async {
+    XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (file != null) {
+      image = file.path;
+      print('Image:: $image');
+      //setState(() {});
+    }
+  }
+  /// Get image from Camera
+  static void pickImageFromCamera() async {
+    XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (file != null) {
+      image = file.path;
+      print('Image:: $image');
+      //setState(() {});
+    }
+  }
 }
 
 class _AddPhotosScreenState extends State<AddPhotosScreen> {
@@ -27,14 +46,20 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
               ),
               const Text(
                 'Add your first 2 photos ?',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
               ),
               const Text(
                 '2 photos are better than 1, its our science. You can change this later.',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 16,
@@ -42,12 +67,34 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
               SizedBox(
                 height: 150,
                 child: Row(
-                  children:  [
-                    Expanded(child: ImagePickerCard()),
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => FileUploadSheet(),
+                        );
+                      },
+                      child: Container(
+                              width: 200,
+                              height: 400,
+                              color: Colors.white,
+                              alignment: Alignment.center,
+                              child: Center(
+                                child: (AddPhotosScreen.image != null)
+                                    ? Image.file(io.File(AddPhotosScreen.image))
+                                    : const Icon(Icons.add),
+
+                              ),
+                              // ImagePickerCard(),
+                            ),
+                    ),
+
                     const SizedBox(
                       width: 16,
                     ),
-                    Expanded(child: ImagePickerCard()),
+                    //Expanded(child: ImagePickerCard()),
                   ],
                 ),
               ),
@@ -55,9 +102,7 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                 height: 16,
               ),
               GestureDetector(
-                onTap: () {
-
-                },
+                onTap: () {},
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -88,14 +133,20 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
               alignment: Alignment.bottomRight,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: NextButton(onPressed: (){
-                widget.onComplete();
-            }),
-              ),),
+                child: NextButton(onPressed: () {
+                  widget.onComplete();
+                }),
+              ),
+            ),
             const NotSureWidget(),
           ],
         )
       ],
     );
   }
+
+  /// Get image from Gallery
+  ///
+
+
 }

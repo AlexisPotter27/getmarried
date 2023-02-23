@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/widgets/reigistration/image_picker_card.dart';
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
+import '../../presentation/screens/registration/registration_steps/add_photos_screen.dart';
 
 class FileUploadSheet extends StatefulWidget {
   String? imagePath;
@@ -13,7 +12,7 @@ class FileUploadSheet extends StatefulWidget {
 
 class _FileUploadSheetState extends State<FileUploadSheet> {
   //XFile? imageFile;
-  String image = '';
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -70,9 +69,11 @@ class _FileUploadSheetState extends State<FileUploadSheet> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: GestureDetector(
               onTap: () {
-                pickImage();
-                Navigator.pop(context);
-                setState(() {});
+                setState(() {
+                  AddPhotosScreen.pickImage();
+                  Navigator.pop(context);
+                });
+                initState();
               },
               child: Row(
                 children: const [
@@ -95,9 +96,8 @@ class _FileUploadSheetState extends State<FileUploadSheet> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: GestureDetector(
               onTap: () {
-                _getFromCamera();
+                AddPhotosScreen.pickImageFromCamera();
                 Navigator.of(context).pop();
-
               },
               child: Row(
                 children: const [
@@ -116,38 +116,5 @@ class _FileUploadSheetState extends State<FileUploadSheet> {
         ],
       ),
     );
-  }
-
-  /// Get image from Gallery
-  ///
-  void pickImage() async {
-    XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (file != null) {
-      image = file.path;
-      print('Image:: $image');
-      //setState(() {});
-    }
-  }
-
-  /// Get image from Camera
-  void pickImageFromCamera() async {
-    XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (file != null) {
-      image = file.path;
-      print('Image:: $image');
-      //setState(() {});
-    }
-  }
-  _getFromCamera() async {
-    PickedFile? pickedFile = (await ImagePicker().pickImage(
-      source: ImageSource.camera,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    )) as PickedFile?;
-    if (pickedFile != null) {
-      setState(() {
-        //imageFile = File(pickedFile.path) as XFile?;
-      });
-    }
   }
 }
