@@ -22,11 +22,12 @@ class _ProfileTabState extends State<ProfileTab> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              SliverToBoxAdapter(
+        padding: const EdgeInsets.all(0.0),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
                     Row(
@@ -39,7 +40,11 @@ class _ProfileTabState extends State<ProfileTab> {
                               color: Colors.grey,
                               size: 25,
                             )),
-                        Image.asset('assets/logo.png',height: 40,width: 50,),
+                        Image.asset(
+                          'assets/logo.png',
+                          height: 40,
+                          width: 50,
+                        ),
                         GestureDetector(
                             onTap: () {},
                             child: const Icon(
@@ -192,16 +197,22 @@ class _ProfileTabState extends State<ProfileTab> {
                     ),
                   ],
                 ),
-              )
-            ];
-          },
-          body: ListView.builder(
-            itemCount: features.length,
-            itemBuilder: (context, index) => FeaturesTile(
-              featureModel: features[index],
-              selectedFeature: _selectedIndex,
+              ),
             ),
-          ),
+
+            // const FlexibleSpaceBar(),
+
+            SliverList(
+
+                delegate:
+                    SliverChildBuilderDelegate((context, index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: FeaturesTile(
+                            featureModel: features[index],
+                            selectedFeature: _selectedIndex,
+                          ),
+                    ),childCount: features.length),)
+          ],
         ),
       ),
     );
