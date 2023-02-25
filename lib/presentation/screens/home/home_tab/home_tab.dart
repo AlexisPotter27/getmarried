@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
+import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/home/match_card.dart';
 import 'package:getmarried/widgets/home/swippable_card.dart';
 
@@ -14,13 +15,13 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   List items = [
-'assets/jpeg/person1.jpeg',
-'assets/jpeg/person2.jpeg',
-'assets/jpeg/girl.jpeg',
+    'assets/jpeg/person1.jpeg',
     'assets/jpeg/person2.jpeg',
-'assets/jpeg/girl.jpeg',
+    'assets/jpeg/girl.jpeg',
     'assets/jpeg/person2.jpeg',
-'assets/jpeg/girl.jpeg',
+    'assets/jpeg/girl.jpeg',
+    'assets/jpeg/person2.jpeg',
+    'assets/jpeg/girl.jpeg',
   ];
   late AnimationController controller;
   final animation = Tween<double>(begin: 400, end: 0);
@@ -37,7 +38,6 @@ class _HomeTabState extends State<HomeTab> {
       child: Column(
         children: [
           Row(
-
             children: [
               IconButton(
                   onPressed: () {},
@@ -66,7 +66,11 @@ class _HomeTabState extends State<HomeTab> {
                 ],
               )),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const DateFiltersScreen(),
+                    ));
+                  },
                   icon: const Icon(
                     Icons.tune,
                     size: 25,
@@ -103,7 +107,9 @@ class _HomeTabState extends State<HomeTab> {
                                 items.removeLast();
                               });
                             },
-                            child:  MatchCard(image: items[index],),
+                            child: MatchCard(
+                              image: items[index],
+                            ),
                           )).reversed.toList().reversed.toList(),
                 ),
                 Center(
@@ -118,7 +124,6 @@ class _HomeTabState extends State<HomeTab> {
                               Icons.favorite,
                               color: primaryColour,
                               size: 50,
-
                             ),
                           ),
                           Center(
@@ -126,7 +131,6 @@ class _HomeTabState extends State<HomeTab> {
                               Icons.add,
                               color: Colors.white,
                               size: 10,
-
                             ),
                           ),
                         ],
@@ -139,12 +143,11 @@ class _HomeTabState extends State<HomeTab> {
                     offset: Offset(likeButtonOffset.dx + 10, 0),
                     child: Transform.scale(
                       scale: disLikeScale,
-                      child:   const Center(
+                      child: const Center(
                         child: Icon(
                           Icons.thumb_down,
                           color: Colors.redAccent,
                           size: 50,
-
                         ),
                       ),
                     ),

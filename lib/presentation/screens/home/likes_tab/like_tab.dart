@@ -18,6 +18,7 @@ class _LikeTabState extends State<LikeTab> {
       child: SingleChildScrollView(
         child: Column(
           children: [
+
             Container(
               decoration: const BoxDecoration(color: primaryColour),
               child: Column(
@@ -128,7 +129,6 @@ class _LikeTabState extends State<LikeTab> {
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
