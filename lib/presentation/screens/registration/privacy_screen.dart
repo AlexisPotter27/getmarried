@@ -21,6 +21,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title:  Image.asset('assets/ilogo.png', width: 50, height: 50,),
+        centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.indigoAccent,
       ),

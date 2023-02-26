@@ -15,15 +15,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title:  Image.asset('assets/ilogo.png', width: 50, height: 50,),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.indigoAccent,
+      ),
       backgroundColor: Colors.indigoAccent,
       body: SafeArea(
-
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+             /* Row(
                 children: [
                   Expanded(
                       child: Row(
@@ -42,13 +48,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               const SizedBox(
                 height: 200,
-              ),
+              ),*/
               const WelcomeTextWidget(),
               const SizedBox(
                 height: 26,
               ),
               TextButton(
                 onPressed: () {
+
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

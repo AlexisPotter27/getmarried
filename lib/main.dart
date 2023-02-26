@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
+import 'package:getmarried/presentation/screens/registration/privacy_screen.dart';
+import 'package:getmarried/presentation/screens/splashScreen.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Poppins',
       ),
-      home: const HomeScreen(),
+      home: const PrivacyScreen(),
     );
   }
 }

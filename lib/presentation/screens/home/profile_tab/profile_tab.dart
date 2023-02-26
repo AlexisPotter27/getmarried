@@ -26,13 +26,13 @@ class _ProfileTabState extends State<ProfileTab> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              title: const Text('Sonia',style: TextStyle(color: Colors.black),),
+              //title: const Text('Sonia',style: TextStyle(color: Colors.black),),
               leading: GestureDetector(
                   onTap: () {},
                   child: const Icon(
                     Icons.menu,
                     color: Colors.grey,
-                    size: 25,
+                    size: 30,
                   )),
               elevation: 0,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -47,14 +47,13 @@ class _ProfileTabState extends State<ProfileTab> {
                       child: Icon(
                         Icons.settings,
                         color: Colors.grey,
-                        size: 25,
+                        size: 30,
                       ),
                     )),
               ],
               expandedHeight: 270,
               collapsedHeight: 60,
               flexibleSpace: FlexibleSpaceBar(
-
                   collapseMode: CollapseMode.parallax,
                   background:Column(children: [
                     const SizedBox(

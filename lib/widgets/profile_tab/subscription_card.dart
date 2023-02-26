@@ -32,10 +32,10 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
                 end: Alignment.bottomRight,
                 begin: Alignment.topLeft,
                 colors: [
+                  Colors.orangeAccent.shade100,
                   Colors.orangeAccent.shade200,
-                  Colors.orangeAccent.shade400,
                   Colors.orange,
-                  Colors.orange,
+                  Colors.yellow,
                 ]),
       ),
       child: Column(
@@ -61,7 +61,9 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0.1),
             child:
-                UpgradeButton(onPressed: () {}, child: Text(widget.buttonText)),
+                UpgradeButton(onPressed: () {
+
+                 }, child: Text(widget.buttonText)),
           )
         ],
       ),
