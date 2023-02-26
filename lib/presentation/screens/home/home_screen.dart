@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/home_tab.dart';
-import 'package:getmarried/presentation/screens/home/likes_tab/like_tab.dart';
+import 'package:getmarried/presentation/screens/home/likes_tab/like_refractor.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/profile_tab.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   @override
   void initState() {
@@ -25,10 +25,12 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
+
         children: [
           const ProfileTab(),
           const HomeTab(),
-          const LikeTab(),
+          const LikeRefractor(),
+
           Container(),
         ],
       ),
@@ -36,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen>
           showUnselectedLabels: false,
           showSelectedLabels: false,
           currentIndex: _currentIndex,
+
           unselectedIconTheme:
               const IconThemeData(color: Colors.grey, size: 25),
           onTap: (index) {

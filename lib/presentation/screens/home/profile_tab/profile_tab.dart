@@ -29,6 +29,7 @@ class _ProfileTabState extends State<ProfileTab> {
 
              SliverAppBar(
                title: const Text('Sonia',style: TextStyle(color: Colors.black),),
+
                leading: GestureDetector(
                 onTap: () {},
                 child: const Icon(
@@ -39,6 +40,7 @@ class _ProfileTabState extends State<ProfileTab> {
                elevation: 0,
                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                pinned: true,
+
                // floating: true,
              
                actions: [
@@ -57,7 +59,7 @@ class _ProfileTabState extends State<ProfileTab> {
                collapsedHeight: 60,
                flexibleSpace: FlexibleSpaceBar(
 
-                    collapseMode: CollapseMode.parallax,
+                    collapseMode: CollapseMode.none,
                    background:Column(children: [
                      const SizedBox(
                        height: 60,

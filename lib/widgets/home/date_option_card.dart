@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
 import 'package:getmarried/widgets/reigistration/check_box_tile.dart';
 import 'package:collection/collection.dart';
 
@@ -38,35 +37,35 @@ class _DateOptionCardState extends State<DateOptionCard> {
               borderRadius: BorderRadius.circular(16)),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Im open to dating everyone',
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    child: Transform.scale(
-                      scale: 0.7,
-                      child: CupertinoSwitch(
-                          value: allChecked,
-                          onChanged: (val) {
-                            setState(() {
-                              if (val) {
-                                dates = ['Men', 'Women', 'Nonbinary'];
-                              } else {
-                                dates = [''];
-                              }
-                            });
-                          },
-                          activeColor: primaryColour),
-                    ),
-                  )
-                ],
-              ),
-              const Divider(
-                thickness: 1,
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     const Text(
+              //       'Im open to dating everyone',
+              //       style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+              //     ),
+              //     SizedBox(
+              //       child: Transform.scale(
+              //         scale: 0.7,
+              //         child: CupertinoSwitch(
+              //             value: allChecked,
+              //             onChanged: (val) {
+              //               setState(() {
+              //                 if (val) {
+              //                   dates = ['Men', 'Women', 'Nonbinary'];
+              //                 } else {
+              //                   dates = [''];
+              //                 }
+              //               });
+              //             },
+              //             activeColor: primaryColour),
+              //       ),
+              //     )
+              //   ],
+              // ),
+              // const Divider(
+              //   thickness: 1,
+              // ),
               CheckBoxTile(
                   text: 'Men',
                   isChecked: menChecked,
@@ -82,18 +81,18 @@ class _DateOptionCardState extends State<DateOptionCard> {
                   onChanged: (val) {
                     updateDates('Women');
                   }),
-              const Divider(
-                thickness: 1,
-              ),
-              CheckBoxTile(
-                  text: 'Nonbinary people',
-                  isChecked: nonBinaryChecked,
-                  onChanged: (val) {
-                    updateDates('Nonbinary');
-                  }),
-              const SizedBox(
-                height: 16,
-              )
+              // const Divider(
+              //   thickness: 1,
+              // ),
+              // CheckBoxTile(
+              //     text: 'Nonbinary people',
+              //     isChecked: nonBinaryChecked,
+              //     onChanged: (val) {
+              //       updateDates('Nonbinary');
+              //     }),
+              // const SizedBox(
+              //   height: 16,
+              // )
             ],
           ),
         ),
