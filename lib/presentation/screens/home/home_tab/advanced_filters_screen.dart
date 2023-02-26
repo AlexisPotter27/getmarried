@@ -395,7 +395,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                     style: TextButton.styleFrom(
                         shape: const StadiumBorder(),
                         backgroundColor: primaryColour,
-                        foregroundColor: Colors.black),
+                        primary: Colors.black),
                     child: const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Text('Upgrade for advanced filters'),

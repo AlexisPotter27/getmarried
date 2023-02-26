@@ -38,7 +38,6 @@ class _CardTileState extends State<CardTile> {
               ),
               Text(
                 'See price',
-                'from 3.04 USD',
                 style: TextStyle(
                   fontSize: 13,
                   color: Colors.grey,

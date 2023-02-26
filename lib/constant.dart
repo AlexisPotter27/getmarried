@@ -247,14 +247,6 @@ List<FeatureModel> features = [
       plans: ['premium', 'boost']),
 ];
 
-Size getDeviceSize({BuildContext? context}) =>
-    WidgetsBinding.instance.window.physicalSize.flipped;
-
-double deviceWidth() =>
-    WidgetsBinding.instance.window.physicalSize.width /
-    WidgetsBinding.instance.window.devicePixelRatio;
-        WidgetsBinding.instance.window.devicePixelRatio;
-
 List<String> languages = [
   'English',
   'Spanish',
@@ -269,5 +261,13 @@ List<String> languages = [
   'Russian',
   'Swedish',
   'Taiwanese'
-  'Turkish'
+      'Turkish'
 ];
+
+
+Size getDeviceSize({BuildContext? context}) =>
+    WidgetsBinding.instance.window.physicalSize.flipped;
+
+double deviceWidth() =>
+    WidgetsBinding.instance.window.physicalSize.width /
+    WidgetsBinding.instance.window.devicePixelRatio;

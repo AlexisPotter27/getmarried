@@ -45,7 +45,7 @@ class _HomeTabState extends State<HomeTab> {
                     icon: const Icon(
                       Icons.menu,
                       size: 30,
-                        color: Colors.blue,
+                      color: Colors.blue,
                     )),
                 Expanded(
                     child: Row(
@@ -57,7 +57,7 @@ class _HomeTabState extends State<HomeTab> {
                       height: 60,
                       width: 60,
                     ),
-                   /* const Text(
+                    /* const Text(
                       'Get Married',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -76,45 +76,6 @@ class _HomeTabState extends State<HomeTab> {
                     )),
               ],
             ),
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.menu,
-                    size: 25,
-                  )),
-              Expanded(
-                  child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/logo.png',
-                    height: 40,
-                    width: 50,
-                  ),
-                  const Text(
-                    'Get Married',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: primaryColour,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16),
-                  ),
-                ],
-              )),
-              IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const DateFiltersScreen(),
-                    ));
-                  },
-                  icon: const Icon(
-                    Icons.tune,
-                    size: 25,
-                  )),
-            ],
           ),
           Expanded(
             child: Stack(
