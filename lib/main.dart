@@ -5,7 +5,7 @@ import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/registration/privacy_screen.dart';
 import 'package:getmarried/presentation/screens/splashScreen.dart';
 
-Future<void> main() async{
+Future<void> main() async{ 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
