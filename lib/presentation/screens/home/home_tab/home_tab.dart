@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
+import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/home/match_card.dart';
 import 'package:getmarried/widgets/home/swippable_card.dart';
 
@@ -13,13 +14,13 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   List items = [
-'assets/jpeg/person1.jpeg',
-'assets/jpeg/person2.jpeg',
-'assets/jpeg/girl.jpeg',
+    'assets/jpeg/person1.jpeg',
     'assets/jpeg/person2.jpeg',
-'assets/jpeg/girl.jpeg',
+    'assets/jpeg/girl.jpeg',
     'assets/jpeg/person2.jpeg',
-'assets/jpeg/girl.jpeg',
+    'assets/jpeg/girl.jpeg',
+    'assets/jpeg/person2.jpeg',
+    'assets/jpeg/girl.jpeg',
   ];
   late AnimationController controller;
   final animation = Tween<double>(begin: 400, end: 0);
@@ -75,6 +76,45 @@ class _HomeTabState extends State<HomeTab> {
                     )),
               ],
             ),
+          Row(
+            children: [
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 25,
+                  )),
+              Expanded(
+                  child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/logo.png',
+                    height: 40,
+                    width: 50,
+                  ),
+                  const Text(
+                    'Get Married',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: primaryColour,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16),
+                  ),
+                ],
+              )),
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const DateFiltersScreen(),
+                    ));
+                  },
+                  icon: const Icon(
+                    Icons.tune,
+                    size: 25,
+                  )),
+            ],
           ),
           Expanded(
             child: Stack(
@@ -106,7 +146,9 @@ class _HomeTabState extends State<HomeTab> {
                                 items.removeLast();
                               });
                             },
-                            child:  MatchCard(image: items[index],),
+                            child: MatchCard(
+                              image: items[index],
+                            ),
                           )).reversed.toList().reversed.toList(),
                 ),
                 Center(
@@ -128,7 +170,6 @@ class _HomeTabState extends State<HomeTab> {
                               Icons.add,
                               color: Colors.white,
                               size: 10,
-
                             ),
                           ),
                         ],
@@ -141,12 +182,11 @@ class _HomeTabState extends State<HomeTab> {
                     offset: Offset(likeButtonOffset.dx + 10, 0),
                     child: Transform.scale(
                       scale: disLikeScale,
-                      child:   const Center(
+                      child: const Center(
                         child: Icon(
                           Icons.thumb_down,
                           color: Colors.redAccent,
                           size: 50,
-
                         ),
                       ),
                     ),

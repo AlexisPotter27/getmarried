@@ -6,15 +6,21 @@ import 'package:getmarried/data/models/feature_model.dart';
 const Color primaryColour = Colors.indigoAccent;
 const Color ksecond = Color(0XFFf38321);
 
-InputDecoration inputDecoration(BuildContext context) => InputDecoration(
+InputDecoration inputDecoration(BuildContext context) =>
+    InputDecoration(
       hintStyle: TextStyle(
-        color: Theme.of(context).colorScheme.onPrimary,
+        color: Theme
+            .of(context)
+            .colorScheme
+            .onPrimary,
         fontSize: 16.0,
       ),
       filled: true,
       counterStyle: const TextStyle(color: Colors.blueGrey),
 
-      fillColor: Theme.of(context).cardColor,
+      fillColor: Theme
+          .of(context)
+          .cardColor,
       enabledBorder: OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(8.0)),
@@ -41,6 +47,7 @@ InputDecoration inputDecoration(BuildContext context) => InputDecoration(
 // )
 // )
     );
+
 
 List<ChipChoiceModel> creativityChoices = [
   ChipChoiceModel(label: 'Art', icon: Icons.emoji_objects),
@@ -246,3 +253,21 @@ Size getDeviceSize({BuildContext? context}) =>
 double deviceWidth() =>
     WidgetsBinding.instance.window.physicalSize.width /
     WidgetsBinding.instance.window.devicePixelRatio;
+        WidgetsBinding.instance.window.devicePixelRatio;
+
+List<String> languages = [
+  'English',
+  'Spanish',
+  'Arabic',
+  'German',
+  'Deutsch',
+  'Portuguese',
+  'Greek',
+  'Hebrew',
+  'Italian',
+  'Japanese',
+  'Russian',
+  'Swedish',
+  'Taiwanese'
+  'Turkish'
+];

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
 import 'package:getmarried/widgets/profile_tab/card_tile.dart';
@@ -96,6 +97,99 @@ class _ProfileTabState extends State<ProfileTab> {
                     const SizedBox(
                       height: 16,
                     ),
+        padding: const EdgeInsets.all(0.0),
+        child: CustomScrollView(
+          slivers: [
+
+             SliverAppBar(
+               title: const Text('Sonia',style: TextStyle(color: Colors.black),),
+               leading: GestureDetector(
+                onTap: () {},
+                child: const Icon(
+                  Icons.menu,
+                  color: Colors.grey,
+                  size: 25,
+                )),
+               elevation: 0,
+               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+               pinned: true,
+               // floating: true,
+
+               actions: [
+                 GestureDetector(
+                     onTap: () {},
+                     child: const Padding(
+                       padding: EdgeInsets.all(10.0),
+                       child: Icon(
+                         Icons.settings,
+                         color: Colors.grey,
+                         size: 25,
+                       ),
+                     )),
+               ],
+               expandedHeight: 270,
+               collapsedHeight: 60,
+               flexibleSpace: FlexibleSpaceBar(
+
+                    collapseMode: CollapseMode.parallax,
+                   background:Column(children: [
+                     const SizedBox(
+                       height: 60,
+                     ),
+
+                     const Center(
+                   child: CircleAvatar(
+                     radius: 50,
+                     backgroundImage: AssetImage('assets/jpeg/person1.jpeg'),
+                   ),
+                 ),
+                 const SizedBox(
+                   height: 16,
+                 ),
+                 Center(
+                   child: Row(
+                     mainAxisSize: MainAxisSize.min,
+                     children: const [
+                       Text(
+                         'Sonia, 23',
+                         style: TextStyle(
+                             fontSize: 16, fontWeight: FontWeight.w500),
+                       ),
+                       SizedBox(
+                         width: 10,
+                       ),
+                       Icon(
+                         Icons.security,
+                         size: 16,
+                         color: Colors.grey,
+                       )
+                     ],
+                   ),
+                 ),
+                 Center(
+                   child: Chip(
+                     label: const Text(
+                       'Complete my profile',
+                       style: TextStyle(
+                         fontSize: 13,
+                         color: Colors.grey,
+                       ),
+                     ),
+                     backgroundColor: Colors.grey.shade300,
+                   ),
+                 ),
+                 const SizedBox(
+                   height: 16,
+                 ),
+               ],) ),
+             ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+
+
                     Row(
                       children: const [
                         Expanded(child: CardTile()),
@@ -195,16 +289,20 @@ class _ProfileTabState extends State<ProfileTab> {
                     ),
                   ],
                 ),
-              )
-            ];
-          },
-          body: ListView.builder(
-            itemCount: features.length,
-            itemBuilder: (context, index) => FeaturesTile(
-              featureModel: features[index],
-              selectedFeature: _selectedIndex,
+              ),
             ),
-          ),
+            // const FlexibleSpaceBar(),
+            SliverList(
+
+                delegate:
+                    SliverChildBuilderDelegate((context, index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: FeaturesTile(
+                            featureModel: features[index],
+                            selectedFeature: _selectedIndex,
+                          ),
+                    ),childCount: features.length,),)
+          ],
         ),
       ),
     );
