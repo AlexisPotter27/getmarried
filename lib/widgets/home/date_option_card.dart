@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:getmarried/widgets/reigistration/check_box_tile.dart';
+import 'package:getmarried/constant.dart';
 import 'package:collection/collection.dart';
 
 class DateOptionCard extends StatefulWidget {
@@ -16,6 +16,7 @@ class DateOptionCard extends StatefulWidget {
 
 class _DateOptionCardState extends State<DateOptionCard> {
   List dates = [];
+  String date = 'man';
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +30,8 @@ class _DateOptionCardState extends State<DateOptionCard> {
             style: TextStyle(fontSize: 13),
           ),
         ),
-
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           decoration: BoxDecoration(
               border: Border.all(color: Colors.grey.shade300),
               borderRadius: BorderRadius.circular(16)),
@@ -66,21 +66,49 @@ class _DateOptionCardState extends State<DateOptionCard> {
               // const Divider(
               //   thickness: 1,
               // ),
-              CheckBoxTile(
-                  text: 'Men',
-                  isChecked: menChecked,
+
+              RadioListTile<String>(
+                  value: 'man',
+                  groupValue: date,
+                  controlAffinity: ListTileControlAffinity.trailing,
+                  contentPadding: EdgeInsets.zero,
+                  activeColor: primaryColour,
                   onChanged: (val) {
-                    updateDates('Men');
-                  }),
+                    setState(() {
+                      date = val!;
+                    });
+                  },
+                  title: const Text('Man', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),)),
               const Divider(
                 thickness: 1,
               ),
-              CheckBoxTile(
-                  text: 'Women',
-                  isChecked: womenChecked,
+              RadioListTile<String>(
+                  value: 'woman',
+                  groupValue: date,
+                  controlAffinity: ListTileControlAffinity.trailing,
+                  contentPadding: EdgeInsets.zero,
+                  activeColor: primaryColour,
                   onChanged: (val) {
-                    updateDates('Women');
-                  }),
+                    setState(() {
+                      date = val!;
+                    });
+                  },
+                  title: const Text('Woman', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),)),
+              // CheckBoxTile(
+              //     text: 'Men',
+              //     isChecked: menChecked,
+              //     onChanged: (val) {
+              //       updateDates('Men');
+              //     }),
+              // const Divider(
+              //   thickness: 1,
+              // ),
+              // CheckBoxTile(
+              //     text: 'Women',
+              //     isChecked: womenChecked,
+              //     onChanged: (val) {
+              //       updateDates('Women');
+              //     }),
               // const Divider(
               //   thickness: 1,
               // ),
