@@ -1,23 +1,26 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:getmarried/widgets/reigistration/next_button.dart';
 import 'package:getmarried/constant.dart';
 import 'package:getmarried/widgets/reigistration/about_gender_dialog.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
-import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 
-
-class ChooseDateScreen extends StatefulWidget {
-  const ChooseDateScreen({Key? key, required this.onComplete}) : super(key: key);
+class ImportantRole extends StatefulWidget {
+  const ImportantRole({Key? key, required this.onComplete}) : super(key: key);
   final Function onComplete;
 
   @override
-  State<ChooseDateScreen> createState() => _ChooseDateScreenState();
+  State<ImportantRole> createState() => _ImportantRoleState();
 }
 
-List<String> options = ['Men', 'Women', ];
-String radioValue = 'Men';
+List<String> options = ['Someone to raise a family with', 'Lovers and friends', 'My Soulmate', 'Someone I can confide in', 'The Bonnie to my Clyde' ];
+String radioValue = 'Someone to raise a family with';
 
-class _ChooseDateScreenState extends State<ChooseDateScreen> {
+// final List gender = ['What to get married within 1 year', 'Want to get married within 1-2 years', 'Want to get married within 3 years \nor more'];
+// List selctedOptions = ['What to get married within 1 year', 'Want to get married within 1-2 years', 'Want to get married within 3 years or more'];
+
+class _ImportantRoleState extends State<ImportantRole> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,13 +34,16 @@ class _ChooseDateScreenState extends State<ChooseDateScreen> {
                 height: 20,
               ),
               const Text(
-                "I'm looking for...",
+                'The most important role I want my partner to fulfill is:',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(
                 height: 30,
               ),
 
+              const SizedBox(
+                height: 16,
+              ),
               ListView.builder(
                 itemCount: options.length,
                 shrinkWrap: true,
@@ -84,6 +90,21 @@ class _ChooseDateScreenState extends State<ChooseDateScreen> {
         ),
         Row(
           children: [
+           /* Expanded(
+              child: Row(
+                children: const [
+                  Icon(Icons.remove_red_eye, color: Colors.white),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                      child: Text(
+                        'You can always update this later we got you.',
+                        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: Colors.white),
+                      ))
+                ],
+              ),
+            ),*/
             const SizedBox(
               width: 300,
             ),
@@ -106,3 +127,4 @@ class _ChooseDateScreenState extends State<ChooseDateScreen> {
     }
   }
 }
+

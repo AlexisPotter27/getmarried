@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
 import 'package:getmarried/widgets/home/match_card.dart';
@@ -36,42 +35,46 @@ class _HomeTabState extends State<HomeTab> {
     return SafeArea(
       child: Column(
         children: [
-          Row(
-
-            children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.menu,
-                    size: 25,
-                  )),
-              Expanded(
-                  child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/logo.png',
-                    height: 40,
-                    width: 50,
-                  ),
-                  const Text(
-                    'Get Married',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: primaryColour,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16),
-                  ),
-                ],
-              )),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.tune,
-                    size: 25,
-                  )),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              children: [
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.menu,
+                      size: 30,
+                        color: Colors.blue,
+                    )),
+                Expanded(
+                    child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/ilogo.png',
+                      height: 60,
+                      width: 60,
+                    ),
+                   /* const Text(
+                      'Get Married',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: primaryColour,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16),
+                    ),*/
+                  ],
+                )),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.tune,
+                      size: 30,
+                      color: Colors.blue,
+                    )),
+              ],
+            ),
           ),
           Expanded(
             child: Stack(
@@ -118,7 +121,6 @@ class _HomeTabState extends State<HomeTab> {
                               Icons.favorite,
                               color: primaryColour,
                               size: 50,
-
                             ),
                           ),
                           Center(

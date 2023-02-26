@@ -3,7 +3,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:getmarried/presentation/screens/registration/privacy_screen.dart';
 import 'package:getmarried/widgets/button.dart';
-
 import '../../../helper/toastMessage.dart';
 
 class Location extends StatefulWidget {
@@ -81,6 +80,12 @@ class _LocationState extends State<Location> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title:  Image.asset('assets/ilogo.png', width: 50, height: 50,),
+        elevation: 0,
+        backgroundColor: Colors.indigoAccent,
+      ),
       backgroundColor: Colors.indigoAccent,
       body: Padding(
         padding: const EdgeInsets.all(16.0),

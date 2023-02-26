@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen>
           showSelectedLabels: false,
           currentIndex: _currentIndex,
           unselectedIconTheme:
-              const IconThemeData(color: Colors.grey, size: 25),
+              const IconThemeData(color: Colors.blue, size: 25),
           onTap: (index) {
 
             setState(() {

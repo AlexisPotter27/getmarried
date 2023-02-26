@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/add_photos_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/birthday_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/choose_date_screen.dart';
+import 'package:getmarried/presentation/screens/registration/registration_steps/choose_married.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/choose_mode.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/email_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/first_name_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/gender_screen.dart';
-import 'package:getmarried/widgets/reigistration/birth_date_widget.dart';
+import 'package:getmarried/presentation/screens/registration/registration_steps/important_role.dart';
 import 'build_profile_onboard.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -19,17 +19,22 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _pageController = PageController();
-  double progress = 0.11;
-
+  double progress = 0.05;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title:  Center(child: Image.asset('assets/ilogo.png', width: 50, height: 50,)),
+        elevation: 0,
+        backgroundColor: Colors.indigoAccent,
+      ),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.indigoAccent,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(18.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
               const SizedBox(
@@ -117,6 +122,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       switchPage(6);
                     },
                   ),
+
+                  ChooseMarried(
+                    onComplete: () {
+                      switchPage(7);
+                    },
+                  ),
+
+                  ImportantRole(
+                    onComplete: () {
+                      switchPage(8);
+                    },
+                  ),
+
                   /*ChooseReletionShipType(
                     onComplete: () {
                       switchPage(8);
@@ -145,7 +163,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void switchPage(int to) {
     setState(() {
       _pageController.jumpToPage(to);
-      progress += 0.12;
+      progress += 0.05;
     });
   }
 }

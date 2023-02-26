@@ -35,7 +35,7 @@ class _CardTileState extends State<CardTile> {
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
               ),
               Text(
-                'from 1,400 NGN',
+                'from 3.04 USD',
                 style: TextStyle(
                   fontSize: 13,
                   color: Colors.grey,

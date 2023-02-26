@@ -28,13 +28,18 @@ class _PhoneState extends State<Phone> {
     return Scaffold(
       backgroundColor: Colors.indigoAccent,
       appBar: AppBar(
+        centerTitle: true,
+        title:  Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset('assets/ilogo.png', width: 50, height: 50,),
+        ),
         elevation: 0,
         backgroundColor: Colors.indigoAccent,
         leading: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SizedBox(
-              width: 10,
+              width: 20,
             ),
             GestureDetector(
               onTap: () {
@@ -45,6 +50,16 @@ class _PhoneState extends State<Phone> {
                 color: Colors.white,
               ),
             ),
+
+           /* Center(
+              heightFactor: 1,
+              child: Image.asset(
+                'assets/logo.png',
+                height: 35,
+                width: 60,
+              ),
+            ),*/
+            const SizedBox(height: 20,),
           ],
         ),
       ),
@@ -65,7 +80,7 @@ class _PhoneState extends State<Phone> {
                 height: 10,
               ),
               const Text(
-                'We protect our community by\nmaking sure everyone on GetMarriedApp is\nreal',
+                'We protect our community by making sure everyone on GetMarriedApp is real',
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w400,

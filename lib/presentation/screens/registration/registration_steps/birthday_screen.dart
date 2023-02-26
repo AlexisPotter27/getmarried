@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/widgets/reigistration/birth_date_widget.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-import '../../../../helper/calculateAge.dart';
 
 class BirthdayScreen extends StatefulWidget {
    const BirthdayScreen({Key? key, required this.onComplete}) : super(key: key);
@@ -58,10 +57,9 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
               ),
             ),
             const SizedBox(
-              width: 6,
+              width: 5,
             ),
             NextButton(onPressed: () {
-
               widget.onComplete();
             }),
           ],

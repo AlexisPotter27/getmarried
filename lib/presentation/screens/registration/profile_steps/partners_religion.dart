@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
-
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 
-class EducationStatus extends StatefulWidget {
-  const EducationStatus({Key? key, required this.onComplete}) : super(key: key);
+class PartnersReligion extends StatefulWidget {
+  const PartnersReligion({Key? key, required this.onComplete}) : super(key: key);
   final Function onComplete;
 
 
   @override
-  State<EducationStatus> createState() => _EducationStatusState();
+  State<PartnersReligion> createState() => _PartnersReligionState();
 }
 
-class _EducationStatusState extends State<EducationStatus> {
+class _PartnersReligionState extends State<PartnersReligion> {
+
   String value = '';
-  late List<String> educationLevels;
+  late List<String> options;
 
   @override
   void initState() {
     super.initState();
-    educationLevels = educations;
+    options = partnersReligions;
   }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +36,7 @@ class _EducationStatusState extends State<EducationStatus> {
                 height: 20,
               ),
               const Icon(
-                Icons.school_outlined,
+                Icons.front_hand_outlined,
                 size: 25,
                 color: Colors.black,
               ),
@@ -45,30 +44,32 @@ class _EducationStatusState extends State<EducationStatus> {
                 height: 10,
               ),
               const Text(
-                'What is your Education level?',
+                'What religion beliefs should your partner practice ?',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
               ),
-              ListView.builder(
-                itemCount: educationLevels.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) => Column(children: [
-                  CustomRadioTile<String>(
-                    onSubtitleClicked: () {},
-                    toggleSubtitle: false,
-                    value: educationLevels[index],
-                    groupValue: value,
-                    tittle:  educationLevels[index],
-                    onChanged: (val) {
-                      setState(() {
-                        value = val;
-                      });
-                    },
-                   ),
-                  const  SizedBox(height: 16,)
-                ],),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: options.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => Column(children: [
+                    CustomRadioTile<String>(
+                      onSubtitleClicked: () {},
+                      toggleSubtitle: false,
+                      value: options[index],
+                      groupValue: value,
+                      tittle:  options[index],
+                      onChanged: (val) {
+                        setState(() {
+                          value = val;
+                        });
+                      },
+                    ),
+                    const  SizedBox(height: 16,)
+                  ],),
+                ),
               ),
               const SizedBox(
                 height: 16,
@@ -82,14 +83,14 @@ class _EducationStatusState extends State<EducationStatus> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
+                onTap:(){
+                  widget.onComplete();
+                },
                 child: const Text(
                   'Skip',
                   style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
                 ),
-                onTap: (){
-                  widget.onComplete();
-                },
               ),
               NextButton(onPressed: () {
                 widget.onComplete();

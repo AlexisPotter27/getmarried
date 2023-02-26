@@ -13,7 +13,10 @@ class HeightScreen extends StatefulWidget {
 
 class _HeightScreenState extends State<HeightScreen> {
 
-  final heights = ['1cm','2cm','3cm','4cm','5cm','6cm','7cm','8cm',];
+  final heights = [ ''' 5' 1" ''',  ''' 5' 2" ''',  ''' 5' 3" ''',  ''' 5' 4" ''',  ''' 5' 5" ''',
+                    ''' 5' 6" ''',  ''' 5' 7" ''',  ''' 5' 8" ''',  ''' 5' 9" ''',  ''' 5' 10" ''',
+                    ''' 5' 11" ''', ''' 5' 12" ''', ''' 6' 0" ''',  ''' 6' 1" ''',  ''' 6' 2" ''',
+                    ''' 6' 3" ''',  ''' 6' 4" ''',  ''' 6' 5" ''',  ''' 6' 6" ''',  ''' 6' 7" '''];
   @override
   Widget build(BuildContext context) {
     return Column(

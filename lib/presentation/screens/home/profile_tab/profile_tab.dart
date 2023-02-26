@@ -36,15 +36,15 @@ class _ProfileTabState extends State<ProfileTab> {
                             onTap: () {},
                             child: const Icon(
                               Icons.menu,
-                              color: Colors.grey,
+                              color: Colors.blue,
                               size: 25,
                             )),
-                        Image.asset('assets/logo.png',height: 40,width: 50,),
+                        Image.asset('assets/ilogo.png',height: 40,width: 50,),
                         GestureDetector(
                             onTap: () {},
                             child: const Icon(
                               Icons.settings,
-                              color: Colors.grey,
+                              color: Colors.blue,
                               size: 25,
                             )),
                       ],
@@ -54,8 +54,8 @@ class _ProfileTabState extends State<ProfileTab> {
                     ),
                     const Center(
                       child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage: AssetImage('assets/jpeg/person1.jpeg'),
+                        radius: 100,
+                        backgroundImage: AssetImage('assets/jpeg/person1.jpeg',),
                       ),
                     ),
                     const SizedBox(
@@ -123,10 +123,12 @@ class _ProfileTabState extends State<ProfileTab> {
                             child: SubscriptionCard(
                               tittle: '50% off Premium',
                               description: 'Offer ends in 12:12:27',
-                              buttonText: 'Upgrade for 3,950 NGN',
+                              buttonText: 'Upgrade for 8.59 USD',
                             ),
                           ),
-                          SubscriptionCard(
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: SubscriptionCard(
                             tittle: 'Boost',
                             gradient: LinearGradient(
                                 end: Alignment.bottomRight,
@@ -138,8 +140,9 @@ class _ProfileTabState extends State<ProfileTab> {
                                   Colors.cyan,
                                 ]),
                             description:
-                                'More chances to match with extra features to boost your profile',
-                            buttonText: 'Upgrade from 1,800 NGN',
+                            'More chances to match with extra features to boost your profile',
+                            buttonText: 'Upgrade for 3.91 USD',
+                          ),
                           ),
                         ],
                       ),

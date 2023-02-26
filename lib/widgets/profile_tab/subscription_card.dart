@@ -56,10 +56,10 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
             style: const TextStyle(fontSize: 13),
           ),
           const SizedBox(
-            height: 10,
+            height: 5,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0.1),
             child:
                 UpgradeButton(onPressed: () {}, child: Text(widget.buttonText)),
           )

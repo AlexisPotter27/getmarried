@@ -69,11 +69,8 @@ class _FileUploadSheetState extends State<FileUploadSheet> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: GestureDetector(
               onTap: () {
-                setState(() {
-                  AddPhotosScreen.pickImage();
-                  Navigator.pop(context);
-                });
-                initState();
+                AddPhotosScreen.pickImage();
+                Navigator.of(context).pop();
               },
               child: Row(
                 children: const [
@@ -90,7 +87,6 @@ class _FileUploadSheetState extends State<FileUploadSheet> {
             ),
           ),
           const Divider(),
-
           // Camera Image
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

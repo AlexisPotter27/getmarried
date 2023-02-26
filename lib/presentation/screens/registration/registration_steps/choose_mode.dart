@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
@@ -28,7 +29,7 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
                   height: 20,
                 ),
                 const Text(
-                  'Choose a mode to get started ?',
+                  'What are you looking for?',
                   style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -37,14 +38,16 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
-                  'Get married is for making all kinds of connections!. You will be able to switch modes once you are all setup.',
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white),
+                RichText(
+                    text: const TextSpan(
+                      text: 'Get Married is for building ', style: TextStyle(fontSize: 15, color: Colors.white),
+                      children: <TextSpan>[
+                          TextSpan(text: 'real', style: TextStyle(fontSize: 15, color: Colors.white, decoration: TextDecoration.underline,)),
+                          TextSpan(text: ' relationship!\nOur goal is to help you find the love of your life & to', style: TextStyle(fontSize: 15, color: Colors.white, )),
+                          TextSpan(text: ' Get Married.', style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold )),
+                      ]
+                    )
                 ),
-
                 const SizedBox(
                   height: 16,
                 ),

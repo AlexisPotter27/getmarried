@@ -61,6 +61,13 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                     fontWeight: FontWeight.w500,
                     color: Colors.white),
               ),
+              const Text(
+                'You can add more pictures later.',
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
+              ),
               const SizedBox(
                 height: 16,
               ),
@@ -76,19 +83,20 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                           builder: (context) => FileUploadSheet(),
                         );
                       },
-                      child: Container(
-                              width: 200,
-                              height: 400,
-                              color: Colors.white,
-                              alignment: Alignment.center,
-                              child: Center(
-                                child: (AddPhotosScreen.image != null)
-                                    ? Image.file(io.File(AddPhotosScreen.image))
-                                    : const Icon(Icons.add),
-
+                      child: Center(
+                        child: Container(
+                                width: 200,
+                                height: 400,
+                                color: Colors.white,
+                                alignment: Alignment.center,
+                                child:  Center(
+                                  child: (AddPhotosScreen.image != null)
+                                      ? Image.file(io.File(AddPhotosScreen.image))
+                                      : const Icon(Icons.add),
+                                ),
+                                // ImagePickerCard(),
                               ),
-                              // ImagePickerCard(),
-                            ),
+                      ),
                     ),
 
                     const SizedBox(
@@ -101,6 +109,7 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
               const SizedBox(
                 height: 16,
               ),
+              //facebook
               GestureDetector(
                 onTap: () {},
                 child: Container(
@@ -123,7 +132,34 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                     ],
                   ),
                 ),
-              )
+              ),
+               const SizedBox(
+                height: 16,
+              ),
+              //Instagram
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        'Add from Instagram',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      Image(image: AssetImage('assets/instagram.png',),
+                        width: 20,
+                        height: 30,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

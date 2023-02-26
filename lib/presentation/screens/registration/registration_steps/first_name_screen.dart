@@ -29,7 +29,7 @@ class _FirstNameScreenState extends State<FirstNameScreen> {
                 height: 20,
               ),
               const Text(
-                'What is your first name ?',
+                'What is your name ?',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(

@@ -5,7 +5,6 @@ import 'package:getmarried/helper/toastMessage.dart';
 import 'package:getmarried/presentation/screens/number.dart';
 import 'package:getmarried/presentation/screens/registration/location.dart';
 
-
 class Verify extends StatefulWidget {
   const Verify({Key? key}) : super(key: key);
 
@@ -25,15 +24,29 @@ class _VerifyState extends State<Verify> {
     return Scaffold(
       backgroundColor: Colors.indigoAccent,
       appBar: AppBar(
+        centerTitle: true,
+        title:  Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset('assets/ilogo.png', width: 50, height: 50,),
+        ),
         elevation: 0,
         backgroundColor: Colors.indigoAccent,
         leading: Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
-            SizedBox(
-              width: 5,
+          children: [
+            const SizedBox(
+              width: 20,
             ),
-
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Icon(
+                Icons.arrow_back_ios_outlined,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 20,),
           ],
         ),
       ),
@@ -51,7 +64,7 @@ class _VerifyState extends State<Verify> {
                 height: 10,
               ),
               const Text(
-                'Enter the 6 digit verification code sent to your \nphone number',
+                'Enter the 6 digit verification code sent to your phone number',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),textAlign: TextAlign.start,
               ),
               Row(

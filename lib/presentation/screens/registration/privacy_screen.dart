@@ -18,6 +18,12 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.indigoAccent,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title:  Image.asset('assets/ilogo.png', width: 50, height: 50,),
+        elevation: 0,
+        backgroundColor: Colors.indigoAccent,
+      ),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(

@@ -3,17 +3,15 @@ import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 
-
-
-class WorkoutScreen extends StatefulWidget {
-  const WorkoutScreen({Key? key, required this.onComplete}) : super(key: key);
+class PlanningEvent extends StatefulWidget {
+  const PlanningEvent({Key? key, required this.onComplete}) : super(key: key);
   final Function onComplete;
 
   @override
-  State<WorkoutScreen> createState() => _WorkoutScreenState();
+  State<PlanningEvent> createState() => _PlanningEventState();
 }
 
-class _WorkoutScreenState extends State<WorkoutScreen> {
+class _PlanningEventState extends State<PlanningEvent> {
   String value = '';
 
   @override
@@ -29,7 +27,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 height: 20,
               ),
               const Icon(
-                Icons.fitness_center_outlined,
+                Icons.celebration_sharp,
                 size: 25,
                 color: Colors.black,
               ),
@@ -37,7 +35,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 height: 10,
               ),
               const Text(
-                'Do you work out ?',
+                "You're planning an event for you and your significant other, which option would you select:",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(
@@ -46,9 +44,9 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               CustomRadioTile<String>(
                 onSubtitleClicked: () {},
                 toggleSubtitle: false,
-                value: 'regularly / daily',
+                value: 'a surprise getaway / vacation',
                 groupValue: value,
-                tittle: 'Regularly / Daily',
+                tittle: 'A surprise getaway / vacation',
                 onChanged: (val) {
                   setState(() {
                     value = val;
@@ -61,9 +59,9 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               CustomRadioTile<String>(
                 onSubtitleClicked: () {},
                 toggleSubtitle: false,
-                value: 'sometimes',
+                value: 'an activity that you both like in town',
                 groupValue: value,
-                tittle: 'Sometimes',
+                tittle: 'An activity that you both like in town',
                 onChanged: (val) {
                   setState(() {
                     value = val;
@@ -76,14 +74,32 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               CustomRadioTile<String>(
                 onSubtitleClicked: () {},
                 toggleSubtitle: false,
-                value: 'almost_never',
+                value: 'dinner at a restaurant',
                 groupValue: value,
-                tittle: 'Almost never',
+                tittle: 'Dinner at a restaurant',
                 onChanged: (val) {
                   setState(() {
                     value = val;
                   });
                 },
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              CustomRadioTile<String>(
+                onSubtitleClicked: () {},
+                toggleSubtitle: false,
+                value: 'a concert, movies or a play',
+                groupValue: value,
+                tittle: 'A concert, movies or a play',
+                onChanged: (val) {
+                  setState(() {
+                    value = val;
+                  });
+                },
+              ),
+              const SizedBox(
+                height: 16,
               ),
             ],
           ),
@@ -94,12 +110,12 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                  child: const Text(
-                'Skip',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w500, ),
-              ),onTap: (){
-                    widget.onComplete();
+                child: const Text(
+                  'Skip',
+                  style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w500, ),
+                ),onTap: (){
+                widget.onComplete();
               },),
               NextButton(onPressed: () {
                 widget.onComplete();

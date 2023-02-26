@@ -40,7 +40,7 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Day',
+              'Month',
               style: TextStyle( color: Colors.white),
             ),
             const SizedBox(
@@ -52,9 +52,9 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
               child: CustomFormField(
                 focusNode: dayFocusNode,
                 maxLenght: 2,
-                hintText: 'DD',
+                hintText: 'MM',
                 keyboardType: TextInputType.number,
-                controller: dayController,
+                controller: monthController,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                 onChanged: (val) {
@@ -76,7 +76,7 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Month',
+              'Day',
               style: TextStyle( color: Colors.white),
             ),
             const SizedBox(
@@ -88,9 +88,9 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
               child: CustomFormField(
                 focusNode: monthFocusNode,
                 maxLenght: 2,
-                hintText: 'MM',
+                hintText: 'DD',
                 keyboardType: TextInputType.number,
-                controller: monthController,
+                controller: dayController,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                 onChanged: (val) {
@@ -133,7 +133,6 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
                   yearBirth();
                   if (val.length == 4) {
                     yearFocusNode.unfocus();
-
                   }
                 },
               ),

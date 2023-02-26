@@ -19,7 +19,7 @@ class WelcomeTextWidget extends StatelessWidget {
                   fontStyle: FontStyle.italic),
               textAlign: TextAlign.center,)),
 
-        Text('We are excited to be part of your dating journey.',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500, color: Colors.white),),
+        Text("We're excited that you found us and want to GET MARRIED!",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500, color: Colors.white),),
         SizedBox(
           height: 16,
         ),

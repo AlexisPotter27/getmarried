@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/widgets/button.dart';
 import '../../../widgets/social_button.dart';
@@ -14,16 +15,24 @@ class Onboard extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-              flex: 3,
+              flex: 1,
               child: Center(
                 child: Image.asset(
                   'assets/logo.png',
-                  width: 150,
-                  height: 150,
                 ),
-              )),
+              )
+          ),
+          const Expanded(
+              flex: -1,
+              child: Center(
+                child: Text(
+                  'Welcome! How do you want to get started?',
+                  style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+              )
+          ),
           Expanded(
-              flex: 2,
+              flex: 0,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -43,6 +52,7 @@ class Onboard extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => const Phone()));*/
                           }),
+                      const Divider(color: Colors.grey,),
                       const SizedBox(
                         height: 16,
                       ),
@@ -57,6 +67,7 @@ class Onboard extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) => const Phone()));*/
                       }),
+                      const Divider(color: Colors.grey,),
                   const SizedBox(
                     height: 16,
                   ),
@@ -71,6 +82,7 @@ class Onboard extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) => const Phone()));*/
                       }),
+                      const Divider(color: Colors.grey,),
                   const SizedBox(
                     height: 16,
                   ),
@@ -83,7 +95,10 @@ class Onboard extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const Phone()));
-                      })
+                      }),
+                      const SizedBox(
+                        height: 16,
+                      ),
                 ]),
               ))
         ],

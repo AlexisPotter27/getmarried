@@ -23,40 +23,41 @@ class _LikeTabState extends State<LikeTab> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: Row(
+
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
                             onTap: () {},
                             child: const Icon(
                               Icons.menu,
-                              color: Colors.black,
+                              color: Colors.white,
                               size: 25,
                             )),
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Image.asset(
-                              'assets/logo.png',
+                              'assets/ilogo.png',
                               height: 40,
                               width: 50,
                             ),
-                            const Text(
+                            /*const Text(
                               'Get Married',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16),
-                            ),
+                            ),*/
                           ],
                         ),
                         GestureDetector(
                             onTap: () {},
                             child: const Icon(
                               Icons.tune,
-                              color: Colors.black,
+                              color: Colors.white,
                               size: 25,
                             )),
                       ],
@@ -80,20 +81,19 @@ class _LikeTabState extends State<LikeTab> {
                   ),
                   const Text(
                     'See who liked you with 50% off',
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   const Text(
                     '3 people already liked you.',
-                    style: TextStyle(fontSize: 13),
+                    style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   Container(
-
                     padding:
                         const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
                     decoration: BoxDecoration(
@@ -104,12 +104,12 @@ class _LikeTabState extends State<LikeTab> {
                         Text(
                           'Upgrade for.',
                           style: TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.w500),
+                              fontSize: 13, fontWeight: FontWeight.bold, color: Colors.blue),
                         ),
                         Text(
-                          '3,950.00 NGN',
+                          '8.59 USD',
                           style: TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.w500),
+                              fontSize: 13, fontWeight: FontWeight.bold, color: Colors.blue),
                         ),
                       ],
                     ),
@@ -117,10 +117,9 @@ class _LikeTabState extends State<LikeTab> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Chip(
-                    label: const Text('Offer ends in 4:51:00'),
-                    backgroundColor: Colors.indigo.shade400,
-
+                  const Chip(
+                    label: Text('Offer ends in 4:51:00'),
+                    backgroundColor: Colors.white,
                   ),
                   const SizedBox(
                     height: 20,
@@ -128,7 +127,6 @@ class _LikeTabState extends State<LikeTab> {
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -150,14 +148,14 @@ class _LikeTabState extends State<LikeTab> {
                                 'All 3',
                                 style: TextStyle(
                                     fontSize: 13,
-                                    color: _currendIndex == 0
-                                        ? Colors.white
-                                        : Colors.black),
+                                    color: _currendIndex == 1
+                                        ? Colors.black
+                                        : Colors.white),
                               ),
                             ),
                             backgroundColor: _currendIndex == 0
                                 ? Colors.black
-                                : Colors.transparent,
+                                : Colors.blue,
                           ),
                         ),
                         const SizedBox(
@@ -183,7 +181,7 @@ class _LikeTabState extends State<LikeTab> {
                             ),
                             backgroundColor: _currendIndex == 1
                                 ? Colors.black
-                                : Colors.transparent,
+                                : Colors.blue,
                           ),
                         ),
                         const SizedBox(
@@ -210,7 +208,7 @@ class _LikeTabState extends State<LikeTab> {
                             ),
                             backgroundColor: _currendIndex == 2
                                 ? Colors.black
-                                : Colors.transparent,
+                                : Colors.blue,
                           ),
                         ),
                         const SizedBox(
@@ -236,7 +234,7 @@ class _LikeTabState extends State<LikeTab> {
                             ),
                             backgroundColor: _currendIndex == 3
                                 ? Colors.black
-                                : Colors.transparent,
+                                : Colors.blue,
                           ),
                         ),
                       ],

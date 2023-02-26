@@ -5,15 +5,15 @@ import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 
 
-class WorkoutScreen extends StatefulWidget {
-  const WorkoutScreen({Key? key, required this.onComplete}) : super(key: key);
+class Attractive extends StatefulWidget {
+  const Attractive({Key? key, required this.onComplete}) : super(key: key);
   final Function onComplete;
 
   @override
-  State<WorkoutScreen> createState() => _WorkoutScreenState();
+  State<Attractive> createState() => _AttractiveState();
 }
 
-class _WorkoutScreenState extends State<WorkoutScreen> {
+class _AttractiveState extends State<Attractive> {
   String value = '';
 
   @override
@@ -37,8 +37,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 height: 10,
               ),
               const Text(
-                'Do you work out ?',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                'How important is it that your partner is attractive?',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
@@ -46,9 +46,9 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               CustomRadioTile<String>(
                 onSubtitleClicked: () {},
                 toggleSubtitle: false,
-                value: 'regularly / daily',
+                value: 'not important',
                 groupValue: value,
-                tittle: 'Regularly / Daily',
+                tittle: 'Not Important',
                 onChanged: (val) {
                   setState(() {
                     value = val;
@@ -61,9 +61,9 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               CustomRadioTile<String>(
                 onSubtitleClicked: () {},
                 toggleSubtitle: false,
-                value: 'sometimes',
+                value: 'slightly important',
                 groupValue: value,
-                tittle: 'Sometimes',
+                tittle: 'Slightly Important',
                 onChanged: (val) {
                   setState(() {
                     value = val;
@@ -76,14 +76,32 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               CustomRadioTile<String>(
                 onSubtitleClicked: () {},
                 toggleSubtitle: false,
-                value: 'almost_never',
+                value: 'important',
                 groupValue: value,
-                tittle: 'Almost never',
+                tittle: 'Important',
                 onChanged: (val) {
                   setState(() {
                     value = val;
                   });
                 },
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              CustomRadioTile<String>(
+                onSubtitleClicked: () {},
+                toggleSubtitle: false,
+                value: 'extremely important',
+                groupValue: value,
+                tittle: 'Extremely Important',
+                onChanged: (val) {
+                  setState(() {
+                    value = val;
+                  });
+                },
+              ),
+              const SizedBox(
+                height: 16,
               ),
             ],
           ),
@@ -94,12 +112,12 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                  child: const Text(
-                'Skip',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w500, ),
-              ),onTap: (){
-                    widget.onComplete();
+                child: const Text(
+                  'Skip',
+                  style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w500, ),
+                ),onTap: (){
+                widget.onComplete();
               },),
               NextButton(onPressed: () {
                 widget.onComplete();
