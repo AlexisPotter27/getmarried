@@ -173,7 +173,7 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
   void switchPage(int to) {
     setState(() {
       _pageController.jumpToPage(to);
-      progress += 0.021;
+      progress += 0.051;
     });
   }
 }
