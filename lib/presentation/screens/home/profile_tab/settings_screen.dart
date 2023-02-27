@@ -186,7 +186,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   style: TextButton.styleFrom(
                       shape: const StadiumBorder(),
                       backgroundColor: Colors.grey.shade300,
-                      foregroundColor: Colors.black),
+                      primary: Colors.black),
                   onPressed: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

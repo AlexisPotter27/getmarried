@@ -31,7 +31,9 @@ class _ProfileTabState extends State<ProfileTab> {
             SliverAppBar(
               //title: const Text('Sonia',style: TextStyle(color: Colors.black),),
               leading: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+
+                  },
                   child: const Icon(
                     Icons.menu,
                     color: Colors.grey,
@@ -44,7 +46,11 @@ class _ProfileTabState extends State<ProfileTab> {
 
               actions: [
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SettingsScreen(),
+                      ));
+                    },
                     child: const Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Icon(
@@ -58,58 +64,61 @@ class _ProfileTabState extends State<ProfileTab> {
               collapsedHeight: 60,
               flexibleSpace: FlexibleSpaceBar(
                   collapseMode: CollapseMode.parallax,
-                  background:Column(children: [
-                    const SizedBox(
-                      height: 60,
-                    ),
-
-                    const Center(
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage: AssetImage('assets/jpeg/person1.jpeg'),
+                  background: Column(
+                    children: [
+                      const SizedBox(
+                        height: 60,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text(
-                            'Sonia, 23',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Icon(
-                            Icons.security,
-                            size: 16,
-                            color: Colors.grey,
-                          )
-                        ],
-                      ),
-                    ),
-                    Center(
-                      child: Chip(
-                        label: const Text(
-                          'Complete my profile',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.grey,
-                          ),
+                      const Center(
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundImage:
+                              AssetImage('assets/jpeg/person1.jpeg'),
                         ),
-                        backgroundColor: Colors.grey.shade300,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                  ],) ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Center(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Text(
+                              'Sonia, 23',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Icon(
+                              Icons.security,
+                              size: 16,
+                              color: Colors.grey,
+                            )
+                          ],
+                        ),
+                      ),
+                      Center(
+                        child: Chip(
+                          label: const Text(
+                            'Complete my profile',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          backgroundColor: Colors.grey.shade300,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                    ],
+                  )),
             ),
-            SliverAppBar(
+
+            /*SliverAppBar(
               title: const Text(
                 'Sonia',
                 style: TextStyle(color: Colors.black),
@@ -185,9 +194,10 @@ class _ProfileTabState extends State<ProfileTab> {
                       ),
                       Center(
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const ProfileSettingsScreen(),
+                              builder: (context) =>
+                                  const ProfileSettingsScreen(),
                             ));
                           },
                           child: Chip(
@@ -198,7 +208,6 @@ class _ProfileTabState extends State<ProfileTab> {
                                 color: Colors.grey,
                               ),
                             ),
-
                             backgroundColor: Colors.grey.shade300,
                           ),
                         ),
@@ -208,7 +217,8 @@ class _ProfileTabState extends State<ProfileTab> {
                       ),
                     ],
                   )),
-            ),
+            ),*/
+
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -236,10 +246,10 @@ class _ProfileTabState extends State<ProfileTab> {
                         },
                         controller: _controller,
                         children: [
-                           Padding(
+                          Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => const CardFormScreen(),
                                 ));
@@ -252,7 +262,7 @@ class _ProfileTabState extends State<ProfileTab> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const CardFormScreen(),
                               ));
@@ -269,7 +279,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                     Colors.cyan,
                                   ]),
                               description:
-                              'More chances to match with extra features to boost your profile',
+                                  'More chances to match with extra features to boost your profile',
                               buttonText: 'Upgrade from 8.25 USD',
                             ),
                           ),
@@ -328,15 +338,6 @@ class _ProfileTabState extends State<ProfileTab> {
             ),
             // const FlexibleSpaceBar(),
             SliverList(
-
-              delegate:
-              SliverChildBuilderDelegate((context, index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: FeaturesTile(
-                  featureModel: features[index],
-                  selectedFeature: _selectedIndex,
-                ),
-              ),childCount: features.length,),)
               delegate: SliverChildBuilderDelegate(
                 (context, index) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -347,7 +348,19 @@ class _ProfileTabState extends State<ProfileTab> {
                 ),
                 childCount: features.length,
               ),
-            )
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: FeaturesTile(
+                    featureModel: features[index],
+                    selectedFeature: _selectedIndex,
+                  ),
+                ),
+                childCount: features.length,
+              ),
+            ),
           ],
         ),
       ),

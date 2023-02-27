@@ -23,7 +23,7 @@ class _PhotosWidgetState extends State<PhotosWidget> {
 
                   showModalBottomSheet(
                     backgroundColor: Colors.transparent,
-                    context: context, builder: (context) => const FileUploadSheet(),);
+                    context: context, builder: (context) =>  FileUploadSheet(),);
                 },
                 child: Container(
                   height: 220,

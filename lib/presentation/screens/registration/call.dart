@@ -25,6 +25,7 @@ class _CallState extends State<Call> {
     return Scaffold(
       backgroundColor: Colors.indigoAccent,
       appBar: AppBar(
+        centerTitle: true,
         automaticallyImplyLeading: false,
         title:  Image.asset('assets/ilogo.png', width: 50, height: 50,),
         elevation: 0,
