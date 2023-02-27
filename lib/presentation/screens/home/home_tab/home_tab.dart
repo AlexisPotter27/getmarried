@@ -43,7 +43,7 @@ class _HomeTabState extends State<HomeTab> {
                   onPressed: () {},
                   icon: const Icon(
                     Icons.menu,
-                    size: 25,
+                    size: 30,
                   )),
               Expanded(
                   child: Row(
@@ -51,18 +51,18 @@ class _HomeTabState extends State<HomeTab> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/logo.png',
-                        height: 40,
+                        'assets/ilogo.png',
+                        height: 50,
                         width: 50,
                       ),
-                      const Text(
+                      /*const Text(
                         'Get Married',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: primaryColour,
                             fontWeight: FontWeight.w500,
                             fontSize: 16),
-                      ),
+                      ),*/
                     ],
                   )),
               IconButton(
@@ -73,7 +73,7 @@ class _HomeTabState extends State<HomeTab> {
                   },
                   icon: const Icon(
                     Icons.tune,
-                    size: 25,
+                    size: 30,
                   )),
             ],
           ),

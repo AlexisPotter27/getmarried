@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
+import 'package:getmarried/presentation/card_form_screen.dart';
 import 'package:getmarried/widgets/profile_tab/card_tile.dart';
 import 'package:getmarried/widgets/profile_tab/features_tile.dart';
 import 'package:getmarried/widgets/profile_tab/subscription_card.dart';
@@ -136,28 +137,42 @@ class _ProfileTabState extends State<ProfileTab> {
                         },
                         controller: _controller,
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: SubscriptionCard(
-                              tittle: '50% off Premium',
-                              description: 'Offer ends in 12:12:27',
-                              buttonText: 'Upgrade for 12.51 USD',
+                           Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: GestureDetector(
+                              onTap: (){
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const CardFormScreen(),
+                                ));
+                              },
+                              child: const SubscriptionCard(
+                                tittle: '50% off Premium',
+                                description: 'Offer ends in 12:12:27',
+                                buttonText: 'Upgrade for 12.51 USD',
+                              ),
                             ),
                           ),
-                          SubscriptionCard(
-                            tittle: 'Boost',
-                            gradient: LinearGradient(
-                                end: Alignment.bottomRight,
-                                begin: Alignment.topLeft,
-                                colors: [
-                                  Colors.cyan.shade200,
-                                  Colors.cyan.shade400,
-                                  Colors.cyan,
-                                  Colors.cyan,
-                                ]),
-                            description:
-                            'More chances to match with extra features to boost your profile',
-                            buttonText: 'Upgrade from 8.25 USD',
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const CardFormScreen(),
+                              ));
+                            },
+                            child: SubscriptionCard(
+                              tittle: 'Boost',
+                              gradient: LinearGradient(
+                                  end: Alignment.bottomRight,
+                                  begin: Alignment.topLeft,
+                                  colors: [
+                                    Colors.cyan.shade200,
+                                    Colors.cyan.shade400,
+                                    Colors.cyan,
+                                    Colors.cyan,
+                                  ]),
+                              description:
+                              'More chances to match with extra features to boost your profile',
+                              buttonText: 'Upgrade from 8.25 USD',
+                            ),
                           ),
                         ],
                       ),

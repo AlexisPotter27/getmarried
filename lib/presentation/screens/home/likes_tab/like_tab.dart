@@ -18,15 +18,13 @@ class _LikeTabState extends State<LikeTab> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-
             Container(
-              decoration: const BoxDecoration(color: primaryColour),
+              decoration: const BoxDecoration(color: Colors.white),
               child: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Row(
-
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
@@ -43,6 +41,7 @@ class _LikeTabState extends State<LikeTab> {
                               'assets/ilogo.png',
                               height: 40,
                               width: 50,
+                              color: Colors.yellow,
                             ),
                             /*const Text(
                               'Get Married',
@@ -82,14 +81,20 @@ class _LikeTabState extends State<LikeTab> {
                   ),
                   const Text(
                     'See who liked you with 50% off',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.white),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   const Text(
                     '3 people already liked you.',
-                    style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 20,
@@ -105,12 +110,16 @@ class _LikeTabState extends State<LikeTab> {
                         Text(
                           'Upgrade for.',
                           style: TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.bold, color: Colors.blue),
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue),
                         ),
                         Text(
                           '8.59 USD',
                           style: TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.bold, color: Colors.blue),
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue),
                         ),
                       ],
                     ),
@@ -123,10 +132,13 @@ class _LikeTabState extends State<LikeTab> {
                     backgroundColor: Colors.white,
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
                 ],
               ),
+            ),
+            const SizedBox(
+              height: 30,
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -137,14 +149,15 @@ class _LikeTabState extends State<LikeTab> {
                     child: Row(
                       children: [
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             setState(() {
                               _currendIndex = 0;
                             });
                           },
                           child: Chip(
                             label: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
                               child: Text(
                                 'All 3',
                                 style: TextStyle(
@@ -154,23 +167,23 @@ class _LikeTabState extends State<LikeTab> {
                                         : Colors.white),
                               ),
                             ),
-                            backgroundColor: _currendIndex == 0
-                                ? Colors.black
-                                : Colors.blue,
+                            backgroundColor:
+                                _currendIndex == 0 ? Colors.blue : Colors.black,
                           ),
                         ),
                         const SizedBox(
                           width: 10,
                         ),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             setState(() {
                               _currendIndex = 1;
                             });
                           },
                           child: Chip(
                             label: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
                               child: Text(
                                 'New 1',
                                 style: TextStyle(
@@ -180,24 +193,23 @@ class _LikeTabState extends State<LikeTab> {
                                         : Colors.black),
                               ),
                             ),
-                            backgroundColor: _currendIndex == 1
-                                ? Colors.black
-                                : Colors.blue,
+                            backgroundColor:
+                                _currendIndex == 1 ? Colors.blue : Colors.black,
                           ),
                         ),
                         const SizedBox(
                           width: 10,
                         ),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             setState(() {
                               _currendIndex = 2;
                             });
                           },
                           child: Chip(
-
                             label: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
                               child: Text(
                                 'Nearby',
                                 style: TextStyle(
@@ -207,23 +219,23 @@ class _LikeTabState extends State<LikeTab> {
                                         : Colors.black),
                               ),
                             ),
-                            backgroundColor: _currendIndex == 2
-                                ? Colors.black
-                                : Colors.blue,
+                            backgroundColor:
+                                _currendIndex == 2 ? Colors.black : Colors.blue,
                           ),
                         ),
                         const SizedBox(
                           width: 10,
                         ),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             setState(() {
                               _currendIndex = 3;
                             });
                           },
                           child: Chip(
                             label: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
                               child: Text(
                                 'Recently active',
                                 style: TextStyle(
@@ -233,27 +245,28 @@ class _LikeTabState extends State<LikeTab> {
                                         : Colors.black),
                               ),
                             ),
-                            backgroundColor: _currendIndex == 3
-                                ? Colors.black
-                                : Colors.blue,
+                            backgroundColor:
+                                _currendIndex == 3 ? Colors.black : Colors.blue,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   GridView.builder(
                     shrinkWrap: true,
                     itemCount: 6,
                     padding: EdgeInsets.zero,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) => const LikerItem(),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.80,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10
-                    ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.80,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10),
                   ),
                 ],
               ),

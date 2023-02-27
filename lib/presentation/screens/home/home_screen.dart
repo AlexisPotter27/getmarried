@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       bottomNavigationBar: BottomNavigationBar(
           showUnselectedLabels: false,
-          showSelectedLabels: false,
+          showSelectedLabels: true,
           currentIndex: _currentIndex,
 
           unselectedIconTheme:
