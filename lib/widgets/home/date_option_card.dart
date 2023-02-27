@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/widgets/reigistration/check_box_tile.dart';
 import 'package:collection/collection.dart';
+import 'package:getmarried/widgets/reigistration/custom_checkbox.dart';
 
 class DateOptionCard extends StatefulWidget {
   const DateOptionCard({
