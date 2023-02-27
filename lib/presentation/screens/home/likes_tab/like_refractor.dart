@@ -211,16 +211,27 @@ class _LikeRefractorState extends State<LikeRefractor> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(16)),
                           child: Column(
-                            children: const [
-                              Text(
+                            children:  [
+                              const Text(
                                 'Upgrade for.',
                                 style: TextStyle(
                                     fontSize: 13, fontWeight: FontWeight.w500),
                               ),
-                              Text(
-                                '3,950.00 NGN',
-                                style: TextStyle(
-                                    fontSize: 13, fontWeight: FontWeight.w500),
+                              Row(
+                                children: const [
+                                  Text(
+                                    '7,900.00 NGN',
+                                    style: TextStyle(
+                                        decoration: TextDecoration.lineThrough,
+                                        fontSize: 13, fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    '3,950.00 NGN',
+                                    style: TextStyle(
+                                        fontSize: 13, fontWeight: FontWeight.w500),
+                                  ),
+
+                                ],
                               ),
                             ],
                           ),
