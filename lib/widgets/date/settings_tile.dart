@@ -3,15 +3,21 @@ import 'package:flutter/material.dart';
 class SettingsTile extends StatefulWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
-  final Widget tittle;
+  final Color? backgroundColor;
+  final Color? textColor;
+  final Color? suffixIconCOlor;
+  final Widget? tittle;
 
   const SettingsTile(
       {Key? key,
       required this.text,
       required this.onPressed,
-       this.prefixIcon,
-       this.suffixIcon,
-        required this.tittle})
+      this.prefixIcon,
+      this.suffixIcon,
+      this.tittle,
+      this.backgroundColor,
+      this.textColor,
+      this.suffixIconCOlor})
       : super(key: key);
   final String text;
   final VoidCallback onPressed;
@@ -26,8 +32,7 @@ class _SettingsTileState extends State<SettingsTile> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        widget.tittle,
-
+        widget.tittle ?? const SizedBox.shrink(),
         GestureDetector(
           onTap: () {
             widget.onPressed();
@@ -35,19 +40,29 @@ class _SettingsTileState extends State<SettingsTile> {
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(35),
-                border: Border.all(color: Colors.grey.shade300)),
+                color: widget.backgroundColor,
+                border: widget.backgroundColor == null
+                    ? Border.all(color: Colors.grey.shade300)
+                    : null),
             child: Padding(
               padding: const EdgeInsets.all(13.0),
               child: Row(
                 children: [
                   widget.prefixIcon ?? const SizedBox.shrink(),
-                  const SizedBox(width: 8,),
-                  Expanded(child: Text(widget.text,style: const TextStyle(fontWeight: FontWeight.w500),)),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Expanded(
+                      child: Text(
+                    widget.text,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500, color: widget.textColor),
+                  )),
                   widget.suffixIcon ??
                       Icon(
                         Icons.arrow_forward_ios_rounded,
                         size: 20,
-                        color: Colors.grey.shade300,
+                        color: widget.suffixIconCOlor ?? Colors.grey.shade300,
                       )
                 ],
               ),

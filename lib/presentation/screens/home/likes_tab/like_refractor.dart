@@ -31,12 +31,10 @@ class _LikeRefractorState extends State<LikeRefractor> {
               backgroundColor: primaryColour,
               pinned: true,
               floating: true,
-
               bottom: AppBar(
                 backgroundColor: Colors.white,
-
                 elevation: 0,
-                title:  SingleChildScrollView(
+                title: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
@@ -48,8 +46,7 @@ class _LikeRefractorState extends State<LikeRefractor> {
                         },
                         child: Chip(
                           label: Padding(
-                            padding:
-                            const EdgeInsets.symmetric(horizontal: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Text(
                               'All 3',
                               style: TextStyle(
@@ -75,8 +72,7 @@ class _LikeRefractorState extends State<LikeRefractor> {
                         },
                         child: Chip(
                           label: Padding(
-                            padding:
-                            const EdgeInsets.symmetric(horizontal: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Text(
                               'New 1',
                               style: TextStyle(
@@ -102,8 +98,7 @@ class _LikeRefractorState extends State<LikeRefractor> {
                         },
                         child: Chip(
                           label: Padding(
-                            padding:
-                            const EdgeInsets.symmetric(horizontal: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Text(
                               'Nearby',
                               style: TextStyle(
@@ -129,8 +124,7 @@ class _LikeRefractorState extends State<LikeRefractor> {
                         },
                         child: Chip(
                           label: Padding(
-                            padding:
-                            const EdgeInsets.symmetric(horizontal: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Text(
                               'Recently active',
                               style: TextStyle(
@@ -165,7 +159,7 @@ class _LikeRefractorState extends State<LikeRefractor> {
                       ),
                     )),
               ],
-              expandedHeight: 350,
+              expandedHeight: 370,
               collapsedHeight: 60,
               flexibleSpace: FlexibleSpaceBar(
                   collapseMode: CollapseMode.none,
@@ -211,16 +205,29 @@ class _LikeRefractorState extends State<LikeRefractor> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(16)),
                           child: Column(
-                            children: const [
-                              Text(
+                            children: [
+                              const Text(
                                 'Upgrade for.',
                                 style: TextStyle(
                                     fontSize: 13, fontWeight: FontWeight.w500),
                               ),
-                              Text(
-                                '3,950.00 NGN',
-                                style: TextStyle(
-                                    fontSize: 13, fontWeight: FontWeight.w500),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  Text(
+                                    '7,900.00 NGN',
+                                    style: TextStyle(
+                                        decoration: TextDecoration.lineThrough,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    '3,950.00 NGN',
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -230,7 +237,7 @@ class _LikeRefractorState extends State<LikeRefractor> {
                         ),
                         Chip(
                           label: const Text('Offer ends in 4:51:00'),
-                          backgroundColor: Colors.indigo.shade400,
+                          backgroundColor: Colors.indigo.shade500,
                         ),
                         const SizedBox(
                           height: 20,
@@ -243,20 +250,19 @@ class _LikeRefractorState extends State<LikeRefractor> {
               delegate: SliverChildListDelegate([
                 Container(
                   decoration: const BoxDecoration(
-                      color: Colors.white,
-                      // borderRadius: BorderRadius.circular(16)
+                    color: Colors.white,
+                    // borderRadius: BorderRadius.circular(16)
                   ),
                   padding:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
                   child: Column(
                     children: [
-
                       GridView.builder(
                         shrinkWrap: true,
                         itemCount: 6,
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.vertical,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) => const LikerItem(),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(

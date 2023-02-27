@@ -58,6 +58,7 @@ List<ChipChoiceModel> creativityChoices = [
   ChipChoiceModel(label: 'Craft', icon: Icons.emoji_objects),
 ];
 
+
 List<ChipChoiceModel> sports = [
   ChipChoiceModel(label: 'Yoga', icon: Icons.sports_score),
   ChipChoiceModel(label: 'Running', icon: Icons.sports_score),
@@ -261,8 +262,16 @@ List<String> languages = [
   'Russian',
   'Swedish',
   'Taiwanese'
-      'Turkish'
+  'Turkish'
 ];
+
+List<ChipChoiceModel> myLanguage = [
+ChipChoiceModel(label: 'English', icon: Icons.language),
+ChipChoiceModel(label: 'Igbo', icon: Icons.emoji_objects),
+ChipChoiceModel(label: 'Spanish', icon: Icons.emoji_objects),
+
+];
+
 
 
 Size getDeviceSize({BuildContext? context}) =>
