@@ -82,7 +82,8 @@ class _LocationState extends State<Location> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title:  Image.asset('assets/ilogo.png', width: 50, height: 50,),
+        centerTitle: true,
+        title:  Image.asset('assets/ilogo.png', width: 60, height: 60,),
         elevation: 0,
         backgroundColor: Colors.indigoAccent,
       ),
