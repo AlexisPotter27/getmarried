@@ -88,7 +88,7 @@ class _HomeDrawerState extends State<_HomeDrawer> {
           ),
           const Text('Choose a connection',style: TextStyle(color: Colors.grey),),
           ConnectionMenuItem(
-            isSelected: connection == 'date',
+            isSelected: connection == 'Serious relationship',
             subtittle: 'Make moves to find that spark',
             tittle: 'Date', onTap: () {
               setState(() {
@@ -97,7 +97,7 @@ class _HomeDrawerState extends State<_HomeDrawer> {
           },
           ),
           ConnectionMenuItem(
-            isSelected: connection == 'bff',
+            isSelected: connection == 'Married',
             subtittle: 'Make friends and find community',
             tittle: 'bff', onTap: () {
             setState(() {
