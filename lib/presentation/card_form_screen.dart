@@ -25,7 +25,6 @@ class CardFormScreen extends StatelessWidget {
             Center(
               child: Text('Subscription',
                 style: Theme.of(context).textTheme.headline5,
-
               ),
             ),
             const SizedBox(height: 20,),

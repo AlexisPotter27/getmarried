@@ -18,7 +18,6 @@ String number = countryCode.text + phoneController.text;
 
 class _VerifyState extends State<Verify> {
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
