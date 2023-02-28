@@ -17,6 +17,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
+        centerTitle: true,
         title: const Text(
           'Settings',
           style: TextStyle(color: Colors.black),
@@ -29,6 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              const SizedBox(height: 20,),
               SettingsTile(
                 text: 'Choose mode',
                 onPressed: () {},
@@ -125,7 +127,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   height: 25,
                   child: Row(
                     children: const [
-                      Text('Aba, NG'),
+                      Text('Florida, USA'),
                       SizedBox(
                         width: 8,
                       ),
@@ -206,7 +208,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               TransaparentButton(
                   child: const Text('Delete account'), onPressed: () {}),
               const SizedBox(
-                height: 70,
+                height: 4,
               ),
             ],
           ),
