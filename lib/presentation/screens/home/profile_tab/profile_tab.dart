@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
+import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/card_form_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/profile_settings_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/settings_screen.dart';
@@ -125,7 +126,9 @@ class _ProfileTabState extends State<ProfileTab> {
               ),
 
               leading: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    scaffoldKey.currentState!.openDrawer();
+                  },
                   child: const Icon(
                     Icons.menu,
                     color: Colors.grey,

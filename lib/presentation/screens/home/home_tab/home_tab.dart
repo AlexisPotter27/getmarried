@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
+import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/home/match_card.dart';
 import 'package:getmarried/widgets/home/swippable_card.dart';
@@ -40,7 +41,9 @@ class _HomeTabState extends State<HomeTab> {
           Row(
             children: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    scaffoldKey.currentState!.openDrawer();
+                  },
                   icon: const Icon(
                     Icons.menu,
                     size: 30,

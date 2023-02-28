@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
+import 'package:getmarried/presentation/screens/home/home_screen.dart';
+import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/likes/liker_item.dart';
 
 class LikeRefractor extends StatefulWidget {
@@ -21,7 +23,9 @@ class _LikeRefractorState extends State<LikeRefractor> {
           slivers: [
             SliverAppBar(
               leading: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    scaffoldKey.currentState!.openDrawer();
+                  },
                   child: const Icon(
                     Icons.menu,
                     color: Colors.grey,
@@ -149,7 +153,9 @@ class _LikeRefractorState extends State<LikeRefractor> {
               ),
               actions: [
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DateFiltersScreen(),));
+                    },
                     child: const Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Icon(
