@@ -34,6 +34,12 @@ class _LikeRefractorState extends State<LikeRefractor> {
               elevation: 0,
               backgroundColor: primaryColour,
               pinned: true,
+              centerTitle: true,
+              title: Image.asset(
+                'assets/logo.png',
+                height: 40,
+                width: 50,
+              ),
               floating: true,
               bottom: AppBar(
                 backgroundColor: Colors.white,

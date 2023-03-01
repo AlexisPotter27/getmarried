@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
+import 'package:getmarried/presentation/screens/home/home_screen.dart';
+import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/chat/conversation_item.dart';
 
 class ChatTab extends StatefulWidget {
@@ -13,12 +15,54 @@ class _ChatTabState extends State<ChatTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Center(
+          child: Image.asset(
+            'assets/logo.png',
+            height: 40,
+            width: 50,
+          ),
+        ),
+
+        leading: GestureDetector(
+            onTap: () {
+              scaffoldKey.currentState!.openDrawer();
+            },
+            child: const Icon(
+              Icons.menu,
+              color: Colors.grey,
+              size: 25,
+            )),
+        elevation: 0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+
+        // floating: true,
+
+        actions: [
+          GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const DateFiltersScreen(),
+                ));
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Icon(
+                  Icons.tune,
+                  color: Colors.grey,
+                  size: 25,
+                ),
+              )),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              const SizedBox(height: 16,),
+              const SizedBox(
+                height: 16,
+              ),
               Row(
                 children: [
                   Expanded(
@@ -26,7 +70,9 @@ class _ChatTabState extends State<ChatTab> {
                       decoration: inputDecoration(context).copyWith(
                           fillColor: Colors.grey.shade200,
                           hintText: 'Search message',
-                          prefixIcon: const Icon(Icons.search,),
+                          prefixIcon: const Icon(
+                            Icons.search,
+                          ),
                           hintStyle: const TextStyle(color: Colors.grey),
                           contentPadding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 8)),
@@ -34,11 +80,17 @@ class _ChatTabState extends State<ChatTab> {
                   ),
                   const Padding(
                     padding: EdgeInsets.all(10.0),
-                    child: Icon(Icons.edit_note_outlined,size: 30,color: Colors.grey,),
+                    child: Icon(
+                      Icons.edit_note_outlined,
+                      size: 30,
+                      color: Colors.grey,
+                    ),
                   )
                 ],
               ),
-              const SizedBox(height: 16,),
+              const SizedBox(
+                height: 16,
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: 4,

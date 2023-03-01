@@ -29,9 +29,12 @@ class _ProfileTabState extends State<ProfileTab> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              title: const Text(
-                'Sonia',
-                style: TextStyle(color: Colors.black),
+              title: Center(
+                child: Image.asset(
+                  'assets/logo.png',
+                  height: 40,
+                  width: 50,
+                ),
               ),
 
               leading: GestureDetector(
@@ -106,9 +109,10 @@ class _ProfileTabState extends State<ProfileTab> {
                       ),
                       Center(
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const ProfileSettingsScreen(),
+                              builder: (context) =>
+                                  const ProfileSettingsScreen(),
                             ));
                           },
                           child: Chip(
@@ -119,7 +123,6 @@ class _ProfileTabState extends State<ProfileTab> {
                                 color: Colors.grey,
                               ),
                             ),
-
                             backgroundColor: Colors.grey.shade300,
                           ),
                         ),

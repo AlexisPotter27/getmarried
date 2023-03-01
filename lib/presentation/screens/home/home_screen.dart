@@ -88,20 +88,20 @@ class _HomeDrawerState extends State<_HomeDrawer> {
           ),
           const Text('Choose a connection',style: TextStyle(color: Colors.grey),),
           ConnectionMenuItem(
-            isSelected: connection == 'Serious relationship',
+            isSelected: connection == 'relationship',
             subtittle: 'Make moves to find that spark',
             tittle: 'Date', onTap: () {
               setState(() {
-                connection = 'date';
+                connection = 'relationship';
               });
           },
           ),
           ConnectionMenuItem(
             isSelected: connection == 'Married',
-            subtittle: 'Make friends and find community',
-            tittle: 'bff', onTap: () {
+            subtittle: 'Find a partner in community',
+            tittle: 'Married', onTap: () {
             setState(() {
-              connection = 'bff';
+              connection = 'Married';
             });
           },
           )

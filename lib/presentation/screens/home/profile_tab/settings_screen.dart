@@ -17,9 +17,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
-        title: const Text(
-          'Settings',
-          style: TextStyle(color: Colors.black),
+        centerTitle: true,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              height: 40,
+              width: 50,
+            ),
+            const Text(
+              'Settings',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: primaryColour,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16),
+            ),
+          ],
         ),
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,

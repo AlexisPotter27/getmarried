@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:getmarried/presentation/screens/registration/onboard.dart';
+import 'package:getmarried/presentation/screens/registration/registration_steps/choose_mode.dart';
 
 
 class Splashscreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class _SplashscreenState extends State<Splashscreen> {
     super.initState();
     Timer(const Duration(seconds: 10), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const Onboard()));
+          context, MaterialPageRoute(builder: (context) =>  ChooseModeScreen(onComplete: (){})));
     });
   }
 

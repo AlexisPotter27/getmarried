@@ -20,9 +20,24 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          'Get married',
-          style: TextStyle(fontSize: 16),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              height: 40,
+              width: 50,
+            ),
+            const Text(
+              'Get married',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: primaryColour,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16),
+            ),
+          ],
         ),
         foregroundColor: Colors.black,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

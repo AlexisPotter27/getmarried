@@ -3,7 +3,6 @@ import 'package:getmarried/constant.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/add_photos_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/birthday_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/choose_date_screen.dart';
-import 'package:getmarried/presentation/screens/registration/registration_steps/choose_mode.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/email_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/first_name_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/gender_screen.dart';
@@ -44,6 +43,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 controller: _pageController,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
+                  // ChooseModeScreen(
+                  //   onComplete: () {
+                  //     switchPage(1);
+                  //   },
+                  // ),
                   FirstNameScreen(onComplete: () {
                     switchPage(1);
                   }),
@@ -106,14 +110,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       switchPage(5);
                     },
                   ),*/
-                  ChooseModeScreen(
-                    onComplete: () {
-                      switchPage(5);
-                    },
-                  ),
+
                   ChooseDateScreen(
                     onComplete: () {
-                      switchPage(6);
+                      switchPage(5);
                     },
                   ),
                   /*ChooseReletionShipType(
@@ -144,7 +144,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void switchPage(int to) {
     setState(() {
       _pageController.jumpToPage(to);
-      progress += 0.12;
+      progress += 0.2;
     });
   }
 }
