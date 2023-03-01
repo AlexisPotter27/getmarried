@@ -48,9 +48,9 @@ class _InterestScreenState extends State<InterestScreen> {
                         height: 10,
                       ),
                       Text(
-                        'Pick up to 5 things you love. it will help you match with people who love them too.',
+                        'Pick 5 things you love. It will help you match with people who love them too.',
                         style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white),
+                            fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
                       ),
                     ],
                   ),

@@ -27,7 +27,7 @@ class _UpgradeButtonState extends State<UpgradeButton> {
                 shape: const StadiumBorder(),
                 textStyle: const TextStyle(fontSize: 13),
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                foregroundColor: Colors.black),
+                primary: Colors.black),
             child: widget.child,
           ),
         ),

@@ -28,19 +28,19 @@ class _AboutYouScreenState extends State<AboutYouScreen> {
               ),
 
               const Text(
-                'Add more about you?',
+                'Tell us more about yourself?',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(
                 height: 16,
               ),
-              const Text(
+             /* const Text(
                 'Other people looking for relationship love to see bio that shows who you are',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
               ),
               const SizedBox(
                 height: 16,
-              ),
+              ),*/
               CustomFormField(
                 focusNode: FocusNode(),
                 maxLines: 4,

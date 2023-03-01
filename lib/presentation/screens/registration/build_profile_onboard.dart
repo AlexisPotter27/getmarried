@@ -13,6 +13,12 @@ class _BuildProfileOnboardState extends State<BuildProfileOnboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title:  Center(child: Image.asset('assets/ilogo.png', width: 50, height: 50,)),
+        elevation: 0,
+        backgroundColor: Colors.blue,
+      ),
       backgroundColor: Colors.blue,
       body: SafeArea(
         child: Padding(
@@ -33,7 +39,7 @@ class _BuildProfileOnboardState extends State<BuildProfileOnboard> {
                       ),
                       const SizedBox(height: 16),
                       const Text(
-                        'You are  here for a\nRelationship!',
+                        'You are here for Marriage!',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
                       ),
@@ -41,7 +47,7 @@ class _BuildProfileOnboardState extends State<BuildProfileOnboard> {
                         height: 16,
                       ),
                       const Text(
-                        'Amazing, You are more likely to find someone really special if take time to build your profile.',
+                        'Amazing, You are more likely to find someone really special, if you take the time to build your profile.',
                         style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ],

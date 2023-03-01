@@ -1,7 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/widgets/button.dart';
-import 'package:getmarried/widgets/facebook.dart';
-
+import '../../../widgets/social_button.dart';
 import '../number.dart';
 
 class Onboard extends StatelessWidget {
@@ -15,16 +15,24 @@ class Onboard extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-              flex: 3,
+              flex: 1,
               child: Center(
                 child: Image.asset(
                   'assets/logo.png',
-                  width: 150,
-                  height: 150,
                 ),
-              )),
+              )
+          ),
+          const Expanded(
+              flex: -1,
+              child: Center(
+                child: Text(
+                  'Welcome! How do you want to get started?',
+                  style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+              )
+          ),
           Expanded(
-              flex: 2,
+              flex: 0,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -36,42 +44,45 @@ class Onboard extends StatelessWidget {
                       SocialButton(
                           icons: const Icon(Icons.mail,color: Colors.white,),
                           colour: Colors.redAccent,
-                          title: 'Continue with google',
+                          title: 'Continue with Google',
                           textcolour: Colors.white,
                           ontap: () {
-                            Navigator.push(
+                            /*Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Phone()));
+                                    builder: (context) => const Phone()));*/
                           }),
+                      const Divider(color: Colors.grey,),
                       const SizedBox(
                         height: 16,
                       ),
                   SocialButton(
-                      icons: const Icon(Icons.apple,color: Colors.white,),
+                      icons: const Icon(Icons.apple_rounded, color: Colors.white,),
                       colour: Colors.black,
-                      title: 'Continue with apple',
+                      title: 'Continue with Apple ID',
                       textcolour: Colors.white,
                       ontap: () {
-                        Navigator.push(
+                        /*Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Phone()));
+                                builder: (context) => const Phone()));*/
                       }),
+                      const Divider(color: Colors.grey,),
                   const SizedBox(
                     height: 16,
                   ),
                   SocialButton(
-                      icons: const Icon(Icons.facebook,color: Colors.white,),
-                      colour: Colors.blueAccent,
+                      icons:  const Icon(Icons.facebook,color: Colors.yellowAccent,),
+                      colour: Colors.blue,
                       title: 'Continue with Facebook',
                       textcolour: Colors.white,
                       ontap: () {
-                        Navigator.push(
+                        /*Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Phone()));
+                                builder: (context) => const Phone()));*/
                       }),
+                      const Divider(color: Colors.grey,),
                   const SizedBox(
                     height: 16,
                   ),
@@ -84,7 +95,10 @@ class Onboard extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const Phone()));
-                      })
+                      }),
+                      const SizedBox(
+                        height: 16,
+                      ),
                 ]),
               ))
         ],

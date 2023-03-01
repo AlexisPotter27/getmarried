@@ -1,31 +1,37 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/widgets/reigistration/file_upload_sheet.dart';
 
+import 'dart:io' as io;
 
-class ImagePickeCard extends StatefulWidget {
-  const ImagePickeCard({Key? key}) : super(key: key);
+class ImagePickerCard extends StatefulWidget {
+  ImagePickerCard({Key? key}) : super(key: key);
 
   @override
-  State<ImagePickeCard> createState() => _ImagePickeCardState();
+  _ImagePickerCardState createState() => _ImagePickerCardState();
+  String? imageF;
 }
 
-class _ImagePickeCardState extends State<ImagePickeCard> {
+class _ImagePickerCardState extends State<ImagePickerCard> {
+  String? image;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         showModalBottomSheet(
           context: context,
           backgroundColor: Colors.transparent,
-          builder: (context) => const FileUploadSheet(),
+          builder: (context) =>  FileUploadSheet(),
         );
       },
       child: Container(
-
-
-        decoration:  BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10)),
-        child: const Center(
-          child: Icon(Icons.add),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(10)),
+        child: Center(
+          child: (image != null)
+              ? Image.file(io.File(image!))
+              : const Icon(Icons.add),
         ),
       ),
     );

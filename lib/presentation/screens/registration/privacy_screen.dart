@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/presentation/screens/registration/registration_screen.dart';
 import 'package:getmarried/widgets/primary_button.dart';
@@ -17,6 +18,13 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.indigoAccent,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title:  Image.asset('assets/ilogo.png', width: 50, height: 50,),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.indigoAccent,
+      ),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
@@ -100,7 +108,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                 height: 10,
               ),
               TransaparentButton(
-                  onPressed: () {}, child: const Text('Change or reject', style: TextStyle(color: Colors.white,),)),
+                  onPressed: () {}, child: const Text('Change or reject', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
               const SizedBox(
                 height: 30,
               ),

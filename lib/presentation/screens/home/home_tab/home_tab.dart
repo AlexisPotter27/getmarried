@@ -46,28 +46,28 @@ class _HomeTabState extends State<HomeTab> {
                   },
                   icon: const Icon(
                     Icons.menu,
-                    size: 25,
+                    size: 30,
                   )),
               Expanded(
                   child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/logo.png',
-                    height: 40,
-                    width: 50,
-                  ),
-                  const Text(
-                    'Get Married',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: primaryColour,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16),
-                  ),
-                ],
-              )),
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/ilogo.png',
+                        height: 50,
+                        width: 50,
+                      ),
+                      /*const Text(
+                        'Get Married',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: primaryColour,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16),
+                      ),*/
+                    ],
+                  )),
               IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -76,7 +76,7 @@ class _HomeTabState extends State<HomeTab> {
                   },
                   icon: const Icon(
                     Icons.tune,
-                    size: 25,
+                    size: 30,
                   )),
             ],
           ),
@@ -86,34 +86,34 @@ class _HomeTabState extends State<HomeTab> {
                 Stack(
                   children: List.generate(
                       items.length,
-                      (index) => SwipableCard(
-                            onLiked: () {
-                              setState(() {
-                                items.removeLast();
-                              });
-                            },
-                            color: Colors.black,
-                            onPanUpdated: (DragUpdateDetails details) {
-                              log('DX:${details.delta.dx}');
-                              setState(() {
-                                likeButtonOffset -= details.delta;
-                                disLikeButtonOffset -= details.delta;
-                                likeScale += details.delta.dx * 0.01;
-                                disLikeScale -= details.delta.dx * 0.01;
-                              });
-                            },
-                            onSwipeEnded: (details) {
-                              endSwipe();
-                            },
-                            onDisLike: () {
-                              setState(() {
-                                items.removeLast();
-                              });
-                            },
-                            child: MatchCard(
-                              image: items[index],
-                            ),
-                          )).reversed.toList().reversed.toList(),
+                          (index) => SwipableCard(
+                        onLiked: () {
+                          setState(() {
+                            items.removeLast();
+                          });
+                        },
+                        color: Colors.black,
+                        onPanUpdated: (DragUpdateDetails details) {
+                          log('DX:${details.delta.dx}');
+                          setState(() {
+                            likeButtonOffset -= details.delta;
+                            disLikeButtonOffset -= details.delta;
+                            likeScale += details.delta.dx * 0.01;
+                            disLikeScale -= details.delta.dx * 0.01;
+                          });
+                        },
+                        onSwipeEnded: (details) {
+                          endSwipe();
+                        },
+                        onDisLike: () {
+                          setState(() {
+                            items.removeLast();
+                          });
+                        },
+                        child: MatchCard(
+                          image: items[index],
+                        ),
+                      )).reversed.toList().reversed.toList(),
                 ),
                 Center(
                   child: Transform.translate(

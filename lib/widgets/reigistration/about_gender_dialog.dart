@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:getmarried/widgets/primary_button.dart';
 

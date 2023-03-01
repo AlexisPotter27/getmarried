@@ -3,10 +3,10 @@ import 'package:getmarried/widgets/reigistration/birth_date_widget.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 
-
 class BirthdayScreen extends StatefulWidget {
-  const BirthdayScreen({Key? key, required this.onComplete}) : super(key: key);
+   const BirthdayScreen({Key? key, required this.onComplete}) : super(key: key);
   final Function onComplete;
+
 
   @override
   State<BirthdayScreen> createState() => _BirthdayScreenState();
@@ -57,7 +57,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
               ),
             ),
             const SizedBox(
-              width: 6,
+              width: 5,
             ),
             NextButton(onPressed: () {
               widget.onComplete();

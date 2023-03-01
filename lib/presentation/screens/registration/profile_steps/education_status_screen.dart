@@ -45,7 +45,7 @@ class _EducationStatusState extends State<EducationStatus> {
                 height: 10,
               ),
               const Text(
-                'What is your star Education ?',
+                'What is your Education level?',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(
@@ -66,7 +66,7 @@ class _EducationStatusState extends State<EducationStatus> {
                         value = val;
                       });
                     },
-                  ),
+                   ),
                   const  SizedBox(height: 16,)
                 ],),
               ),

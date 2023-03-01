@@ -19,7 +19,7 @@ class _AddProfilePhotoBoxState extends State<AddProfilePhotoBox> {
 
         showModalBottomSheet(
           backgroundColor: Colors.transparent,
-          context: context, builder: (context) => const FileUploadSheet(),);
+          context: context, builder: (context) =>  FileUploadSheet(),);
       },
       child: Container(
         height: widget.height ?? 104,

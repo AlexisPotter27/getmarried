@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
+import 'package:getmarried/helper/toastMessage.dart';
 import 'package:getmarried/presentation/screens/number.dart';
 import 'package:getmarried/presentation/screens/registration/location.dart';
-
 
 class Verify extends StatefulWidget {
   const Verify({Key? key}) : super(key: key);
@@ -17,20 +17,35 @@ TextEditingController phoneController = TextEditingController();
 String number = countryCode.text + phoneController.text;
 
 class _VerifyState extends State<Verify> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.indigoAccent,
       appBar: AppBar(
+        centerTitle: true,
+        title:  Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset('assets/ilogo.png', width: 50, height: 50,),
+        ),
         elevation: 0,
         backgroundColor: Colors.indigoAccent,
         leading: Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
-            SizedBox(
-              width: 5,
+          children: [
+            const SizedBox(
+              width: 20,
             ),
-
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Icon(
+                Icons.arrow_back_ios_outlined,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 20,),
           ],
         ),
       ),
@@ -48,7 +63,7 @@ class _VerifyState extends State<Verify> {
                 height: 10,
               ),
               const Text(
-                'Enter the last 6 numbers of the\nphone number we call you on',
+                'Enter the 6 digit verification code sent to your phone number',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),textAlign: TextAlign.start,
               ),
               Row(
@@ -120,14 +135,7 @@ class _VerifyState extends State<Verify> {
                             border: InputBorder.none),
                         keyboardType: TextInputType.number,
                         controller: phoneController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'please enter your phone number';
-                          } else if (value.length < 14) {
-                            return 'phone number should be more than 14 characters';
-                          }
-                          return null;
-                        },
+
                       ),
                     ),
                   )
@@ -137,7 +145,6 @@ class _VerifyState extends State<Verify> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
                 GestureDetector(
                   child: const Text(
                     'Didn\'t get a call?',
@@ -152,11 +159,17 @@ class _VerifyState extends State<Verify> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    verifyCode();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Location()));
+                    if(phoneController.text.length == 6){
+                      phoneController.clear();
+                      countryCode.clear();
+                      verifyCode();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Location()));
+                    } else {
+                      ToastMessage.showToast('Please the 6 digit code sent to your phone number.');
+                    }
                   },
                   child: const CircleAvatar(
                     radius: 20,
@@ -179,6 +192,7 @@ class _VerifyState extends State<Verify> {
         smsCode: phoneController.text);
 
     await auth.signInWithCredential(credential).then((value){
+      ToastMessage.showToast('Verification successful');
       print('Verification successfully');
     });
   }

@@ -110,6 +110,17 @@ List<String> starSigns = [
   'Pisces',
 ];
 
+List<String> ethnic = [
+  'White or Caucasian',
+  'Native American Indian or Native Alaskan',
+  'Asian',
+  'Native Hawaiian or Pacific',
+  'Black or African-American',
+  'Latino or Hispanic',
+  'Middle Eastern',
+  'Other',
+];
+
 List<String> educations = [
   'High school',
   'Trade/tech school',
@@ -124,7 +135,6 @@ List<String> drinkingOptions = [
   'Socially',
   'Rarely',
   'Never',
-  'Sober',
 ];
 
 List<String> smokeOptions = [
@@ -133,11 +143,17 @@ List<String> smokeOptions = [
   'Regularly',
 ];
 
+List<String> drugsOptions = [
+  'Never',
+  'Socially',
+  'Regularly',
+];
+
 List<String> havChildrenOptions = [
-  'Want someday',
-  'Dont want',
+  "Want someday",
+  "Don't want",
   'Have and want more',
-  'Have and dont  want more',
+  "Have and don't want more",
   'Not sure yet',
 ];
 
@@ -148,17 +164,27 @@ List<String> religions = [
   'Catholic',
   'Christian',
   'Hindu',
-  'Jain'
+  'Jewish',
+  'Other'
 ];
 
-List<String> ploiticalLeanings = [
+List<String> partnersReligions = [
   'Agnostic',
   'Atheist',
   'Buddhist',
   'Catholic',
   'Christian',
   'Hindu',
-  'Jain'
+  'Jewish',
+  'Other',
+  "I don't mind",
+];
+
+List<String> ploiticalLeanings = [
+  'Apolitical',
+  'Moderate',
+  'Liberal',
+  'Conservative',
 ];
 
 List<String> maleGenders = [
@@ -222,13 +248,6 @@ List<FeatureModel> features = [
       plans: ['premium', 'boost']),
 ];
 
-Size getDeviceSize({BuildContext? context}) =>
-    WidgetsBinding.instance.window.physicalSize.flipped;
-
-double deviceWidth() =>
-    WidgetsBinding.instance.window.physicalSize.width /
-        WidgetsBinding.instance.window.devicePixelRatio;
-
 List<String> languages = [
   'English',
   'Spanish',
@@ -253,3 +272,11 @@ ChipChoiceModel(label: 'Spanish', icon: Icons.emoji_objects),
 
 ];
 
+
+
+Size getDeviceSize({BuildContext? context}) =>
+    WidgetsBinding.instance.window.physicalSize.flipped;
+
+double deviceWidth() =>
+    WidgetsBinding.instance.window.physicalSize.width /
+    WidgetsBinding.instance.window.devicePixelRatio;

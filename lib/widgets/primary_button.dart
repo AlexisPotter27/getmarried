@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../constant.dart';
-
 class PrimaryButton extends StatefulWidget {
   const PrimaryButton({Key? key, required this.child, required this.onPressed}) : super(key: key);
   final Widget child;
@@ -20,7 +18,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
           child: ElevatedButton(
             onPressed:widget.onPressed,
             style: ElevatedButton.styleFrom(
-              primary: primaryColour,
+              primary: Colors.white,
               shape: const StadiumBorder(),
               padding: const EdgeInsets.all(18),
               onPrimary: Colors.black,

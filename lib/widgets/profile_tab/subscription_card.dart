@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
 import 'package:getmarried/widgets/upgrade_button.dart';
 
+import '../../presentation/card_form_screen.dart';
+
 class SubscriptionCard extends StatefulWidget {
   const SubscriptionCard(
       {Key? key,
@@ -32,10 +34,10 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
                 end: Alignment.bottomRight,
                 begin: Alignment.topLeft,
                 colors: [
+                  Colors.orangeAccent.shade100,
                   Colors.orangeAccent.shade200,
-                  Colors.orangeAccent.shade400,
                   Colors.orange,
-                  Colors.orange,
+                  Colors.yellow,
                 ]),
       ),
       child: Column(
@@ -56,12 +58,16 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
             style: const TextStyle(fontSize: 13),
           ),
           const SizedBox(
-            height: 10,
+            height: 5,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0.1),
             child:
-                UpgradeButton(onPressed: () {}, child: Text(widget.buttonText)),
+                UpgradeButton(onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CardFormScreen(),
+                  ));
+                 }, child: Text(widget.buttonText)),
           )
         ],
       ),

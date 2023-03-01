@@ -29,7 +29,7 @@ class _EmailScreenState extends State<EmailScreen> {
                 height: 20,
               ),
               const Text(
-                'What is your email address ?',
+                'What is your email ?',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(

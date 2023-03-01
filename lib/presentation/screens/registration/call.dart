@@ -24,6 +24,13 @@ class _CallState extends State<Call> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.indigoAccent,
+      appBar: AppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        title:  Image.asset('assets/ilogo.png', width: 50, height: 50,),
+        elevation: 0,
+        backgroundColor: Colors.indigoAccent,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -43,14 +50,14 @@ class _CallState extends State<Call> {
                     height: 20,
                   ),
                   const Text(
-                    "We're calling you",
+                    "We're texting you",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   const Text(
-                    "Enter the last 6 numbers of the phone number we're calling you from.",
+                    "Enter the 6-digit verification code you receive via text (SMS).",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w400,

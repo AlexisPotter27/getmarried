@@ -41,14 +41,6 @@ class _GenderScreenState extends State<GenderScreen> {
                 'Pick which best describes you. then add more about your gender if you would like.',
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white),
               ),
-              const Text(
-                'Learn what this means.',
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline,
-                    color: Colors.white),
-              ),
               const SizedBox(
                 height: 16,
               ),
@@ -98,7 +90,7 @@ class _GenderScreenState extends State<GenderScreen> {
         ),
         Row(
           children: [
-            Expanded(
+          /*  Expanded(
               child: Row(
                 children: const [
                   Icon(Icons.remove_red_eye, color: Colors.white),
@@ -112,9 +104,9 @@ class _GenderScreenState extends State<GenderScreen> {
                   ))
                 ],
               ),
-            ),
+            ),*/
             const SizedBox(
-              width: 6,
+              width: 300,
             ),
             NextButton(onPressed: () {
               widget.onComplete();

@@ -46,9 +46,9 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               CustomRadioTile<String>(
                 onSubtitleClicked: () {},
                 toggleSubtitle: false,
-                value: 'active',
+                value: 'regularly / daily',
                 groupValue: value,
-                tittle: 'Active',
+                tittle: 'Regularly / Daily',
                 onChanged: (val) {
                   setState(() {
                     value = val;

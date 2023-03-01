@@ -40,10 +40,10 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       bottomNavigationBar: BottomNavigationBar(
           showUnselectedLabels: false,
-          showSelectedLabels: false,
+          showSelectedLabels: true,
           currentIndex: _currentIndex,
           unselectedIconTheme:
-              const IconThemeData(color: Colors.grey, size: 25),
+              const IconThemeData(color: Colors.blue, size: 25),
           onTap: (index) {
             setState(() {
               _currentIndex = index;
