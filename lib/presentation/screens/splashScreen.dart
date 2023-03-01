@@ -28,12 +28,9 @@ class _SplashscreenState extends State<Splashscreen> {
         children: [
           Expanded(
               flex: 2,
-              child: Container(
-               // color: ,
-                child: Center(
-                  child: Image.asset(
-                    'assets/logo.png',
-                  ),
+              child: Center(
+                child: Image.asset(
+                  'assets/logo.png',
                 ),
               )),
         ],

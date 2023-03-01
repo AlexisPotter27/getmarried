@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/presentation/screens/registration/onboard.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
@@ -14,7 +15,7 @@ class ChooseModeScreen extends StatefulWidget {
 }
 
 class _ChooseModeScreenState extends State<ChooseModeScreen> {
-  String radioValue = 'Man';
+  String radioValue = '';
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,6 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(
@@ -100,7 +100,8 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
 
                     //Causal Relationship
                     CustomRadioTile<String>(
-                      subTittle: const Text('Go on dates and spend time together'),
+                      subTittle:
+                          const Text('Go on dates and spend time together'),
                       onSubtitleClicked: () {},
                       toggleSubtitle: false,
                       value: 'causal relationship',
@@ -141,8 +142,8 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
 
                     //Marriage
                     CustomRadioTile<String>(
-                      subTittle:
-                          const Text('Having Legally or Formally recognized union'),
+                      subTittle: const Text(
+                          'Having Legally or Formally recognized union'),
                       onSubtitleClicked: () {},
                       toggleSubtitle: false,
                       value: 'marriage',
@@ -182,10 +183,15 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
                     width: 6,
                   ),
                   NextButton(onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const Onboard(),
-                    ));
-                    widget.onComplete();
+                    if (radioValue.isEmpty) {
+                      showCustomToast('Please select an option');
+                    } else {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Onboard(),
+                      ));
+                    }
+
+                    // widget.onComplete();
                   }),
                 ],
               ),
@@ -198,8 +204,10 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
 }
 
 void showPromptMessage(BuildContext context) {
-  ScaffoldMessenger.of(context)
-      .showSnackBar(const SnackBar(content: PromptMessageWidget(),backgroundColor: Colors.transparent,));
+  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    content: PromptMessageWidget(),
+    backgroundColor: Colors.transparent,
+  ));
 }
 
 class PromptMessageWidget extends StatelessWidget {
@@ -233,18 +241,14 @@ class PromptMessageWidget extends StatelessWidget {
                 TextSpan(
                     text: 'Get Married App ',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black
-                    )),
+                        fontWeight: FontWeight.bold, color: Colors.black)),
                 TextSpan(
                     text:
                         'is the best for those specifically looking to get married. Please visit us again when you are ready to commit. ',
                     style: TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: 13,
-                        color: Colors.black
-                    )
-                ),
+                        color: Colors.black)),
               ]),
             ),
           )
