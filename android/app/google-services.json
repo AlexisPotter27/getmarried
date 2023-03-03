@@ -8,20 +8,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:594283361767:android:002966bf4e4ab247e17942",
+        "mobilesdk_app_id": "1:594283361767:android:0579aa47024bd8bce17942",
         "android_client_info": {
-          "package_name": "com.getmarried.getmarried"
+          "package_name": "com.app.getmarried"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "594283361767-ls6jplecjcehuktcbhhunbbsrl1fr7sf.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.getmarried.getmarried",
-            "certificate_hash": "102a3a45e2663ebfd7b23bf22fcaeb677464fa2c"
-          }
-        },
         {
           "client_id": "594283361767-7rd8423gsdq9p5ltce55j9fq4bi979ga.apps.googleusercontent.com",
           "client_type": 3
@@ -38,6 +30,13 @@
             {
               "client_id": "594283361767-7rd8423gsdq9p5ltce55j9fq4bi979ga.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "594283361767-f4o0gvptu71d3hnukhvscc17csavi156.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.getmarried.getmarried"
+              }
             }
           ]
         }

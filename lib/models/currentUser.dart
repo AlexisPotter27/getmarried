@@ -6,7 +6,7 @@ class CurrentUser extends ChangeNotifier{
   //String _uid;
   //int _phoneNumber;
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<bool> signUpUser(int phoneNumber) async {
     bool retVal = false;

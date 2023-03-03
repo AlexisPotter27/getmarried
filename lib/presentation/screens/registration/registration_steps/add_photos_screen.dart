@@ -12,6 +12,7 @@ class AddPhotosScreen extends StatefulWidget {
   @override
   State<AddPhotosScreen> createState() => _AddPhotosScreenState();
   static String image = '';
+
   static void pickImage() async {
     XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (file != null) {
@@ -20,6 +21,7 @@ class AddPhotosScreen extends StatefulWidget {
       //setState(() {});
     }
   }
+
   /// Get image from Camera
   static void pickImageFromCamera() async {
     XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -85,17 +87,17 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                       },
                       child: Center(
                         child: Container(
-                                width: 200,
-                                height: 400,
-                                color: Colors.white,
-                                alignment: Alignment.center,
-                                child:  Center(
-                                  child: (AddPhotosScreen.image != null)
-                                      ? Image.file(io.File(AddPhotosScreen.image))
-                                      : const Icon(Icons.add),
-                                ),
-                                // ImagePickerCard(),
-                              ),
+                          width: 200,
+                          height: 400,
+                          color: Colors.white,
+                          alignment: Alignment.center,
+                          child: Center(
+                            child: (AddPhotosScreen.image != null)
+                                ? Image.file(io.File(AddPhotosScreen.image))
+                                : const Icon(Icons.add),
+                          ),
+                          // ImagePickerCard(),
+                        ),
                       ),
                     ),
 
@@ -133,7 +135,7 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                   ),
                 ),
               ),
-               const SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               //Instagram
@@ -141,7 +143,7 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                 onTap: () {},
                 child: Container(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10)),
@@ -152,7 +154,10 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                         'Add from Instagram',
                         style: TextStyle(fontWeight: FontWeight.w500),
                       ),
-                      Image(image: AssetImage('assets/instagram.png',),
+                      Image(
+                        image: AssetImage(
+                          'assets/instagram.png',
+                        ),
                         width: 20,
                         height: 30,
                       ),
@@ -183,6 +188,5 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
 
   /// Get image from Gallery
   ///
-
 
 }

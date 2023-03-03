@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/choose_mode.dart';
 
-
 class Splashscreen extends StatefulWidget {
   const Splashscreen({Key? key}) : super(key: key);
 
@@ -16,7 +15,9 @@ class _SplashscreenState extends State<Splashscreen> {
     super.initState();
     Timer(const Duration(seconds: 10), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) =>  ChooseModeScreen(onComplete: (){})));
+          context,
+          MaterialPageRoute(
+              builder: (context) => ChooseModeScreen(onComplete: () {})));
     });
   }
 
