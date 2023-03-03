@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "594283361767-9i60q96aunqgjnp9hfneei2jkoqtjh6p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.getmarried",
+            "certificate_hash": "e9c92eeea9739f246d0d9a54468025034843467f"
+          }
+        },
+        {
           "client_id": "594283361767-7rd8423gsdq9p5ltce55j9fq4bi979ga.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/constant.dart';
@@ -331,12 +333,14 @@ class _PhoneState extends State<Phone> {
             ToastMessage.showToast('Verification successful.');
             phoneController.clear();
             countryCode.clear();
-            print("You are logged in successfully");
+            log("You are logged in successfully");
           });
+
+          log('verified');
         },
         verificationFailed: (FirebaseAuthException exception) {
           ToastMessage.showToast('Verification failed.');
-          print(exception.message);
+          log(exception.message!);
         },
         codeSent: (String verificationID, int? resendToken) {
           verificationIDReceived = verificationID;
