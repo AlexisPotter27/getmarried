@@ -7,8 +7,9 @@ import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 
 class GenderScreen extends StatefulWidget {
-  const GenderScreen({Key? key, required this.onComplete}) : super(key: key);
+  const GenderScreen({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
   final Function onComplete;
+  final Function onPrev;
 
   @override
   State<GenderScreen> createState() => _GenderScreenState();
@@ -89,6 +90,7 @@ class _GenderScreenState extends State<GenderScreen> {
           ),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
           /*  Expanded(
               child: Row(
@@ -105,9 +107,15 @@ class _GenderScreenState extends State<GenderScreen> {
                 ],
               ),
             ),*/
-            const SizedBox(
-              width: 300,
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: NextButton(
+                  icon: const Icon(Icons.arrow_back_ios,size: 16,color: Colors.black,),
+                  onPressed: () {
+                    widget.onPrev();
+                  }),
             ),
+
             NextButton(onPressed: () {
               widget.onComplete();
             }),

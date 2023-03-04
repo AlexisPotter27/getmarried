@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class NextButton extends StatefulWidget {
   final VoidCallback onPressed;
+  final Widget? icon;
 
-  const NextButton({Key? key, required this.onPressed}) : super(key: key);
+  const NextButton({Key? key, required this.onPressed,  this.icon}) : super(key: key);
 
   @override
   State<NextButton> createState() => _NextButtonState();
@@ -21,7 +22,7 @@ class _NextButtonState extends State<NextButton> {
           onPrimary: Colors.white.withOpacity(0.7),
           onSurface: Colors.white.withOpacity(0.5),
           shadowColor: Colors.black),
-      child: const Icon(
+      child: widget.icon ?? const Icon(
         Icons.arrow_forward_ios,
         size: 16,
           color: Colors.black

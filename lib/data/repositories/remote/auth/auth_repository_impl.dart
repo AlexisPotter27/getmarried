@@ -89,11 +89,27 @@ class AuthRepositoryImpl extends AuthRepository {
           DocumentReference userRef =
               db.collection(FirebaseKeys.users).doc(uid);
 
-          await userRef.set(UserData(uid: uid,).toJson());
+          await userRef.set(UserData(
+            uid: uid,
+          ).toJson());
           return ApiResponse(data: UserData(uid: uid), error: null);
         }
       }
       return ApiResponse(data: null, error: 'Something went wrong');
+    } on FirebaseException catch (e) {
+      return ApiResponse(data: null, error: e.code);
+    } on Exception catch (e) {
+      return ApiResponse(data: null, error: e.toString());
+    }
+  }
+
+  @override
+  Future<ApiResponse> updateUser(UserData userData) async {
+    try {
+      await db.collection(FirebaseKeys.users).doc(userData.uid)
+          .update(userData.toJson());
+
+      return ApiResponse(data: userData, error: null);
     } on FirebaseException catch (e) {
       return ApiResponse(data: null, error: e.code);
     } on Exception catch (e) {

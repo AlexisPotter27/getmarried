@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:getmarried/data/models/api_response.dart';
+import 'package:getmarried/models/user.dart';
 
 abstract class AuthRepository {
   Future sendSms(
@@ -14,10 +15,12 @@ abstract class AuthRepository {
       required final Function(String verificationID)
           onCodeAutoRetrievalTimeout});
 
-
   Future<ApiResponse> signinWithPhoneNumber(PhoneAuthCredential credential);
+
   Future<ApiResponse> signinUser(String uid);
 
-  // Future void signinWithPhoneNumber
+  Future<ApiResponse> updateUser(UserData userData);
+
+// Future void signinWithPhoneNumber
 
 }

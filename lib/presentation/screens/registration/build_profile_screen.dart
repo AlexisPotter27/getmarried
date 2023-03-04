@@ -89,74 +89,77 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                   WorkoutScreen(onComplete: () {
                     switchPage(4);
                   }),
-                  BodyType(onComplete: () {
+                  Athletic(onComplete: () {
                     switchPage(5);
                   }),
-                  PartnersBodyType(onComplete: () {
+                  BodyType(onComplete: () {
                     switchPage(6);
                   }),
-                  Attractive(onComplete: () {
+                  PartnersBodyType(onComplete: () {
                     switchPage(7);
                   }),
-                  StarSignScreen(onComplete: () {
+                  Attractive(onComplete: () {
                     switchPage(8);
                   }),
-                  EducationStatus(onComplete: () {
+                  StarSignScreen(onComplete: () {
                     switchPage(9);
                   }),
-                  DrinkingScreen(onComplete: () {
+                  EducationStatus(onComplete: () {
                     switchPage(10);
                   }),
-                  SmokingScreen(onComplete: () {
+                  DrinkingScreen(onComplete: () {
                     switchPage(11);
                   }),
-                  DrugsScreen(onComplete: () {
+                  SmokingScreen(onComplete: () {
                     switchPage(12);
                   }),
-                  ChildrenConsentScreen(onComplete: () {
+                  DrugsScreen(onComplete: () {
                     switchPage(13);
                   }),
-                  ReligionScreen(onComplete: () {
+                  ChildrenConsentScreen(onComplete: () {
                     switchPage(14);
                   }),
-                  PartnersReligion(onComplete: () {
+                  ReligionScreen(onComplete: () {
                     switchPage(15);
                   }),
-                  PoliticalLeaningsscreen(onComplete: () {
+                  PartnersReligion(onComplete: () {
                     switchPage(16);
                   }),
-                  EthnicGroup(onComplete: () {
+                  PoliticalLeaningsscreen(onComplete: () {
                     switchPage(17);
                   }),
-                  PartnersEthnicity(onComplete: () {
+                  EthnicGroup(onComplete: () {
                     switchPage(18);
                   }),
-                  PlanningEvent(onComplete: () {
+                  PartnersEthnicity(onComplete: () {
                     switchPage(19);
                   }),
-                  Understanding(onComplete: () {
+                  PlanningEvent(onComplete: () {
                     switchPage(20);
                   }),
-                  Outgoing(onComplete: () {
+                  Understanding(onComplete: () {
                     switchPage(21);
                   }),
-                  Ambitious(onComplete: () {
+                  Outgoing(onComplete: () {
                     switchPage(22);
                   }),
-                  Athletic(onComplete: () {
+                  Ambitious(onComplete: () {
                     switchPage(23);
                   }),
-                  StartingAndFinishing(onComplete: () {
+                  Athletic(onComplete: () {
                     switchPage(24);
                   }),
-                  Relationship(onComplete: () {
+                  StartingAndFinishing(onComplete: () {
                     switchPage(25);
                   }),
-                  Monogamy(onComplete: () {
+                  Relationship(onComplete: () {
                     switchPage(26);
                   }),
-                  Creativity(onComplete: () {
+                  Monogamy(onComplete: () {
                     switchPage(27);
+                  }),
+                  Creativity(onComplete: () {
+                    switchPage(28);
                   }),
                   AboutYouScreen(onComplete: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const WelcomeScreen(),));
@@ -173,7 +176,7 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
   void switchPage(int to) {
     setState(() {
       _pageController.jumpToPage(to);
-      progress += 0.051;
+      progress += 0.036;
     });
   }
 }

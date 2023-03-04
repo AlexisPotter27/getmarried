@@ -6,8 +6,9 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../widgets/reigistration/file_upload_sheet.dart';
 
 class AddPhotosScreen extends StatefulWidget {
-  const AddPhotosScreen({Key? key, required this.onComplete}) : super(key: key);
+  const AddPhotosScreen({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
   final Function onComplete;
+  final Function onPrev;
 
   @override
   State<AddPhotosScreen> createState() => _AddPhotosScreenState();
@@ -170,14 +171,24 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
         ),
         Column(
           children: [
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: NextButton(onPressed: () {
-                  widget.onComplete();
-                }),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: NextButton(
+                      icon: const Icon(Icons.arrow_back_ios,size: 16,color: Colors.black,),
+                      onPressed: () {
+                        widget.onPrev();
+                      }),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: NextButton(onPressed: () {
+                    widget.onComplete();
+                  }),
+                ),
+              ],
             ),
             const NotSureWidget(),
           ],

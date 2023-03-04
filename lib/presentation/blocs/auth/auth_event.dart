@@ -7,8 +7,6 @@ abstract class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-
-
 class SendOtpEvent extends AuthEvent {
   final String number;
   final String? resendToken;
@@ -37,7 +35,9 @@ class SenOtpFailedEvent extends AuthEvent {
   const SenOtpFailedEvent({required this.error});
 
   @override
-  List<Object> get props => [error,];
+  List<Object> get props => [
+        error,
+      ];
 }
 
 // class VerifyNumberEvent extends AuthEvent {
@@ -53,4 +53,9 @@ class PhoneNumberSigninEvent extends AuthEvent {
   final PhoneAuthCredential credential;
 
   const PhoneNumberSigninEvent(this.credential);
+}
+
+class UpdateUserEvent extends AuthEvent {
+  final UserData userData;
+  const UpdateUserEvent(this.userData);
 }
