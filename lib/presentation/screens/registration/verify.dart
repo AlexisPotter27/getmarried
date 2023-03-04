@@ -260,6 +260,6 @@ class _VerifyState extends State<Verify> {
 
   void updateCache() {
     StorageHelper.setBoolean(StorageKeys.isUserLoggedIn, true);
-    StorageHelper.setString(StorageKeys.regStatus, '0');
+
   }
 }
