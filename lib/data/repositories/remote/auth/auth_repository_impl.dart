@@ -89,7 +89,7 @@ class AuthRepositoryImpl extends AuthRepository {
           DocumentReference userRef =
               db.collection(FirebaseKeys.users).doc(uid);
 
-          await userRef.set(UserData(uid: uid, regStatus: 0).toJson());
+          await userRef.set(UserData(uid: uid,).toJson());
           return ApiResponse(data: UserData(uid: uid), error: null);
         }
       }
