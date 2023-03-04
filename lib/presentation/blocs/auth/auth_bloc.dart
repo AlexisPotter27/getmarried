@@ -25,8 +25,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(SmsSentState(event.verificationId, event.resendToken)));
     // on<VerificationCompletedEvent>(
     //     (event, emit) => add(PhoneNumberSigninEvent(event.credential)));
-
     on<PhoneNumberSigninEvent>(_mapPhoneNumberSignin);
+    on<UpdateUserEvent>(_mapUpdateUserEventToState);
   }
 
   FutureOr<void> _mapSendOtpEventToState(
@@ -77,6 +77,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(PhoneAuthFailureState(e.code));
     } catch (e) {
       emit(PhoneAuthFailureState(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapUpdateUserEventToState(
+      UpdateUserEvent event, Emitter<AuthState> emit) async {
+    emit(const UpdateUserLoadingState());
+
+    try {
+      ApiResponse response = await authRepository.updateUser(event.userData);
+      if (response.error == null) {
+        emit(UpdateUserSuccessState(response.data));
+      } else {
+        emit(UpdateUserFailureState(response.error));
+      }
+    } on Exception catch (e) {
+      emit(UpdateUserFailureState(e.toString()));
     }
   }
 }

@@ -4,8 +4,9 @@ import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 
 class BirthdayScreen extends StatefulWidget {
-   const BirthdayScreen({Key? key, required this.onComplete}) : super(key: key);
+   const BirthdayScreen({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
   final Function onComplete;
+  final Function onPrev;
 
 
   @override
@@ -43,12 +44,17 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
           children: [
             Expanded(
               child: Row(
-                children: const [
-                  Icon(Icons.lock, color: Colors.white),
-                  SizedBox(
+                children:  [
+                  NextButton(
+                      icon: const Icon(Icons.arrow_back_ios,size: 16,color: Colors.black,),
+                      onPressed: () {
+                        widget.onPrev();
+                      }),
+                  const Icon(Icons.lock, color: Colors.white),
+                  const   SizedBox(
                     width: 5,
                   ),
-                  Expanded(
+                  const  Expanded(
                       child: Text(
                     'We only show your age to potential matches, not your birthday',
                     style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),

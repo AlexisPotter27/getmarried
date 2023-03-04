@@ -52,3 +52,28 @@ class PhoneAuthFailureState extends AuthState {
 
   const PhoneAuthFailureState(this.error);
 }
+
+class UpdateUserLoadingState extends AuthState {
+  @override
+  List<Object> get props => [];
+
+  const UpdateUserLoadingState();
+}
+
+class UpdateUserSuccessState extends AuthState {
+  final UserData userData;
+
+  @override
+  List<Object> get props => [userData];
+
+  const UpdateUserSuccessState(this.userData);
+}
+
+class UpdateUserFailureState extends AuthState {
+  final String error;
+
+  @override
+  List<Object> get props => [error];
+
+  const UpdateUserFailureState(this.error);
+}

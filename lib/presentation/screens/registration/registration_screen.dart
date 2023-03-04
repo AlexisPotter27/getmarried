@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/models/user.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/add_photos_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/birthday_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/choose_date_screen.dart';
@@ -18,6 +21,7 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _pageController = PageController();
   double progress = 0.11;
+  UserData? cachedUser  = getIt.get<CacheCubit>().user;
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +52,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   //     switchPage(1);
                   //   },
                   // ),
-                  FirstNameScreen(onComplete: () {
+                  FirstNameScreen(onComplete: (name) {
+                    setState(() {
+                      cachedUser?.firstname = name;
+                    });
                     switchPage(1);
                   }),
                   AddPhotosScreen(onComplete: () {
                     switchPage(2);
-                  }),
-                  BirthdayScreen(onComplete: () {
+                  }, onPrev: (){
+                    prevPage(0);
+                  },),
+                  BirthdayScreen(
+                      onPrev: (){
+                        prevPage(1);
+                      },
+                      onComplete: () {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
@@ -101,6 +114,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     // switchPage(3);
                   }),
                   GenderScreen(
+                    onPrev: (){
+                      prevPage(2);
+                    },
                     onComplete: () {
                       switchPage(4);
                     },
@@ -110,8 +126,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       switchPage(5);
                     },
                   ),*/
-
                   ChooseDateScreen(
+                    onPrev: (){
+                      prevPage(3);
+                    },
                     onComplete: () {
                       switchPage(5);
                     },
@@ -122,6 +140,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     },
                   ),*/
                   EmailScreen(
+                    onPrev: (){
+                      prevPage(4);
+                    },
                     onComplete: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const BuildProfileOnboard(),
@@ -147,4 +168,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       progress += 0.2;
     });
   }
+
+  void prevPage(int to) {
+    setState(() {
+      _pageController.jumpToPage(to);
+      progress -= 0.2;
+    });
+  }
+
 }

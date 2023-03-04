@@ -8,7 +8,6 @@ import 'package:getmarried/presentation/screens/registration/registration_screen
 import 'package:getmarried/presentation/screens/registration/registration_steps/choose_mode.dart';
 import 'package:getmarried/presentation/screens/splashScreen.dart';
 import 'package:hive_flutter/adapters.dart';
-
 import 'constants/storage_keys.dart';
 import 'helper/storage_helper.dart';
 
@@ -17,13 +16,17 @@ void main() async {
   await Hive.initFlutter();
   injector.init();
   await Firebase.initializeApp();
+ // await getIt.get<CacheCubit>().getCachedUser();
   final firstScreen = await getFirstScreen();
-  runApp( MyApp(firstScreen: firstScreen,));
+  runApp(MyApp(
+    firstScreen: firstScreen,
+  ));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key, required this.firstScreen}) : super(key: key);
   final Widget firstScreen;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Poppins',
       ),
-      home:  Splashscreen( firstScreen:firstScreen,),
+      home: Splashscreen(
+        firstScreen: firstScreen,
+      ),
     );
   }
 }
@@ -54,8 +59,6 @@ Future<Widget> getFirstScreen() async {
       return const HomeScreen();
     }
   } else {
-    return   ChooseModeScreen(onComplete: () {});
+    return ChooseModeScreen(onComplete: () {});
   }
-
-
 }

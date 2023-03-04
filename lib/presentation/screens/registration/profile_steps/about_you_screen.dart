@@ -43,7 +43,7 @@ class _AboutYouScreenState extends State<AboutYouScreen> {
               ),*/
               CustomFormField(
                 focusNode: FocusNode(),
-                maxLines: 4,
+                maxLines: 6,
                 hintText: 'Enter more about you',
               )
             ],

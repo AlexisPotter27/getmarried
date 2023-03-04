@@ -65,22 +65,32 @@ List<ChipChoiceModel> sports = [
   ChipChoiceModel(label: 'Cricket', icon: Icons.sports_score),
   ChipChoiceModel(label: 'Football', icon: Icons.sports_score),
   ChipChoiceModel(label: 'BasketBall', icon: Icons.sports_score),
+  ChipChoiceModel(label: 'Soccer', icon: Icons.sports_score),
+  ChipChoiceModel(label: 'Volleyball', icon: Icons.sports_score),
+  ChipChoiceModel(label: 'Weights', icon: Icons.sports_score),
+  ChipChoiceModel(label: 'Swimming', icon: Icons.sports_score),
   ChipChoiceModel(label: 'None', icon: Icons.sports_score),
 ];
 
 List<ChipChoiceModel> goingOut = [
   ChipChoiceModel(label: 'Gigs', icon: Icons.celebration),
-  ChipChoiceModel(label: 'Standup', icon: Icons.celebration),
-  ChipChoiceModel(label: 'Festivals', icon: Icons.celebration),
-  ChipChoiceModel(label: 'Meuseums & galleries', icon: Icons.celebration),
+  ChipChoiceModel(label: 'Restaurants', icon: Icons.celebration),
   ChipChoiceModel(label: 'Theatre', icon: Icons.celebration),
+  ChipChoiceModel(label: 'Museums & galleries', icon: Icons.celebration),
+  ChipChoiceModel(label: 'Movies', icon: Icons.celebration),
   ChipChoiceModel(label: 'Nightclubs', icon: Icons.celebration),
+  ChipChoiceModel(label: 'Drinks', icon: Icons.celebration),
+  ChipChoiceModel(label: 'Dancing', icon: Icons.celebration),
 ];
 List<ChipChoiceModel> stayingIn = [
   ChipChoiceModel(label: 'Video Games', icon: Icons.celebration),
   ChipChoiceModel(label: 'Board Games', icon: Icons.celebration),
+  ChipChoiceModel(label: 'Tv', icon: Icons.celebration),
+  ChipChoiceModel(label: 'Movies', icon: Icons.celebration),
   ChipChoiceModel(label: 'Gardening', icon: Icons.celebration),
   ChipChoiceModel(label: 'Cooking', icon: Icons.celebration),
+  ChipChoiceModel(label: 'Exercising ', icon: Icons.celebration),
+  ChipChoiceModel(label: 'Reading', icon: Icons.celebration),
   ChipChoiceModel(label: 'Baking', icon: Icons.celebration),
   ChipChoiceModel(label: 'Take ways', icon: Icons.celebration),
 ];
