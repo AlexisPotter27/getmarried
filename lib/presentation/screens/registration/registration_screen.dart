@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/add_photos_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/birthday_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/choose_date_screen.dart';

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
 import 'package:getmarried/widgets/likes/liker_item.dart';
 
 class LikeTab extends StatefulWidget {

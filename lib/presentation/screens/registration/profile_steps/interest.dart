@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/data/models/chip_choice_mode.dart';
 import 'package:getmarried/widgets/reigistration/choice_widget.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';

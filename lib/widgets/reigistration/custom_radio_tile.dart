@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 
 
 

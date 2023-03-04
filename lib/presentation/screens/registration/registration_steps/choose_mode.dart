@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/presentation/screens/registration/onboard.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';

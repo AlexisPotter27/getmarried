@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/widgets/date/children_bottomsheet.dart';
 import 'package:getmarried/widgets/date/drink_bottomsheet.dart';
 import 'package:getmarried/widgets/date/education_bottomsheet.dart';

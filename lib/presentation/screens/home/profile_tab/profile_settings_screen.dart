@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/widgets/profile_tab/basics_section.dart';
 import 'package:getmarried/widgets/profile_tab/connect_account_widget.dart';
 import 'package:getmarried/widgets/profile_tab/chips_box.dart';

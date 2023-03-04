@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "594283361767-h2bq3i62r195r86lq5fm031tglv8u2c6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.getmarried",
+            "certificate_hash": "a478a2fe8bbdc7f50b77da8fef4c1af2c1ec9baf"
+          }
+        },
+        {
           "client_id": "594283361767-7rd8423gsdq9p5ltce55j9fq4bi979ga.apps.googleusercontent.com",
           "client_type": 3
         }

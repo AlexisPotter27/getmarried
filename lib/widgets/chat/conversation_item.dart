@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/presentation/screens/home/chat/messaging_screen.dart';
 
 class ConversationItem extends StatefulWidget {

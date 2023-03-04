@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/widgets/primary_button.dart';
 
-import '../../constant.dart';
+import '../../constants/constant.dart';
 
 class AboutGenderSheet extends StatefulWidget {
   const AboutGenderSheet({Key? key, required this.options}) : super(key: key);

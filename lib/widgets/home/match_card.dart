@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polygon/flutter_polygon.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/widgets/home/about_chip.dart';
 import 'package:getmarried/widgets/secondary_widget.dart';
 
