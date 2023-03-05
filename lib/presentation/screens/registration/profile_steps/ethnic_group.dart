@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-
-
 class EthnicGroup extends StatefulWidget {
-  const EthnicGroup({Key? key, required this.onComplete}) : super(key: key);
-  final Function onComplete;
+  const EthnicGroup({Key? key, required this.onComplete, required this.onPrev})
+      : super(key: key);
+  final Function(String? ethnicity) onComplete;
+  final Function onPrev;
 
   @override
   State<EthnicGroup> createState() => _EthnicGroupState();
@@ -45,7 +46,10 @@ class _EthnicGroupState extends State<EthnicGroup> {
               ),
               const Text(
                 'What ethnic group do you belong to ?',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
@@ -54,21 +58,25 @@ class _EthnicGroupState extends State<EthnicGroup> {
                 child: ListView.builder(
                   itemCount: allEthnicGroup.length,
                   shrinkWrap: true,
-                  itemBuilder: (context, index) => Column(children: [
-                    CustomRadioTile<String>(
-                      onSubtitleClicked: () {},
-                      toggleSubtitle: false,
-                      value: allEthnicGroup[index],
-                      groupValue: value,
-                      tittle:  allEthnicGroup[index],
-                      onChanged: (val) {
-                        setState(() {
-                          value = val;
-                        });
-                      },
-                    ),
-                    const  SizedBox(height: 16,)
-                  ],),
+                  itemBuilder: (context, index) => Column(
+                    children: [
+                      CustomRadioTile<String>(
+                        onSubtitleClicked: () {},
+                        toggleSubtitle: false,
+                        value: allEthnicGroup[index],
+                        groupValue: value,
+                        tittle: allEthnicGroup[index],
+                        onChanged: (val) {
+                          setState(() {
+                            value = val;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -82,18 +90,36 @@ class _EthnicGroupState extends State<EthnicGroup> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              GestureDetector(
-                child: const Text(
-                  'Skip',
-                  style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
-                ),
-                onTap: (){
-                  widget.onComplete();
-                },
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: NextButton(
+                        isNext: false,
+                        onPressed: () {
+                          widget.onPrev();
+                        }),
+                  ),
+                  GestureDetector(
+                    child: const Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    onTap: () {
+                      widget.onComplete(null);
+                    },
+                  ),
+                ],
               ),
               NextButton(onPressed: () {
-                widget.onComplete();
+                if (value.isEmpty) {
+                  showCustomToast('Select an option');
+                } else {
+                  widget.onComplete(value);
+                }
               }),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
@@ -6,8 +7,9 @@ import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 
 class PartnersBodyType extends StatefulWidget {
-  const PartnersBodyType({Key? key, required this.onComplete}) : super(key: key);
-  final Function onComplete;
+  const PartnersBodyType({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
+  final Function(String? pBodyType) onComplete;
+  final Function onPrev;
 
   @override
   State<PartnersBodyType> createState() => _PartnersBodyTypeState();
@@ -121,24 +123,39 @@ class _PartnersBodyTypeState extends State<PartnersBodyType> {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                child: const Text(
-                  'Skip',
-                  style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w500, ),
-                ),onTap: (){
-                widget.onComplete();
-              },),
-              NextButton(onPressed: () {
-                widget.onComplete();
-              }),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                NextButton(
+                    isNext: false,
+                    onPressed: () {
+                      widget.onPrev();
+                    }),
+                GestureDetector(
+                  child: const Text(
+                    'Skip',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  onTap: () {
+                    widget.onComplete(null);
+                  },
+                ),
+              ],
+            ),
+            NextButton(onPressed: () {
+              if (value.isEmpty) {
+                showCustomToast('Select an option');
+              } else {
+                widget.onComplete(value);
+              }
+            }),
+          ],
         )
       ],
     );

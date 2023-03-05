@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-
 class Relationship extends StatefulWidget {
-  const Relationship({Key? key, required this.onComplete}) : super(key: key);
-  final Function onComplete;
+  const Relationship({Key? key, required this.onComplete, required this.onPrev})
+      : super(key: key);
+  final Function(String? relationShip) onComplete;
+  final Function onPrev;
 
   @override
   State<Relationship> createState() => _RelationshipState();
@@ -36,7 +38,10 @@ class _RelationshipState extends State<Relationship> {
               ),
               const Text(
                 'To me, sex in a relationship is:',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
@@ -127,13 +132,21 @@ class _RelationshipState extends State<Relationship> {
               GestureDetector(
                 child: const Text(
                   'Skip',
-                  style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w500, ),
-                ),onTap: (){
-                widget.onComplete();
-              },),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                onTap: () {
+                  widget.onComplete(null);
+                },
+              ),
               NextButton(onPressed: () {
-                widget.onComplete();
+                if (value.isEmpty) {
+                  showCustomToast('Select an option');
+                } else {
+                  widget.onComplete(value);
+                }
               }),
             ],
           ),

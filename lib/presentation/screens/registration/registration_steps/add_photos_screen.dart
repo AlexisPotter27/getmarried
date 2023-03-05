@@ -177,7 +177,7 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: NextButton(
-                      icon: const Icon(Icons.arrow_back_ios,size: 16,color: Colors.black,),
+                    isNext: false,
                       onPressed: () {
                         widget.onPrev();
                       }),

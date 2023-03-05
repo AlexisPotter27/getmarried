@@ -64,7 +64,7 @@ class UserData {
   String? dateMatch;
   String? email;
   List<dynamic>? interests;
-  double? height;
+  String? height;
   String? workout;
   String? starSign;
   String? education;
@@ -110,7 +110,7 @@ class UserData {
     String? dateMatch,
     String? email,
     List<dynamic>? interests,
-    double? height,
+    String? height,
     String? workout,
     String? starSign,
     String? education,

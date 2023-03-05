@@ -8,7 +8,7 @@ import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 class ChooseDateScreen extends StatefulWidget {
   const ChooseDateScreen({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
-  final Function onComplete;
+  final Function(String date) onComplete;
   final Function onPrev;
 
   @override
@@ -84,18 +84,19 @@ class _ChooseDateScreenState extends State<ChooseDateScreen> {
           ),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
 
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: NextButton(
-                  icon: const Icon(Icons.arrow_back_ios,size: 16,color: Colors.black,),
+                  isNext: false,
                   onPressed: () {
                     widget.onPrev();
                   }),
             ),
             NextButton(onPressed: () {
-              widget.onComplete();
+              widget.onComplete(radioValue);
             }),
           ],
         )

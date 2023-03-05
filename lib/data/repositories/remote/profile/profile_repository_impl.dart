@@ -6,7 +6,7 @@ import 'package:getmarried/data/repositories/remote/profile/profile_repository.d
 import 'package:getmarried/models/user.dart';
 
 class ProfileRepositoryImpl extends ProfileRepository {
-  final store = HiveStore(StorageKeys.user);
+  final store = HiveStore(StorageKeys.userStore);
 
   ProfileRepositoryImpl() {
     init();

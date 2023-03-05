@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -86,9 +87,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     try {
       ApiResponse response = await authRepository.updateUser(event.userData);
+
       if (response.error == null) {
         emit(UpdateUserSuccessState(response.data));
       } else {
+        log(response.error.toString());
         emit(UpdateUserFailureState(response.error));
       }
     } on Exception catch (e) {

@@ -1,20 +1,21 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/data/models/chip_choice_mode.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/choice_widget.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-
-
 class InterestScreen extends StatefulWidget {
   const InterestScreen({Key? key, required this.onComplete}) : super(key: key);
-  final Function onComplete;
+  final Function(List<String>? interest) onComplete;
 
   @override
   State<InterestScreen> createState() => _InterestScreenState();
 }
 
-class _InterestScreenState extends State<InterestScreen> {
+class _InterestScreenState extends State<InterestScreen> with AutomaticKeepAliveClientMixin {
   List<ChipChoiceModel> creativitySelections = [];
   List<ChipChoiceModel> sportsSelections = [];
   List<ChipChoiceModel> goingOutSelections = [];
@@ -42,7 +43,10 @@ class _InterestScreenState extends State<InterestScreen> {
                       Text(
                         'Your interests',
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white,),
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                       SizedBox(
                         height: 10,
@@ -50,7 +54,9 @@ class _InterestScreenState extends State<InterestScreen> {
                       Text(
                         'Pick 5 things you love. It will help you match with people who love them too.',
                         style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
                       ),
                     ],
                   ),
@@ -62,9 +68,9 @@ class _InterestScreenState extends State<InterestScreen> {
                   options: creativityChoices,
                   tittle: 'Creativity',
                   onSelectionShaged: (List<ChipChoiceModel> selection) {
-                  setState(() {
-                    creativitySelections = selection;
-                  });
+                    setState(() {
+                      creativitySelections = selection;
+                    });
                   },
                 ),
                 const SizedBox(
@@ -73,7 +79,7 @@ class _InterestScreenState extends State<InterestScreen> {
                 ChoiceWidget(
                     options: sports,
                     tittle: 'Sports',
-                    onSelectionShaged: (val){
+                    onSelectionShaged: (val) {
                       setState(() {
                         sportsSelections = val;
                       });
@@ -84,7 +90,7 @@ class _InterestScreenState extends State<InterestScreen> {
                 ChoiceWidget(
                     options: goingOut,
                     tittle: 'Going out',
-                    onSelectionShaged: (val){
+                    onSelectionShaged: (val) {
                       setState(() {
                         goingOutSelections = val;
                       });
@@ -95,7 +101,7 @@ class _InterestScreenState extends State<InterestScreen> {
                 ChoiceWidget(
                     options: stayingIn,
                     tittle: 'Staying in',
-                    onSelectionShaged: (val){
+                    onSelectionShaged: (val) {
                       setState(() {
                         stayingInSelections = val;
                       });
@@ -106,7 +112,7 @@ class _InterestScreenState extends State<InterestScreen> {
                 ChoiceWidget(
                     options: filmTv,
                     tittle: 'Film & Tv',
-                    onSelectionShaged: (val){
+                    onSelectionShaged: (val) {
                       setState(() {
                         filmTvSelections = val;
                       });
@@ -123,11 +129,13 @@ class _InterestScreenState extends State<InterestScreen> {
                   GestureDetector(
                     child: const Text(
                       'Skip',
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white),
                     ),
                     onTap: () {
-                      widget.onComplete();
+                      // widget.onComplete();
                     },
                   ),
                 ],
@@ -137,10 +145,20 @@ class _InterestScreenState extends State<InterestScreen> {
               children: [
                 const Text(
                   '1/5 selected',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
                 ),
                 NextButton(onPressed: () {
-                  widget.onComplete();
+                  if(allInterests.isEmpty){
+                    showCustomToast('Select atleast one interest');
+                  }else{
+                    log(allInterests.length.toString());
+                    widget.onComplete(allInterests);
+                  }
+
+
                 })
               ],
             )
@@ -149,6 +167,20 @@ class _InterestScreenState extends State<InterestScreen> {
       ],
     );
   }
+
+  List<ChipChoiceModel> get all => [
+        ...sportsSelections,
+        ...filmTvSelections,
+        ...creativitySelections,
+        ...sportsSelections,
+        ...goingOutSelections
+      ];
+
+  List<String> get allInterests => all.map((e) => e.label).toList();
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class _ChoiceLabelBuilder extends StatelessWidget {

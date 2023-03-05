@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 
 class StartingAndFinishing extends StatefulWidget {
-  const StartingAndFinishing({Key? key, required this.onComplete}) : super(key: key);
-  final Function onComplete;
+  const StartingAndFinishing({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
+  final Function(String? startAndFinish) onComplete;
+  final Function onPrev;
 
   @override
   State<StartingAndFinishing> createState() => _StartingAndFinishingState();
@@ -109,16 +111,36 @@ class _StartingAndFinishingState extends State<StartingAndFinishing> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              GestureDetector(
-                child: const Text(
-                  'Skip',
-                  style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w500, ),
-                ),onTap: (){
-                widget.onComplete();
-              },),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: NextButton(
+                        isNext: false,
+                        onPressed: () {
+                          widget.onPrev();
+                        }),
+                  ),
+                  GestureDetector(
+                    child: const Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    onTap: () {
+                      widget.onComplete(null);
+                    },
+                  ),
+                ],
+              ),
               NextButton(onPressed: () {
-                widget.onComplete();
+                if (value.isEmpty) {
+                  showCustomToast('Select an option');
+                } else {
+                  widget.onComplete(value);
+                }
               }),
             ],
           ),

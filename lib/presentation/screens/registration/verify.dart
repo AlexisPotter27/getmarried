@@ -78,7 +78,7 @@ class _VerifyState extends State<Verify> {
             updateCache();
             getIt.get<CacheCubit>().updateUser(state.userData);
             getIt.get<CacheCubit>().getCachedUser();
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => getNextScreen(state.userData)));

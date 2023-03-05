@@ -83,8 +83,7 @@ class AuthRepositoryImpl extends AuthRepository {
       for (var element in snapshots.docs) {
         if (element.id == uid) {
           log(element.id);
-          return ApiResponse(
-              data: UserData.fromJson(element.data()), error: null);
+          return ApiResponse(data: UserData.fromJson(element.data()), error: null);
         } else {
           DocumentReference userRef =
               db.collection(FirebaseKeys.users).doc(uid);
@@ -106,13 +105,20 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<ApiResponse> updateUser(UserData userData) async {
     try {
-      await db.collection(FirebaseKeys.users).doc(userData.uid)
-          .update(userData.toJson());
+      await db
+          .collection(FirebaseKeys.users)
+          .doc(userData.uid)
+          .update(userData.toJson())
+          .onError((error, stackTrace) => {
+            log(error.toString()
+            )});
 
       return ApiResponse(data: userData, error: null);
     } on FirebaseException catch (e) {
+      log(e.code.toString());
       return ApiResponse(data: null, error: e.code);
     } on Exception catch (e) {
+      log(e.toString());
       return ApiResponse(data: null, error: e.toString());
     }
   }
