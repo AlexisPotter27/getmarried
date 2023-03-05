@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/widgets/upgrade_button.dart';
 
 import '../../presentation/card_form_screen.dart';

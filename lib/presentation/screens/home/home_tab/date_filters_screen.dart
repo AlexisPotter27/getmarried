@@ -29,9 +29,24 @@ class _DateFiltersScreenState extends State<DateFiltersScreen> {
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
-        title: const Text(
-          'Date filters',
-          style: TextStyle(color: Colors.black, fontSize: 16),
+        title:  Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              height: 40,
+              width: 50,
+            ),
+            const Text(
+              'Date filters',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16),
+            ),
+          ],
         ),
       ),
       body: SafeArea(

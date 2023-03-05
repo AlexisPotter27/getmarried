@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/data/models/chip_choice_mode.dart';
 
 class ChipsBox extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/likes/liker_item.dart';
@@ -34,6 +34,12 @@ class _LikeRefractorState extends State<LikeRefractor> {
               elevation: 0,
               backgroundColor: primaryColour,
               pinned: true,
+              centerTitle: true,
+              title: Image.asset(
+                'assets/logo.png',
+                height: 40,
+                width: 50,
+              ),
               floating: true,
               bottom: AppBar(
                 backgroundColor: Colors.white,

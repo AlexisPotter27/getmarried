@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/widgets/date/children_bottomsheet.dart';
 import 'package:getmarried/widgets/date/drink_bottomsheet.dart';
 import 'package:getmarried/widgets/date/education_bottomsheet.dart';
@@ -36,9 +36,24 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
-        title: const Text(
-          'Advanced FIlters',
-          style: TextStyle(color: Colors.black, fontSize: 16),
+        title:  Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              height: 40,
+              width: 50,
+            ),
+            const Text(
+              'Advanced filters',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: primaryColour,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16),
+            ),
+          ],
         ),
       ),
       body: SafeArea(

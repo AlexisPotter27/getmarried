@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-
 class Athletic extends StatefulWidget {
-  const Athletic({Key? key, required this.onComplete}) : super(key: key);
-  final Function onComplete;
+  const Athletic({Key? key, required this.onComplete, required this.onPrev})
+      : super(key: key);
+  final Function(String? athletic) onComplete;
+  final Function onPrev;
 
   @override
   State<Athletic> createState() => _AthleticState();
@@ -36,7 +38,10 @@ class _AthleticState extends State<Athletic> {
               ),
               const Text(
                 "I feel like I'm an athletic person ?",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
@@ -104,24 +109,38 @@ class _AthleticState extends State<Athletic> {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                child: const Text(
-                  'Skip',
-                  style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w500, ),
-                ),onTap: (){
-                widget.onComplete();
-              },),
-              NextButton(onPressed: () {
-                widget.onComplete();
-              }),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                NextButton(
+                    isNext: false,
+                    onPressed: () {
+                      widget.onPrev();
+                    }),
+                GestureDetector(
+                  child: const Text(
+                    'Skip',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  onTap: () {
+                    widget.onComplete(null);
+                  },
+                ),
+              ],
+            ),
+            NextButton(onPressed: () {
+              if (value.isEmpty) {
+                showCustomToast('Select an option');
+              } else {
+                widget.onComplete(value);
+              }
+            }),
+          ],
         )
       ],
     );

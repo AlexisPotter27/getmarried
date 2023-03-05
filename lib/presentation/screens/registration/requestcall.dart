@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/presentation/screens/registration/call.dart';
 import 'package:getmarried/widgets/button.dart';
 

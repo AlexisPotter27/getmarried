@@ -2,7 +2,7 @@ import 'dart:developer' as d;
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 
 class SwipableCard extends StatefulWidget {
   const SwipableCard(

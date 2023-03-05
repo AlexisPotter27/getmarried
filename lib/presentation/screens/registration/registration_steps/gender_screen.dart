@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/widgets/reigistration/about_gender_dialog.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-
-
 class GenderScreen extends StatefulWidget {
-  const GenderScreen({Key? key, required this.onComplete}) : super(key: key);
-  final Function onComplete;
+  const GenderScreen({Key? key, required this.onComplete, required this.onPrev})
+      : super(key: key);
+  final Function(String gender) onComplete;
+  final Function onPrev;
 
   @override
   State<GenderScreen> createState() => _GenderScreenState();
 }
 
-List<String> options = ['Man', 'Woman', ];
+List<String> options = [
+  'Man',
+  'Woman',
+];
 String radioValue = 'Man';
 
 class _GenderScreenState extends State<GenderScreen> {
@@ -32,14 +35,20 @@ class _GenderScreenState extends State<GenderScreen> {
               ),
               const Text(
                 'What is your gender ?',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
               ),
               const Text(
                 'Pick which best describes you. then add more about your gender if you would like.',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 16,
@@ -61,7 +70,7 @@ class _GenderScreenState extends State<GenderScreen> {
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
                           context: context,
-                          builder: (context) =>  AboutGenderSheet(
+                          builder: (context) => AboutGenderSheet(
                             options: aboutOptions(options[index]),
                           ),
                         );
@@ -89,8 +98,9 @@ class _GenderScreenState extends State<GenderScreen> {
           ),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-          /*  Expanded(
+            /*  Expanded(
               child: Row(
                 children: const [
                   Icon(Icons.remove_red_eye, color: Colors.white),
@@ -105,11 +115,16 @@ class _GenderScreenState extends State<GenderScreen> {
                 ],
               ),
             ),*/
-            const SizedBox(
-              width: 300,
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: NextButton(
+                  isNext: false,
+                  onPressed: () {
+                    widget.onPrev();
+                  }),
             ),
             NextButton(onPressed: () {
-              widget.onComplete();
+              widget.onComplete(radioValue);
             }),
           ],
         )

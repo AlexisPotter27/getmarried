@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/widgets/reigistration/about_gender_dialog.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
@@ -7,8 +7,9 @@ import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 
 class ChooseDateScreen extends StatefulWidget {
-  const ChooseDateScreen({Key? key, required this.onComplete}) : super(key: key);
-  final Function onComplete;
+  const ChooseDateScreen({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
+  final Function(String date) onComplete;
+  final Function onPrev;
 
   @override
   State<ChooseDateScreen> createState() => _ChooseDateScreenState();
@@ -83,12 +84,19 @@ class _ChooseDateScreenState extends State<ChooseDateScreen> {
           ),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(
-              width: 300,
+
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: NextButton(
+                  isNext: false,
+                  onPressed: () {
+                    widget.onPrev();
+                  }),
             ),
             NextButton(onPressed: () {
-              widget.onComplete();
+              widget.onComplete(radioValue);
             }),
           ],
         )

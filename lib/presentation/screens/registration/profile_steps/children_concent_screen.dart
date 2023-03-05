@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 
 
 class ChildrenConsentScreen extends StatefulWidget {
-  const ChildrenConsentScreen({Key? key, required this.onComplete})
+  const ChildrenConsentScreen({Key? key, required this.onComplete, required this.onPrev})
       : super(key: key);
-  final Function onComplete;
+  final Function(String? children) onComplete;
+  final Function onPrev;
 
   @override
   State<ChildrenConsentScreen> createState() => _ChildrenConsentScreenState();
@@ -85,18 +87,36 @@ class _ChildrenConsentScreenState extends State<ChildrenConsentScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              GestureDetector(
-                child: const Text(
-                  'Skip',
-                  style:
-                      TextStyle(color: Colors.white, fontWeight: FontWeight.w500,),
-                ),
-                onTap: (){
-                  widget.onComplete();
-                },
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: NextButton(
+                        isNext: false,
+                        onPressed: () {
+                          widget.onPrev();
+                        }),
+                  ),
+                  GestureDetector(
+                    child: const Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    onTap: () {
+                      widget.onComplete(null);
+                    },
+                  ),
+                ],
               ),
               NextButton(onPressed: () {
-                widget.onComplete();
+                if (value.isEmpty) {
+                  showCustomToast('Select an option');
+                } else {
+                  widget.onComplete(value);
+                }
               }),
             ],
           ),

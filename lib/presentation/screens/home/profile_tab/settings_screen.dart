@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/widgets/date/settings_tile.dart';
 import 'package:getmarried/widgets/secondary_widget.dart';
 
@@ -18,9 +18,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         elevation: 1,
         centerTitle: true,
-        title: const Text(
-          'Settings',
-          style: TextStyle(color: Colors.black),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              height: 40,
+              width: 50,
+            ),
+            const Text(
+              'Settings',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: primaryColour,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16),
+            ),
+          ],
         ),
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
@@ -30,7 +45,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 20,),
               SettingsTile(
                 text: 'Choose mode',
                 onPressed: () {},
@@ -127,7 +141,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   height: 25,
                   child: Row(
                     children: const [
-                      Text('Florida, USA'),
+                      Text('Aba, NG'),
                       SizedBox(
                         width: 8,
                       ),
@@ -188,7 +202,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   style: TextButton.styleFrom(
                       shape: const StadiumBorder(),
                       backgroundColor: Colors.grey.shade300,
-                      primary: Colors.black),
+                      foregroundColor: Colors.black),
                   onPressed: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -208,7 +222,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               TransaparentButton(
                   child: const Text('Delete account'), onPressed: () {}),
               const SizedBox(
-                height: 4,
+                height: 70,
               ),
             ],
           ),

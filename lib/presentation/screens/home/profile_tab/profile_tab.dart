@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
-import 'package:getmarried/presentation/card_form_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/profile_settings_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/settings_screen.dart';
 import 'package:getmarried/widgets/profile_tab/card_tile.dart';
@@ -30,99 +29,12 @@ class _ProfileTabState extends State<ProfileTab> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              //title: const Text('Sonia',style: TextStyle(color: Colors.black),),
-              leading: GestureDetector(
-                  onTap: () {
-
-                  },
-                  child: const Icon(
-                    Icons.menu,
-                    color: Colors.grey,
-                    size: 30,
-                  )),
-              elevation: 0,
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              pinned: true,
-              // floating: true,
-
-              actions: [
-                GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SettingsScreen(),
-                      ));
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Icon(
-                        Icons.settings,
-                        color: Colors.grey,
-                        size: 30,
-                      ),
-                    )),
-              ],
-              expandedHeight: 270,
-              collapsedHeight: 60,
-              flexibleSpace: FlexibleSpaceBar(
-                  collapseMode: CollapseMode.parallax,
-                  background: Column(
-                    children: [
-                      const SizedBox(
-                        height: 60,
-                      ),
-                      const Center(
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundImage:
-                              AssetImage('assets/jpeg/person1.jpeg'),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Center(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            Text(
-                              'Sonia, 23',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Icon(
-                              Icons.security,
-                              size: 16,
-                              color: Colors.grey,
-                            )
-                          ],
-                        ),
-                      ),
-                      Center(
-                        child: Chip(
-                          label: const Text(
-                            'Complete my profile',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          backgroundColor: Colors.grey.shade300,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                    ],
-                  )),
-            ),
-
-            /*SliverAppBar(
-              title: const Text(
-                'Sonia',
-                style: TextStyle(color: Colors.black),
+              title: Center(
+                child: Image.asset(
+                  'assets/logo.png',
+                  height: 40,
+                  width: 50,
+                ),
               ),
 
               leading: GestureDetector(
@@ -218,10 +130,9 @@ class _ProfileTabState extends State<ProfileTab> {
                       const SizedBox(
                         height: 16,
                       ),
-                     ],
+                    ],
                   )),
-            ),*/
-
+            ),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -249,42 +160,28 @@ class _ProfileTabState extends State<ProfileTab> {
                         },
                         controller: _controller,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const CardFormScreen(),
-                                ));
-                              },
-                              child: const SubscriptionCard(
-                                tittle: '50% off Premium',
-                                description: 'Offer ends in 12:12:27',
-                                buttonText: 'Upgrade for 12.51 USD',
-                              ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: SubscriptionCard(
+                              tittle: '50% off Premium',
+                              description: 'Offer ends in 12:12:27',
+                              buttonText: 'Upgrade for 3,950 NGN',
                             ),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const CardFormScreen(),
-                              ));
-                            },
-                            child: SubscriptionCard(
-                              tittle: 'Boost',
-                              gradient: LinearGradient(
-                                  end: Alignment.bottomRight,
-                                  begin: Alignment.topLeft,
-                                  colors: [
-                                    Colors.cyan.shade200,
-                                    Colors.cyan.shade400,
-                                    Colors.cyan,
-                                    Colors.cyan,
-                                  ]),
-                              description:
-                                  'More chances to match with extra features to boost your profile',
-                              buttonText: 'Upgrade from 8.25 USD',
-                            ),
+                          SubscriptionCard(
+                            tittle: 'Boost',
+                            gradient: LinearGradient(
+                                end: Alignment.bottomRight,
+                                begin: Alignment.topLeft,
+                                colors: [
+                                  Colors.cyan.shade200,
+                                  Colors.cyan.shade400,
+                                  Colors.cyan,
+                                  Colors.cyan,
+                                ]),
+                            description:
+                                'More chances to match with extra features to boost your profile',
+                            buttonText: 'Upgrade from 1,800 NGN',
                           ),
                         ],
                       ),
@@ -351,19 +248,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 ),
                 childCount: features.length,
               ),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: FeaturesTile(
-                    featureModel: features[index],
-                    selectedFeature: _selectedIndex,
-                  ),
-                ),
-                childCount: features.length,
-              ),
-            ),
+            )
           ],
         ),
       ),

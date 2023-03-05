@@ -3,11 +3,20 @@ import 'package:flutter/material.dart';
 import 'form_field.dart';
 
 class BirthDateWidget extends StatefulWidget {
-  const BirthDateWidget({Key? key}) : super(key: key);
+  const BirthDateWidget(
+      {Key? key,
+      required this.dayController,
+      required this.yearController,
+      required this.monthController})
+      : super(key: key);
+  final TextEditingController dayController;
+
+  final TextEditingController yearController;
+
+  final TextEditingController monthController;
 
   @override
   State<BirthDateWidget> createState() => _BirthDateWidgetState();
-
 }
 
 class _BirthDateWidgetState extends State<BirthDateWidget> {
@@ -16,12 +25,12 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
   final yearFocusNode = FocusNode();
   late final int britYear;
 
-  TextEditingController dayController = TextEditingController();
-  TextEditingController yearController = TextEditingController();
-  TextEditingController monthController = TextEditingController();
+  // TextEditingController dayController = TextEditingController();
+  // TextEditingController yearController = TextEditingController();
+  // TextEditingController monthController = TextEditingController();
 
-   void yearBirth(){
-    String year = yearController.text.toString();
+  void yearBirth() {
+    String year = widget.yearController.text.toString();
     britYear = int.parse(year);
   }
 
@@ -29,7 +38,6 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
   void initState() {
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +49,7 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
           children: [
             const Text(
               'Month',
-              style: TextStyle( color: Colors.white),
+              style: TextStyle(color: Colors.white),
             ),
             const SizedBox(
               height: 8,
@@ -54,11 +62,10 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
                 maxLenght: 2,
                 hintText: 'MM',
                 keyboardType: TextInputType.number,
-                controller: monthController,
+                controller: widget.monthController,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                 onChanged: (val) {
-
                   log(val.length.toString());
                   if (val.length == 2) {
                     dayFocusNode.unfocus();
@@ -77,7 +84,7 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
           children: [
             const Text(
               'Day',
-              style: TextStyle( color: Colors.white),
+              style: TextStyle(color: Colors.white),
             ),
             const SizedBox(
               height: 8,
@@ -90,7 +97,7 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
                 maxLenght: 2,
                 hintText: 'DD',
                 keyboardType: TextInputType.number,
-                controller: dayController,
+                controller: widget.dayController,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                 onChanged: (val) {
@@ -112,7 +119,7 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
           children: [
             const Text(
               'Year',
-              style: TextStyle( color: Colors.white),
+              style: TextStyle(color: Colors.white),
             ),
             const SizedBox(
               height: 8,
@@ -125,7 +132,7 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
                 maxLenght: 4,
                 hintText: 'YYYY',
                 keyboardType: TextInputType.number,
-                controller: yearController,
+                controller: widget.yearController,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                 onChanged: (val) {

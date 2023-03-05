@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-
 class Creativity extends StatefulWidget {
-  const Creativity({Key? key, required this.onComplete}) : super(key: key);
-  final Function onComplete;
+  const Creativity({Key? key, required this.onComplete, required this.onPrev})
+      : super(key: key);
+  final Function(String? creativity) onComplete;
+  final Function onPrev;
 
   @override
   State<Creativity> createState() => _CreativityState();
@@ -36,7 +38,10 @@ class _CreativityState extends State<Creativity> {
               ),
               const Text(
                 "I think of myself as a creative type: ",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
@@ -109,16 +114,36 @@ class _CreativityState extends State<Creativity> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              GestureDetector(
-                child: const Text(
-                  'Skip',
-                  style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w500, ),
-                ),onTap: (){
-                widget.onComplete();
-              },),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: NextButton(
+                        isNext: false,
+                        onPressed: () {
+                          widget.onPrev();
+                        }),
+                  ),
+                  GestureDetector(
+                    child: const Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    onTap: () {
+                      widget.onComplete(null);
+                    },
+                  ),
+                ],
+              ),
               NextButton(onPressed: () {
-                widget.onComplete();
+                if (value.isEmpty) {
+                  showCustomToast('Select an option');
+                } else {
+                  widget.onComplete(value);
+                }
               }),
             ],
           ),

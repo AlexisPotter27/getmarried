@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:getmarried/constant.dart';
+import 'package:getmarried/constants/constant.dart';
 
 class SmokeBottomScheet extends StatefulWidget {
   const SmokeBottomScheet({Key? key}) : super(key: key);

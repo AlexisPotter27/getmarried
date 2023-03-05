@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/form_field.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
@@ -6,8 +7,9 @@ import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 
 class EmailScreen extends StatefulWidget {
-  const EmailScreen({Key? key, required this.onComplete}) : super(key: key);
-  final Function onComplete;
+  const EmailScreen({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
+  final Function(String? email) onComplete;
+  final Function onPrev;
 
   @override
   State<EmailScreen> createState() => _EmailScreenState();
@@ -55,9 +57,17 @@ class _EmailScreenState extends State<EmailScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: NextButton(
+                  isNext: false,
+                  onPressed: () {
+                    widget.onPrev();
+                  }),
+            ),
             GestureDetector(
               onTap: () {
-                widget.onComplete();
+                widget.onComplete(null);
               },
               child: const Text(
                 'Skip',
@@ -65,7 +75,12 @@ class _EmailScreenState extends State<EmailScreen> {
               ),
             ),
             NextButton(onPressed: () {
-              widget.onComplete();
+              if(_emailController.text.isEmpty){
+                showCustomToast('Enter email');
+              }else{
+                widget.onComplete(_emailController.text);
+
+              }
             }),
           ],
         )
