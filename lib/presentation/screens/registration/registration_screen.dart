@@ -27,7 +27,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final _pageController = PageController();
   double progress = 0.11;
   UserData? cachedUser = getIt.get<CacheCubit>().user;
-  AuthBloc authBloc = getIt.get<AuthBloc>();
+  AuthBloc authBloc = AuthBloc(getIt.get());
 
   @override
   Widget build(BuildContext context) {
