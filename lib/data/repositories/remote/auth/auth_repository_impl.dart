@@ -149,13 +149,13 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<ApiResponse> uploadUserImages(List<File>? files) async {
-    List images = [];
+    List<String> images = [];
     try {
       for (File file in files ?? []) {
-        Reference imageRef =
-            storage.ref(FirebaseKeys.userImages).child(DateTime.now().toIso8601String());
-        UploadTask task = imageRef.putFile(file);
-
+        Reference imageRef = storage
+            .ref(FirebaseKeys.userImages)
+            .child(DateTime.now().toIso8601String());
+        await imageRef.putFile(file);
         images.add(await imageRef.getDownloadURL());
         // task.whenComplete(() {
         //

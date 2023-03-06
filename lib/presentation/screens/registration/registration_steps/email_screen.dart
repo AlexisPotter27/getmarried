@@ -3,11 +3,9 @@ import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/form_field.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-
-
-
 class EmailScreen extends StatefulWidget {
-  const EmailScreen({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
+  const EmailScreen({Key? key, required this.onComplete, required this.onPrev})
+      : super(key: key);
   final Function(String? email) onComplete;
   final Function onPrev;
 
@@ -15,7 +13,8 @@ class EmailScreen extends StatefulWidget {
   State<EmailScreen> createState() => _EmailScreenState();
 }
 
-class _EmailScreenState extends State<EmailScreen> {
+class _EmailScreenState extends State<EmailScreen>
+    with AutomaticKeepAliveClientMixin {
   final _emailController = TextEditingController();
 
   @override
@@ -32,14 +31,20 @@ class _EmailScreenState extends State<EmailScreen> {
               ),
               const Text(
                 'What is your email ?',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 10,
               ),
               const Text(
                 'We use this to recover your account if you cannot log in.',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: Colors.white),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
@@ -71,15 +76,15 @@ class _EmailScreenState extends State<EmailScreen> {
               },
               child: const Text(
                 'Skip',
-                style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+                style:
+                    TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
               ),
             ),
             NextButton(onPressed: () {
-              if(_emailController.text.isEmpty){
+              if (_emailController.text.isEmpty) {
                 showCustomToast('Enter email');
-              }else{
+              } else {
                 widget.onComplete(_emailController.text);
-
               }
             }),
           ],
@@ -87,4 +92,7 @@ class _EmailScreenState extends State<EmailScreen> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

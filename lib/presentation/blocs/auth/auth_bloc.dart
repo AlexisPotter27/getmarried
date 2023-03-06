@@ -104,10 +104,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> _mapUpdateUserImageEventToState(
       UpdateUserImageEvent event, Emitter<AuthState> emit) async {
-    ApiResponse response = await authRepository.uploadUserImages(event.images);
-
     emit(const UpdateUserImageLoadingState());
+
     try {
+      ApiResponse response =
+          await authRepository.uploadUserImages(event.images);
       if (response.error == null) {
         emit(UpdateUserImageSuccessState(response.data));
       } else {
