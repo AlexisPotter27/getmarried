@@ -21,7 +21,7 @@ class PrivacyScreen extends StatefulWidget {
 }
 
 class _PrivacyScreenState extends State<PrivacyScreen> {
-  AuthBloc authBloc = getIt.get<AuthBloc>();
+  AuthBloc authBloc = AuthBloc(getIt.get());
   UserData? userData = getIt.get<CacheCubit>().user;
 
   @override

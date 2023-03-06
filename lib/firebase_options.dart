@@ -72,7 +72,7 @@ class DefaultFirebaseOptions {
     projectId: 'getmarriedapp-810aa',
     databaseURL: 'https://getmarriedapp-810aa-default-rtdb.firebaseio.com',
     storageBucket: 'getmarriedapp-810aa.appspot.com',
-    androidClientId: '594283361767-qndtj5ed0n6fogk8p6mv6hdlm706g70b.apps.googleusercontent.com',
+    androidClientId: '594283361767-6ap9vtei9ikrm932bfaekgo7paottgov.apps.googleusercontent.com',
     iosClientId: '594283361767-lkcp68lhflac3jf58ou9viflnhrolc21.apps.googleusercontent.com',
     iosBundleId: 'com.app.getmarried',
   );

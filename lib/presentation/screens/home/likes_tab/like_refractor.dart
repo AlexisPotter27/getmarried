@@ -71,9 +71,7 @@ class _LikeRefractorState extends State<LikeRefractor> {
                               : Colors.transparent,
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
+
                       GestureDetector(
                         onTap: () {
                           setState(() {
@@ -227,17 +225,11 @@ class _LikeRefractorState extends State<LikeRefractor> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: const [
                                   Text(
-                                    '7,900.00 NGN',
-                                    style: TextStyle(
-                                        decoration: TextDecoration.lineThrough,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Text(
-                                    '3,950.00 NGN',
+                                    '8.59 USD',
                                     style: TextStyle(
                                         fontSize: 13,
-                                        fontWeight: FontWeight.w500),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blue),
                                   ),
                                 ],
                               ),
