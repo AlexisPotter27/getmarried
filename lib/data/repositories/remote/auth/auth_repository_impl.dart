@@ -123,8 +123,14 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<ApiResponse> updateUser(UserData userData) async {
+  Future<ApiResponse> updateUser(UserData userData, List<File>? images) async {
     try {
+      if (images != null && images.isNotEmpty) {
+        ApiResponse imageUploadResponse = await uploadUserImages(images);
+        if (imageUploadResponse.error != null) {
+          userData.photos = imageUploadResponse.data;
+        }
+      }
       await db
           .collection(FirebaseKeys.users)
           .doc(userData.uid)
@@ -142,17 +148,22 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<ApiResponse> uploadUserImages(List<File> files) async {
-
+  Future<ApiResponse> uploadUserImages(List<File>? files) async {
+    List images = [];
     try {
-      for (File file in files) {
-        Reference userImagesRef = storage.ref().child('${FirebaseKeys.userImages}/file.');
+      for (File file in files ?? []) {
+        Reference imageRef =
+            storage.ref(FirebaseKeys.userImages).child(DateTime.now().toIso8601String());
+        UploadTask task = imageRef.putFile(file);
 
-        UploadTask task = userImagesRef.putFile(file);
-        task.whenComplete(() {
-
-        });
+        images.add(await imageRef.getDownloadURL());
+        // task.whenComplete(() {
+        //
+        // });
       }
+
+      log(images.length.toString());
+      return ApiResponse(data: images, error: null);
     } on FirebaseException catch (e) {
       return ApiResponse(data: null, error: e.code);
     } on Exception catch (e) {

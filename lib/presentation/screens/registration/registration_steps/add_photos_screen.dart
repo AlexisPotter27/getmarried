@@ -1,7 +1,10 @@
 import 'dart:developer';
 import 'dart:io' as io;
 import 'package:flutter/material.dart';
+import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/helper/app_utils.dart';
+import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
+import 'package:getmarried/presentation/screens/number.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 import 'package:getmarried/widgets/reigistration/not_sure_widget.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,6 +33,8 @@ class AddPhotosScreen extends StatefulWidget {
 class _AddPhotosScreenState extends State<AddPhotosScreen> {
   String? image1;
   String? image2;
+
+  AuthBloc bloc = AuthBloc(getIt.get());
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +91,10 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                                 setState(() {
                                   image1 = path;
                                 });
+                                if (image1 != null) {
+                                  bloc.add(UpdateUserImageEvent(
+                                      images: [io.File(image1!)]));
+                                }
                               },
                             ),
                           );
