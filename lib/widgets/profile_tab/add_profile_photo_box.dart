@@ -15,17 +15,21 @@ class _AddProfilePhotoBoxState extends State<AddProfilePhotoBox> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-
+      onTap: () {
         showModalBottomSheet(
           backgroundColor: Colors.transparent,
-          context: context, builder: (context) =>  FileUploadSheet(),);
+          context: context,
+          builder: (context) => FileUploadSheet(
+            onImageSelected: (String? path) {},
+          ),
+        );
       },
       child: Container(
         height: widget.height ?? 104,
         margin: widget.margin,
         decoration: BoxDecoration(
-            color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(8)),
         child: const Center(
           child: Icon(Icons.add),
         ),
