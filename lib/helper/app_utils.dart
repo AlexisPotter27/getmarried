@@ -1,3 +1,6 @@
+/*import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';*/
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -59,13 +62,13 @@ void showAnimatedProgressDialog(BuildContext context, {String? title}) {
   );
 }
 
-static selectFiles(BuildContext context, Function(List<String>) onSelected,
+/*static selectFiles(BuildContext context, Function(List<String>) onSelected,
     {bool allowMultiple = false,
       bool hasViewAction = false,
       String? title,
       FileType? fileType,
-      List<String>? allowedExtensions,
-      VoidCallback? onViewAction}) async {
+      List<String>? allowedExtensions,*/
+    /*  VoidCallback? onViewAction}) async {
   await showMaterialModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -146,9 +149,10 @@ static selectFiles(BuildContext context, Function(List<String>) onSelected,
           ),
         );
       });
-}
+}*/
 
-static Future<List<Map<String, String?>>> fetchVideos(
+
+/*static Future<List<Map<String, String?>>> fetchVideos(
 {bool allowMultiple = false}) async {
 try {
 FilePicker filePicker = FilePicker.platform;
@@ -169,8 +173,10 @@ return [];
 } catch (e) {
 return [];
 }
-}
+}*/
 
+
+/*
 static Future<List<PlatformFile>> fetchMedia(
 {bool allowMultiple = false,
 Function(FilePickerResult? result)? onSelect}) async {
@@ -203,4 +209,4 @@ return [];
 } catch (e) {
 return [];
 }
-}
+}*/
