@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -28,6 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     //     (event, emit) => add(PhoneNumberSigninEvent(event.credential)));
     on<PhoneNumberSigninEvent>(_mapPhoneNumberSignin);
     on<UpdateUserEvent>(_mapUpdateUserEventToState);
+    on<UpdateUserImageEvent>(_mapUpdateUserImageEventToState);
   }
 
   FutureOr<void> _mapSendOtpEventToState(
@@ -86,7 +88,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(const UpdateUserLoadingState());
 
     try {
-      ApiResponse response = await authRepository.updateUser(event.userData);
+      ApiResponse response =
+          await authRepository.updateUser(event.userData, event.images);
 
       if (response.error == null) {
         emit(UpdateUserSuccessState(response.data));
@@ -96,6 +99,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     } on Exception catch (e) {
       emit(UpdateUserFailureState(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapUpdateUserImageEventToState(
+      UpdateUserImageEvent event, Emitter<AuthState> emit) async {
+    emit(const UpdateUserImageLoadingState());
+
+    try {
+      ApiResponse response =
+          await authRepository.uploadUserImages(event.images);
+      if (response.error == null) {
+        emit(UpdateUserImageSuccessState(response.data));
+      } else {
+        log(response.error.toString());
+        emit(UpdateUserImageFailureState(response.error));
+      }
+    } on Exception catch (e) {
+      emit(UpdateUserImageFailureState(e.toString()));
     }
   }
 }

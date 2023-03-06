@@ -23,16 +23,16 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
   final dayFocusNode = FocusNode();
   final monthFocusNode = FocusNode();
   final yearFocusNode = FocusNode();
-  late final int britYear;
+  // late final int britYear;
 
   // TextEditingController dayController = TextEditingController();
   // TextEditingController yearController = TextEditingController();
   // TextEditingController monthController = TextEditingController();
 
-  void yearBirth() {
-    String year = widget.yearController.text.toString();
-    britYear = int.parse(year);
-  }
+  // void yearBirth() {
+  //   String year = widget.yearController.text.toString();
+  //   britYear = int.parse(year);
+  // }
 
   @override
   void initState() {
@@ -137,7 +137,7 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                 onChanged: (val) {
                   log(val.length.toString());
-                  yearBirth();
+                  // yearBirth();
                   if (val.length == 4) {
                     yearFocusNode.unfocus();
                   }

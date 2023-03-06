@@ -21,9 +21,9 @@ abstract class AuthRepository {
 
   Future<ApiResponse> signinUser(String uid);
 
-  Future<ApiResponse> updateUser(UserData userData);
+  Future<ApiResponse> updateUser(UserData userData,List<File>? images);
 
-  Future<ApiResponse> uploadUserImages(List<File> files);
+  Future<ApiResponse> uploadUserImages(List<File>? files);
 
 // Future void signinWithPhoneNumber
 

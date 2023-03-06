@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/birth_date_widget.dart';
@@ -7,7 +9,7 @@ class BirthdayScreen extends StatefulWidget {
   const BirthdayScreen(
       {Key? key, required this.onComplete, required this.onPrev})
       : super(key: key);
-  final Function(String date) onComplete;
+  final Function(DateTime date) onComplete;
   final Function onPrev;
 
   @override
@@ -93,7 +95,8 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
                     int.parse(yearController.text),
                     int.parse(monthController.text),
                     int.parse(dayController.text));
-                widget.onComplete(dob.millisecondsSinceEpoch.toString());
+                log(dob.year.toString());
+                widget.onComplete(dob);
               }
             }),
           ],

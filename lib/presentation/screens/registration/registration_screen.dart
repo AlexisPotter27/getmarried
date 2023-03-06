@@ -88,7 +88,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         switchPage(1);
                       }),
                       AddPhotosScreen(
-                        onComplete: () {
+                        onComplete: (images) {
+                          setState(() {
+                            cachedUser!.photos = images;
+                          });
                           switchPage(2);
                         },
                         onPrev: () {
@@ -105,17 +108,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               content: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
-                                children: const [
+                                children: [
                                   Text(
-                                    'You are 29',
-                                    style: TextStyle(
+                                    'You are ${_getAge(dob)}',
+                                    style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(
+                                  const Text(
                                       'Make sure this is your correct age as you cant change this later'),
                                 ],
                               ),
@@ -131,7 +134,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    cachedUser?.dateOfBirth = dob;
+                                    cachedUser?.dateOfBirth = dob.toString();
                                     Navigator.pop(context);
                                     switchPage(3);
                                   },
@@ -216,5 +219,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   void updateCache() {
     StorageHelper.setString(StorageKeys.regStatus, '1');
+  }
+
+  _getAge(DateTime dob) {
+    return (DateTime.now().year - dob.year).toString();
   }
 }
