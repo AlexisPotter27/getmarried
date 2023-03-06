@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/models/user.dart';
@@ -20,6 +22,8 @@ abstract class AuthRepository {
   Future<ApiResponse> signinUser(String uid);
 
   Future<ApiResponse> updateUser(UserData userData);
+
+  Future<ApiResponse> uploadUserImages(List<File> files);
 
 // Future void signinWithPhoneNumber
 

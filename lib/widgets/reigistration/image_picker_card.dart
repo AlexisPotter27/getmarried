@@ -22,7 +22,7 @@ class _ImagePickerCardState extends State<ImagePickerCard> {
         showModalBottomSheet(
           context: context,
           backgroundColor: Colors.transparent,
-          builder: (context) =>  FileUploadSheet(),
+          builder: (context) =>  FileUploadSheet(onImageSelected: (String? path) {  },),
         );
       },
       child: Container(

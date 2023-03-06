@@ -1,40 +1,36 @@
+import 'dart:developer';
 import 'dart:io' as io;
 import 'package:flutter/material.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 import 'package:getmarried/widgets/reigistration/not_sure_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../widgets/reigistration/file_upload_sheet.dart';
 
 class AddPhotosScreen extends StatefulWidget {
-  const AddPhotosScreen({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
+  AddPhotosScreen({Key? key, required this.onComplete, required this.onPrev})
+      : super(key: key);
   final Function onComplete;
   final Function onPrev;
 
   @override
   State<AddPhotosScreen> createState() => _AddPhotosScreenState();
-  static String image = '';
-
-  static void pickImage() async {
-    XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (file != null) {
-      image = file.path;
-      print('Image:: $image');
-      //setState(() {});
-    }
-  }
 
   /// Get image from Camera
-  static void pickImageFromCamera() async {
-    XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (file != null) {
-      image = file.path;
-      print('Image:: $image');
-      //setState(() {});
-    }
-  }
+// static void pickImageFromCamera() async {
+//   XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
+//   if (file != null) {
+//     image = file.path;
+//     print('Image:: $image');
+//     //setState(() {});
+//   }
+// }
 }
 
 class _AddPhotosScreenState extends State<AddPhotosScreen> {
+  String? image1;
+  String? image2;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -78,31 +74,68 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                 height: 150,
                 child: Row(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          backgroundColor: Colors.transparent,
-                          builder: (context) => FileUploadSheet(),
-                        );
-                      },
-                      child: Center(
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) => FileUploadSheet(
+                              onImageSelected: (String? path) {
+                                Navigator.pop(context);
+                                setState(() {
+                                  image1 = path;
+                                });
+                              },
+                            ),
+                          );
+                        },
                         child: Container(
-                          width: 200,
                           height: 400,
                           color: Colors.white,
                           alignment: Alignment.center,
-                          child: Center(
-                            child: (AddPhotosScreen.image != null)
-                                ? Image.file(io.File(AddPhotosScreen.image))
-                                : const Icon(Icons.add),
-                          ),
+                          child: image1 != null
+                              ? Image.file(
+                                  io.File(image1.toString()),
+                                  fit: BoxFit.cover,
+                                )
+                              : const Icon(Icons.add),
                           // ImagePickerCard(),
                         ),
                       ),
                     ),
                     const SizedBox(
                       width: 16,
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) => FileUploadSheet(
+                              onImageSelected: (String? path) {
+                                Navigator.pop(context);
+                                setState(() {
+                                  image2 = path;
+                                });
+                              },
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 400,
+                          color: Colors.white,
+                          alignment: Alignment.center,
+                          child: image2 != null
+                              ? Image.file(
+                                  io.File(image2.toString()),
+                                  fit: BoxFit.cover,
+                                )
+                              : const Icon(Icons.add),
+                          // ImagePickerCard(),
+                        ),
+                      ),
                     ),
                     //Expanded(child: ImagePickerCard()),
                   ],
@@ -176,7 +209,7 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: NextButton(
-                    isNext: false,
+                      isNext: false,
                       onPressed: () {
                         widget.onPrev();
                       }),
@@ -184,7 +217,11 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: NextButton(onPressed: () {
-                    widget.onComplete();
+                    if (image1 == null || image2 == null) {
+                      showCustomToast('Upload two images');
+                    } else {
+                      widget.onComplete();
+                    }
                   }),
                 ),
               ],
