@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:getmarried/constants/firebase_keys.dart';
 import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/models/user.dart';
@@ -31,8 +32,12 @@ class AuthRepositoryImpl extends AuthRepository {
 
     auth.verifyPhoneNumber(
         phoneNumber: number,
+       // autoRetrievedSmsCodeForTesting: ,
+       //  timeout: const Duration(seconds: 20),
         verificationCompleted: (PhoneAuthCredential credential) async {
+          log('VERIFIED');
           onVerificationCompleted(credential);
+
 
           // await auth.signInWithCredential(credential).then((value) {
           //   // ToastMessage.showToast('Verification successful.',);
@@ -59,11 +64,15 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<ApiResponse> signinWithPhoneNumber(credential) async {
+    debugPrint('Singining in with:${credential.smsCode}');
     try {
-      UserCredential user = await auth.signInWithCredential(credential);
+      UserCredential user = await auth.signInWithCredential(credential,);
 
       if (user.user != null) {
+        debugPrint('SIGNING IN ${user.user!.phoneNumber}');
+
         return await signinUser(user.user!.uid);
+
       } else {
         return ApiResponse(data: null, error: 'Signing failed please retry');
       }
@@ -77,20 +86,26 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<ApiResponse> signinUser(String uid) async {
     try {
-      QuerySnapshot<Map<String, dynamic>> snapshots =
-          await db.collection(FirebaseKeys.users).get();
+      debugPrint('RETREIVING USER DETAILS');
+
+      QuerySnapshot<Map<String, dynamic>> snapshots = await db.collection(FirebaseKeys.users).get();
 
       for (var element in snapshots.docs) {
         if (element.id == uid) {
           log(element.id);
+          debugPrint('USER ${element.id} ALREADY EXISTS');
+
           return ApiResponse(data: UserData.fromJson(element.data()), error: null);
         } else {
+          log(element.id);
           DocumentReference userRef =
               db.collection(FirebaseKeys.users).doc(uid);
-
+          debugPrint(' ADDING USER ${element.id}');
           await userRef.set(UserData(
             uid: uid,
           ).toJson());
+          debugPrint(' USER ${element.id} ADDED');
+
           return ApiResponse(data: UserData(uid: uid), error: null);
         }
       }

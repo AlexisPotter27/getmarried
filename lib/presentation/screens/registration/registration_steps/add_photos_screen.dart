@@ -101,7 +101,6 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                         ),
                       ),
                     ),
-
                     const SizedBox(
                       width: 16,
                     ),

@@ -69,6 +69,7 @@ class _AboutYouScreenState extends State<AboutYouScreen> {
                         widget.onPrev();
                       }),
                 ),
+
                 GestureDetector(
                   child: const Text(
                     'Skip',
