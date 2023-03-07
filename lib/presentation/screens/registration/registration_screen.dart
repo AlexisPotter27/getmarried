@@ -43,6 +43,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           if (state is UpdateUserSuccessState) {
             updateCache();
             Navigator.pop(context);
+            getIt.get<CacheCubit>().updateUser(state.userData);
+
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(

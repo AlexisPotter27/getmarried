@@ -76,6 +76,8 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
             showAnimatedProgressDialog(context);
           }
           if (state is UpdateUserSuccessState) {
+            getIt.get<CacheCubit>().updateUser(state.userData);
+
             updateCache();
             Navigator.pop(context);
             Navigator.pushReplacement(

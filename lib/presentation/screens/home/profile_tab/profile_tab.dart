@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/profile_settings_screen.dart';
@@ -18,6 +21,13 @@ class ProfileTab extends StatefulWidget {
 
 class _ProfileTabState extends State<ProfileTab> {
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    showCustomToast(getIt.get<CacheCubit>().user!.photos!.length.toString());
+    // log();
+    super.initState();
+  }
 
   final _controller = PageController(
     viewportFraction: 0.90,

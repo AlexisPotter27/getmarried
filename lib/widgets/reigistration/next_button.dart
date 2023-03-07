@@ -26,13 +26,13 @@ class _NextButtonState extends State<NextButton> {
       child: widget.isNext
           ? Image.asset(
               'assets/nexticon.png',
-              height: 16,
-              width: 16,
+              height: 25,
+              width: 25,
             )
           : Image.asset(
               'assets/previousicon.png',
-              height: 16,
-              width: 16,
+              height: 25,
+              width: 25,
             ),
     );
   }

@@ -35,6 +35,7 @@ class _AddPhotosScreenState extends State<AddPhotosScreen>
     with AutomaticKeepAliveClientMixin {
   String? image1;
   String? image2;
+  List<String> imageUrls = [];
 
   AuthBloc bloc = AuthBloc(getIt.get());
 
@@ -48,12 +49,20 @@ class _AddPhotosScreenState extends State<AddPhotosScreen>
         }
         if (state is UpdateUserImageSuccessState) {
           Navigator.pop(context);
+          setState(() {
+            imageUrls.addAll(state.userImages);
+          });
+          // showCustomToast(state.userImages[0]);
           showCustomToast('Image uploaded');
         }
 
         if (state is UpdateUserImageFailureState) {
           Navigator.pop(context);
           showCustomToast(state.error);
+          setState(() {
+            image1 = null;
+            image2 = null;
+          });
         }
       },
       builder: (context, state) {
@@ -249,9 +258,9 @@ class _AddPhotosScreenState extends State<AddPhotosScreen>
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: NextButton(onPressed: () {
-                        if (image1 == null || image2 == null) {
+                        if (image1 != null || image2 != null) {
                           showCustomToast('Upload two images');
-                          widget.onComplete([image1!, image2!]);
+                          widget.onComplete(imageUrls);
                         } else {
                           widget.onComplete([]);
                         }

@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +6,7 @@ import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/helper/toastMessage.dart';
 import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
 import 'package:getmarried/presentation/screens/registration/call.dart';
+import 'package:getmarried/widgets/reigistration/next_button.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -83,7 +83,6 @@ class _PhoneState extends State<Phone> {
             ));
             // showAnimatedProgressDialog(context);
           }
-
         },
         builder: (context, state) {
           return Padding(
@@ -219,8 +218,8 @@ class _PhoneState extends State<Phone> {
                         ],
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
+                    NextButton(
+                      onPressed: () {
                         if (countryCode.text.length == 10 ||
                             countryCode.text.length == 11) {
                           showDialog(
@@ -311,7 +310,8 @@ class _PhoneState extends State<Phone> {
                                                               context);
                                                           authBloc.add(
                                                               SendOtpEvent(
-                                                                  number: number));
+                                                                  number:
+                                                                      number));
 
                                                           //Phone Verification
                                                           // verifyNumber();
@@ -346,13 +346,6 @@ class _PhoneState extends State<Phone> {
                               'Please enter a invalid phone number.');
                         }
                       },
-                      child: const CircleAvatar(
-                        radius: 20,
-                        backgroundColor: Colors.black87,
-                        child: Center(
-                          child: Icon(Icons.arrow_forward_ios_outlined),
-                        ),
-                      ),
                     )
                   ],
                 )
@@ -364,33 +357,33 @@ class _PhoneState extends State<Phone> {
     );
   }
 
-  // void verifyNumber() {
-  //   print('This is with code: $number');
-  //   print('Only Number: $phoneController');
-  //   print('Country Code: $countryCode');
-  //
-  //   auth.verifyPhoneNumber(
-  //       phoneNumber: number,
-  //       verificationCompleted: (PhoneAuthCredential credential) async {
-  //         await auth.signInWithCredential(credential).then((value) {
-  //           ToastMessage.showToast('Verification successful.');
-  //           phoneController.clear();
-  //           countryCode.clear();
-  //           log("You are logged in successfully");
-  //         });
-  //
-  //         log('verified');
-  //       },
-  //       verificationFailed: (FirebaseAuthException exception) {
-  //         ToastMessage.showToast('Verification failed.');
-  //         log(exception.message!);
-  //       },
-  //       codeSent: (String verificationID, int? resendToken) {
-  //         verificationIDReceived = verificationID;
-  //         setState(() {
-  //           ToastMessage.showToast('Code sent.');
-  //         });
-  //       },
-  //       codeAutoRetrievalTimeout: (String verificationID) {});
-  // }
+// void verifyNumber() {
+//   print('This is with code: $number');
+//   print('Only Number: $phoneController');
+//   print('Country Code: $countryCode');
+//
+//   auth.verifyPhoneNumber(
+//       phoneNumber: number,
+//       verificationCompleted: (PhoneAuthCredential credential) async {
+//         await auth.signInWithCredential(credential).then((value) {
+//           ToastMessage.showToast('Verification successful.');
+//           phoneController.clear();
+//           countryCode.clear();
+//           log("You are logged in successfully");
+//         });
+//
+//         log('verified');
+//       },
+//       verificationFailed: (FirebaseAuthException exception) {
+//         ToastMessage.showToast('Verification failed.');
+//         log(exception.message!);
+//       },
+//       codeSent: (String verificationID, int? resendToken) {
+//         verificationIDReceived = verificationID;
+//         setState(() {
+//           ToastMessage.showToast('Code sent.');
+//         });
+//       },
+//       codeAutoRetrievalTimeout: (String verificationID) {});
+// }
 }
