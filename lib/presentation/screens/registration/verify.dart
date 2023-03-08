@@ -15,6 +15,7 @@ import 'package:getmarried/presentation/screens/number.dart';
 import 'package:getmarried/presentation/screens/registration/build_profile_screen.dart';
 import 'package:getmarried/presentation/screens/registration/location.dart';
 import 'package:getmarried/presentation/screens/registration/registration_screen.dart';
+import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 class Verify extends StatefulWidget {
   const Verify({Key? key, required this.verificationId}) : super(key: key);
@@ -201,28 +202,16 @@ class _VerifyState extends State<Verify> {
                     const SizedBox(
                       width: 20,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        if (phoneController.text.length == 6) {
-                          verifyCode(
-                              verificationId: widget.verificationId,
-                              smsCode: phoneController.text);
-                        } else {
-                          ToastMessage.showToast(
-                              'Please the 6 digit code sent to your phone number.');
-                        }
-                      },
-                      child: const CircleAvatar(
-                        radius: 20,
-                        backgroundColor: Colors.white,
-                        child: Center(
-                          child: Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    )
+                    NextButton(onPressed: () {
+                      if (phoneController.text.length == 6) {
+                        verifyCode(
+                            verificationId: widget.verificationId,
+                            smsCode: phoneController.text);
+                      } else {
+                        ToastMessage.showToast(
+                            'Please enter a invalid phone number.');
+                      }
+                    })
                   ],
                 )
               ],
@@ -236,7 +225,7 @@ class _VerifyState extends State<Verify> {
   void verifyCode(
       {required String verificationId, required String smsCode}) async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verificationIDReceived, smsCode: phoneController.text);
+        verificationId: verificationId, smsCode: phoneController.text);
 
     authBloc.add(PhoneNumberSigninEvent(credential));
 
@@ -260,6 +249,5 @@ class _VerifyState extends State<Verify> {
 
   void updateCache() {
     StorageHelper.setBoolean(StorageKeys.isUserLoggedIn, true);
-
   }
 }

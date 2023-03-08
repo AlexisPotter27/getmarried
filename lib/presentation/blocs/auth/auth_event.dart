@@ -57,5 +57,14 @@ class PhoneNumberSigninEvent extends AuthEvent {
 
 class UpdateUserEvent extends AuthEvent {
   final UserData userData;
-  const UpdateUserEvent(this.userData);
+  List<File>? images;
+
+  UpdateUserEvent(this.userData, {this.images = const []});
+}
+
+class UpdateUserImageEvent extends AuthEvent {
+
+  List<File>? images;
+
+  UpdateUserImageEvent({this.images = const []});
 }

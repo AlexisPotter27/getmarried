@@ -12,7 +12,8 @@ class FirstNameScreen extends StatefulWidget {
   State<FirstNameScreen> createState() => _FirstNameScreenState();
 }
 
-class _FirstNameScreenState extends State<FirstNameScreen> {
+class _FirstNameScreenState extends State<FirstNameScreen>
+    with AutomaticKeepAliveClientMixin {
   final _firstNameController = TextEditingController();
 
   @override
@@ -85,4 +86,7 @@ class _FirstNameScreenState extends State<FirstNameScreen> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/helper/app_utils.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/profile_settings_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/settings_screen.dart';
@@ -16,6 +21,13 @@ class ProfileTab extends StatefulWidget {
 
 class _ProfileTabState extends State<ProfileTab> {
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    showCustomToast(getIt.get<CacheCubit>().user!.photos!.length.toString());
+    // log();
+    super.initState();
+  }
 
   final _controller = PageController(
     viewportFraction: 0.90,
@@ -77,11 +89,12 @@ class _ProfileTabState extends State<ProfileTab> {
                       const SizedBox(
                         height: 60,
                       ),
-                      const Center(
+                      Center(
                         child: CircleAvatar(
                           radius: 50,
-                          backgroundImage:
-                              AssetImage('assets/jpeg/person1.jpeg'),
+                          backgroundImage: NetworkImage(
+                            getIt.get<CacheCubit>().user!.photos![0].toString(),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -90,16 +103,20 @@ class _ProfileTabState extends State<ProfileTab> {
                       Center(
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
+                          children: [
                             Text(
-                              'Sonia, 23',
-                              style: TextStyle(
+                              getIt
+                                  .get<CacheCubit>()
+                                  .user!
+                                  .firstname
+                                  .toString(),
+                              style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
-                            Icon(
+                            const Icon(
                               Icons.security,
                               size: 16,
                               color: Colors.grey,

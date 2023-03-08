@@ -18,7 +18,9 @@ void main() async {
   await Hive.initFlutter();
   injector.init();
   await Firebase.initializeApp();
-  getIt.get<CacheCubit>().getCachedUser();
+  Future.delayed(const Duration(milliseconds: 300));
+  CacheCubit cubit = getIt.get<CacheCubit>();
+  cubit.getCachedUser();
   final firstScreen = await getFirstScreen();
   runApp(MyApp(
     firstScreen: firstScreen,

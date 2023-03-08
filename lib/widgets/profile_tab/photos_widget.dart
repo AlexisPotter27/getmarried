@@ -19,11 +19,14 @@ class _PhotosWidgetState extends State<PhotosWidget> {
           child: Column(
             children: [
               GestureDetector(
-                onTap:(){
-
+                onTap: () {
                   showModalBottomSheet(
                     backgroundColor: Colors.transparent,
-                    context: context, builder: (context) =>  FileUploadSheet(),);
+                    context: context,
+                    builder: (context) => FileUploadSheet(
+                      onImageSelected: (String? path) {},
+                    ),
+                  );
                 },
                 child: Container(
                   height: 220,
@@ -38,32 +41,41 @@ class _PhotosWidgetState extends State<PhotosWidget> {
               ),
               Row(
                 children: const [
-                Expanded(
-                  child:  AddProfilePhotoBox(
-                    margin: EdgeInsets.all(2.5),
-                  ),
-                ),
-                  SizedBox(width: 5,),
                   Expanded(
-                    child:  AddProfilePhotoBox(
+                    child: AddProfilePhotoBox(
                       margin: EdgeInsets.all(2.5),
                     ),
                   ),
-                  SizedBox(width: 8,),
-              ],)
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: AddProfilePhotoBox(
+                      margin: EdgeInsets.all(2.5),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                ],
+              )
             ],
           ),
         ),
         Container(
           margin: const EdgeInsets.all(2.5),
-          width: MediaQuery.of(context).size.width / 3-16,
+          width: MediaQuery.of(context).size.width / 3 - 16,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: const [
               AddProfilePhotoBox(),
-              SizedBox(height: 8,),
+              SizedBox(
+                height: 8,
+              ),
               AddProfilePhotoBox(),
-              SizedBox(height: 8,),
+              SizedBox(
+                height: 8,
+              ),
               AddProfilePhotoBox(),
             ],
           ),

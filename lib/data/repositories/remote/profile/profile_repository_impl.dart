@@ -8,6 +8,8 @@ import 'package:getmarried/models/user.dart';
 class ProfileRepositoryImpl extends ProfileRepository {
   final store = HiveStore(StorageKeys.userStore);
 
+  // FirebaseStorage storage
+
   ProfileRepositoryImpl() {
     init();
   }
@@ -19,11 +21,15 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<UserData>? getUserProfile() async {
+  Future<UserData>? getLocalUserProfile() async {
     var user = await store.get(StorageKeys.user);
-
     return UserData.fromJson((Map.from(user)));
   }
 
   Future<void> init() => store.init();
+
+  @override
+  Future? getUserProfile() {
+    throw UnimplementedError();
+  }
 }

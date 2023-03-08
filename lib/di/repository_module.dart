@@ -6,5 +6,5 @@ import 'package:getmarried/data/repositories/remote/profile/profile_repository_i
 
 void setUp(GetIt getIt) {
   getIt.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl());
-  getIt.registerSingleton<ProfileRepository>(ProfileRepositoryImpl());
+  getIt.registerSingleton<ProfileRepository>(ProfileRepositoryImpl(),);
 }

@@ -1,10 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'dart:io';
 import '../../presentation/screens/registration/registration_steps/add_photos_screen.dart';
 
 class FileUploadSheet extends StatefulWidget {
   String? imagePath;
-  FileUploadSheet({Key? key}) : super(key: key);
+
+  FileUploadSheet({Key? key, required this.onImageSelected}) : super(key: key);
+  final Function(String? path) onImageSelected;
 
   @override
   State<FileUploadSheet> createState() => _FileUploadSheetState();
@@ -68,9 +73,8 @@ class _FileUploadSheetState extends State<FileUploadSheet> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: GestureDetector(
-              onTap: () {
-                AddPhotosScreen.pickImage();
-                Navigator.of(context).pop();
+              onTap: () async{
+              await   selectImage();
               },
               child: Row(
                 children: const [
@@ -91,9 +95,8 @@ class _FileUploadSheetState extends State<FileUploadSheet> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: GestureDetector(
-              onTap: () {
-                AddPhotosScreen.pickImageFromCamera();
-                Navigator.of(context).pop();
+              onTap: () async{
+              await selectImageFromCamera();
               },
               child: Row(
                 children: const [
@@ -112,5 +115,21 @@ class _FileUploadSheetState extends State<FileUploadSheet> {
         ],
       ),
     );
+  }
+
+  Future selectImage() async {
+    await pickImage().then((value) {
+      log(value.toString());
+      widget.onImageSelected(value);
+      return null;
+    });
+  }
+
+  Future selectImageFromCamera() async {
+    await pickImageFromCamera().then((value) {
+      log(value.toString());
+      widget.onImageSelected(value);
+      return null;
+    });
   }
 }
