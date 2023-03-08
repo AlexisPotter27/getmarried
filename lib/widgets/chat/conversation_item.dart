@@ -5,6 +5,7 @@ import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/chat/messaging_screen.dart';
+import 'package:intl/intl.dart';
 
 class ConversationItem extends StatefulWidget {
   const ConversationItem({Key? key, required this.conversation})
@@ -23,7 +24,8 @@ class _ConversationItemState extends State<ConversationItem> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>  MessagingScreen(conversationId: widget.conversation.id,userData:otherUser()),
+          builder: (context) => MessagingScreen(
+              conversationId: widget.conversation.id, userData: otherUser()),
         ));
       },
       child: Padding(
@@ -53,8 +55,9 @@ class _ConversationItemState extends State<ConversationItem> {
                       ),
                     ),
                     Text(
-                      widget.conversation.lastMessage.timeSent.toIso8601String(),
-                      style: TextStyle(
+                      DateFormat.jm()
+                          .format(widget.conversation.lastMessage.timeSent),
+                      style: const TextStyle(
                         fontSize: 13,
                         color: Colors.grey,
                       ),
@@ -66,22 +69,22 @@ class _ConversationItemState extends State<ConversationItem> {
                     Expanded(
                       child: Text(
                         widget.conversation.lastMessage.text,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 13,
                           color: Colors.grey,
                         ),
                       ),
                     ),
-                    CircleAvatar(
-                      backgroundColor: primaryColour,
-                      radius: 10,
-                      child: Center(
-                        child: Text(
-                          '2',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                      ),
-                    )
+                    // CircleAvatar(
+                    //   backgroundColor: primaryColour,
+                    //   radius: 10,
+                    //   child: Center(
+                    //     child: Text(
+                    //       '2',
+                    //       style: TextStyle(fontSize: 13),
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 ),
               ],
@@ -99,5 +102,4 @@ class _ConversationItemState extends State<ConversationItem> {
       return widget.conversation.user1;
     }
   }
-
 }
