@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/presentation/screens/home/chat/chat_tab.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/home_tab.dart';
 import 'package:getmarried/presentation/screens/home/likes_tab/like_refractor.dart';
@@ -41,22 +42,29 @@ class _HomeScreenState extends State<HomeScreen>
       bottomNavigationBar: BottomNavigationBar(
           showUnselectedLabels: false,
           showSelectedLabels: true,
+          selectedLabelStyle: const TextStyle(color: primaryColour),
+          unselectedLabelStyle: const TextStyle(color: Colors.black),
           currentIndex: _currentIndex,
+          fixedColor: primaryColour,
+          type: BottomNavigationBarType.fixed,
           unselectedIconTheme:
-              const IconThemeData(color: Colors.blue, size: 25),
+              const IconThemeData(color: Colors.black, size: 25),
           onTap: (index) {
             setState(() {
               _currentIndex = index;
             });
           },
-          selectedIconTheme: const IconThemeData(color: Colors.black, size: 25),
+          selectedIconTheme:
+              const IconThemeData(color: primaryColour, size: 25),
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.solidUser), label: 'Profile'),
+              icon: Icon(FontAwesomeIcons.solidUser),
+              label: 'Profile',
+            ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.format_align_center), label: 'Home'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_rounded), label: 'Friends'),
+                icon: Icon(Icons.favorite_rounded), label: 'Like'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.solidComment), label: 'Chat'),
           ]),
@@ -73,6 +81,7 @@ class _HomeDrawer extends StatefulWidget {
 
 class _HomeDrawerState extends State<_HomeDrawer> {
   String connection = 'date';
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -86,24 +95,29 @@ class _HomeDrawerState extends State<_HomeDrawer> {
           const SizedBox(
             height: kToolbarHeight,
           ),
-          const Text('Choose a connection',style: TextStyle(color: Colors.grey),),
+          const Text(
+            'Choose a connection',
+            style: TextStyle(color: Colors.grey),
+          ),
           ConnectionMenuItem(
             isSelected: connection == 'relationship',
             subtittle: 'Make moves to find that spark',
-            tittle: 'Date', onTap: () {
+            tittle: 'Date',
+            onTap: () {
               setState(() {
                 connection = 'relationship';
               });
-          },
+            },
           ),
           ConnectionMenuItem(
             isSelected: connection == 'Married',
             subtittle: 'Find a partner in community',
-            tittle: 'Married', onTap: () {
-            setState(() {
-              connection = 'Married';
-            });
-          },
+            tittle: 'Married',
+            onTap: () {
+              setState(() {
+                connection = 'Married';
+              });
+            },
           )
         ],
       ),

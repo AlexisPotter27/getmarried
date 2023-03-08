@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/widgets/reigistration/file_upload_sheet.dart';
 
 class AddProfilePhotoBox extends StatefulWidget {
-  const AddProfilePhotoBox({Key? key, this.height, this.margin})
+  const AddProfilePhotoBox({Key? key, this.height, this.margin, this.photo})
       : super(key: key);
   final double? height;
   final EdgeInsetsGeometry? margin;
+  final String? photo;
 
   @override
   State<AddProfilePhotoBox> createState() => _AddProfilePhotoBoxState();
@@ -30,8 +31,16 @@ class _AddProfilePhotoBoxState extends State<AddProfilePhotoBox> {
         decoration: BoxDecoration(
             color: Colors.grey.shade300,
             borderRadius: BorderRadius.circular(8)),
-        child: const Center(
-          child: Icon(Icons.add),
+        child: Center(
+          child: widget.photo != null
+              ? Image.network(
+                  widget.photo!,
+                  fit: BoxFit.cover,
+                  height: widget.height ?? 104,
+                )
+              : const Center(
+                  child: Icon(Icons.add),
+                ),
         ),
       ),
     );

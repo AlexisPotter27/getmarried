@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/data/repositories/remote/chat/chat_repository_impl.dart';
+import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/helper/app_utils.dart';
+import 'package:getmarried/models/user.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/blocs/chat/chat_bloc.dart';
 import 'package:getmarried/presentation/screens/home/chat/messaging_screen.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
@@ -21,12 +24,13 @@ class ChatTab extends StatefulWidget {
 
 class _ChatTabState extends State<ChatTab> {
   ChatBloc chatBloc = ChatBloc(ChatRepositoryImpl());
+  UserData userData = getIt.get<CacheCubit>().user!;
 
   @override
   void initState() {
     super.initState();
     chatBloc.add(GetUsersEvent());
-    chatBloc.add(GetConversationEvent());
+    chatBloc.add(GetConversationEvent(userData.uid!));
   }
 
   @override
@@ -96,7 +100,7 @@ class _ChatTabState extends State<ChatTab> {
                   listener: (context, state) {},
                   builder: (context, state) {
                     if (state is UsersLoadingState) {
-                      return Center(
+                      return const Center(
                         child: SizedBox(
                             height: 20,
                             width: 20,
@@ -141,14 +145,14 @@ class _ChatTabState extends State<ChatTab> {
                               horizontal: 10, vertical: 8)),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Icon(
-                      Icons.edit_note_outlined,
-                      size: 30,
-                      color: Colors.grey,
-                    ),
-                  )
+                  // const Padding(
+                  //   padding: EdgeInsets.all(10.0),
+                  //   child: Icon(
+                  //     Icons.edit_note_outlined,
+                  //     size: 30,
+                  //     color: Colors.grey,
+                  //   ),
+                  // )
                 ],
               ),
               const SizedBox(

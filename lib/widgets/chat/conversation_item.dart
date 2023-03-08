@@ -46,14 +46,14 @@ class _ConversationItemState extends State<ConversationItem> {
                     Expanded(
                       child: Text(
                         otherUser().name,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                             height: 1),
                       ),
                     ),
                     Text(
-                      '09:34 PM',
+                      widget.conversation.lastMessage.timeSent.toIso8601String(),
                       style: TextStyle(
                         fontSize: 13,
                         color: Colors.grey,

@@ -28,6 +28,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<SendMessageEvent>(_mapSendMessageEventToState);
     on<ConversationFetchedEvent>(_mapConversationFetchedEventToState);
     on<GetMessagesEvent>(_mapGetMessagesEventToState);
+    on<GetMessageWithIdEvent>(_mapGetMessagesWithIdEvent);
     on<MessagesFetchedEvent>(_mapMessageFetchedEventToState);
   }
 
@@ -38,8 +39,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     try {
       conversationSubscription?.cancel();
-      conversationSubscription =
-          chatRepository.getConversations().asBroadcastStream().listen((event) {
+      conversationSubscription = chatRepository
+          .getUserConversations(event.userId)
+          .asBroadcastStream()
+          .listen((event) {
         if (event != null) {
           add(ConversationFetchedEvent(
               event.docs.map((e) => Conversation.fromJson(e.data())).toList()));
@@ -85,7 +88,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       if (response.error == null) {
         log('sucesss');
         emit(StartConvoSuccesState((response.data as Conversation)));
-        add(GetMessagesEvent(conversationId: (response.data as Conversation).id));
+        add(GetMessagesEvent(
+            conversationId: (response.data as Conversation).id));
         // emit(UsersFetchedState(response.data));
       } else {
         // emit(UsersErrorState(response.error.toString()));
@@ -100,7 +104,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
       emit(StartConvoErrorState(e.toString()));
 
-
       // emit(UsersErrorState(e.toString()));
     }
   }
@@ -113,24 +116,21 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   FutureOr<void> _mapGetMessagesEventToState(
       GetMessagesEvent event, Emitter<ChatState> emit) async {
-   emit(MessagesLoadingState());
+    emit(MessagesLoadingState());
     log('loading');
 
     try {
       messagesSubscription?.cancel();
-      messagesSubscription =
-          chatRepository
+      messagesSubscription = await chatRepository
           .getMessages(conversationId: event.conversationId!)
           .asBroadcastStream()
           .listen((event) {
         log('fetched${event.docs.length}');
 
-          add(MessagesFetchedEvent(
-              messages: event.docs
-                  .map((e) => ChatMessage.fromJson(e.data()))
-                  .toList()));
-
-
+        add(MessagesFetchedEvent(
+            messages: event.docs
+                .map((e) => ChatMessage.fromJson(e.data()))
+                .toList()));
       });
     } on FirebaseException catch (e) {
       log('failed${e.code}');
@@ -140,7 +140,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       log('failed${stack.toString()}');
 
       emit(MessagesErrorState(e.toString()));
-
     }
   }
 
@@ -149,12 +148,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     emit(MessagesFetchedState(event.messages));
   }
 
-  FutureOr<void> _mapSendMessageEventToState(SendMessageEvent event, Emitter<ChatState> emit) async {
-
+  FutureOr<void> _mapSendMessageEventToState(
+      SendMessageEvent event, Emitter<ChatState> emit) async {
     // emit(UsersLoadingState());
 
     try {
-      ApiResponse response = await chatRepository.sendMessage(conversationId: event.conversationId, message: event.message);
+      ApiResponse response = await chatRepository.sendMessage(
+          conversationId: event.conversationId, message: event.message);
       if (response.error == null) {
         // emit(UsersFetchedState(response.data));
       } else {
@@ -165,6 +165,25 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     } catch (e) {
       // emit(UsersErrorState(e.toString()));
     }
+  }
 
+  FutureOr<void> _mapGetMessagesWithIdEvent(
+      GetMessageWithIdEvent event, Emitter<ChatState> emit) async {
+    emit(MessagesLoadingState());
+    try {
+      ApiResponse<List<Conversation>, dynamic> response = await chatRepository
+          .getMessageWithId(user1: event.user1, user2: event.user2);
+      if (response.error == null) {
+        if (response.data!.isNotEmpty) {
+          add(GetMessagesEvent(conversationId: response.data?.first.id));
+        } else {
+          emit(MessagesFetchedState(const []));
+        }
+      }
+    } on FirebaseException catch (e) {
+      // emit(UsersErrorState(e.code));
+    } catch (e) {
+      // emit(UsersErrorState(e.toString()));
+    }
   }
 }

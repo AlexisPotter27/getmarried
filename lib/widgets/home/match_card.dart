@@ -1,15 +1,17 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_polygon/flutter_polygon.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/models/user.dart';
 import 'package:getmarried/widgets/home/about_chip.dart';
 import 'package:getmarried/widgets/secondary_widget.dart';
 
 import '../primary_button.dart';
 
 class MatchCard extends StatefulWidget {
-  const MatchCard({Key? key, required this.image}) : super(key: key);
-  final String image;
+  const MatchCard({Key? key, required this.user}) : super(key: key);
+
+  // final String image;
+  final UserData user;
 
   @override
   State<MatchCard> createState() => _MatchCardState();
@@ -22,9 +24,9 @@ class _MatchCardState extends State<MatchCard> {
   void initState() {
     super.initState();
 
-    _controller.addListener(() {
-      // _controller.position.
-    });
+    // _controller.addListener(() {
+    //   // _controller.position.
+    // });
   }
 
   @override
@@ -34,7 +36,7 @@ class _MatchCardState extends State<MatchCard> {
       child: Stack(
         children: [
           SingleChildScrollView(
-            controller: _controller,
+
             child: Container(
               color: Colors.white,
               child: Column(
@@ -50,9 +52,9 @@ class _MatchCardState extends State<MatchCard> {
                         Container(
                           height: MediaQuery.of(context).size.height - 170,
                           width: deviceWidth(),
-                          decoration:  BoxDecoration(
+                          decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage(widget.image),
+                                  image: NetworkImage(widget.user.photos![0]),
                                   fit: BoxFit.cover)),
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -70,8 +72,7 @@ class _MatchCardState extends State<MatchCard> {
                                     begin: Alignment.topCenter)),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   mainAxisAlignment:
@@ -92,12 +93,11 @@ class _MatchCardState extends State<MatchCard> {
                                   ],
                                 ),
                                 Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
-                                      'Sonia, 24',
-                                      style: TextStyle(
+                                    Text(
+                                      widget.user.firstname!,
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500),
@@ -106,17 +106,17 @@ class _MatchCardState extends State<MatchCard> {
                                       height: 8,
                                     ),
                                     Row(
-                                      children: const [
-                                        Icon(
+                                      children: [
+                                        const Icon(
                                           Icons.school_outlined,
                                           color: Colors.white,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Text(
-                                          'University of Port Harcourt',
-                                          style: TextStyle(
+                                          widget.user.education!,
+                                          style: const TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w400),
                                         )
@@ -143,11 +143,10 @@ class _MatchCardState extends State<MatchCard> {
                               const SizedBox(
                                 height: 8,
                               ),
-                              const Text(
-                                'I am a queen of my little fairy tale\nworld',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
+                              Text(
+                                widget.user.about!,
+                                style: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500),
                               ),
                               const SizedBox(
                                 height: 16,
@@ -162,7 +161,7 @@ class _MatchCardState extends State<MatchCard> {
                               Wrap(
                                 spacing: 5,
                                 children: List.generate(
-                                    6, (index) => const AboutChip()),
+                                    1, (index) =>  const AboutChip(label: 'Cool',)),
                               ),
                               const SizedBox(
                                 height: 16,
@@ -177,7 +176,7 @@ class _MatchCardState extends State<MatchCard> {
                               Wrap(
                                 spacing: 5,
                                 children: List.generate(
-                                    6, (index) => const AboutChip()),
+                                    widget.user.interests!.length, (index) =>  AboutChip(label: widget.user.interests![index],)),
                               ),
                               const SizedBox(
                                 height: 16,
@@ -192,32 +191,31 @@ class _MatchCardState extends State<MatchCard> {
                               Wrap(
                                 spacing: 5,
                                 children: List.generate(
-                                    3, (index) => const AboutChip()),
+                                    1, (index) =>  const AboutChip(label: 'English',)),
                               ),
                               const SizedBox(
                                 height: 16,
                               ),
-                              Row(
-                                children: const [
-                                  Icon(Icons.share_location),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'Sonia\'s location.',
-                                    style: TextStyle(color: Colors.black45),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              const Text(
-                                'Owerri, Imo state \n-16 km away',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
+                              // Row(
+                              //   children: const [
+                              //     Icon(Icons.share_location),
+                              //     SizedBox(
+                              //       width: 10,
+                              //     ),
+                              //     Text(
+                              //       'Sonia\'s location.',
+                              //       style: TextStyle(color: Colors.black45),
+                              //     ),
+                              //   ],
+                              // ),
+                              // const SizedBox(
+                              //   height: 8,
+                              // ),
+                              // const Text(
+                              //   'Owerri, Imo state \n-16 km away',
+                              //   style: TextStyle(
+                              //       fontSize: 16, fontWeight: FontWeight.w500),
+                              // ),
                               const SizedBox(
                                 height: 60,
                               ),
@@ -242,7 +240,6 @@ class _MatchCardState extends State<MatchCard> {
                                               color: Colors.black,
                                             ),
                                           ),
-
                                           CircleAvatar(
                                             radius: 30,
                                             backgroundColor: primaryColour,
@@ -320,10 +317,10 @@ class _MatchCardState extends State<MatchCard> {
                 sides: 6,
                 child: Container(
                   color: primaryColour,
-                  child: const Icon(
-                    Icons.star,
-                    color: Colors.white,
-                    size: 25,
+                  child: Image.asset(
+                    'assets/superswipe.png',
+                    height: 25,
+                    width: 25,
                   ),
                 ),
               ),

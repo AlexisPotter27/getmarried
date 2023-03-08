@@ -21,6 +21,14 @@ class ProfileSettingsScreen extends StatefulWidget {
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   UserData cachedUser = getIt.get<CacheCubit>().user!;
 
+  final bioController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    bioController.text = cachedUser.about ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -205,6 +213,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
               ),
               TextField(
                 maxLines: 3,
+                controller: bioController,
                 decoration: inputDecoration(context).copyWith(
                     filled: false,
                     hintText: 'A little bit about you',
@@ -222,26 +231,15 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
               const SizedBox(
                 height: 16,
               ),
-              const BasicsSection(),
+               BasicsSection(user: cachedUser,),
               const SizedBox(
                 height: 16,
               ),
-              const MoreAboutSection(),
+               MoreAboutSection(user: cachedUser,),
               const SizedBox(
                 height: 16,
               ),
-              const Text(
-                'Language i know',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: ChipsBox(
-                    items: myLanguage,
-                  )),
+               _LanguagesWidget(user: cachedUser ,),
               const SizedBox(
                 height: 16,
               ),
@@ -253,6 +251,32 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _LanguagesWidget extends StatelessWidget {
+  const _LanguagesWidget({Key? key, required this.user}) : super(key: key);
+  final UserData user;
+
+  @override
+  Widget build(BuildContext context) {
+    return  Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Language i know',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: ChipsBox(
+              items: myLanguage,
+            )),
+      ],
     );
   }
 }

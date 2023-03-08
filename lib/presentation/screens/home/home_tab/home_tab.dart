@@ -1,11 +1,16 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/data/repositories/remote/chat/chat_repository_impl.dart';
+import 'package:getmarried/models/user.dart';
+import 'package:getmarried/presentation/blocs/chat/chat_bloc.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/home/match_card.dart';
 import 'package:getmarried/widgets/home/swippable_card.dart';
+import 'package:getmarried/widgets/primary_button.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -15,15 +20,15 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  List items = [
-    'assets/jpeg/person1.jpeg',
-    'assets/jpeg/person2.jpeg',
-    'assets/jpeg/girl.jpeg',
-    'assets/jpeg/person2.jpeg',
-    'assets/jpeg/girl.jpeg',
-    'assets/jpeg/person2.jpeg',
-    'assets/jpeg/girl.jpeg',
-  ];
+  ChatBloc chatBloc = ChatBloc(ChatRepositoryImpl());
+
+  @override
+  void initState() {
+    super.initState();
+    chatBloc.add(GetUsersEvent());
+  }
+
+  List<UserData> items = [];
   late AnimationController controller;
   final animation = Tween<double>(begin: 400, end: 0);
   Offset likeButtonOffset = Offset(-(deviceWidth() / 2) - 50, 0);
@@ -50,15 +55,15 @@ class _HomeTabState extends State<HomeTab> {
                   )),
               Expanded(
                   child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/ilogo.png',
-                        height: 50,
-                        width: 50,
-                      ),
-                      /*const Text(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/ilogo.png',
+                    height: 50,
+                    width: 50,
+                  ),
+                  /*const Text(
                         'Get Married',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -66,8 +71,8 @@ class _HomeTabState extends State<HomeTab> {
                             fontWeight: FontWeight.w500,
                             fontSize: 16),
                       ),*/
-                    ],
-                  )),
+                ],
+              )),
               IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -80,84 +85,155 @@ class _HomeTabState extends State<HomeTab> {
                   )),
             ],
           ),
-          Expanded(
-            child: Stack(
-              children: [
-                Stack(
-                  children: List.generate(
-                      items.length,
-                          (index) => SwipableCard(
-                        onLiked: () {
-                          setState(() {
-                            items.removeLast();
-                          });
-                        },
-                        color: Colors.black,
-                        onPanUpdated: (DragUpdateDetails details) {
-                          log('DX:${details.delta.dx}');
-                          setState(() {
-                            likeButtonOffset -= details.delta;
-                            disLikeButtonOffset -= details.delta;
-                            likeScale += details.delta.dx * 0.01;
-                            disLikeScale -= details.delta.dx * 0.01;
-                          });
-                        },
-                        onSwipeEnded: (details) {
-                          endSwipe();
-                        },
-                        onDisLike: () {
-                          setState(() {
-                            items.removeLast();
-                          });
-                        },
-                        child: MatchCard(
-                          image: items[index],
+          BlocConsumer<ChatBloc, ChatState>(
+            bloc: chatBloc,
+            listener: (context, state) {
+              if (state is UsersFetchedState) {
+                setState(() {
+                  items = state.users;
+                });
+              }
+            },
+            builder: (context, state) {
+              if (state is UsersErrorState) {
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      children: [
+                        const Text('An error occured'),
+                        const SizedBox(
+                          height: 16,
                         ),
-                      )).reversed.toList().reversed.toList(),
-                ),
-                Center(
-                  child: Transform.translate(
-                    offset: Offset(disLikeButtonOffset.dx - 10, 0),
-                    child: Transform.scale(
-                      scale: likeScale,
-                      child: Stack(
-                        children: const [
-                          Center(
+                        PrimaryButton(
+                          onPressed: () {
+                            chatBloc.add(GetUsersEvent());
+                          },
+                          child: const Text('Retry'),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              }
+              if (state is UsersLoadingState) {
+                return const Expanded(
+                  child: Center(
+                    child: SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                );
+              }
+              return Expanded(
+                child: Stack(
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(),
+                          alignment: Alignment.center,
+                          child: Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                               const SizedBox(height: 100,),
+                                const Text('You are caught up'),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                SizedBox(
+                                  width: 100,
+                                  child: PrimaryButton(
+                                    onPressed: () {
+                                      chatBloc.add(GetUsersEvent());
+                                    },
+                                    child: const Text('Refresh'),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        ...List.generate(
+                            items.length,
+                            (index) => SwipableCard(
+                                  onLiked: () {
+                                    setState(() {
+                                      items.removeLast();
+                                    });
+                                  },
+                                  color: Colors.black,
+                                  onPanUpdated: (DragUpdateDetails details) {
+                                    log('DX:${details.delta.dx}');
+                                    setState(() {
+                                      likeButtonOffset -= details.delta;
+                                      disLikeButtonOffset -= details.delta;
+                                      likeScale += details.delta.dx * 0.01;
+                                      disLikeScale -= details.delta.dx * 0.01;
+                                    });
+                                  },
+                                  onSwipeEnded: (details) {
+                                    endSwipe();
+                                  },
+                                  onDisLike: () {
+                                    setState(() {
+                                      items.removeLast();
+                                    });
+                                  },
+                                  child: MatchCard(
+                                    user: items[index],
+                                  ),
+                                )).reversed.toList().reversed.toList(),
+
+                      ],
+                    ),
+                    Center(
+                      child: Transform.translate(
+                        offset: Offset(disLikeButtonOffset.dx - 10, 0),
+                        child: Transform.scale(
+                          scale: likeScale,
+                          child: Stack(
+                            children: const [
+                              Center(
+                                child: Icon(
+                                  Icons.favorite,
+                                  color: primaryColour,
+                                  size: 50,
+                                ),
+                              ),
+                              Center(
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                  size: 10,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Transform.translate(
+                        offset: Offset(likeButtonOffset.dx + 10, 0),
+                        child: Transform.scale(
+                          scale: disLikeScale,
+                          child: const Center(
                             child: Icon(
-                              Icons.favorite,
-                              color: primaryColour,
+                              Icons.thumb_down,
+                              color: Colors.redAccent,
                               size: 50,
                             ),
                           ),
-                          Center(
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 10,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Transform.translate(
-                    offset: Offset(likeButtonOffset.dx + 10, 0),
-                    child: Transform.scale(
-                      scale: disLikeScale,
-                      child: const Center(
-                        child: Icon(
-                          Icons.thumb_down,
-                          color: Colors.redAccent,
-                          size: 50,
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
+              );
+            },
           )
         ],
       ),

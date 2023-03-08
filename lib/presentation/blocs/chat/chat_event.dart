@@ -5,6 +5,10 @@ abstract class ChatEvent extends Equatable {
 }
 
 class GetConversationEvent extends ChatEvent {
+  String userId;
+
+  GetConversationEvent(this.userId);
+
   @override
   List<Object?> get props => throw UnimplementedError();
 }
@@ -62,4 +66,14 @@ class MessagesFetchedEvent extends ChatEvent {
   List<Object?> get props => [messages];
 
   MessagesFetchedEvent({required this.messages});
+}
+
+class GetMessageWithIdEvent extends ChatEvent {
+  String user1;
+  String user2;
+
+  GetMessageWithIdEvent({required this.user1, required this.user2});
+
+  @override
+  List<Object?> get props => [user1, user2];
 }

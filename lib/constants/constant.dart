@@ -277,8 +277,8 @@ List<String> languages = [
 
 List<ChipChoiceModel> myLanguage = [
 ChipChoiceModel(label: 'English', icon: Icons.language),
-ChipChoiceModel(label: 'Igbo', icon: Icons.emoji_objects),
-ChipChoiceModel(label: 'Spanish', icon: Icons.emoji_objects),
+// ChipChoiceModel(label: 'Igbo', icon: Icons.emoji_objects),
+// ChipChoiceModel(label: 'Spanish', icon: Icons.emoji_objects),
 
 ];
 

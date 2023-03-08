@@ -24,7 +24,7 @@ class _ProfileTabState extends State<ProfileTab> {
 
   @override
   void initState() {
-    showCustomToast(getIt.get<CacheCubit>().user!.photos!.length.toString());
+    // showCustomToast(getIt.get<CacheCubit>().user!.photos!.length.toString());
     // log();
     super.initState();
   }
@@ -182,7 +182,7 @@ class _ProfileTabState extends State<ProfileTab> {
                             child: SubscriptionCard(
                               tittle: '50% off Premium',
                               description: 'Offer ends in 12:12:27',
-                              buttonText: 'Upgrade for 3,950 NGN',
+                              buttonText: 'Upgrade for 9 USD',
                             ),
                           ),
                           SubscriptionCard(
@@ -198,7 +198,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                 ]),
                             description:
                                 'More chances to match with extra features to boost your profile',
-                            buttonText: 'Upgrade from 1,800 NGN',
+                            buttonText: 'Upgrade from 18 USD',
                           ),
                         ],
                       ),

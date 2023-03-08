@@ -26,6 +26,7 @@ class _MessagingScreenState extends State<MessagingScreen> {
   ChatBloc chatBloc = ChatBloc(ChatRepositoryImpl());
 
   List<ChatMessage> messages = [];
+  UserData cachedUser = getIt.get<CacheCubit>().user!;
   String? convoId;
 
   @override
@@ -34,6 +35,9 @@ class _MessagingScreenState extends State<MessagingScreen> {
 
     if (convoId != null) {
       chatBloc.add(GetMessagesEvent(conversationId: convoId));
+    } else {
+      chatBloc.add(GetMessageWithIdEvent(
+          user1: widget.userData!.id, user2: cachedUser.uid!));
     }
     super.initState();
   }
@@ -74,12 +78,17 @@ class _MessagingScreenState extends State<MessagingScreen> {
                 },
                 builder: (context, state) {
                   if (state is MessagesLoadingState) {
-                    return Center(
+                    return const Center(
                       child: SizedBox(
                         height: 20,
                         width: 20,
                         child: CircularProgressIndicator(),
                       ),
+                    );
+                  }
+                  if (messages.isEmpty) {
+                    return const Center(
+                      child: Text('You have no messages here'),
                     );
                   }
                   return ListView.builder(
