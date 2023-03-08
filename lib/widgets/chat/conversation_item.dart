@@ -1,31 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/data/models/conversation.dart';
+import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/models/user.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/chat/messaging_screen.dart';
 
 class ConversationItem extends StatefulWidget {
-  const ConversationItem({Key? key}) : super(key: key);
+  const ConversationItem({Key? key, required this.conversation})
+      : super(key: key);
+  final Conversation conversation;
 
   @override
   State<ConversationItem> createState() => _ConversationItemState();
 }
 
 class _ConversationItemState extends State<ConversationItem> {
+  UserData cacheUser = getIt.get<CacheCubit>().user!;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const MessagingScreen(),
+          builder: (context) =>  MessagingScreen(conversationId: widget.conversation.id,userData:otherUser()),
         ));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 30,
               backgroundColor: primaryColour,
-              backgroundImage: AssetImage('assets/jpeg/person2.jpeg'),
+              backgroundImage: NetworkImage(otherUser().photos[0]),
             ),
             const SizedBox(
               width: 10,
@@ -34,10 +42,10 @@ class _ConversationItemState extends State<ConversationItem> {
                 child: Column(
               children: [
                 Row(
-                  children: const [
+                  children: [
                     Expanded(
                       child: Text(
-                        'Sebastian Rudger',
+                        otherUser().name,
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -54,10 +62,10 @@ class _ConversationItemState extends State<ConversationItem> {
                   ],
                 ),
                 Row(
-                  children: const [
+                  children: [
                     Expanded(
                       child: Text(
-                        'Perfect will check it',
+                        widget.conversation.lastMessage.text,
                         style: TextStyle(
                           fontSize: 13,
                           color: Colors.grey,
@@ -83,4 +91,13 @@ class _ConversationItemState extends State<ConversationItem> {
       ),
     );
   }
+
+  ChatUser otherUser() {
+    if (widget.conversation.user1.id == cacheUser.uid) {
+      return widget.conversation.user2;
+    } else {
+      return widget.conversation.user1;
+    }
+  }
+
 }

@@ -3,7 +3,8 @@ import 'package:getmarried/widgets/profile_tab/add_profile_photo_box.dart';
 import 'package:getmarried/widgets/reigistration/file_upload_sheet.dart';
 
 class PhotosWidget extends StatefulWidget {
-  const PhotosWidget({Key? key}) : super(key: key);
+  const PhotosWidget({Key? key, required this.photos}) : super(key: key);
+  final List photos;
 
   @override
   State<PhotosWidget> createState() => _PhotosWidgetState();

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:getmarried/data/models/chat_message.dart';
 
 class ReceiverMessageItem extends StatefulWidget {
-  const ReceiverMessageItem({Key? key}) : super(key: key);
+  const ReceiverMessageItem({Key? key, required this.message}) : super(key: key);
+  final ChatMessage message;
+
 
   @override
   State<ReceiverMessageItem> createState() => _ReceiverMessageItemState();
@@ -20,8 +23,8 @@ class _ReceiverMessageItemState extends State<ReceiverMessageItem> {
               topRight: Radius.circular(10),
               topLeft: Radius.circular(10)),
           color: Colors.grey.shade200),
-      child: const Text(
-        'Am doing great ?',
+      child:  Text(
+       widget.message.text,
         style: TextStyle(color: Colors.grey),
       ),
     );
