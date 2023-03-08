@@ -13,9 +13,9 @@ class ChatRepositoryImpl extends ChatRepository {
   Future<ApiResponse> startConversation(user1, user2, message) async {
     try {
       DocumentReference conversations =
-      db.collection(FirebaseKeys.conversation).doc();
+          db.collection(FirebaseKeys.conversation).doc();
       DocumentReference messageReference =
-      conversations.collection('messages').doc();
+          conversations.collection('messages').doc();
 
       final chatMessage = ChatMessage(
           id: messageReference.id,
@@ -47,9 +47,9 @@ class ChatRepositoryImpl extends ChatRepository {
   Future<ApiResponse> getUsers() async {
     try {
       QuerySnapshot<Map<String, dynamic>> snapshot =
-      await db.collection(FirebaseKeys.users).get();
+          await db.collection(FirebaseKeys.users).get();
       List<UserData> users =
-      snapshot.docs.map((e) => UserData.fromJson(e.data())).toList();
+          snapshot.docs.map((e) => UserData.fromJson(e.data())).toList();
       return ApiResponse(data: users, error: null);
     } on FirebaseException catch (e) {
       return ApiResponse(data: null, error: e.code);
@@ -61,7 +61,6 @@ class ChatRepositoryImpl extends ChatRepository {
   @override
   Stream<QuerySnapshot<Map<String, dynamic>>> getMessages(
       {String? conversationId, String? userId}) {
-
     // if (conversationId == null) {
     //   return db
     //       .collection(FirebaseKeys.conversation)
@@ -71,7 +70,8 @@ class ChatRepositoryImpl extends ChatRepository {
     return db
         .collection(FirebaseKeys.conversation)
         .doc(conversationId)
-        .collection('messages').orderBy('timeSent',descending: false)
+        .collection('messages')
+        .orderBy('timeSent', descending: false)
         .snapshots();
   }
 
@@ -79,10 +79,18 @@ class ChatRepositoryImpl extends ChatRepository {
   Future<ApiResponse> sendMessage(
       {required String conversationId, required ChatMessage message}) async {
     try {
-      DocumentReference conversationReference = db.collection(FirebaseKeys.conversation).doc(conversationId);
-      DocumentReference reference = db.collection(FirebaseKeys.conversation).doc(conversationId).collection('messages').doc();
+      DocumentReference conversationReference =
+          db.collection(FirebaseKeys.conversation).doc(conversationId);
+      DocumentReference reference = db
+          .collection(FirebaseKeys.conversation)
+          .doc(conversationId)
+          .collection('messages')
+          .doc();
+
+
       await reference.set(message.copyWith(id: reference.id).toJson());
-      await conversationReference.update(message.copyWith(id: reference.id).toJson());
+      await conversationReference.update(
+          {'last_message': message.copyWith(id: reference.id).toJson()});
 
       return ApiResponse(data: message.copyWith(id: reference.id), error: null);
     } on FirebaseException catch (e) {

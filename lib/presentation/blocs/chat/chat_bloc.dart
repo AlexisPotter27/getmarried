@@ -124,13 +124,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           .asBroadcastStream()
           .listen((event) {
         log('fetched${event.docs.length}');
-        if(event.docs.length!= 0){
+
           add(MessagesFetchedEvent(
               messages: event.docs
                   .map((e) => ChatMessage.fromJson(e.data()))
                   .toList()));
 
-        }
+
       });
     } on FirebaseException catch (e) {
       log('failed${e.code}');
