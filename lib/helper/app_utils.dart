@@ -1,6 +1,3 @@
-/*import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';*/
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -74,94 +71,6 @@ Future<String?> pickImage() async {
   }
   return null;
 }
-/*static selectFiles(BuildContext context, Function(List<String>) onSelected,
-    {bool allowMultiple = false,
-      bool hasViewAction = false,
-      String? title,
-      FileType? fileType,
-      List<String>? allowedExtensions,*/
-    /*  VoidCallback? onViewAction}) async {
-  await showMaterialModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-      ),
-      backgroundColor: AppColors.smokeWhite,
-      builder: (context) {
-        return Container(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            children: <Widget>[
-              InkWell(
-                child: Container(
-                    padding: const EdgeInsets.all(16),
-                    color: AppColors.white,
-                    child: const Text('Take a photo',
-                        textAlign: TextAlign.center)),
-                onTap: () {
-                  Navigator.pop(context);
-                  fetchImageFromCamera().then((value) {
-                    if (null != value) {
-                      return onSelected([value]);
-                    }
-                  });
-                },
-              ),
-              const SizedBox(height: 1),
-              InkWell(
-                child: Container(
-                    padding: const EdgeInsets.all(16),
-                    color: AppColors.white,
-                    child: const Text('Select from Gallery',
-                        textAlign: TextAlign.center)),
-                onTap: () async {
-                  Navigator.pop(context);
-                  var list = await fetchFiles(
-                      allowMultiple: allowMultiple,
-                      fileType: fileType ?? FileType.image,
-                      title: title,
-                      allowedExtensions: allowedExtensions);
-                  onSelected(list);
-                },
-              ),
-              if (hasViewAction)
-                Column(
-                  children: [
-                    const SizedBox(height: 1),
-                    InkWell(
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.all(16),
-                          color: AppColors.white,
-                          child: const Text('View Photo',
-                              textAlign: TextAlign.center)),
-                      onTap: () {
-                        Navigator.pop(context);
-                        if (onViewAction != null && hasViewAction) {
-                          onViewAction();
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              const SizedBox(height: 16),
-              InkWell(
-                child: Container(
-                    padding: const EdgeInsets.all(16),
-                    color: AppColors.white,
-                    child: const Text('Cancel', textAlign: TextAlign.center)),
-                onTap: () {
-                  Navigator.pop(context);
-                  // _openCamera();
-                },
-              ),
-            ],
-          ),
-        );
-      });
-}*/
 
 Future<String?> pickImageFromCamera() async {
   XFile? file = await ImagePicker().pickImage(source: ImageSource.camera);
@@ -171,27 +80,6 @@ Future<String?> pickImageFromCamera() async {
 //setState(() {});
   }
   return null;
-
-/*static Future<List<Map<String, String?>>> fetchVideos(
-{bool allowMultiple = false}) async {
-try {
-FilePicker filePicker = FilePicker.platform;
-FilePickerResult? result = await filePicker.pickFiles(
-type: FileType.video,
-allowCompression: true,
-
-allowMultiple: allowMultiple,
-// allowedExtensions: ['mp4'],
-);
-if (result != null) {
-return result.files
-    .map((file) => {'path': file.path, 'size': file.size.toString()})
-    .toList();
-} else {
-return [];
-}
-} catch (e) {
-return [];
 }
 //  selectFiles(BuildContext context, Function(List<String>) onSelected,
 //     {bool allowMultiple = false,
@@ -338,40 +226,3 @@ return [];
 // return [];
 // }
 // }
-}*/
-
-
-/*
-static Future<List<PlatformFile>> fetchMedia(
-{bool allowMultiple = false,
-Function(FilePickerResult? result)? onSelect}) async {
-try {
-FilePicker filePicker = FilePicker.platform;
-FilePickerResult? result = await filePicker.pickFiles(
-type: FileType.custom,
-allowCompression: true,
-allowMultiple: allowMultiple,
-allowedExtensions: [
-'mp4',
-'mov',
-'jpg',
-'jpeg',
-'png',
-'pdf',
-'doc',
-'docx'
-],
-);
-//     .then((value) {
-//   onSelect!(value);
-//   return null;
-// });
-if (result != null) {
-return result.files;
-} else {
-return [];
-}
-} catch (e) {
-return [];
-}
-}*/
