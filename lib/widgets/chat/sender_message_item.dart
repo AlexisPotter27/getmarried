@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/data/models/chat_message.dart';
 
 class SenderMessageItem extends StatefulWidget {
-  const SenderMessageItem({Key? key}) : super(key: key);
+  const SenderMessageItem({Key? key, required this.message}) : super(key: key);
+  final ChatMessage message;
 
   @override
   State<SenderMessageItem> createState() => _SenderMessageItemState();
@@ -21,8 +23,8 @@ class _SenderMessageItemState extends State<SenderMessageItem> {
               topRight: Radius.circular(10),
               topLeft: Radius.circular(10)),
           color: primaryColour),
-      child: const Text(
-        'Hello, how are you doing  d dddddd ddd dd ddd dd dd d ?',
+      child: Text(
+        widget.message.text,
         style: TextStyle(color: Colors.white),
       ),
     );

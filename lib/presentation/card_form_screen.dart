@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
 
 class CardFormScreen extends StatelessWidget {
   const CardFormScreen({Key? key}) : super(key: key);
@@ -28,9 +28,9 @@ class CardFormScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20,),
-            CardFormField(controller: CardFormEditController(),
-              enablePostalCode: true,
-            ),
+            // CardFormField(controller: CardFormEditController(),
+            //   enablePostalCode: true,
+            // ),
             const SizedBox(height: 10,),
             ElevatedButton(
                 onPressed: (){

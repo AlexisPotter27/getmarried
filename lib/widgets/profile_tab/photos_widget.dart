@@ -3,7 +3,8 @@ import 'package:getmarried/widgets/profile_tab/add_profile_photo_box.dart';
 import 'package:getmarried/widgets/reigistration/file_upload_sheet.dart';
 
 class PhotosWidget extends StatefulWidget {
-  const PhotosWidget({Key? key}) : super(key: key);
+  const PhotosWidget({Key? key, required this.photos}) : super(key: key);
+  final List photos;
 
   @override
   State<PhotosWidget> createState() => _PhotosWidgetState();
@@ -34,27 +35,36 @@ class _PhotosWidgetState extends State<PhotosWidget> {
                   decoration: BoxDecoration(
                       color: Colors.grey.shade300,
                       borderRadius: BorderRadius.circular(16)),
-                  child: const Center(
-                    child: Icon(Icons.add),
-                  ),
+                  child: widget.photos.isNotEmpty
+                      ? Image.network(
+                          widget.photos[0],
+                          height: 220,
+                        )
+                      : const Center(
+                          child: Icon(Icons.add),
+                        ),
                 ),
               ),
               Row(
-                children: const [
+                children: [
                   Expanded(
                     child: AddProfilePhotoBox(
-                      margin: EdgeInsets.all(2.5),
+                      margin: const EdgeInsets.all(2.5),
+                      photo:
+                          widget.photos.length >= 4 ? widget.photos[3] : null,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Expanded(
                     child: AddProfilePhotoBox(
-                      margin: EdgeInsets.all(2.5),
+                      margin: const EdgeInsets.all(2.5),
+                      photo:
+                          widget.photos.length >= 5 ? widget.photos[4] : null,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 8,
                   ),
                 ],
@@ -67,16 +77,22 @@ class _PhotosWidgetState extends State<PhotosWidget> {
           width: MediaQuery.of(context).size.width / 3 - 16,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              AddProfilePhotoBox(),
-              SizedBox(
+            children: [
+              AddProfilePhotoBox(
+                photo: widget.photos.length >= 2 ? widget.photos[1] : null,
+              ),
+              const SizedBox(
                 height: 8,
               ),
-              AddProfilePhotoBox(),
-              SizedBox(
+              AddProfilePhotoBox(
+                photo: widget.photos.length >= 3 ? widget.photos[2] : null,
+              ),
+              const SizedBox(
                 height: 8,
               ),
-              AddProfilePhotoBox(),
+              AddProfilePhotoBox(
+                photo: widget.photos.length >= 7 ? widget.photos[6] : null,
+              ),
             ],
           ),
         )

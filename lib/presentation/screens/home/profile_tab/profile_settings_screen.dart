@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/data/models/chip_choice_mode.dart';
+import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/models/user.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/widgets/profile_tab/basics_section.dart';
 import 'package:getmarried/widgets/profile_tab/connect_account_widget.dart';
 import 'package:getmarried/widgets/profile_tab/chips_box.dart';
@@ -15,6 +19,16 @@ class ProfileSettingsScreen extends StatefulWidget {
 }
 
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
+  UserData cachedUser = getIt.get<CacheCubit>().user!;
+
+  final bioController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    bioController.text = cachedUser.about ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +109,9 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
               const SizedBox(
                 height: 16,
               ),
-              const PhotosWidget(),
+              PhotosWidget(
+                photos: cachedUser.photos ?? [],
+              ),
               const SizedBox(
                 height: 16,
               ),
@@ -137,7 +153,12 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
               ),
               SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child:  ChipsBox(items: sports,)),
+                  child: ChipsBox(
+                    items: cachedUser.interests!
+                        .map((e) => ChipChoiceModel(
+                            label: e.toString(), icon: Icons.sports_score))
+                        .toList(),
+                  )),
               const SizedBox(
                 height: 16,
               ),
@@ -192,6 +213,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
               ),
               TextField(
                 maxLines: 3,
+                controller: bioController,
                 decoration: inputDecoration(context).copyWith(
                     filled: false,
                     hintText: 'A little bit about you',
@@ -201,29 +223,23 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                         borderSide: BorderSide(color: Colors.grey.shade300),
                         borderRadius: BorderRadius.circular(16)),
                     enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade300),
-                  borderRadius: BorderRadius.circular(16)),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(16)),
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey.shade300))),
               ),
               const SizedBox(
                 height: 16,
               ),
-              const BasicsSection(),
-              const SizedBox(height: 16,),
-              const MoreAboutSection(),
-              const SizedBox(height: 16,),
-              const Text(
-                'Language i know',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
+               BasicsSection(user: cachedUser,),
               const SizedBox(
                 height: 16,
               ),
-
-              SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child:  ChipsBox(items: myLanguage,)),
+               MoreAboutSection(user: cachedUser,),
+              const SizedBox(
+                height: 16,
+              ),
+               _LanguagesWidget(user: cachedUser ,),
               const SizedBox(
                 height: 16,
               ),
@@ -231,11 +247,36 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
               const SizedBox(
                 height: 16,
               ),
-
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _LanguagesWidget extends StatelessWidget {
+  const _LanguagesWidget({Key? key, required this.user}) : super(key: key);
+  final UserData user;
+
+  @override
+  Widget build(BuildContext context) {
+    return  Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Language i know',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: ChipsBox(
+              items: myLanguage,
+            )),
+      ],
     );
   }
 }
