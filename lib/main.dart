@@ -18,6 +18,7 @@ void main() async {
   await Hive.initFlutter();
   injector.init();
   await Firebase.initializeApp();
+  //await PurchaseApi.init();
   Future.delayed(const Duration(milliseconds: 300));
   CacheCubit cubit = getIt.get<CacheCubit>();
   cubit.getCachedUser();
