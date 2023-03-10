@@ -132,7 +132,8 @@ class _AppBarTittleWidgetState extends State<_AppBarTittleWidget> {
     return Row(
       children: [
         CircleAvatar(
-          backgroundImage: NetworkImage(widget.user.photos[0]),
+          backgroundImage: NetworkImage(
+              widget.user.photos.isEmpty ? '' : widget.user.photos[0]),
         ),
         const SizedBox(
           width: 10,
@@ -162,18 +163,24 @@ class _AppBarActionsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        IconButton(
+        // IconButton(
+        //     onPressed: () {},
+        //     icon: Icon(
+        //       Icons.video_call_outlined,
+        //       color: Colors.grey.shade400,
+        //     )),
+        // IconButton(
+        //     onPressed: () {},
+        //     icon: Icon(
+        //       Icons.call,
+        //       color: Colors.grey.shade400,
+        //     )),
+        TextButton(
             onPressed: () {},
-            icon: Icon(
-              Icons.video_call_outlined,
-              color: Colors.grey.shade400,
-            )),
-        IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.call,
-              color: Colors.grey.shade400,
-            )),
+            child: Text(
+              'Unmatched',
+              style: TextStyle(color: Colors.red),
+            ))
       ],
     );
   }

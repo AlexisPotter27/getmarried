@@ -1,11 +1,8 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/di/injector.dart';
-import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
-import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/profile_settings_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/settings_screen.dart';
 import 'package:getmarried/widgets/profile_tab/card_tile.dart';
@@ -51,7 +48,7 @@ class _ProfileTabState extends State<ProfileTab> {
 
               leading: GestureDetector(
                   onTap: () {
-                    scaffoldKey.currentState!.openDrawer();
+                    // scaffoldKey.currentState!.openDrawer();
                   },
                   child: const Icon(
                     Icons.menu,
@@ -182,7 +179,7 @@ class _ProfileTabState extends State<ProfileTab> {
                             child: SubscriptionCard(
                               tittle: '50% off Premium',
                               description: 'Offer ends in 12:12:27',
-                              buttonText: 'Upgrade for 9 USD',
+                              buttonText: 'Upgrade for ONLY \$9 /mo.',
                             ),
                           ),
                           SubscriptionCard(
@@ -198,7 +195,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                 ]),
                             description:
                                 'More chances to match with extra features to boost your profile',
-                            buttonText: 'Upgrade from 18 USD',
+                            buttonText: 'Upgrade for ONLY \$18 /mo.',
                           ),
                         ],
                       ),

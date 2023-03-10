@@ -6,7 +6,6 @@ import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/data/repositories/remote/chat/chat_repository_impl.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/chat/chat_bloc.dart';
-import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/home/match_card.dart';
 import 'package:getmarried/widgets/home/swippable_card.dart';
@@ -47,7 +46,7 @@ class _HomeTabState extends State<HomeTab> {
             children: [
               IconButton(
                   onPressed: () {
-                    scaffoldKey.currentState!.openDrawer();
+                    // scaffoldKey.currentState!.openDrawer();
                   },
                   icon: const Icon(
                     Icons.menu,

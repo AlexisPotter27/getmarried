@@ -13,6 +13,8 @@ class _TopicsBottomSheetState extends State<TopicsBottomSheet> {
   List<String> selectedTopics = [];
   bool showOthers = false;
 
+  String? selectedOption;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +26,6 @@ class _TopicsBottomSheetState extends State<TopicsBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
-
               children: [
                 IconButton(
                     onPressed: () {},
@@ -34,7 +35,10 @@ class _TopicsBottomSheetState extends State<TopicsBottomSheet> {
                     )),
                 const Text(
                   'What are their politics like ? ',
-                  style: TextStyle(color: Colors.black, fontSize: 16,fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
                 )
               ],
             ),
@@ -45,25 +49,25 @@ class _TopicsBottomSheetState extends State<TopicsBottomSheet> {
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: topics.length,
-                itemBuilder: (context, index) => CheckboxListTile(
-                    contentPadding: EdgeInsets.zero,
-                    value: selectedTopics.contains(religions[index]),
-                    activeColor: primaryColour,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (val) {
-                      setState(() {
-                        if (val!) {
-                          selectedTopics.add(topics[index]);
-                        } else {
-                          selectedTopics.remove(topics[index]);
-                        }
-                      });
-                    },
-                    checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        side: BorderSide(
-                            width: 0.5, color: Colors.grey.shade300)),
-                    title: Text(topics[index])),
+                itemBuilder: (context, index) => RadioListTile<String>(
+                  contentPadding: EdgeInsets.zero,
+                  value: topics[index],
+                  activeColor: primaryColour,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (val) {
+                    setState(() {
+                      if (val != null) {
+                        selectedOption = val;
+                      }
+                    });
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side:
+                          BorderSide(width: 0.5, color: Colors.grey.shade300)),
+                  title: Text(topics[index]),
+                  groupValue: selectedOption,
+                ),
               ),
             ),
             Row(

@@ -13,6 +13,8 @@ class _NeedsBottomSheetState extends State<NeedsBottomSheet> {
   List<String> selectedNeeds = [];
   bool showOthers = false;
 
+  String? selectedOption;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,25 +47,25 @@ class _NeedsBottomSheetState extends State<NeedsBottomSheet> {
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: needs.length,
-                itemBuilder: (context, index) => CheckboxListTile(
-                    contentPadding: EdgeInsets.zero,
-                    value: selectedNeeds.contains(needs[index]),
-                    activeColor: primaryColour,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (val) {
-                      setState(() {
-                        if (val!) {
-                          selectedNeeds.add(needs[index]);
-                        } else {
-                          selectedNeeds.remove(needs[index]);
-                        }
-                      });
-                    },
-                    checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        side: BorderSide(
-                            width: 0.5, color: Colors.grey.shade300)),
-                    title: Text(needs[index])),
+                itemBuilder: (context, index) => RadioListTile<String>(
+                  contentPadding: EdgeInsets.zero,
+                  value: needs[index],
+                  activeColor: primaryColour,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (val) {
+                    setState(() {
+                      if (val != null) {
+                        selectedOption = val;
+                      }
+                    });
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side:
+                      BorderSide(width: 0.5, color: Colors.grey.shade300)),
+                  title: Text(needs[index]),
+                  groupValue: selectedOption,
+                ),
               ),
             ),
             Row(

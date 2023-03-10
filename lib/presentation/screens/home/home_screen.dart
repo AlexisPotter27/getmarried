@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+      // key: scaffoldKey,
       drawer: const _HomeDrawer(),
       body: IndexedStack(
         index: _currentIndex,

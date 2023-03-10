@@ -12,6 +12,7 @@ class ChildrenBottomsheet extends StatefulWidget {
 class _ChildrenBottomsheetState extends State<ChildrenBottomsheet> {
   List<String> selectedChildrenOption = [];
   bool showOthers = false;
+  String? selectedOption;
 
   @override
   Widget build(BuildContext context) {
@@ -45,25 +46,25 @@ class _ChildrenBottomsheetState extends State<ChildrenBottomsheet> {
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: childrenOptions.length,
-                itemBuilder: (context, index) => CheckboxListTile(
-                    contentPadding: EdgeInsets.zero,
-                    value: selectedChildrenOption.contains(religions[index]),
-                    activeColor: primaryColour,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (val) {
-                      setState(() {
-                        if (val!) {
-                          selectedChildrenOption.add(childrenOptions[index]);
-                        } else {
-                          selectedChildrenOption.remove(childrenOptions[index]);
-                        }
-                      });
-                    },
-                    checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        side: BorderSide(
-                            width: 0.5, color: Colors.grey.shade300)),
-                    title: Text(childrenOptions[index])),
+                itemBuilder: (context, index) => RadioListTile<String>(
+                  contentPadding: EdgeInsets.zero,
+                  value: childrenOptions[index],
+                  activeColor: primaryColour,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (val) {
+                    setState(() {
+                      if (val != null) {
+                        selectedOption = val;
+                      }
+                    });
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side:
+                      BorderSide(width: 0.5, color: Colors.grey.shade300)),
+                  title: Text(educations[index]),
+                  groupValue: selectedOption,
+                ),
               ),
             ),
             Row(

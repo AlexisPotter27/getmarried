@@ -12,6 +12,7 @@ class EducationBottomSheet extends StatefulWidget {
 class _EducationBottomSheetState extends State<EducationBottomSheet> {
   List<String> selectedEducations = [];
   bool showOthers = false;
+  String? selecetdEducation;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,6 @@ class _EducationBottomSheetState extends State<EducationBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
-
               children: [
                 IconButton(
                     onPressed: () {},
@@ -34,7 +34,10 @@ class _EducationBottomSheetState extends State<EducationBottomSheet> {
                     )),
                 const Text(
                   'What is their education? ',
-                  style: TextStyle(color: Colors.black, fontSize: 16,fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
                 )
               ],
             ),
@@ -45,25 +48,25 @@ class _EducationBottomSheetState extends State<EducationBottomSheet> {
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: educations.length,
-                itemBuilder: (context, index) => CheckboxListTile(
-                    contentPadding: EdgeInsets.zero,
-                    value: selectedEducations.contains(religions[index]),
-                    activeColor: primaryColour,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (val) {
-                      setState(() {
-                        if (val!) {
-                          selectedEducations.add(educations[index]);
-                        } else {
-                          selectedEducations.remove(educations[index]);
-                        }
-                      });
-                    },
-                    checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        side: BorderSide(
-                            width: 0.5, color: Colors.grey.shade300)),
-                    title: Text(educations[index])),
+                itemBuilder: (context, index) => RadioListTile<String>(
+                  contentPadding: EdgeInsets.zero,
+                  value: educations[index],
+                  activeColor: primaryColour,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (val) {
+                    setState(() {
+                      if (val != null) {
+                        selecetdEducation = val;
+                      }
+                    });
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side:
+                          BorderSide(width: 0.5, color: Colors.grey.shade300)),
+                  title: Text(educations[index]),
+                  groupValue: selecetdEducation,
+                ),
               ),
             ),
             Row(
@@ -100,6 +103,4 @@ List<String> educations = [
   'Undergraduate degree',
   'In grade school',
   'Graduate degree',
-
-
 ];

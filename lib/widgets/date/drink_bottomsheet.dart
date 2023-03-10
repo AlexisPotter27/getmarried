@@ -13,6 +13,8 @@ class _DrinkBottomSheetState extends State<DrinkBottomSheet> {
   List<String> selectedDrinkOptions = [];
   bool showOthers = false;
 
+  String? selectedOption;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,26 +46,26 @@ class _DrinkBottomSheetState extends State<DrinkBottomSheet> {
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: drinkOptions.length,
-                itemBuilder: (context, index) => CheckboxListTile(
-                    contentPadding: EdgeInsets.zero,
-                    value: selectedDrinkOptions.contains(religions[index]),
-                    activeColor: primaryColour,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (val) {
-                      setState(() {
-                        if (val!) {
-                          selectedDrinkOptions.add(drinkOptions[index]);
-                        } else {
-                          selectedDrinkOptions.remove(drinkOptions[index]);
-                        }
-                      });
-                    },
-                    checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        side: BorderSide(
-                            width: 0.5, color: Colors.grey.shade300)),
-                    title: Text(drinkOptions[index])),
+                itemCount: drinkingOptions.length,
+                itemBuilder: (context, index) => RadioListTile<String>(
+                  contentPadding: EdgeInsets.zero,
+                  value: drinkingOptions[index],
+                  activeColor: primaryColour,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (val) {
+                    setState(() {
+                      if (val != null) {
+                        selectedOption = val;
+                      }
+                    });
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side:
+                      BorderSide(width: 0.5, color: Colors.grey.shade300)),
+                  title: Text(drinkingOptions[index]),
+                  groupValue: selectedOption,
+                ),
               ),
             ),
             Row(

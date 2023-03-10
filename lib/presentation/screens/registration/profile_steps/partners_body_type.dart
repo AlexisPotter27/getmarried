@@ -3,11 +3,10 @@ import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-
-
-
 class PartnersBodyType extends StatefulWidget {
-  const PartnersBodyType({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
+  const PartnersBodyType(
+      {Key? key, required this.onComplete, required this.onPrev})
+      : super(key: key);
   final Function(String? pBodyType) onComplete;
   final Function onPrev;
 
@@ -40,7 +39,10 @@ class _PartnersBodyTypeState extends State<PartnersBodyType> {
               ),
               const Text(
                 'What is your ideal partners body type ?',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
@@ -78,9 +80,9 @@ class _PartnersBodyTypeState extends State<PartnersBodyType> {
               CustomRadioTile<String>(
                 onSubtitleClicked: () {},
                 toggleSubtitle: false,
-                value: 'a few extra pounds',
+                value: 'average',
                 groupValue: value,
-                tittle: 'A few extra pounds',
+                tittle: 'Average',
                 onChanged: (val) {
                   setState(() {
                     value = val;
@@ -108,9 +110,9 @@ class _PartnersBodyTypeState extends State<PartnersBodyType> {
               CustomRadioTile<String>(
                 onSubtitleClicked: () {},
                 toggleSubtitle: false,
-                value: 'overweight',
+                value: 'doesnt matter',
                 groupValue: value,
-                tittle: 'Overweight',
+                tittle: 'It doesn\'t matter to me ',
                 onChanged: (val) {
                   setState(() {
                     value = val;
@@ -126,27 +128,22 @@ class _PartnersBodyTypeState extends State<PartnersBodyType> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                NextButton(
-                    isNext: false,
-                    onPressed: () {
-                      widget.onPrev();
-                    }),
-                GestureDetector(
-                  child: const Text(
-                    'Skip',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  onTap: () {
-                    widget.onComplete(null);
-                  },
+            NextButton(
+                isNext: false,
+                onPressed: () {
+                  widget.onPrev();
+                }),
+            GestureDetector(
+              child: const Text(
+                'Skip',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
+              ),
+              onTap: () {
+                widget.onComplete(null);
+              },
             ),
             NextButton(onPressed: () {
               if (value.isEmpty) {

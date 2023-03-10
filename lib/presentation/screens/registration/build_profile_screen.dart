@@ -17,7 +17,6 @@ import 'package:getmarried/presentation/screens/registration/profile_steps/body_
 import 'package:getmarried/presentation/screens/registration/profile_steps/children_concent_screen.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/creativity.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/drinking_screen.dart';
-import 'package:getmarried/presentation/screens/registration/profile_steps/drugs.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/education_status_screen.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/ethnic_group.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/height_screen.dart';
@@ -111,7 +110,7 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                   Expanded(
                       child: PageView(
                     controller: _pageController,
-                    physics: const NeverScrollableScrollPhysics(),
+                    // physics: const NeverScrollableScrollPhysics(),
                     children: [
                       InterestScreen(
                         onComplete: (interests) {
@@ -190,71 +189,71 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                         userData?.smoking = smoking;
                         switchPage(12);
                       }),
-                      DrugsScreen(onPrev: () {
-                        prevPage(11);
-                      }, onComplete: (drugs) {
-                        userData?.drugs = drugs;
-                        switchPage(13);
-                      }),
+                      // DrugsScreen(onPrev: () {
+                      //   prevPage(11);
+                      // }, onComplete: (drugs) {
+                      //   userData?.drugs = drugs;
+                      //   switchPage(13);
+                      // }),
                       ChildrenConsentScreen(onPrev: () {
-                        prevPage(12);
+                        prevPage(11);
                       }, onComplete: (children) {
                         userData?.children = children;
-                        switchPage(14);
+                        switchPage(13);
                       }),
                       ReligionScreen(onPrev: () {
-                        prevPage(13);
+                        prevPage(14);
                       }, onComplete: (religion) {
                         userData?.religion = religion;
-                        switchPage(15);
-                      }),
-                      PartnersReligion(onPrev: () {
-                        prevPage(14);
-                      }, onComplete: (pReligion) {
-                        userData?.partnerReligion = pReligion;
                         switchPage(16);
                       }),
-                      PoliticalLeaningsscreen(onPrev: () {
+                      PartnersReligion(onPrev: () {
                         prevPage(15);
-                      }, onComplete: (politics) {
-                        userData?.political = politics;
+                      }, onComplete: (pReligion) {
+                        userData?.partnerReligion = pReligion;
                         switchPage(17);
                       }),
-                      EthnicGroup(onPrev: () {
+                      PoliticalLeaningsscreen(onPrev: () {
                         prevPage(16);
-                      }, onComplete: (ethnicGroup) {
-                        userData?.ethnicity = ethnicGroup;
+                      }, onComplete: (politics) {
+                        userData?.political = politics;
                         switchPage(18);
                       }),
-                      PartnersEthnicity(onPrev: () {
+                      EthnicGroup(onPrev: () {
                         prevPage(17);
-                      }, onComplete: (pEthnicity) {
-                        userData?.partnerEthnicity = pEthnicity;
+                      }, onComplete: (ethnicGroup) {
+                        userData?.ethnicity = ethnicGroup;
                         switchPage(19);
                       }),
-                      PlanningEvent(onPrev: () {
+                      PartnersEthnicity(onPrev: () {
                         prevPage(18);
-                      }, onComplete: (eventType) {
+                      }, onComplete: (pEthnicity) {
+                        userData?.partnerEthnicity = pEthnicity;
                         switchPage(20);
+                      }),
+                      PlanningEvent(onPrev: () {
+                        prevPage(19);
+                      }, onComplete: (eventType) {
+                        switchPage(21);
                         userData?.potentialEvent = eventType;
                       }),
                       Understanding(onPrev: () {
-                        prevPage(19);
+                        prevPage(20);
                       }, onComplete: (understanding) {
                         userData?.understanding = understanding;
-                        switchPage(21);
-                      }),
-                      Outgoing(onPrev: () {
-                        prevPage(20);
-                      }, onComplete: (outgoing) {
-                        userData?.outgoing = outgoing;
                         switchPage(22);
                       }),
-                      Ambitious(onPrev: () {
+                      Outgoing(onPrev: () {
                         prevPage(21);
+                      }, onComplete: (outgoing) {
+                        userData?.outgoing = outgoing;
+                        switchPage(23);
+                      }),
+                      Ambitious(onPrev: () {
+                        prevPage(22);
                       }, onComplete: (ambitious) {
                         userData?.ambitious = ambitious;
-                        switchPage(23);
+                        switchPage(24);
                       }),
 
                       // Athletic(onPrev: () {
@@ -264,31 +263,31 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                       // }),
 
                       StartingAndFinishing(onPrev: () {
-                        prevPage(22);
+                        prevPage(23);
                       }, onComplete: (startingFinishing) {
                         userData?.startingAndFinishing = startingFinishing;
-                        switchPage(24);
-                      }),
-                      Relationship(onPrev: () {
-                        prevPage(23);
-                      }, onComplete: (relationShip) {
-                        userData?.sexInRelationship = relationShip;
                         switchPage(25);
                       }),
-                      Monogamy(onPrev: () {
+                      Relationship(onPrev: () {
                         prevPage(24);
-                      }, onComplete: (monogamy) {
-                        userData?.monogamy = monogamy;
+                      }, onComplete: (relationShip) {
+                        userData?.sexInRelationship = relationShip;
                         switchPage(26);
                       }),
-                      Creativity(onPrev: () {
+                      Monogamy(onPrev: () {
                         prevPage(25);
-                      }, onComplete: (creativity) {
-                        userData?.creativity = creativity;
+                      }, onComplete: (monogamy) {
+                        userData?.monogamy = monogamy;
                         switchPage(27);
                       }),
-                      AboutYouScreen(onPrev: () {
+                      Creativity(onPrev: () {
                         prevPage(26);
+                      }, onComplete: (creativity) {
+                        userData?.creativity = creativity;
+                        switchPage(28);
+                      }),
+                      AboutYouScreen(onPrev: () {
+                        prevPage(27);
                       }, onComplete: (about) {
                         userData?.about = about;
                         authBloc.add(

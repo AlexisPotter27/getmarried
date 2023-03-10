@@ -45,7 +45,7 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
                       height: 20,
                     ),
                     const Text(
-                      'Get married is for making all kinds of connections!. You will be able to switch modes once you are all setup.',
+                      'Get married is for making all kinds of connections!.',
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,

@@ -43,10 +43,13 @@ class _LikeRefractorState extends State<LikeRefractor> {
               floating: true,
               bottom: AppBar(
                 backgroundColor: Colors.white,
+                automaticallyImplyLeading: false,
                 elevation: 0,
+                centerTitle: false,
                 title: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       GestureDetector(
                         onTap: () {

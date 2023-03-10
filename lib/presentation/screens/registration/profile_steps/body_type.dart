@@ -79,9 +79,9 @@ class _BodyTypeState extends State<BodyType> {
               CustomRadioTile<String>(
                 onSubtitleClicked: () {},
                 toggleSubtitle: false,
-                value: 'a few extra pounds',
+                value: 'average',
                 groupValue: value,
-                tittle: 'A few extra pounds',
+                tittle: 'Average',
                 onChanged: (val) {
                   setState(() {
                     value = val;
@@ -127,26 +127,22 @@ class _BodyTypeState extends State<BodyType> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                NextButton(
-                    isNext: false,
-                    onPressed: () {
-                      widget.onPrev();
-                    }),
-                GestureDetector(
-                  child: const Text(
-                    'Skip',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  onTap: () {
-                    widget.onComplete(null);
-                  },
+            NextButton(
+                isNext: false,
+                onPressed: () {
+                  widget.onPrev();
+                }),
+            GestureDetector(
+              child: const Text(
+                'Skip',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
+              ),
+              onTap: () {
+                widget.onComplete(null);
+              },
             ),
             NextButton(onPressed: () {
               if (value.isEmpty) {

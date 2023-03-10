@@ -111,29 +111,22 @@ class _PartnersHeightState extends State<PartnersHeight> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-
-              mainAxisSize: MainAxisSize.min,
-
-              children: [
-                NextButton(
-                    isNext: false,
-                    onPressed: () {
-                      widget.onPrev();
-                    }),
-                GestureDetector(
-                    onTap: () {
-                      widget.onComplete(null);
-                    },
-                    child: const Text(
-                      'Skip',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )),
-              ],
-            ),
+            NextButton(
+                isNext: false,
+                onPressed: () {
+                  widget.onPrev();
+                }),
+            GestureDetector(
+                onTap: () {
+                  widget.onComplete(null);
+                },
+                child: const Text(
+                  'Skip',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )),
             NextButton(onPressed: () {
               widget.onComplete(heights[currentIndex]);
             }),

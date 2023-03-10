@@ -46,7 +46,7 @@ class _PartnersReligionState extends State<PartnersReligion> {
                 height: 10,
               ),
               const Text(
-                'What religion beliefs should your partner practice ?',
+                'What religious beliefs should your partner practice ?',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(

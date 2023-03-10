@@ -58,7 +58,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAkqo0k8xh_cqUJ3VgbG52Bind--dTG8j8',
-    appId: '1:594283361767:android:0579aa47024bd8bce17942',
+    appId: '1:594283361767:android:db16d6fee0f25331e17942',
     messagingSenderId: '594283361767',
     projectId: 'getmarriedapp-810aa',
     databaseURL: 'https://getmarriedapp-810aa-default-rtdb.firebaseio.com',
@@ -67,13 +67,13 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAPczalQC0SE9a-bpV2EAJBQZW_A_6qvU0',
-    appId: '1:594283361767:ios:8d19a5eeb24e77b7e17942',
+    appId: '1:594283361767:ios:cb7c2321e2f92f52e17942',
     messagingSenderId: '594283361767',
     projectId: 'getmarriedapp-810aa',
     databaseURL: 'https://getmarriedapp-810aa-default-rtdb.firebaseio.com',
     storageBucket: 'getmarriedapp-810aa.appspot.com',
     androidClientId: '594283361767-6ap9vtei9ikrm932bfaekgo7paottgov.apps.googleusercontent.com',
-    iosClientId: '594283361767-lkcp68lhflac3jf58ou9viflnhrolc21.apps.googleusercontent.com',
-    iosBundleId: 'com.app.getmarried',
+    iosClientId: '594283361767-k88keavhjmcfor3nia01otlf1vs0edr9.apps.googleusercontent.com',
+    iosBundleId: 'com.getmarriedapp',
   );
 }

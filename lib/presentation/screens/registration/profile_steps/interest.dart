@@ -15,7 +15,8 @@ class InterestScreen extends StatefulWidget {
   State<InterestScreen> createState() => _InterestScreenState();
 }
 
-class _InterestScreenState extends State<InterestScreen> with AutomaticKeepAliveClientMixin {
+class _InterestScreenState extends State<InterestScreen>
+    with AutomaticKeepAliveClientMixin {
   List<ChipChoiceModel> creativitySelections = [];
   List<ChipChoiceModel> sportsSelections = [];
   List<ChipChoiceModel> goingOutSelections = [];
@@ -124,41 +125,42 @@ class _InterestScreenState extends State<InterestScreen> with AutomaticKeepAlive
         Row(
           children: [
             Expanded(
-              child: Row(
-                children: [
-                  GestureDetector(
-                    child: const Text(
-                      'Skip',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white),
+              child: Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GestureDetector(
+                      child: const Text(
+                        'Skip',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
+                      onTap: () {
+                        // widget.onComplete();
+                      },
                     ),
-                    onTap: () {
-                      // widget.onComplete();
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Row(
               children: [
-                const Text(
-                  '1/5 selected',
+                Text(
+                  '${selectedCategories()}/5 selected',
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: Colors.white),
                 ),
                 NextButton(onPressed: () {
-                  if(allInterests.isEmpty){
+                  if (allInterests.isEmpty) {
                     showCustomToast('Select atleast one interest');
-                  }else{
+                  } else {
                     log(allInterests.length.toString());
                     widget.onComplete(allInterests);
                   }
-
-
                 })
               ],
             )
@@ -172,14 +174,34 @@ class _InterestScreenState extends State<InterestScreen> with AutomaticKeepAlive
         ...sportsSelections,
         ...filmTvSelections,
         ...creativitySelections,
-        ...sportsSelections,
+        ...stayingInSelections,
         ...goingOutSelections
       ];
 
   List<String> get allInterests => all.map((e) => e.label).toList();
 
+  String selectedCategories() {
+    int selections = 0;
+    if (sportsSelections.isNotEmpty) {
+      selections += 1;
+    }
+    if (filmTvSelections.isNotEmpty) {
+      selections += 1;
+    }
+    if (creativitySelections.isNotEmpty) {
+      selections += 1;
+    }
+    if (stayingInSelections.isNotEmpty) {
+      selections += 1;
+    }
+    if (goingOutSelections.isNotEmpty) {
+      selections += 1;
+    }
+
+    return selections.toString();
+  }
+
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
 

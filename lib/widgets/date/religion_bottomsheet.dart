@@ -13,6 +13,8 @@ class _ReligionBottomSheetState extends State<ReligionBottomSheet> {
   List<String> selectedReligions = [];
   bool showOthers = false;
 
+  String? selectedOption;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,25 +47,25 @@ class _ReligionBottomSheetState extends State<ReligionBottomSheet> {
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: religions.length,
-                itemBuilder: (context, index) => CheckboxListTile(
-                    contentPadding: EdgeInsets.zero,
-                    value: selectedReligions.contains(religions[index]),
-                    activeColor: primaryColour,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (val) {
-                      setState(() {
-                        if (val!) {
-                          selectedReligions.add(religions[index]);
-                        } else {
-                          selectedReligions.remove(religions[index]);
-                        }
-                      });
-                    },
-                    checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        side: BorderSide(
-                            width: 0.5, color: Colors.grey.shade300)),
-                    title: Text(religions[index])),
+                itemBuilder: (context, index) => RadioListTile<String>(
+                  contentPadding: EdgeInsets.zero,
+                  value: religions[index],
+                  activeColor: primaryColour,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (val) {
+                    setState(() {
+                      if (val != null) {
+                        selectedOption = val;
+                      }
+                    });
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side:
+                      BorderSide(width: 0.5, color: Colors.grey.shade300)),
+                  title: Text(religions[index]),
+                  groupValue: selectedOption,
+                ),
               ),
             ),
             Row(

@@ -13,6 +13,8 @@ class _StarSignBottomSheetState extends State<StarSignBottomSheet> {
   List<String> selectedSigns = [];
   bool showOthers = false;
 
+  String? selectedOption;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,26 +46,26 @@ class _StarSignBottomSheetState extends State<StarSignBottomSheet> {
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: signs.length,
-                itemBuilder: (context, index) => CheckboxListTile(
-                    contentPadding: EdgeInsets.zero,
-                    value: selectedSigns.contains(religions[index]),
-                    activeColor: primaryColour,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (val) {
-                      setState(() {
-                        if (val!) {
-                          selectedSigns.add(signs[index]);
-                        } else {
-                          selectedSigns.remove(signs[index]);
-                        }
-                      });
-                    },
-                    checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        side: BorderSide(
-                            width: 0.5, color: Colors.grey.shade300)),
-                    title: Text(signs[index])),
+                itemCount: starSigns.length,
+                itemBuilder: (context, index) => RadioListTile<String>(
+                  contentPadding: EdgeInsets.zero,
+                  value: starSigns[index],
+                  activeColor: primaryColour,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (val) {
+                    setState(() {
+                      if (val != null) {
+                        selectedOption = val;
+                      }
+                    });
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side:
+                      BorderSide(width: 0.5, color: Colors.grey.shade300)),
+                  title: Text(starSigns[index]),
+                  groupValue: selectedOption,
+                ),
               ),
             ),
             Row(
