@@ -91,8 +91,7 @@ class AuthRepositoryImpl extends AuthRepository {
     try {
       debugPrint('RETREIVING USER DETAILS');
 
-      QuerySnapshot<Map<String, dynamic>> snapshots =
-          await db.collection(FirebaseKeys.users).get();
+      QuerySnapshot<Map<String, dynamic>> snapshots = await db.collection(FirebaseKeys.users).get();
 
       for (var element in snapshots.docs) {
         if (element.id == uid) {
@@ -101,7 +100,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
           return ApiResponse(
               data: UserData.fromJson(element.data()), error: null);
-        } else {
+        }
           log(element.id);
           DocumentReference userRef =
               db.collection(FirebaseKeys.users).doc(uid);
@@ -112,7 +111,7 @@ class AuthRepositoryImpl extends AuthRepository {
           debugPrint(' USER ${element.id} ADDED');
 
           return ApiResponse(data: UserData(uid: uid), error: null);
-        }
+
       }
       return ApiResponse(data: null, error: 'Something went wrong');
     } on FirebaseException catch (e) {

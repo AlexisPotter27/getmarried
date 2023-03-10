@@ -202,58 +202,58 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                         switchPage(13);
                       }),
                       ReligionScreen(onPrev: () {
-                        prevPage(14);
+                        prevPage(12);
                       }, onComplete: (religion) {
                         userData?.religion = religion;
-                        switchPage(16);
+                        switchPage(14);
                       }),
                       PartnersReligion(onPrev: () {
-                        prevPage(15);
+                        prevPage(13);
                       }, onComplete: (pReligion) {
                         userData?.partnerReligion = pReligion;
-                        switchPage(17);
+                        switchPage(15);
                       }),
                       PoliticalLeaningsscreen(onPrev: () {
-                        prevPage(16);
+                        prevPage(14);
                       }, onComplete: (politics) {
                         userData?.political = politics;
-                        switchPage(18);
+                        switchPage(16);
                       }),
                       EthnicGroup(onPrev: () {
-                        prevPage(17);
+                        prevPage(15);
                       }, onComplete: (ethnicGroup) {
                         userData?.ethnicity = ethnicGroup;
-                        switchPage(19);
+                        switchPage(17);
                       }),
                       PartnersEthnicity(onPrev: () {
-                        prevPage(18);
+                        prevPage(16);
                       }, onComplete: (pEthnicity) {
                         userData?.partnerEthnicity = pEthnicity;
-                        switchPage(20);
+                        switchPage(18);
                       }),
                       PlanningEvent(onPrev: () {
-                        prevPage(19);
+                        prevPage(17);
                       }, onComplete: (eventType) {
-                        switchPage(21);
+                        switchPage(19);
                         userData?.potentialEvent = eventType;
                       }),
                       Understanding(onPrev: () {
-                        prevPage(20);
+                        prevPage(18);
                       }, onComplete: (understanding) {
                         userData?.understanding = understanding;
-                        switchPage(22);
+                        switchPage(20);
                       }),
                       Outgoing(onPrev: () {
-                        prevPage(21);
+                        prevPage(19);
                       }, onComplete: (outgoing) {
                         userData?.outgoing = outgoing;
-                        switchPage(23);
+                        switchPage(21);
                       }),
                       Ambitious(onPrev: () {
-                        prevPage(22);
+                        prevPage(20);
                       }, onComplete: (ambitious) {
                         userData?.ambitious = ambitious;
-                        switchPage(24);
+                        switchPage(22);
                       }),
 
                       // Athletic(onPrev: () {
@@ -263,31 +263,31 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                       // }),
 
                       StartingAndFinishing(onPrev: () {
-                        prevPage(23);
+                        prevPage(21);
                       }, onComplete: (startingFinishing) {
                         userData?.startingAndFinishing = startingFinishing;
-                        switchPage(25);
+                        switchPage(23);
                       }),
                       Relationship(onPrev: () {
-                        prevPage(24);
+                        prevPage(22);
                       }, onComplete: (relationShip) {
                         userData?.sexInRelationship = relationShip;
-                        switchPage(26);
+                        switchPage(24);
                       }),
                       Monogamy(onPrev: () {
-                        prevPage(25);
+                        prevPage(23);
                       }, onComplete: (monogamy) {
                         userData?.monogamy = monogamy;
-                        switchPage(27);
+                        switchPage(25);
                       }),
                       Creativity(onPrev: () {
-                        prevPage(26);
+                        prevPage(24);
                       }, onComplete: (creativity) {
                         userData?.creativity = creativity;
-                        switchPage(28);
+                        switchPage(26);
                       }),
                       AboutYouScreen(onPrev: () {
-                        prevPage(27);
+                        prevPage(25);
                       }, onComplete: (about) {
                         userData?.about = about;
                         authBloc.add(
@@ -317,7 +317,7 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
   void prevPage(int to) {
     setState(() {
       _pageController.jumpToPage(to);
-      progress -= 0.036;
+      progress -= 0.04;
     });
   }
 

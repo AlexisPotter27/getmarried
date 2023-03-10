@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/models/user.dart';
+import 'package:getmarried/presentation/screens/home/profile_tab/edit_about_screen.dart';
+import 'package:getmarried/widgets/date/children_bottomsheet.dart';
+import 'package:getmarried/widgets/date/excercise_bottomsheet.dart';
 import 'package:getmarried/widgets/profile_tab/profile_list_tile.dart';
 
 class MoreAboutSection extends StatefulWidget {
@@ -45,7 +49,16 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
             ),
             tittle: 'Exercise',
             value: null,
-            onTap: () {}),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditAboutScreen(
+                      options: [...exerciseOptions],
+                      field: 'exercise',
+                    ),
+                  ));
+            }),
         const SizedBox(
           height: 16,
         ),
@@ -56,7 +69,16 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
             ),
             tittle: 'Education level',
             value: widget.user.education,
-            onTap: () {}),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditAboutScreen(
+                      options: [...educations],
+                      field: 'education',
+                    ),
+                  ));
+            }),
         const SizedBox(
           height: 16,
         ),
@@ -67,7 +89,16 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
             ),
             tittle: 'Drinking ',
             value: widget.user.drinking,
-            onTap: () {}),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditAboutScreen(
+                      options: [...drinkingOptions],
+                      field: 'drinking',
+                    ),
+                  ));
+            }),
         const SizedBox(
           height: 16,
         ),
@@ -78,7 +109,16 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
             ),
             tittle: 'Smoking',
             value: widget.user.smoking,
-            onTap: () {}),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditAboutScreen(
+                      options: [...smokeOptions],
+                      field: 'drinking',
+                    ),
+                  ));
+            }),
         const SizedBox(
           height: 16,
         ),
@@ -89,7 +129,16 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
             ),
             tittle: 'Looking for',
             value: widget.user.lookingFor,
-            onTap: () {}),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditAboutScreen(
+                      options: [],
+                      field: 'looking',
+                    ),
+                  ));
+            }),
         const SizedBox(
           height: 16,
         ),
@@ -100,7 +149,16 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
             ),
             tittle: 'Kids',
             value: widget.user.children,
-            onTap: () {}),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditAboutScreen(
+                      options: [...childrenOptions],
+                      field: 'kids',
+                    ),
+                  ));
+            }),
         const SizedBox(
           height: 16,
         ),
@@ -111,7 +169,16 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
             ),
             tittle: 'Start sign',
             value: widget.user.starSign,
-            onTap: () {}),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditAboutScreen(
+                      options: [...starSigns],
+                      field: 'star_sign',
+                    ),
+                  ));
+            }),
         const SizedBox(
           height: 16,
         ),
@@ -122,7 +189,16 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
             ),
             tittle: 'Politics',
             value: widget.user.political,
-            onTap: () {}),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditAboutScreen(
+                      options: [...ploiticalLeanings],
+                      field: 'politics',
+                    ),
+                  ));
+            }),
         const SizedBox(
           height: 16,
         ),
@@ -133,7 +209,15 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
             ),
             tittle: 'Religion',
             value: widget.user.religion,
-            onTap: () {}),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditAboutScreen(options: [
+                      ...religions
+                    ], field: 'religion',),
+                  ));
+            }),
         const SizedBox(
           height: 16,
         ),
