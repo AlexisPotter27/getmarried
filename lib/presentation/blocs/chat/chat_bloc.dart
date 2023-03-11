@@ -9,7 +9,6 @@ import 'package:getmarried/data/models/chat_message.dart';
 import 'package:getmarried/data/models/conversation.dart';
 import 'package:getmarried/data/repositories/remote/chat/chat_repository.dart';
 import 'package:getmarried/models/user.dart';
-import 'package:getmarried/models/user.dart';
 
 part 'chat_event.dart';
 
@@ -43,11 +42,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           .getUserConversations(event.userId)
           .asBroadcastStream()
           .listen((event) {
-        if (event != null) {
-          add(ConversationFetchedEvent(
-              event.docs.map((e) => Conversation.fromJson(e.data())).toList()));
-          log(event.docs[0].data().toString());
-        }
+        add(ConversationFetchedEvent(
+            event.docs.map((e) => Conversation.fromJson(e.data())).toList()));
+        // log(event.docs[0].data().toString());
       });
     } on FirebaseException catch (e) {
       log('failed${e.code}');

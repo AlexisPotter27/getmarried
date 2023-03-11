@@ -25,47 +25,61 @@ class _EditAboutScreenState extends State<EditAboutScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
-              children: [IconButton(onPressed: () {}, icon: Icon(Icons.close))],
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close))
+              ],
             ),
             SizedBox(
               height: 20,
             ),
             Text(
-             getTittle(),
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              getTittle(),
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black),
             ),
             SizedBox(
               height: 20,
             ),
-            SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: widget.options.length,
-                    itemBuilder: (context, index) => EditProfileItem(
-                      value: widget.field,
-                      selected: true,
+            Expanded(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: widget.options.length,
+                      itemBuilder: (context, index) => EditProfileItem(
+                        value: widget.options[index],
+                        selected: true,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: TextButton(
-                              onPressed: () {},
-                              style: TextButton.styleFrom(
-                                  padding: EdgeInsets.all(16)),
-                              child: Text(
-                                'Skip',
-                                style: TextStyle(color: Colors.black38),
-                              ))),
-                    ],
-                  )
-                ],
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                style: TextButton.styleFrom(
+                                    padding: EdgeInsets.all(16)),
+                                child: Text(
+                                  'Skip',
+                                  style: TextStyle(color: Colors.black38),
+                                ))),
+                      ],
+                    )
+                  ],
+                ),
               ),
             )
           ],
@@ -82,7 +96,7 @@ class _EditAboutScreenState extends State<EditAboutScreen> {
         return 'Do you workout ?';
       case 'education':
         return 'What is your education ?';
-      case 'drink':
+      case 'drinking':
         return 'Do you drink ?';
       case 'smoking':
         return 'Do you smoke ?';
@@ -90,7 +104,7 @@ class _EditAboutScreenState extends State<EditAboutScreen> {
         return 'What do you want from your dates ?';
       case 'kids':
         return 'What are your ideal plans for children?';
-      case 'start_sign':
+      case 'star_sign':
         return 'What is your zodaic sign ?';
       case 'politics':
         return 'What are your political leanings ?';

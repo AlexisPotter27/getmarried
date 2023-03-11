@@ -106,44 +106,34 @@ class _MonogamyState extends State<Monogamy> {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: NextButton(
-                        isNext: false,
-                        onPressed: () {
-                          widget.onPrev();
-                        }),
-                  ),
-                  GestureDetector(
-                    child: const Text(
-                      'Skip',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    onTap: () {
-                      widget.onComplete(null);
-                    },
-                  ),
-                ],
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            NextButton(
+                isNext: false,
+                onPressed: () {
+                  widget.onPrev();
+                }),
+            GestureDetector(
+              child: const Text(
+                'Skip',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-              NextButton(onPressed: () {
-                if (value.isEmpty) {
-                  showCustomToast('Select an option');
-                } else {
-                  widget.onComplete(value);
-                }
-              }),
-            ],
-          ),
+              onTap: () {
+                widget.onComplete(null);
+              },
+            ),
+            NextButton(onPressed: () {
+              if (value.isEmpty) {
+                showCustomToast('Select an option');
+              } else {
+                widget.onComplete(value);
+              }
+            }),
+          ],
         )
       ],
     );

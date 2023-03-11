@@ -55,7 +55,7 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
                   MaterialPageRoute(
                     builder: (context) => EditAboutScreen(
                       options: [...exerciseOptions],
-                      field: 'exercise',
+                      field: 'workout',
                     ),
                   ));
             }),

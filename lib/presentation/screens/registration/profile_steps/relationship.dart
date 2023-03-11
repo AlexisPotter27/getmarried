@@ -127,19 +127,22 @@ class _RelationshipState extends State<Relationship> {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              GestureDetector(
-                child: const Text(
-                  'Skip',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
+              Expanded(
+                child: Center(
+                  child: GestureDetector(
+                    child: const Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    onTap: () {
+                      widget.onComplete(null);
+                    },
                   ),
                 ),
-                onTap: () {
-                  widget.onComplete(null);
-                },
               ),
               NextButton(onPressed: () {
                 if (value.isEmpty) {

@@ -91,7 +91,26 @@ class AuthRepositoryImpl extends AuthRepository {
     try {
       debugPrint('RETREIVING USER DETAILS');
 
-      QuerySnapshot<Map<String, dynamic>> snapshots = await db.collection(FirebaseKeys.users).get();
+      QuerySnapshot<Map<String, dynamic>> snapshots =
+          await db.collection(FirebaseKeys.users).get();
+
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs = snapshots.docs.where((element) => element.id == uid).toList();
+
+      if(docs.isNotEmpty){
+        return ApiResponse(
+            data: UserData.fromJson(docs.first.data()), error: null);
+      }else{
+
+        log(docs.first.id);
+        DocumentReference userRef = db.collection(FirebaseKeys.users).doc(uid);
+        debugPrint(' ADDING USER ${docs.first.id}');
+        await userRef.set(UserData(
+          uid: uid,
+        ).toJson());
+        debugPrint(' USER ${docs.first.id} ADDED');
+
+        return ApiResponse(data: UserData(uid: uid), error: null);
+      }
 
       for (var element in snapshots.docs) {
         if (element.id == uid) {
@@ -101,17 +120,15 @@ class AuthRepositoryImpl extends AuthRepository {
           return ApiResponse(
               data: UserData.fromJson(element.data()), error: null);
         }
-          log(element.id);
-          DocumentReference userRef =
-              db.collection(FirebaseKeys.users).doc(uid);
-          debugPrint(' ADDING USER ${element.id}');
-          await userRef.set(UserData(
-            uid: uid,
-          ).toJson());
-          debugPrint(' USER ${element.id} ADDED');
+        log(element.id);
+        DocumentReference userRef = db.collection(FirebaseKeys.users).doc(uid);
+        debugPrint(' ADDING USER ${element.id}');
+        await userRef.set(UserData(
+          uid: uid,
+        ).toJson());
+        debugPrint(' USER ${element.id} ADDED');
 
-          return ApiResponse(data: UserData(uid: uid), error: null);
-
+        return ApiResponse(data: UserData(uid: uid), error: null);
       }
       return ApiResponse(data: null, error: 'Something went wrong');
     } on FirebaseException catch (e) {
