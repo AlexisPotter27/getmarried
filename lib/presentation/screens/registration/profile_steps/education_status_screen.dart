@@ -53,24 +53,26 @@ class _EducationStatusState extends State<EducationStatus> {
               const SizedBox(
                 height: 20,
               ),
-              ListView.builder(
-                itemCount: educationLevels.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) => Column(children: [
-                  CustomRadioTile<String>(
-                    onSubtitleClicked: () {},
-                    toggleSubtitle: false,
-                    value: educationLevels[index],
-                    groupValue: value,
-                    tittle:  educationLevels[index],
-                    onChanged: (val) {
-                      setState(() {
-                        value = val;
-                      });
-                    },
-                   ),
-                  const  SizedBox(height: 16,)
-                ],),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: educationLevels.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => Column(children: [
+                    CustomRadioTile<String>(
+                      onSubtitleClicked: () {},
+                      toggleSubtitle: false,
+                      value: educationLevels[index],
+                      groupValue: value,
+                      tittle:  educationLevels[index],
+                      onChanged: (val) {
+                        setState(() {
+                          value = val;
+                        });
+                      },
+                     ),
+                    const  SizedBox(height: 16,)
+                  ],),
+                ),
               ),
               const SizedBox(
                 height: 16,
@@ -81,26 +83,22 @@ class _EducationStatusState extends State<EducationStatus> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                NextButton(
-                    isNext: false,
-                    onPressed: () {
-                      widget.onPrev();
-                    }),
-                GestureDetector(
-                  child: const Text(
-                    'Skip',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  onTap: () {
-                    widget.onComplete(null);
-                  },
+            NextButton(
+                isNext: false,
+                onPressed: () {
+                  widget.onPrev();
+                }),
+            GestureDetector(
+              child: const Text(
+                'Skip',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
+              ),
+              onTap: () {
+                widget.onComplete(null);
+              },
             ),
             NextButton(onPressed: () {
               if (value.isEmpty) {

@@ -12,6 +12,7 @@ class ExerciseBottomSheet extends StatefulWidget {
 class _ExerciseBottomSheetState extends State<ExerciseBottomSheet> {
   List<String> selectedEverciseOption = [];
   bool showOthers = false;
+  String? selectedExercise;
 
   @override
   Widget build(BuildContext context) {
@@ -47,25 +48,24 @@ class _ExerciseBottomSheetState extends State<ExerciseBottomSheet> {
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: exerciseOptions.length,
-                itemBuilder: (context, index) => CheckboxListTile(
+                itemBuilder: (context, index) => RadioListTile<String>(
                     contentPadding: EdgeInsets.zero,
-                    value: selectedEverciseOption.contains(religions[index]),
+                    value:exerciseOptions[index] ,
                     activeColor: primaryColour,
                     controlAffinity: ListTileControlAffinity.leading,
                     onChanged: (val) {
                       setState(() {
-                        if (val!) {
-                          selectedEverciseOption.add(exerciseOptions[index]);
-                        } else {
-                          selectedEverciseOption.remove(exerciseOptions[index]);
+                        if (val!= null) {
+                          selectedExercise = val;
                         }
                       });
                     },
-                    checkboxShape: RoundedRectangleBorder(
+                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                         side: BorderSide(
                             width: 0.5, color: Colors.grey.shade300)),
-                    title: Text(exerciseOptions[index])),
+                    title: Text(exerciseOptions[index]),
+                  groupValue: selectedExercise,),
               ),
             ),
             Row(

@@ -3,8 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 
-
-
 class CustomRadioTile<T> extends StatefulWidget {
   final Widget? subTittle;
 
@@ -12,6 +10,7 @@ class CustomRadioTile<T> extends StatefulWidget {
   final VoidCallback onSubtitleClicked;
   final void Function(dynamic) onChanged;
   final bool toggleSubtitle;
+  final bool outlinedBorder;
   final String tittle;
 
   final T value;
@@ -19,14 +18,15 @@ class CustomRadioTile<T> extends StatefulWidget {
 
   CustomRadioTile(
       {Key? key,
-       this.subTittle,
+      this.subTittle,
       this.tittleStyle,
       required this.onSubtitleClicked,
       required this.toggleSubtitle,
       required this.value,
       required this.groupValue,
       required this.tittle,
-      required this.onChanged})
+      required this.onChanged,
+      this.outlinedBorder = false})
       : super(key: key);
 
   @override
@@ -46,7 +46,11 @@ class _CustomRadioTileState extends State<CustomRadioTile> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            border: widget.outlinedBorder
+                ? Border.all(color: Colors.grey.shade300)
+                : null,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10)),
         child: Row(
           children: [
             Expanded(
@@ -62,26 +66,27 @@ class _CustomRadioTileState extends State<CustomRadioTile> {
                   const SizedBox(
                     height: 10,
                   ),
-
-                  widget.toggleSubtitle ?
-                  AnimatedCrossFade(
-                    firstChild: GestureDetector(
-                      onTap: widget.onSubtitleClicked,
-                      child: widget.subTittle?? SizedBox(),
-                    ),
-                    secondChild: const SizedBox.shrink(),
-                    crossFadeState: shouldOpen
-                        ? CrossFadeState.showFirst
-                        : CrossFadeState.showSecond,
-                    duration: const Duration(milliseconds: 300),
-                  ):
-                      widget.subTittle ?? SizedBox()
+                  widget.toggleSubtitle
+                      ? AnimatedCrossFade(
+                          firstChild: GestureDetector(
+                            onTap: widget.onSubtitleClicked,
+                            child: widget.subTittle ?? SizedBox(),
+                          ),
+                          secondChild: const SizedBox.shrink(),
+                          crossFadeState: shouldOpen
+                              ? CrossFadeState.showFirst
+                              : CrossFadeState.showSecond,
+                          duration: const Duration(milliseconds: 300),
+                        )
+                      : widget.subTittle ?? SizedBox()
                 ],
               ),
             ),
-           const SizedBox(width: 10,),
+            const SizedBox(
+              width: 10,
+            ),
             isSelected
-                ?  const Icon(
+                ? const Icon(
                     Icons.check_circle,
                     color: primaryColour,
                   )

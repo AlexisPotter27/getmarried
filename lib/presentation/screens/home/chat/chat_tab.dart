@@ -1,16 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/data/repositories/remote/chat/chat_repository_impl.dart';
 import 'package:getmarried/di/injector.dart';
-import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/blocs/chat/chat_bloc.dart';
 import 'package:getmarried/presentation/screens/home/chat/messaging_screen.dart';
-import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/chat/conversation_item.dart';
 import 'package:getmarried/widgets/chat/user_chat_item.dart';
@@ -47,7 +43,7 @@ class _ChatTabState extends State<ChatTab> {
 
         leading: GestureDetector(
             onTap: () {
-              scaffoldKey.currentState!.openDrawer();
+              // scaffoldKey.currentState!.openDrawer();
             },
             child: const Icon(
               Icons.menu,

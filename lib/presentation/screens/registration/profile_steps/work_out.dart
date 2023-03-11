@@ -93,26 +93,19 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-
-              mainAxisSize: MainAxisSize.min,
-
-              children: [
-                NextButton(
-                    isNext: false,
-                    onPressed: () {
-                      widget.onPrev();
-                    }),
-                GestureDetector(
-                    child: const Text(
-                  'Skip',
-                  style:
-                      TextStyle(color: Colors.white, fontWeight: FontWeight.w500, ),
-                ),onTap: (){
-                      widget.onComplete(null);
-                },),
-              ],
-            ),
+            NextButton(
+                isNext: false,
+                onPressed: () {
+                  widget.onPrev();
+                }),
+            GestureDetector(
+                child: const Text(
+              'Skip',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w500, ),
+            ),onTap: (){
+                  widget.onComplete(null);
+            },),
             NextButton(onPressed: () {
               if(value.isEmpty){
                 showCustomToast('Select an option');

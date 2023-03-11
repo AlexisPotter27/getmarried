@@ -134,10 +134,10 @@ List<String> ethnic = [
 List<String> educations = [
   'High school',
   'Trade/tech school',
-  'In college',
-  'Undergraduate degree',
+  'College degree',
   'In grad school',
   'Graduate degree',
+  'PHD/ doctorate degree'
 ];
 
 List<String> drinkingOptions = [
@@ -175,6 +175,7 @@ List<String> religions = [
   'Christian',
   'Hindu',
   'Jewish',
+  "Rather not say",
   'Other'
 ];
 
@@ -187,7 +188,8 @@ List<String> partnersReligions = [
   'Hindu',
   'Jewish',
   'Other',
-  "I don't mind",
+  "Rather not say",
+  "I’m acceptable of all beliefs",
 ];
 
 List<String> ploiticalLeanings = [
@@ -195,6 +197,7 @@ List<String> ploiticalLeanings = [
   'Moderate',
   'Liberal',
   'Conservative',
+  'Rather not say',
 ];
 
 List<String> maleGenders = [

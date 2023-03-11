@@ -18,7 +18,7 @@ class MatchCard extends StatefulWidget {
 }
 
 class _MatchCardState extends State<MatchCard> {
-  final _controller = ScrollController();
+  // final _controller = ScrollController();
 
   @override
   void initState() {
@@ -36,7 +36,6 @@ class _MatchCardState extends State<MatchCard> {
       child: Stack(
         children: [
           SingleChildScrollView(
-
             child: Container(
               color: Colors.white,
               child: Column(
@@ -53,8 +52,12 @@ class _MatchCardState extends State<MatchCard> {
                           height: MediaQuery.of(context).size.height - 170,
                           width: deviceWidth(),
                           decoration: BoxDecoration(
+                              color: primaryColour,
                               image: DecorationImage(
-                                  image: NetworkImage(widget.user.photos![0]),
+                                  image: NetworkImage(
+                                      widget.user.photos!.isNotEmpty
+                                          ? widget.user.photos![0]
+                                          : ''),
                                   fit: BoxFit.cover)),
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -115,7 +118,7 @@ class _MatchCardState extends State<MatchCard> {
                                           width: 10,
                                         ),
                                         Text(
-                                          widget.user.education!,
+                                          widget.user.education??'',
                                           style: const TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w400),
@@ -144,7 +147,7 @@ class _MatchCardState extends State<MatchCard> {
                                 height: 8,
                               ),
                               Text(
-                                widget.user.about!,
+                                widget.user.about??'',
                                 style: const TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w500),
                               ),
@@ -161,7 +164,10 @@ class _MatchCardState extends State<MatchCard> {
                               Wrap(
                                 spacing: 5,
                                 children: List.generate(
-                                    1, (index) =>  const AboutChip(label: 'Cool',)),
+                                    1,
+                                    (index) => const AboutChip(
+                                          label: 'Cool',
+                                        )),
                               ),
                               const SizedBox(
                                 height: 16,
@@ -176,7 +182,10 @@ class _MatchCardState extends State<MatchCard> {
                               Wrap(
                                 spacing: 5,
                                 children: List.generate(
-                                    widget.user.interests!.length, (index) =>  AboutChip(label: widget.user.interests![index],)),
+                                    widget.user.interests!.length,
+                                    (index) => AboutChip(
+                                          label: widget.user.interests![index],
+                                        )),
                               ),
                               const SizedBox(
                                 height: 16,
@@ -191,7 +200,10 @@ class _MatchCardState extends State<MatchCard> {
                               Wrap(
                                 spacing: 5,
                                 children: List.generate(
-                                    1, (index) =>  const AboutChip(label: 'English',)),
+                                    1,
+                                    (index) => const AboutChip(
+                                          label: 'English',
+                                        )),
                               ),
                               const SizedBox(
                                 height: 16,
@@ -260,10 +272,13 @@ class _MatchCardState extends State<MatchCard> {
                                             sides: 6,
                                             child: Container(
                                               color: primaryColour,
-                                              child: const Icon(
-                                                Icons.star,
-                                                color: Colors.white,
-                                                size: 25,
+                                              child: Container(
+                                                color: primaryColour,
+                                                child: Image.asset(
+                                                  'assets/superswipe.png',
+                                                  height: 25,
+                                                  width: 25,
+                                                ),
                                               ),
                                             ),
                                           ),

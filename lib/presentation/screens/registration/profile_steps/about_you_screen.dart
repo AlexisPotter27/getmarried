@@ -59,30 +59,26 @@ class _AboutYouScreenState extends State<AboutYouScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: NextButton(
-                      isNext: false,
-                      onPressed: () {
-                        widget.onPrev();
-                      }),
-                ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: NextButton(
+                  isNext: false,
+                  onPressed: () {
+                    widget.onPrev();
+                  }),
+            ),
 
-                GestureDetector(
-                  child: const Text(
-                    'Skip',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  onTap: () {
-                    widget.onComplete(null);
-                  },
+            GestureDetector(
+              child: const Text(
+                'Skip',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
+              ),
+              onTap: () {
+                widget.onComplete(null);
+              },
             ),
             NextButton(onPressed: () {
               if (_aboutController.text.isEmpty) {

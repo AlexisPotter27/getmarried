@@ -13,6 +13,8 @@ class _SmokeBottomScheetState extends State<SmokeBottomScheet> {
   List<String> selectedSmokeOption = [];
   bool showOthers = false;
 
+  String? selectedOption;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,25 +47,25 @@ class _SmokeBottomScheetState extends State<SmokeBottomScheet> {
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: smokeOptions.length,
-                itemBuilder: (context, index) => CheckboxListTile(
-                    contentPadding: EdgeInsets.zero,
-                    value: selectedSmokeOption.contains(religions[index]),
-                    activeColor: primaryColour,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (val) {
-                      setState(() {
-                        if (val!) {
-                          selectedSmokeOption.add(smokeOptions[index]);
-                        } else {
-                          selectedSmokeOption.remove(smokeOptions[index]);
-                        }
-                      });
-                    },
-                    checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        side: BorderSide(
-                            width: 0.5, color: Colors.grey.shade300)),
-                    title: Text(smokeOptions[index])),
+                itemBuilder: (context, index) => RadioListTile<String>(
+                  contentPadding: EdgeInsets.zero,
+                  value: smokeOptions[index],
+                  activeColor: primaryColour,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (val) {
+                    setState(() {
+                      if (val != null) {
+                        selectedOption = val;
+                      }
+                    });
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side:
+                      BorderSide(width: 0.5, color: Colors.grey.shade300)),
+                  title: Text(smokeOptions[index]),
+                  groupValue: selectedOption,
+                ),
               ),
             ),
             Row(

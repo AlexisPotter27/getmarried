@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/models/user.dart';
+import 'package:getmarried/presentation/screens/home/profile_tab/edit_education_screen.dart';
+import 'package:getmarried/presentation/screens/home/profile_tab/occupation_screen.dart';
 import 'package:getmarried/widgets/profile_tab/profile_list_tile.dart';
 
 class BasicsSection extends StatefulWidget {
@@ -30,7 +32,11 @@ class _BasicsSectionState extends State<BasicsSection> {
             ),
             tittle: 'Work',
             value: null,
-            onTap: () {}),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => OccupationPage(),
+              ));
+            }),
         const SizedBox(
           height: 16,
         ),
@@ -41,21 +47,25 @@ class _BasicsSectionState extends State<BasicsSection> {
             ),
             tittle: 'Education',
             value: widget.user.education,
-            onTap: () {}),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EditEducationScreen(),
+              ));
+            }),
         const SizedBox(
           height: 16,
         ),
-        ProfileListTile(
-            preffix: const Icon(
-              Icons.shield_moon,
-              size: 20,
-            ),
-            tittle: 'Covid dating',
-            value: null,
-            onTap: () {}),
-        const SizedBox(
-          height: 16,
-        ),
+        // ProfileListTile(
+        //     preffix: const Icon(
+        //       Icons.shield_moon,
+        //       size: 20,
+        //     ),
+        //     tittle: 'Covid dating',
+        //     value: null,
+        //     onTap: () {}),
+        // const SizedBox(
+        //   height: 16,
+        // ),
         ProfileListTile(
             preffix: const Icon(
               Icons.person,

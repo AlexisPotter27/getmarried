@@ -28,17 +28,9 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
       width: deviceWidth(),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
+        color: primaryColour,
         borderRadius: BorderRadius.circular(16),
-        gradient: widget.gradient ??
-            LinearGradient(
-                end: Alignment.bottomRight,
-                begin: Alignment.topLeft,
-                colors: [
-                  Colors.orangeAccent.shade100,
-                  Colors.orangeAccent.shade200,
-                  Colors.orange,
-                  Colors.yellow,
-                ]),
+        gradient: widget.gradient,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,12 +54,13 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0.1),
-            child:
-                UpgradeButton(onPressed: () {
+            child: UpgradeButton(
+                onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const CardFormScreen(),
                   ));
-                 }, child: Text(widget.buttonText)),
+                },
+                child: Text(widget.buttonText)),
           )
         ],
       ),
