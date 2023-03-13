@@ -50,10 +50,7 @@ class _MatchCardState extends State<MatchCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: MediaQuery
-                              .of(context)
-                              .size
-                              .height - 170,
+                          height: MediaQuery.of(context).size.height - 170,
                           width: deviceWidth(),
                           decoration: BoxDecoration(
                               color: primaryColour,
@@ -69,12 +66,12 @@ class _MatchCardState extends State<MatchCard> {
                             decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                     colors: [
-                                      Colors.transparent,
-                                      Colors.black26,
-                                      Colors.black38,
-                                      Colors.black45,
-                                      Colors.black.withOpacity(0.7),
-                                    ],
+                                  Colors.transparent,
+                                  Colors.black26,
+                                  Colors.black38,
+                                  Colors.black45,
+                                  Colors.black.withOpacity(0.7),
+                                ],
                                     end: Alignment.bottomCenter,
                                     begin: Alignment.topCenter)),
                             child: Column(
@@ -83,7 +80,7 @@ class _MatchCardState extends State<MatchCard> {
                               children: [
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: const [
                                     Icon(
                                       Icons.format_quote_outlined,
@@ -103,8 +100,7 @@ class _MatchCardState extends State<MatchCard> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '${widget.user.firstname!} ${widget.user
-                                          .age}',
+                                      '${widget.user.firstname!} ${widget.user.age}',
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 18,
@@ -170,10 +166,9 @@ class _MatchCardState extends State<MatchCard> {
                                 spacing: 5,
                                 children: List.generate(
                                     1,
-                                        (index) =>
-                                    const AboutChip(
-                                      label: 'Cool',
-                                    )),
+                                    (index) => const AboutChip(
+                                          label: 'Cool',
+                                        )),
                               ),
                               const SizedBox(
                                 height: 16,
@@ -189,8 +184,7 @@ class _MatchCardState extends State<MatchCard> {
                                 spacing: 5,
                                 children: List.generate(
                                     widget.user.interests!.length,
-                                        (index) =>
-                                        AboutChip(
+                                    (index) => AboutChip(
                                           label: widget.user.interests![index],
                                         )),
                               ),
@@ -208,25 +202,27 @@ class _MatchCardState extends State<MatchCard> {
                                 spacing: 5,
                                 children: List.generate(
                                     1,
-                                        (index) =>
-                                    const AboutChip(
-                                      label: 'English',
-                                    )),
+                                    (index) => const AboutChip(
+                                          label: 'English',
+                                        )),
                               ),
                               const SizedBox(
                                 height: 16,
                               ),
-
-
                             ],
                           ),
                         ),
-                        Image.network(widget.user.photos![0], height: 250,
-                          fit: BoxFit.cover,
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width,),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: widget.user.photos!.length - 1,
+                          itemBuilder: (context, index) => Image.network(
+                            widget.user.photos![index + 1],
+                            height: 270,
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width,
+                          ),
+                        ),
                         // Row(
                         //   children: const [
                         //     Icon(Icons.share_location),
@@ -261,7 +257,7 @@ class _MatchCardState extends State<MatchCard> {
                               children: [
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: const [
                                     CircleAvatar(
                                       radius: 30,

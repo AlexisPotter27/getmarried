@@ -9,7 +9,6 @@ import 'package:getmarried/widgets/date/children_bottomsheet.dart';
 import 'package:getmarried/widgets/date/drink_bottomsheet.dart';
 import 'package:getmarried/widgets/date/education_bottomsheet.dart';
 import 'package:getmarried/widgets/date/excercise_bottomsheet.dart';
-import 'package:getmarried/widgets/date/needs_bottomsheet.dart';
 import 'package:getmarried/widgets/date/religion_bottomsheet.dart';
 import 'package:getmarried/widgets/date/settings_tile.dart';
 import 'package:getmarried/widgets/date/smoke_bottomsheet.dart';
@@ -301,45 +300,45 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    SettingsTile(
-                      text: 'Add this filter',
-                      suffixIcon: filters!.lookingFor == null
-                          ? Icon(
-                              Icons.add,
-                              color: Colors.grey.shade300,
-                            )
-                          : Text(filters!.lookingFor!),
-                      prefixIcon: Transform.rotate(
-                          angle: 50,
-                          child: const Icon(
-                            Icons.search,
-                            color: Colors.black45,
-                          )),
-                      onPressed: () {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (context) => NeedsBottomSheet(
-                                  onSelected: (String value) {
-                                    setState(() {
-                                      filters!.lookingFor = value;
-                                    });
-                                  },
-                                  value: filters!.lookingFor,
-                                ),
-                            backgroundColor: Colors.transparent);
-                      },
-                      tittle: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          'What is do you want from your  get married?',
-                          style: TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // SettingsTile(
+                    //   text: 'Add this filter',
+                    //   suffixIcon: filters!.lookingFor == null
+                    //       ? Icon(
+                    //           Icons.add,
+                    //           color: Colors.grey.shade300,
+                    //         )
+                    //       : Text(filters!.lookingFor!),
+                    //   prefixIcon: Transform.rotate(
+                    //       angle: 50,
+                    //       child: const Icon(
+                    //         Icons.search,
+                    //         color: Colors.black45,
+                    //       )),
+                    //   onPressed: () {
+                    //     showModalBottomSheet(
+                    //         context: context,
+                    //         builder: (context) => NeedsBottomSheet(
+                    //               onSelected: (String value) {
+                    //                 setState(() {
+                    //                   filters!.lookingFor = value;
+                    //                 });
+                    //               },
+                    //               value: filters!.lookingFor,
+                    //             ),
+                    //         backgroundColor: Colors.transparent);
+                    //   },
+                    //   tittle: const Padding(
+                    //     padding: EdgeInsets.all(8.0),
+                    //     child: Text(
+                    //       'What is do you want from your  get married?',
+                    //       style: TextStyle(
+                    //           fontSize: 13, fontWeight: FontWeight.w500),
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(
                       height: 8,
                     ),

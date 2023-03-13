@@ -68,7 +68,7 @@ class _ChildrenBottomsheetState extends State<ChildrenBottomsheet> {
                       borderRadius: BorderRadius.circular(5),
                       side:
                           BorderSide(width: 0.5, color: Colors.grey.shade300)),
-                  title: Text(educations[index]),
+                  title: Text(childrenOptions[index]),
                   groupValue: widget.value,
                 ),
               ),
