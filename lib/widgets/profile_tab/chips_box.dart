@@ -14,6 +14,7 @@ class _ChipsBoxState extends State<ChipsBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
           border: Border.all(width: 1, color: Colors.grey.shade300),

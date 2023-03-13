@@ -3,13 +3,18 @@ import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/data/models/chip_choice_mode.dart';
 
-
 class ChoiceWidget extends StatefulWidget {
-  const ChoiceWidget({Key? key, required this.options, required this.tittle, required this.onSelectionShaged})
+  const ChoiceWidget(
+      {Key? key,
+      required this.options,
+      required this.tittle,
+      required this.onSelectionChanged,
+      this.textColor})
       : super(key: key);
   final List<ChipChoiceModel> options;
   final String tittle;
-  final Function(List<ChipChoiceModel>) onSelectionShaged;
+  final Color? textColor;
+  final Function(List<ChipChoiceModel>) onSelectionChanged;
 
   @override
   State<ChoiceWidget> createState() => _ChoiceWidgetState();
@@ -43,7 +48,10 @@ class _ChoiceWidgetState extends State<ChoiceWidget> {
         children: [
           Text(
             widget.tittle,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: widget.textColor ?? Colors.white),
           ),
           const SizedBox(
             height: 10,
@@ -54,7 +62,7 @@ class _ChoiceWidgetState extends State<ChoiceWidget> {
               onChanged: (values) {
                 setState(() {
                   selectedOptions = values;
-                  widget.onSelectionShaged(values);
+                  widget.onSelectionChanged(values);
                 });
               },
               alignment: WrapAlignment.start,
@@ -80,7 +88,8 @@ class _ChoiceWidgetState extends State<ChoiceWidget> {
             visible: widget.options.length > 5,
             child: Center(
               child: GestureDetector(
-                  child: Text(isExpanded ? 'Show less' : 'Show more', style: const TextStyle(color: Colors.white)),
+                  child: Text(isExpanded ? 'Show less' : 'Show more',
+                      style: const TextStyle(color: Colors.white)),
                   onTap: () {
                     isExpanded = !isExpanded;
                     sort();

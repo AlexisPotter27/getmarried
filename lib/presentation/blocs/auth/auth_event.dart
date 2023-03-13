@@ -62,6 +62,13 @@ class UpdateUserEvent extends AuthEvent {
   UpdateUserEvent(this.userData, {this.images = const []});
 }
 
+class DeleteUserEvent extends AuthEvent {
+  final String uid;
+
+
+  DeleteUserEvent(this.uid);
+}
+
 class UpdateUserImageEvent extends AuthEvent {
 
   List<File>? images;

@@ -6,21 +6,15 @@ import 'package:getmarried/data/models/feature_model.dart';
 const Color primaryColour = Colors.indigoAccent;
 const Color ksecond = Color(0XFFf38321);
 
-InputDecoration inputDecoration(BuildContext context) =>
-    InputDecoration(
+InputDecoration inputDecoration(BuildContext context) => InputDecoration(
       hintStyle: TextStyle(
-        color: Theme
-            .of(context)
-            .colorScheme
-            .onPrimary,
+        color: Theme.of(context).colorScheme.onPrimary,
         fontSize: 16.0,
       ),
       filled: true,
       counterStyle: const TextStyle(color: Colors.blueGrey),
 
-      fillColor: Theme
-          .of(context)
-          .cardColor,
+      fillColor: Theme.of(context).cardColor,
       enabledBorder: OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(8.0)),
@@ -48,7 +42,6 @@ InputDecoration inputDecoration(BuildContext context) =>
 // )
     );
 
-
 List<ChipChoiceModel> creativityChoices = [
   ChipChoiceModel(label: 'Art', icon: Icons.emoji_objects),
   ChipChoiceModel(label: 'Design', icon: Icons.emoji_objects),
@@ -57,7 +50,6 @@ List<ChipChoiceModel> creativityChoices = [
   ChipChoiceModel(label: 'Singing', icon: Icons.emoji_objects),
   ChipChoiceModel(label: 'Craft', icon: Icons.emoji_objects),
 ];
-
 
 List<ChipChoiceModel> sports = [
   ChipChoiceModel(label: 'Yoga', icon: Icons.sports_score),
@@ -214,6 +206,10 @@ List<String> femaleGenders = [
   'Woman and Nonbinary',
   'Cis woman'
 ];
+List<String> lookingfor = [
+  'Marriage',
+  'Serious date',
+];
 List<String> nonBinaryGenders = [
   'Agender',
   'Bigender ',
@@ -275,17 +271,14 @@ List<String> languages = [
   'Russian',
   'Swedish',
   'Taiwanese'
-  'Turkish'
+      'Turkish'
 ];
 
 List<ChipChoiceModel> myLanguage = [
-ChipChoiceModel(label: 'English', icon: Icons.language),
+  ChipChoiceModel(label: 'English', icon: Icons.language),
 // ChipChoiceModel(label: 'Igbo', icon: Icons.emoji_objects),
 // ChipChoiceModel(label: 'Spanish', icon: Icons.emoji_objects),
-
 ];
-
-
 
 Size getDeviceSize({BuildContext? context}) =>
     WidgetsBinding.instance.window.physicalSize.flipped;

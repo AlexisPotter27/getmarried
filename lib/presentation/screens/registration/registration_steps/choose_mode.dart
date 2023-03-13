@@ -35,7 +35,7 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
                       height: 50,
                     ),
                     const Text(
-                      'Choose a mode to get started ?',
+                      'What are you looking for  ?',
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,

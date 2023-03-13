@@ -291,7 +291,7 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                       }, onComplete: (about) {
                         userData?.about = about;
                         authBloc.add(
-                            UpdateUserEvent(userData!.copyWith(regStatus: 2)));
+                            UpdateUserEvent(userData!.copyWith(regStatus: 2,languages: ['English'])));
                         // Navigator.of(context).push(MaterialPageRoute(
                         //   builder: (context) => const WelcomeScreen(),
                         // ));

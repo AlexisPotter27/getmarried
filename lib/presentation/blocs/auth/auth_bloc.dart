@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/data/repositories/remote/auth/auth_repository.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/models/user.dart';
 
 part 'auth_event.dart';
@@ -29,6 +30,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     //     (event, emit) => add(PhoneNumberSigninEvent(event.credential)));
     on<PhoneNumberSigninEvent>(_mapPhoneNumberSignin);
     on<UpdateUserEvent>(_mapUpdateUserEventToState);
+    on<DeleteUserEvent>(_mapDeleteUserEventToState);
     on<UpdateUserImageEvent>(_mapUpdateUserImageEventToState);
   }
 
@@ -74,6 +76,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (response.error == null) {
         emit(PhoneAuthSuccessState(response.data));
       } else {
+
         emit(PhoneAuthFailureState(response.error.toString()));
       }
     } on FirebaseAuthException catch (e) {
@@ -117,6 +120,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     } on Exception catch (e) {
       emit(UpdateUserImageFailureState(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapDeleteUserEventToState(
+      DeleteUserEvent event, Emitter<AuthState> emit) async {
+    emit(const UpdateUserImageLoadingState());
+
+    try {
+      ApiResponse response = await authRepository.deleteUser(event.uid);
+      if (response.error == null) {
+        emit(DeleteUserSuccessState());
+      } else {
+        log(response.error.toString());
+        emit(DeleteUserFailureState(response.error.toString()));
+      }
+    } on Exception catch (e) {
+      emit(DeleteUserFailureState(e.toString()));
     }
   }
 }

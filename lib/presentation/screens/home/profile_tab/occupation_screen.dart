@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/add_job_screen.dart';
 
 class OccupationPage extends StatefulWidget {
@@ -10,6 +12,8 @@ class OccupationPage extends StatefulWidget {
 }
 
 class _OccupationPageState extends State<OccupationPage> {
+  final user = getIt.get<CacheCubit>().user;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,9 +65,11 @@ class _OccupationPageState extends State<OccupationPage> {
             height: 16,
           ),
           ListView.builder(
-            itemCount: 2,
+            itemCount: user!.occupations!.length,
             shrinkWrap: true,
-            itemBuilder: (context, index) => BasicDetailItem(),
+            itemBuilder: (context, index) => BasicDetailItem(
+              value: user!.occupations![index],
+            ),
           )
         ],
       ),
@@ -72,7 +78,8 @@ class _OccupationPageState extends State<OccupationPage> {
 }
 
 class BasicDetailItem extends StatefulWidget {
-  const BasicDetailItem({Key? key}) : super(key: key);
+  const BasicDetailItem({Key? key, required this.value}) : super(key: key);
+  final String value;
 
   @override
   State<BasicDetailItem> createState() => _BasicDetailItemState();
@@ -95,13 +102,13 @@ class _BasicDetailItemState extends State<BasicDetailItem> {
             SizedBox(
               width: 16,
             ),
-            Expanded(child: Text('Software developer')),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.edit,
-                  color: Colors.grey.shade400,
-                ))
+            Expanded(child: Text(widget.value)),
+            // IconButton(
+            //     onPressed: () {},
+            //     icon: Icon(
+            //       Icons.edit,
+            //       color: Colors.grey.shade400,
+            //     ))
           ],
         ),
       ),

@@ -11,12 +11,12 @@ class CacheCubit extends Cubit<CacheState> {
   final ProfileRepository profileRepository;
 
   UserData? user;
-
   void updateUser(UserData userData) async {
     await getIt.get<ProfileRepository>().cacheUser(userData);
+    await getCachedUser();
   }
-
   Future getCachedUser() async {
     user = await profileRepository.getLocalUserProfile();
+    emit(ProfileUpdatedState(user!));
   }
 }

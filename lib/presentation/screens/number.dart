@@ -21,13 +21,11 @@ TextEditingController countryCode = TextEditingController();
 TextEditingController phoneController = TextEditingController();
 String number = countryCode.text + phoneController.text;
 String num = number;
-FirebaseAuth auth = FirebaseAuth.instance;
 String verificationIDReceived = "";
 
-AuthBloc authBloc = getIt.get<AuthBloc>();
-
 class _PhoneState extends State<Phone> {
-  @override
+  AuthBloc authBloc = getIt.get<AuthBloc>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

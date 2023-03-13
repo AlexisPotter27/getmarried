@@ -29,7 +29,7 @@ class _DateFiltersScreenState extends State<DateFiltersScreen> {
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
-        title:  Row(
+        title: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -65,29 +65,33 @@ class _DateFiltersScreenState extends State<DateFiltersScreen> {
               const SizedBox(
                 height: 16,
               ),
-
               SettingsTile(
                 text: 'Select languages',
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const LanguagesScreen(),
-                  ));
-                }, tittle: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Languages they know'),
-              ),
-              ),
+                    builder: (context) => LanguagesScreen(
+                      onLanguagesSelected: (List<dynamic> language) {
 
+                      },
+                    ),
+                  ));
+                },
+                tittle: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Languages they know'),
+                ),
+              ),
               SettingsTile(
                 text: 'Set advanced filters',
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const AdvancedFiltersScreen(),
                   ));
-                }, tittle:  const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Advanced filters'),
-              ),
+                },
+                tittle: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Advanced filters'),
+                ),
               )
             ],
           ),

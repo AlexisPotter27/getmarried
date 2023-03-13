@@ -55,6 +55,9 @@ class UserData {
     this.policyAgreed,
     this.regStatus,
     this.photos,
+    this.occupations,
+    this.educationColledge,
+    this.languages,
   });
 
   String? uid;
@@ -101,6 +104,9 @@ class UserData {
   bool? policyAgreed;
   int? regStatus;
   List<dynamic>? photos;
+  List<dynamic>? occupations;
+  List<dynamic>? educationColledge;
+  List<dynamic>? languages;
 
   UserData copyWith({
     String? uid,
@@ -147,6 +153,9 @@ class UserData {
     bool? policyAgreed,
     int? regStatus,
     List<dynamic>? photos,
+    List<dynamic>? occupations,
+    List<dynamic>? educationColledge,
+    List<dynamic>? languages,
   }) =>
       UserData(
         uid: uid ?? this.uid,
@@ -175,8 +184,8 @@ class UserData {
         lookingFor: lookingFor ?? this.lookingFor,
         bodyType: bodyType ?? this.bodyType,
         partnerBodyType: partnerBodyType ?? this.partnerBodyType,
-        partnerAttractiveness: partnerAttractiveness ??
-            this.partnerAttractiveness,
+        partnerAttractiveness:
+            partnerAttractiveness ?? this.partnerAttractiveness,
         drugs: drugs ?? this.drugs,
         partnerReligion: partnerReligion ?? this.partnerReligion,
         ethnicity: ethnicity ?? this.ethnicity,
@@ -194,10 +203,12 @@ class UserData {
         policyAgreed: policyAgreed ?? this.policyAgreed,
         regStatus: regStatus ?? this.regStatus,
         photos: photos ?? this.photos,
+        occupations: occupations ?? this.occupations,
+        educationColledge: educationColledge ?? this.educationColledge,
+        languages: languages ?? this.languages,
       );
 
-  factory UserData.fromJson(Map<String, dynamic> json) =>
-      UserData(
+  factory UserData.fromJson(Map<String, dynamic> json) => UserData(
         uid: json["uid"],
         firstname: json["firstname"],
         age: json["age"],
@@ -206,8 +217,9 @@ class UserData {
         relationshipMode: json["relationship_mode"],
         dateMatch: json["date_match"],
         email: json["email"],
-        interests: json["interests"] == null ? [] : List<dynamic>.from(
-            json["interests"]!.map((x) => x)),
+        interests: json["interests"] == null
+            ? []
+            : List<dynamic>.from(json["interests"]!.map((x) => x)),
         height: json["height"]?.toDouble(),
         workout: json["workout"],
         starSign: json["star_sign"],
@@ -242,12 +254,21 @@ class UserData {
         moreAbout: json["more_about"],
         policyAgreed: json["policy_agreed"],
         regStatus: json["reg_status"],
-        photos: json["photos"] == null ? [] : List<dynamic>.from(
-            json["photos"]!.map((x) => x)),
+        photos: json["photos"] == null
+            ? []
+            : List<dynamic>.from(json["photos"]!.map((x) => x)),
+        occupations: json["occupations"] == null
+            ? []
+            : List<dynamic>.from(json["occupations"]!.map((x) => x)),
+        educationColledge: json["educationColledge"] == null
+            ? []
+            : List<dynamic>.from(json["educationColledge"]!.map((x) => x)),
+        languages: json["laguages"] == null
+            ? []
+            : List<dynamic>.from(json["languages"]!.map((x) => x)),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "uid": uid,
         "firstname": firstname,
         "age": age,
@@ -256,8 +277,9 @@ class UserData {
         "relationship_mode": relationshipMode,
         "date_match": dateMatch,
         "email": email,
-        "interests": interests == null ? [] : List<dynamic>.from(
-            interests!.map((x) => x)),
+        "interests": interests == null
+            ? []
+            : List<dynamic>.from(interests!.map((x) => x)),
         "height": height,
         "workout": workout,
         "star_sign": starSign,
@@ -292,13 +314,22 @@ class UserData {
         "more_about": moreAbout,
         "policy_agreed": policyAgreed,
         "reg_status": regStatus,
-        "photos": photos == null ? [] : List<dynamic>.from(
-            photos!.map((x) => x)),
+        "photos":
+            photos == null ? [] : List<dynamic>.from(photos!.map((x) => x)),
+        "occupations": occupations == null
+            ? []
+            : List<dynamic>.from(occupations!.map((x) => x)),
+        "educationColledge": educationColledge == null
+            ? []
+            : List<dynamic>.from(educationColledge!.map((x) => x)),
+        "languages": languages == null
+            ? []
+            : List<dynamic>.from(languages!.map((x) => x)),
       };
 
-  ChatUser toChatUser() =>
-      ChatUser(id: this.uid!,
-          name: this.firstname!,
-          photos: this.photos!,
-          about: this.about!);
+  ChatUser toChatUser() => ChatUser(
+      id: this.uid!,
+      name: this.firstname!,
+      photos: this.photos!,
+      about: this.about!);
 }

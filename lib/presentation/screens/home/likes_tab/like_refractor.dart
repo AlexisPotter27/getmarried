@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
-import 'package:getmarried/widgets/likes/liker_item.dart';
+import 'package:getmarried/widgets/primary_button.dart';
 
 class LikeRefractor extends StatefulWidget {
   const LikeRefractor({Key? key}) : super(key: key);
@@ -74,7 +74,6 @@ class _LikeRefractorState extends State<LikeRefractor> {
                               : Colors.transparent,
                         ),
                       ),
-
                       GestureDetector(
                         onTap: () {
                           setState(() {
@@ -161,7 +160,9 @@ class _LikeRefractorState extends State<LikeRefractor> {
               actions: [
                 GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DateFiltersScreen(),));
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const DateFiltersScreen(),
+                      ));
                     },
                     child: const Padding(
                       padding: EdgeInsets.all(10.0),
@@ -253,36 +254,60 @@ class _LikeRefractorState extends State<LikeRefractor> {
                     ),
                   )),
             ),
-            SliverList(
-              delegate: SliverChildListDelegate([
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    // borderRadius: BorderRadius.circular(16)
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            SliverFillRemaining(
+
+              child: Container(
+                color: Colors.white,
+                child: Center(
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      GridView.builder(
-                        shrinkWrap: true,
-                        itemCount: 6,
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.vertical,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) => const LikerItem(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 0.80,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10),
+                      Text('You have no likes'),
+                      SizedBox(
+                        height: 20,
                       ),
+                      // SizedBox(
+                      //     width: 300,
+                      //     child: PrimaryButton(
+                      //       child: Text('Swipe more'),
+                      //       onPressed: () {},
+                      //     ))
                     ],
                   ),
-                )
-              ]),
+                ),
+              ),
             )
+
+            // SliverList(
+            //   delegate: SliverChildListDelegate([
+            //     Container(
+            //       decoration: const BoxDecoration(
+            //         color: Colors.white,
+            //         // borderRadius: BorderRadius.circular(16)
+            //       ),
+            //       padding:
+            //           const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            //       child: Column(
+            //         children: [
+            //           GridView.builder(
+            //             shrinkWrap: true,
+            //             itemCount: 6,
+            //             padding: EdgeInsets.zero,
+            //             scrollDirection: Axis.vertical,
+            //             physics: const NeverScrollableScrollPhysics(),
+            //             itemBuilder: (context, index) => const LikerItem(),
+            //             gridDelegate:
+            //                 const SliverGridDelegateWithFixedCrossAxisCount(
+            //                     crossAxisCount: 2,
+            //                     childAspectRatio: 0.80,
+            //                     mainAxisSpacing: 10,
+            //                     crossAxisSpacing: 10),
+            //           ),
+            //         ],
+            //       ),
+            //     )
+            //   ]),
+            // )
           ],
         ),
       ),

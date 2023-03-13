@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:getmarried/constants/firebase_keys.dart';
 import 'package:getmarried/data/models/api_response.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/screens/number.dart';
 
@@ -96,18 +97,19 @@ class AuthRepositoryImpl extends AuthRepository {
 
       List<QueryDocumentSnapshot<Map<String, dynamic>>> docs = snapshots.docs.where((element) => element.id == uid).toList();
 
-      if(docs.isNotEmpty){
+
+
+      if (docs.isNotEmpty) {
         return ApiResponse(
             data: UserData.fromJson(docs.first.data()), error: null);
-      }else{
-
-        log(docs.first.id);
+      } else {
+        // log(docs.first.id);
         DocumentReference userRef = db.collection(FirebaseKeys.users).doc(uid);
-        debugPrint(' ADDING USER ${docs.first.id}');
+        // debugPrint(' ADDING USER ${docs.first.id}');
         await userRef.set(UserData(
           uid: uid,
         ).toJson());
-        debugPrint(' USER ${docs.first.id} ADDED');
+        // debugPrint(' USER ${docs.first.id} ADDED');
 
         return ApiResponse(data: UserData(uid: uid), error: null);
       }
@@ -133,25 +135,37 @@ class AuthRepositoryImpl extends AuthRepository {
       return ApiResponse(data: null, error: 'Something went wrong');
     } on FirebaseException catch (e) {
       return ApiResponse(data: null, error: e.code);
-    } on Exception catch (e) {
+    } on Exception catch (e, stack) {
+      showCustomToast(stack.toString());
       return ApiResponse(data: null, error: e.toString());
     }
   }
 
   @override
   Future<ApiResponse> updateUser(UserData userData, List<File>? images) async {
-    try {
-      if (images != null && images.isNotEmpty) {
-        ApiResponse imageUploadResponse = await uploadUserImages(images);
-        if (imageUploadResponse.error != null) {
-          userData.photos = imageUploadResponse.data;
-        }
+    if (images != null && images.isNotEmpty) {
+      ApiResponse imageUploadResponse = await uploadUserImages(images);
+      if (imageUploadResponse.error == null) {
+        userData.photos?.addAll(imageUploadResponse.data);
       }
-      await db
+      log(imageUploadResponse.data.toString());
+    }
+
+    try {
+      db
           .collection(FirebaseKeys.users)
           .doc(userData.uid)
-          .update(userData.toJson())
-          .onError((error, stackTrace) => {log(error.toString())});
+          .update(
+            userData.toJson(),
+          )
+          .then((val) => {log('Finished uploading')});
+
+      // WriteBatch batch = db.batch();
+      // DocumentReference reference =
+      //     db.collection(FirebaseKeys.users).doc(userData.uid);
+      // batch.update(reference, userData.toJson());
+      //
+      // await batch.commit();
 
       return ApiResponse(data: userData, error: null);
     } on FirebaseException catch (e) {
@@ -183,6 +197,22 @@ class AuthRepositoryImpl extends AuthRepository {
     } on FirebaseException catch (e) {
       return ApiResponse(data: null, error: e.code);
     } on Exception catch (e) {
+      return ApiResponse(data: null, error: e.toString());
+    }
+  }
+
+  @override
+  Future<ApiResponse> deleteUser(String uid) async {
+    try {
+      await auth.signOut();
+      await db.collection(FirebaseKeys.users).doc(uid).delete();
+
+      return ApiResponse(data: true, error: null);
+    } on FirebaseException catch (e) {
+      log(e.code.toString());
+      return ApiResponse(data: null, error: e.code);
+    } on Exception catch (e) {
+      log(e.toString());
       return ApiResponse(data: null, error: e.toString());
     }
   }

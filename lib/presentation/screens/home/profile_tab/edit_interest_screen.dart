@@ -3,19 +3,18 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/data/models/chip_choice_mode.dart';
-import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/choice_widget.dart';
-import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-class InterestScreen extends StatefulWidget {
-  const InterestScreen({Key? key, required this.onComplete}) : super(key: key);
+class EditInterestScreen extends StatefulWidget {
+  const EditInterestScreen({Key? key, required this.onComplete})
+      : super(key: key);
   final Function(List<String>? interest) onComplete;
 
   @override
-  State<InterestScreen> createState() => _InterestScreenState();
+  State<EditInterestScreen> createState() => _EditInterestScreenState();
 }
 
-class _InterestScreenState extends State<InterestScreen>
+class _EditInterestScreenState extends State<EditInterestScreen>
     with AutomaticKeepAliveClientMixin {
   List<ChipChoiceModel> creativitySelections = [];
   List<ChipChoiceModel> sportsSelections = [];
@@ -25,6 +24,7 @@ class _InterestScreenState extends State<InterestScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -46,7 +46,7 @@ class _InterestScreenState extends State<InterestScreen>
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                       SizedBox(
@@ -57,7 +57,7 @@ class _InterestScreenState extends State<InterestScreen>
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
-                            color: Colors.white),
+                            color: Colors.black),
                       ),
                     ],
                   ),
@@ -122,50 +122,6 @@ class _InterestScreenState extends State<InterestScreen>
             ),
           ),
         ),
-        Row(
-          children: [
-            Expanded(
-              child: Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    GestureDetector(
-                      child: const Text(
-                        'Skip',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      ),
-                      onTap: () {
-                        // widget.onComplete();
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                Text(
-                  '${selectedCategories()}/5 selected',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white),
-                ),
-                NextButton(onPressed: () {
-                  if (allInterests.isEmpty) {
-                    showCustomToast('Select atleast one interest');
-                  } else {
-                    log(allInterests.length.toString());
-                    widget.onComplete(allInterests);
-                  }
-                })
-              ],
-            )
-          ],
-        )
       ],
     );
   }
