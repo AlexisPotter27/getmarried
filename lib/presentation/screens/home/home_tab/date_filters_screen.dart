@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/models/user.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/advanced_filters_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/languages_screen.dart';
 import 'package:getmarried/widgets/home/age_selector_card.dart';
@@ -13,6 +16,8 @@ class DateFiltersScreen extends StatefulWidget {
 }
 
 class _DateFiltersScreenState extends State<DateFiltersScreen> {
+  UserData user = getIt.get<CacheCubit>().user!;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +34,7 @@ class _DateFiltersScreenState extends State<DateFiltersScreen> {
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
-        title:  Row(
+        title: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -56,7 +61,12 @@ class _DateFiltersScreenState extends State<DateFiltersScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               DateOptionCard(
-                onValueChanged: (List<dynamic> dates) {},
+                onValueChanged: (dates) {
+                  setState(() {
+                    user.lookingFor = dates;
+                  });
+                },
+                value: user.lookingFor ?? 'man',
               ),
               const SizedBox(
                 height: 16,
@@ -65,29 +75,31 @@ class _DateFiltersScreenState extends State<DateFiltersScreen> {
               const SizedBox(
                 height: 16,
               ),
-
               SettingsTile(
                 text: 'Select languages',
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const LanguagesScreen(),
+                    builder: (context) => LanguagesScreen(
+                      onLanguagesSelected: (List<dynamic> language) {},
+                    ),
                   ));
-                }, tittle: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Languages they know'),
+                },
+                tittle: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Languages they know'),
+                ),
               ),
-              ),
-
               SettingsTile(
                 text: 'Set advanced filters',
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const AdvancedFiltersScreen(),
                   ));
-                }, tittle:  const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Advanced filters'),
-              ),
+                },
+                tittle: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Advanced filters'),
+                ),
               )
             ],
           ),

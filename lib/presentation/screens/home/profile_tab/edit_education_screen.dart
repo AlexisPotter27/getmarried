@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:getmarried/presentation/screens/home/profile_tab/add_job_screen.dart';
+import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
+import 'package:getmarried/presentation/screens/home/profile_tab/add_education_screen.dart';
 
 import 'occupation_screen.dart';
 
 class EditEducationScreen extends StatefulWidget {
   const EditEducationScreen({Key? key}) : super(key: key);
 
+  // final authBloc = getIt.get<AuthBloc>();
+
   @override
   State<EditEducationScreen> createState() => _EditEducationScreenState();
 }
 
 class _EditEducationScreenState extends State<EditEducationScreen> {
+  final user = getIt.get<CacheCubit>().user;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +49,7 @@ class _EditEducationScreenState extends State<EditEducationScreen> {
           InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AddJobScreen(),
+                builder: (context) => AddEducationScreen(),
               ));
             },
             child: Row(
@@ -62,9 +68,11 @@ class _EditEducationScreenState extends State<EditEducationScreen> {
             height: 16,
           ),
           ListView.builder(
-            itemCount: 2,
+            itemCount: user!.educationColledge!.length,
             shrinkWrap: true,
-            itemBuilder: (context, index) => BasicDetailItem(),
+            itemBuilder: (context, index) => BasicDetailItem(
+              value: user!.educationColledge![index],
+            ),
           )
         ],
       ),

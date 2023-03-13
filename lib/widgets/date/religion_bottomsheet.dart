@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 
 class ReligionBottomSheet extends StatefulWidget {
-  const ReligionBottomSheet({Key? key}) : super(key: key);
+  const ReligionBottomSheet({Key? key, required this.onSelected,  this.value}) : super(key: key);
+  final Function(String value) onSelected;
+  final String? value;
 
   @override
   State<ReligionBottomSheet> createState() => _ReligionBottomSheetState();
@@ -55,16 +57,17 @@ class _ReligionBottomSheetState extends State<ReligionBottomSheet> {
                   onChanged: (val) {
                     setState(() {
                       if (val != null) {
-                        selectedOption = val;
+                       widget.onSelected(val);
                       }
                     });
+                    Navigator.pop(context);
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                       side:
                       BorderSide(width: 0.5, color: Colors.grey.shade300)),
                   title: Text(religions[index]),
-                  groupValue: selectedOption,
+                  groupValue: widget.value,
                 ),
               ),
             ),

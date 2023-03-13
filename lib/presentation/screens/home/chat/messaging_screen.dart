@@ -106,8 +106,8 @@ class _MessagingScreenState extends State<MessagingScreen> {
               convoId: convoId,
               onMessageSent: (ChatMessage message) {
                 setState(() {
-                  messages.add(message);
-                  log(message.text);
+                  // messages.add(message);
+                  // log(message.text);
                 });
               },
             )

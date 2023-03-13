@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     authDomain: 'getmarriedapp-810aa.firebaseapp.com',
     databaseURL: 'https://getmarriedapp-810aa-default-rtdb.firebaseio.com',
     storageBucket: 'getmarriedapp-810aa.appspot.com',
+    measurementId: 'G-DFC7KJDMMF',
   );
 
   static const FirebaseOptions android = FirebaseOptions(

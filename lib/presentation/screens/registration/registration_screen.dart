@@ -137,6 +137,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 GestureDetector(
                                   onTap: () {
                                     cachedUser?.dateOfBirth = dob.toString();
+                                    cachedUser?.age = _getAge(dob);
                                     Navigator.pop(context);
                                     switchPage(3);
                                   },

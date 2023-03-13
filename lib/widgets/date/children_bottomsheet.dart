@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 
 class ChildrenBottomsheet extends StatefulWidget {
-  const ChildrenBottomsheet({Key? key}) : super(key: key);
+  const ChildrenBottomsheet({Key? key, required this.onSelected, this.value})
+      : super(key: key);
+  final Function(String value) onSelected;
+  final String? value;
 
   @override
   State<ChildrenBottomsheet> createState() => _ChildrenBottomsheetState();
@@ -25,7 +28,6 @@ class _ChildrenBottomsheetState extends State<ChildrenBottomsheet> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
-
               children: [
                 IconButton(
                     onPressed: () {},
@@ -35,7 +37,10 @@ class _ChildrenBottomsheetState extends State<ChildrenBottomsheet> {
                     )),
                 const Text(
                   'Do they have or want children? ',
-                  style: TextStyle(color: Colors.black, fontSize: 16,fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
                 )
               ],
             ),
@@ -54,16 +59,17 @@ class _ChildrenBottomsheetState extends State<ChildrenBottomsheet> {
                   onChanged: (val) {
                     setState(() {
                       if (val != null) {
-                        selectedOption = val;
+                        widget.onSelected(val);
                       }
                     });
+                    Navigator.pop(context);
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                       side:
-                      BorderSide(width: 0.5, color: Colors.grey.shade300)),
+                          BorderSide(width: 0.5, color: Colors.grey.shade300)),
                   title: Text(educations[index]),
-                  groupValue: selectedOption,
+                  groupValue: widget.value,
                 ),
               ),
             ),
@@ -100,5 +106,4 @@ List<String> childrenOptions = [
   'Have & want more',
   'Have and dont want more',
   'Not sure yet',
-
 ];

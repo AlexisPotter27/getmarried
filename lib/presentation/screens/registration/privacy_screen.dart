@@ -129,6 +129,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                     ),
                   ),
                   PrimaryButton(
+                    bgColor: Colors.white,
                       onPressed: () {
                         if (userData != null) {
                           authBloc.add(UpdateUserEvent(userData!

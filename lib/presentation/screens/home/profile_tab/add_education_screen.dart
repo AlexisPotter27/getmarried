@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/helper/app_utils.dart';
+import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/widgets/white_textfield.dart';
 
 class AddEducationScreen extends StatefulWidget {
@@ -11,6 +16,8 @@ class AddEducationScreen extends StatefulWidget {
 
 class _AddEducationScreenState extends State<AddEducationScreen> {
   final institutionController = TextEditingController();
+  final authBloc = getIt.get<AuthBloc>();
+  final user = getIt.get<CacheCubit>().user;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,12 @@ class _AddEducationScreenState extends State<AddEducationScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: canUpdate ? () {} : null,
+              onPressed: canUpdate
+                  ? () {
+                      user?.educationColledge?.add(institutionController.text);
+                      authBloc.add(UpdateUserEvent(user!));
+                    }
+                  : null,
               icon: Icon(
                 Icons.check,
                 color: canUpdate ? primaryColour : Colors.grey,
@@ -30,36 +42,53 @@ class _AddEducationScreenState extends State<AddEducationScreen> {
         ],
         title: Text('Add education'),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 16,
-          ),
-          WhiteTextField(
-            hint: 'Institution',
-            controller: institutionController,
-            onChanged: (val) {
-              setState(() {});
-            },
-          ),
-          SizedBox(
-            height: 2,
-          ),
-          InkWell(
-            onTap: () {},
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    color: Colors.white,
-                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                    child: Text('Graduation year'),
-                  ),
+      body: BlocConsumer<AuthBloc, AuthState>(
+        bloc: authBloc,
+        listener: (context, state) {
+          if (state is UpdateUserLoadingState) {
+            showAnimatedProgressDialog(context);
+          }
+          if (state is UpdateUserSuccessState) {
+            getIt.get<CacheCubit>().updateUser(state.userData);
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.pop(context);
+          }
+        },
+        builder: (context, state) {
+          return Column(
+            children: [
+              SizedBox(
+                height: 16,
+              ),
+              WhiteTextField(
+                hint: 'Institution',
+                controller: institutionController,
+                onChanged: (val) {
+                  setState(() {});
+                },
+              ),
+              SizedBox(
+                height: 2,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        color: Colors.white,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                        child: Text('Graduation year'),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }

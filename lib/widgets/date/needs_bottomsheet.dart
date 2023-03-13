@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 
 class NeedsBottomSheet extends StatefulWidget {
-  const NeedsBottomSheet({Key? key}) : super(key: key);
+  const NeedsBottomSheet(
+      {Key? key, required this.onSelected, required this.value})
+      : super(key: key);
+  final Function(String value) onSelected;
+  final String? value;
 
   @override
   State<NeedsBottomSheet> createState() => _NeedsBottomSheetState();
@@ -26,7 +30,6 @@ class _NeedsBottomSheetState extends State<NeedsBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
-
               children: [
                 IconButton(
                     onPressed: () {},
@@ -36,7 +39,10 @@ class _NeedsBottomSheetState extends State<NeedsBottomSheet> {
                     )),
                 const Text(
                   'What do you want ',
-                  style: TextStyle(color: Colors.black, fontSize: 16,fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
                 )
               ],
             ),
@@ -55,16 +61,17 @@ class _NeedsBottomSheetState extends State<NeedsBottomSheet> {
                   onChanged: (val) {
                     setState(() {
                       if (val != null) {
-                        selectedOption = val;
+                        widget.onSelected(val);
                       }
                     });
+                    Navigator.pop(context);
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                       side:
-                      BorderSide(width: 0.5, color: Colors.grey.shade300)),
+                          BorderSide(width: 0.5, color: Colors.grey.shade300)),
                   title: Text(needs[index]),
-                  groupValue: selectedOption,
+                  groupValue: widget.value,
                 ),
               ),
             ),

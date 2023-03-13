@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/models/user.dart';
+import 'package:getmarried/presentation/screens/home/profile_tab/edit_about_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/edit_education_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/occupation_screen.dart';
 import 'package:getmarried/widgets/profile_tab/profile_list_tile.dart';
@@ -31,7 +32,9 @@ class _BasicsSectionState extends State<BasicsSection> {
               size: 20,
             ),
             tittle: 'Work',
-            value: null,
+            value: widget.user.occupations!.isNotEmpty
+                ? widget.user.occupations![0]
+                : null,
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => OccupationPage(),
@@ -46,7 +49,9 @@ class _BasicsSectionState extends State<BasicsSection> {
               size: 20,
             ),
             tittle: 'Education',
-            value: widget.user.education,
+            value: widget.user.educationColledge!.isNotEmpty
+                ? widget.user.educationColledge![0]
+                : null,
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => EditEducationScreen(),
@@ -73,7 +78,12 @@ class _BasicsSectionState extends State<BasicsSection> {
             ),
             tittle: 'Gender',
             value: widget.user.gender,
-            onTap: () {}),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                    EditAboutScreen(options: ['Man', 'Woman'], field: 'gender'),
+              ));
+            }),
         const SizedBox(
           height: 16,
         ),

@@ -102,3 +102,27 @@ class UpdateUserImageFailureState extends AuthState {
 
   const UpdateUserImageFailureState(this.error);
 }
+
+class DeleteUserLoadingState extends AuthState {
+  @override
+  List<Object> get props => [];
+
+  const DeleteUserLoadingState();
+}
+
+class DeleteUserSuccessState extends AuthState {
+
+  @override
+  List<Object> get props => [];
+
+  const DeleteUserSuccessState();
+}
+
+class DeleteUserFailureState extends AuthState {
+  final String error;
+
+  @override
+  List<Object> get props => [error];
+
+  const DeleteUserFailureState(this.error);
+}

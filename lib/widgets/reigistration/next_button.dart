@@ -25,12 +25,12 @@ class _NextButtonState extends State<NextButton> {
           shadowColor: Colors.black),
       child: widget.isNext
           ? Image.asset(
-              'assets/nexticon.png',
+              'assets/front.png',
               height: 25,
               width: 25,
             )
           : Image.asset(
-              'assets/previousicon.png',
+              'assets/back.png',
               height: 25,
               width: 25,
             ),

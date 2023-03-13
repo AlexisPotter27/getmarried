@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
@@ -21,13 +20,11 @@ TextEditingController countryCode = TextEditingController();
 TextEditingController phoneController = TextEditingController();
 String number = countryCode.text + phoneController.text;
 String num = number;
-FirebaseAuth auth = FirebaseAuth.instance;
 String verificationIDReceived = "";
 
-AuthBloc authBloc = getIt.get<AuthBloc>();
-
 class _PhoneState extends State<Phone> {
-  @override
+  AuthBloc authBloc = getIt.get<AuthBloc>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -306,6 +303,8 @@ class _PhoneState extends State<Phone> {
                                                     ),
                                                     GestureDetector(
                                                         onTap: () {
+                                                          phoneController.clear();
+                                                          countryCode.clear();
                                                           Navigator.pop(
                                                               context);
                                                           authBloc.add(

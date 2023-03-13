@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/data/models/date_filters.dart';
+import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/widgets/date/children_bottomsheet.dart';
 import 'package:getmarried/widgets/date/drink_bottomsheet.dart';
 import 'package:getmarried/widgets/date/education_bottomsheet.dart';
 import 'package:getmarried/widgets/date/excercise_bottomsheet.dart';
-import 'package:getmarried/widgets/date/height_bottomsheet.dart';
 import 'package:getmarried/widgets/date/needs_bottomsheet.dart';
 import 'package:getmarried/widgets/date/religion_bottomsheet.dart';
 import 'package:getmarried/widgets/date/settings_tile.dart';
+import 'package:getmarried/widgets/date/smoke_bottomsheet.dart';
 import 'package:getmarried/widgets/date/star_sign_bottomsheet.dart';
 import 'package:getmarried/widgets/date/topics_bottomsheet.dart';
 
@@ -20,6 +24,10 @@ class AdvancedFiltersScreen extends StatefulWidget {
 }
 
 class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
+  DateFilters? filters = getIt.get<CacheCubit>().user!.dateFilters;
+  AuthBloc authBloc = getIt.get<AuthBloc>();
+  bool verifiedOnly = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +44,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
-        title:  Row(
+        title: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -78,8 +86,12 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                           child: Transform.scale(
                             scale: 0.8,
                             child: CupertinoSwitch(
-                              value: true,
-                              onChanged: (val) {},
+                              value: filters!.verifiedOnly ?? false,
+                              onChanged: (val) {
+                                setState(() {
+                                  filters!.verifiedOnly = val;
+                                });
+                              },
                               activeColor: primaryColour,
                             ),
                           )),
@@ -103,45 +115,49 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                         ),
                       ),
                     ),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // SettingsTile(
+                    //   text: 'Add this filter',
+                    //   suffixIcon: filters!.height == null
+                    //       ? Icon(
+                    //           Icons.add,
+                    //           color: Colors.grey.shade300,
+                    //         )
+                    //       : Text(filters!.height!),
+                    //   prefixIcon: Transform.rotate(
+                    //       angle: 50,
+                    //       child: const Icon(
+                    //         Icons.straighten,
+                    //         color: Colors.black45,
+                    //       )),
+                    //   onPressed: () {
+                    //     showModalBottomSheet(
+                    //         context: context,
+                    //         builder: (context) => const HeightBottomSheet(),
+                    //         backgroundColor: Colors.transparent);
+                    //   },
+                    //   tittle: const Padding(
+                    //     padding: EdgeInsets.all(8.0),
+                    //     child: Text(
+                    //       'What is their height ?',
+                    //       style: TextStyle(
+                    //           fontSize: 13, fontWeight: FontWeight.w500),
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(
                       height: 8,
                     ),
                     SettingsTile(
                       text: 'Add this filter',
-                      suffixIcon: Icon(
-                        Icons.add,
-                        color: Colors.grey.shade300,
-                      ),
-                      prefixIcon: Transform.rotate(
-                          angle: 50,
-                          child: const Icon(
-                            Icons.straighten,
-                            color: Colors.black45,
-                          )),
-                      onPressed: () {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (context) => const HeightBottomSheet(),
-                            backgroundColor: Colors.transparent);
-                      },
-                      tittle: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          'What is their height ?',
-                          style: TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    SettingsTile(
-                      text: 'Add this filter',
-                      suffixIcon: Icon(
-                        Icons.add,
-                        color: Colors.grey.shade300,
-                      ),
+                      suffixIcon: filters!.excercise == null
+                          ? Icon(
+                              Icons.add,
+                              color: Colors.grey.shade300,
+                            )
+                          : Text(filters!.excercise!),
                       prefixIcon: Transform.rotate(
                           angle: 50,
                           child: const Icon(
@@ -151,7 +167,16 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                       onPressed: () {
                         showModalBottomSheet(
                             context: context,
-                            builder: (context) => const ExerciseBottomSheet(),
+                            builder: (context) => ExerciseBottomSheet(
+                                  onExerciseSelected: (String exercise) {
+                                    // Navigator.pop(context);
+                                    setState(() {
+                                      filters!.excercise = exercise;
+                                    });
+                                    // authBloc.add(UpdateUserEvent());
+                                  },
+                                  value: filters!.excercise,
+                                ),
                             backgroundColor: Colors.transparent);
                       },
                       tittle: const Padding(
@@ -168,10 +193,12 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                     ),
                     SettingsTile(
                       text: 'Add this filter',
-                      suffixIcon: Icon(
-                        Icons.add,
-                        color: Colors.grey.shade300,
-                      ),
+                      suffixIcon: filters!.education == null
+                          ? Icon(
+                              Icons.add,
+                              color: Colors.grey.shade300,
+                            )
+                          : Text(filters!.education!),
                       prefixIcon: const Icon(
                         Icons.school_outlined,
                         color: Colors.black45,
@@ -179,7 +206,14 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                       onPressed: () {
                         showModalBottomSheet(
                             context: context,
-                            builder: (context) => const EducationBottomSheet(),
+                            builder: (context) => EducationBottomSheet(
+                                  onEducationSelected: (String excerise) {
+                                    setState(() {
+                                      filters!.education = excerise;
+                                    });
+                                  },
+                                  value: filters!.education,
+                                ),
                             backgroundColor: Colors.transparent);
                       },
                       tittle: const Padding(
@@ -196,10 +230,12 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                     ),
                     SettingsTile(
                       text: 'Add this filter',
-                      suffixIcon: Icon(
-                        Icons.add,
-                        color: Colors.grey.shade300,
-                      ),
+                      suffixIcon: filters!.drink == null
+                          ? Icon(
+                              Icons.add,
+                              color: Colors.grey.shade300,
+                            )
+                          : Text(filters!.drink!),
                       prefixIcon: const Icon(
                         Icons.wine_bar,
                         color: Colors.black45,
@@ -207,7 +243,14 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                       onPressed: () {
                         showModalBottomSheet(
                             context: context,
-                            builder: (context) => const DrinkBottomSheet(),
+                            builder: (context) => DrinkBottomSheet(
+                                  onSelected: (String value) {
+                                    setState(() {
+                                      filters!.drink = value;
+                                    });
+                                  },
+                                  value: filters!.drink,
+                                ),
                             backgroundColor: Colors.transparent);
                       },
                       tittle: const Padding(
@@ -224,10 +267,12 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                     ),
                     SettingsTile(
                       text: 'Add this filter',
-                      suffixIcon: Icon(
-                        Icons.add,
-                        color: Colors.grey.shade300,
-                      ),
+                      suffixIcon: filters!.smoke == null
+                          ? Icon(
+                              Icons.add,
+                              color: Colors.grey.shade300,
+                            )
+                          : Text(filters!.smoke!),
                       prefixIcon: Transform.rotate(
                           angle: 50,
                           child: const Icon(
@@ -237,7 +282,14 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                       onPressed: () {
                         showModalBottomSheet(
                             context: context,
-                            builder: (context) => const DrinkBottomSheet(),
+                            builder: (context) => SmokeBottomScheet(
+                                  onSelected: (String value) {
+                                    setState(() {
+                                      filters!.smoke = value;
+                                    });
+                                  },
+                                  value: filters!.smoke,
+                                ),
                             backgroundColor: Colors.transparent);
                       },
                       tittle: const Padding(
@@ -254,10 +306,12 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                     ),
                     SettingsTile(
                       text: 'Add this filter',
-                      suffixIcon: Icon(
-                        Icons.add,
-                        color: Colors.grey.shade300,
-                      ),
+                      suffixIcon: filters!.lookingFor == null
+                          ? Icon(
+                              Icons.add,
+                              color: Colors.grey.shade300,
+                            )
+                          : Text(filters!.lookingFor!),
                       prefixIcon: Transform.rotate(
                           angle: 50,
                           child: const Icon(
@@ -267,7 +321,14 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                       onPressed: () {
                         showModalBottomSheet(
                             context: context,
-                            builder: (context) => const NeedsBottomSheet(),
+                            builder: (context) => NeedsBottomSheet(
+                                  onSelected: (String value) {
+                                    setState(() {
+                                      filters!.lookingFor = value;
+                                    });
+                                  },
+                                  value: filters!.lookingFor,
+                                ),
                             backgroundColor: Colors.transparent);
                       },
                       tittle: const Padding(
@@ -284,10 +345,12 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                     ),
                     SettingsTile(
                       text: 'Add this filter',
-                      suffixIcon: Icon(
-                        Icons.add,
-                        color: Colors.grey.shade300,
-                      ),
+                      suffixIcon: filters!.children == null
+                          ? Icon(
+                              Icons.add,
+                              color: Colors.grey.shade300,
+                            )
+                          : Text(filters!.children!),
                       prefixIcon: Transform.rotate(
                           angle: 50,
                           child: const Icon(
@@ -297,7 +360,14 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                       onPressed: () {
                         showModalBottomSheet(
                             context: context,
-                            builder: (context) => const ChildrenBottomsheet(),
+                            builder: (context) => ChildrenBottomsheet(
+                                  onSelected: (String value) {
+                                    setState(() {
+                                      filters!.children = value;
+                                    });
+                                  },
+                                  value: filters!.children,
+                                ),
                             backgroundColor: Colors.transparent);
                       },
                       tittle: const Padding(
@@ -314,10 +384,12 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                     ),
                     SettingsTile(
                       text: 'Add this filter',
-                      suffixIcon: Icon(
-                        Icons.add,
-                        color: Colors.grey.shade300,
-                      ),
+                      suffixIcon: filters!.startSign == null
+                          ? Icon(
+                              Icons.add,
+                              color: Colors.grey.shade300,
+                            )
+                          : Text(filters!.startSign!),
                       prefixIcon: Transform.rotate(
                           angle: 50,
                           child: const Icon(
@@ -327,13 +399,20 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                       onPressed: () {
                         showModalBottomSheet(
                             context: context,
-                            builder: (context) => const StarSignBottomSheet(),
+                            builder: (context) => StarSignBottomSheet(
+                                  onSelected: (String value) {
+                                    setState(() {
+                                      filters!.startSign = value;
+                                    });
+                                  },
+                                  value: filters!.startSign,
+                                ),
                             backgroundColor: Colors.transparent);
                       },
                       tittle: const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          'What is their start sign ?',
+                          'What is their star sign ?',
                           style: TextStyle(
                               fontSize: 13, fontWeight: FontWeight.w500),
                         ),
@@ -344,10 +423,12 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                     ),
                     SettingsTile(
                       text: 'Add this filter',
-                      suffixIcon: Icon(
-                        Icons.add,
-                        color: Colors.grey.shade300,
-                      ),
+                      suffixIcon: filters!.topics == null
+                          ? Icon(
+                              Icons.add,
+                              color: Colors.grey.shade300,
+                            )
+                          : Text(filters!.topics!),
                       prefixIcon: const Icon(
                         Icons.account_balance_rounded,
                         color: Colors.black45,
@@ -355,7 +436,14 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                       onPressed: () {
                         showModalBottomSheet(
                             context: context,
-                            builder: (context) => const TopicsBottomSheet(),
+                            builder: (context) => TopicsBottomSheet(
+                                  onSelected: (String value) {
+                                    setState(() {
+                                      filters!.topics = value;
+                                    });
+                                  },
+                                  value: filters!.topics,
+                                ),
                             backgroundColor: Colors.transparent);
                       },
                       tittle: const Padding(
@@ -372,10 +460,12 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                     ),
                     SettingsTile(
                       text: 'Add this filter',
-                      suffixIcon: Icon(
-                        Icons.add,
-                        color: Colors.grey.shade300,
-                      ),
+                      suffixIcon: filters!.religion == null
+                          ? Icon(
+                              Icons.add,
+                              color: Colors.grey.shade300,
+                            )
+                          : Text(filters!.religion!),
                       prefixIcon: Transform.rotate(
                           angle: 50,
                           child: const Icon(
@@ -385,7 +475,14 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                       onPressed: () {
                         showModalBottomSheet(
                             context: context,
-                            builder: (context) => const ReligionBottomSheet(),
+                            builder: (context) => ReligionBottomSheet(
+                                  onSelected: (String value) {
+                                    setState(() {
+                                      filters!.religion = value;
+                                    });
+                                  },
+                                  value: filters!.religion,
+                                ),
                             backgroundColor: Colors.transparent);
                       },
                       tittle: const Padding(

@@ -31,14 +31,14 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
         const SizedBox(
           height: 16,
         ),
-        ProfileListTile(
-            preffix: const Icon(
-              Icons.straighten,
-              size: 20,
-            ),
-            tittle: 'Height',
-            value: widget.user.height,
-            onTap: () {}),
+        // ProfileListTile(
+        //     preffix: const Icon(
+        //       Icons.straighten,
+        //       size: 20,
+        //     ),
+        //     tittle: 'Height',
+        //     value: widget.user.height,
+        //     onTap: () {}),
         const SizedBox(
           height: 16,
         ),
@@ -48,7 +48,7 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
               size: 20,
             ),
             tittle: 'Exercise',
-            value: null,
+            value: widget.user.workout,
             onTap: () {
               Navigator.push(
                   context,
@@ -115,7 +115,7 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
                   MaterialPageRoute(
                     builder: (context) => EditAboutScreen(
                       options: [...smokeOptions],
-                      field: 'drinking',
+                      field: 'smoking',
                     ),
                   ));
             }),
@@ -134,7 +134,7 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => EditAboutScreen(
-                      options: [],
+                      options: lookingfor,
                       field: 'looking',
                     ),
                   ));
@@ -213,9 +213,10 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => EditAboutScreen(options: [
-                      ...religions
-                    ], field: 'religion',),
+                    builder: (context) => EditAboutScreen(
+                      options: [...religions],
+                      field: 'religion',
+                    ),
                   ));
             }),
         const SizedBox(

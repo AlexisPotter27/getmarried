@@ -29,6 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     //     (event, emit) => add(PhoneNumberSigninEvent(event.credential)));
     on<PhoneNumberSigninEvent>(_mapPhoneNumberSignin);
     on<UpdateUserEvent>(_mapUpdateUserEventToState);
+    on<DeleteUserEvent>(_mapDeleteUserEventToState);
     on<UpdateUserImageEvent>(_mapUpdateUserImageEventToState);
   }
 
@@ -74,6 +75,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (response.error == null) {
         emit(PhoneAuthSuccessState(response.data));
       } else {
+
         emit(PhoneAuthFailureState(response.error.toString()));
       }
     } on FirebaseAuthException catch (e) {
@@ -117,6 +119,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     } on Exception catch (e) {
       emit(UpdateUserImageFailureState(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapDeleteUserEventToState(
+      DeleteUserEvent event, Emitter<AuthState> emit) async {
+    emit(const DeleteUserLoadingState());
+
+    try {
+      ApiResponse response = await authRepository.deleteUser(event.uid);
+      if (response.error == null) {
+        emit(DeleteUserSuccessState());
+      } else {
+        log(response.error.toString());
+        emit(DeleteUserFailureState(response.error.toString()));
+      }
+    } on Exception catch (e) {
+      emit(DeleteUserFailureState(e.toString()));
     }
   }
 }

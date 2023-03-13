@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 
 class ExerciseBottomSheet extends StatefulWidget {
-  const ExerciseBottomSheet({Key? key}) : super(key: key);
+  const ExerciseBottomSheet(
+      {Key? key, required this.onExerciseSelected,  this.value})
+      : super(key: key);
+  final Function(String excercise) onExerciseSelected;
+  final String? value;
 
   @override
   State<ExerciseBottomSheet> createState() => _ExerciseBottomSheetState();
@@ -49,23 +53,26 @@ class _ExerciseBottomSheetState extends State<ExerciseBottomSheet> {
                 shrinkWrap: true,
                 itemCount: exerciseOptions.length,
                 itemBuilder: (context, index) => RadioListTile<String>(
-                    contentPadding: EdgeInsets.zero,
-                    value:exerciseOptions[index] ,
-                    activeColor: primaryColour,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (val) {
-                      setState(() {
-                        if (val!= null) {
-                          selectedExercise = val;
-                        }
-                      });
-                    },
-                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        side: BorderSide(
-                            width: 0.5, color: Colors.grey.shade300)),
-                    title: Text(exerciseOptions[index]),
-                  groupValue: selectedExercise,),
+                  contentPadding: EdgeInsets.zero,
+                  value: exerciseOptions[index],
+                  activeColor: primaryColour,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (val) {
+                    widget.onExerciseSelected(val!);
+                    Navigator.pop(context);
+                    // setState(() {
+                    //   if (val!= null) {
+                    //     selectedExercise = val;
+                    //   }
+                    // });
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side:
+                          BorderSide(width: 0.5, color: Colors.grey.shade300)),
+                  title: Text(exerciseOptions[index]),
+                  groupValue: widget.value,
+                ),
               ),
             ),
             Row(

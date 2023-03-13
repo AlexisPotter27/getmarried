@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/widgets/primary_button.dart';
 
 class LanguagesScreen extends StatefulWidget {
-  const LanguagesScreen({Key? key}) : super(key: key);
+  const LanguagesScreen({Key? key, required this.onLanguagesSelected})
+      : super(key: key);
+  final Function(List) onLanguagesSelected;
 
   @override
   State<LanguagesScreen> createState() => _LanguagesScreenState();
@@ -37,7 +40,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
         title: const Text(
-          'Languages they know',
+          'Languages',
           style: TextStyle(color: Colors.black, fontSize: 16),
         ),
       ),
@@ -46,22 +49,21 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
           padding: const EdgeInsets.all(18.0),
           child: Column(
             children: [
-              const Text(
-                'Looking for people who know specific languages ? Select up to 3 languages and we will try and connect you with people who know all of them ',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 13),
-              ),
+              // const Text(
+              //   'Looking for people who know specific languages ? Select up to 3 languages and we will try and connect you with people who know all of them ',
+              //   textAlign: TextAlign.center,
+              //   style: TextStyle(fontSize: 13),
+              // ),
               const SizedBox(
                 height: 20,
               ),
               TextFormField(
-                onChanged: (val){
-                  sortLanguages(val);
-                },
+                  onChanged: (val) {
+                    sortLanguages(val);
+                  },
                   decoration: inputDecoration(context).copyWith(
                       fillColor: Colors.grey.shade200,
                       contentPadding: const EdgeInsets.all(10),
-
                       prefixIcon: const Icon(
                         Icons.search_rounded,
                         color: Colors.black,
@@ -96,6 +98,14 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
                       title: Text(sortedLanguages[index])),
                 ),
               ),
+              Visibility(
+                  visible: selectedLanguages.isNotEmpty,
+                  child: PrimaryButton(
+                      child: Text('Update'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        widget.onLanguagesSelected(selectedLanguages);
+                      })),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -126,8 +136,10 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
   void sortLanguages(String? query) {
     setState(() {
       if (query != null && query.isNotEmpty) {
-        sortedLanguages =
-            languages.where((element) => element.toLowerCase().contains(query.toLowerCase())).toList();
+        sortedLanguages = languages
+            .where((element) =>
+                element.toLowerCase().contains(query.toLowerCase()))
+            .toList();
       } else {
         sortedLanguages = languages;
       }

@@ -10,6 +10,7 @@ import 'package:getmarried/presentation/screens/home/chat/messaging_screen.dart'
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/chat/conversation_item.dart';
 import 'package:getmarried/widgets/chat/user_chat_item.dart';
+import 'package:getmarried/widgets/primary_button.dart';
 
 class ChatTab extends StatefulWidget {
   const ChatTab({Key? key}) : super(key: key);
@@ -78,53 +79,60 @@ class _ChatTabState extends State<ChatTab> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 16,
-              ),
-              Text('SelectUser to start chat'),
-              SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                height: 70,
-                child: BlocConsumer<ChatBloc, ChatState>(
-                  bloc: chatBloc,
-                  buildWhen: (prev, curr) =>
-                      curr is UsersLoadingState ||
-                      curr is UsersFetchedState ||
-                      curr is UsersErrorState,
-                  listener: (context, state) {},
-                  builder: (context, state) {
-                    if (state is UsersLoadingState) {
-                      return const Center(
-                        child: SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator()),
-                      );
-                    }
-                    if (state is UsersFetchedState) {
-                      return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.users.length,
-                        itemBuilder: (context, index) => GestureDetector(
-                            onTap: () {
-                              // chatBloc.add(GetConversationEvent());
+              BlocConsumer<ChatBloc, ChatState>(
+                bloc: chatBloc,
+                buildWhen: (prev, curr) =>
+                    curr is UsersLoadingState ||
+                    curr is UsersFetchedState ||
+                    curr is UsersErrorState,
+                listener: (context, state) {},
+                builder: (context, state) {
+                  if (state is UsersLoadingState) {
+                    return const Center(
+                      child: SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator()),
+                    );
+                  }
+                  if (state is UsersFetchedState) {
+                    if (state.users.isNotEmpty) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('SelectUser to start chat'),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            height: 70,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: state.users.length,
+                              itemBuilder: (context, index) => GestureDetector(
+                                  onTap: () {
+                                    // chatBloc.add(GetConversationEvent());
 
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MessagingScreen(
-                                      userData: state.users[index].toChatUser(),
-                                    ),
-                                  ));
-                            },
-                            child: UserChatItem(userData: state.users[index])),
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MessagingScreen(
+                                            userData:
+                                                state.users[index].toChatUser(),
+                                          ),
+                                        ));
+                                  },
+                                  child: UserChatItem(
+                                      userData: state.users[index])),
+                            ),
+                          ),
+                        ],
                       );
                     }
-                    return SizedBox();
-                  },
-                ),
+                  }
+                  return SizedBox();
+                },
               ),
               Row(
                 children: [
@@ -172,13 +180,32 @@ class _ChatTabState extends State<ChatTab> {
                       );
                     }
                     if (state is ConversationFetchedState) {
-                      return ListView.builder(
-                        itemCount: state.conversations.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) => ConversationItem(
-                          conversation: state.conversations[index],
-                        ),
-                      );
+                      if (state.conversations.isNotEmpty) {
+                        return ListView.builder(
+                          itemCount: state.conversations.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => ConversationItem(
+                            conversation: state.conversations[index],
+                          ),
+                        );
+                      } else {
+                        return Center(
+                          child: Column(
+                            children: [
+                              Text('You have no conversations'),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              PrimaryButton(
+                                  child: Text('Refresh'),
+                                  onPressed: () {
+                                    chatBloc.add(
+                                        GetConversationEvent(userData.uid!));
+                                  })
+                            ],
+                          ),
+                        );
+                      }
                     }
                     if (state is ConversationErrorState) {
                       return Center(
@@ -186,7 +213,7 @@ class _ChatTabState extends State<ChatTab> {
                       );
                     }
 
-                    return SizedBox();
+                    return Center();
                   },
                 ),
               )
