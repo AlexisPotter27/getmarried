@@ -55,6 +55,7 @@ class _BuildProfileOnboardState extends State<BuildProfileOnboard> {
                 ),
               ),
               PrimaryButton(
+                bgColor: Colors.white,
                 onPressed: () {
                   Navigator.pushReplacement(
                       context,

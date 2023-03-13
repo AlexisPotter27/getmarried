@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/storage_keys.dart';
+import 'package:getmarried/data/models/date_filters.dart';
 import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/helper/storage_helper.dart';
@@ -290,8 +291,10 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                         prevPage(25);
                       }, onComplete: (about) {
                         userData?.about = about;
-                        authBloc.add(
-                            UpdateUserEvent(userData!.copyWith(regStatus: 2,languages: ['English'])));
+                        authBloc.add(UpdateUserEvent(userData!.copyWith(
+                            regStatus: 2,
+                            languages: ['English'],
+                            dateFilters: DateFilters())));
                         // Navigator.of(context).push(MaterialPageRoute(
                         //   builder: (context) => const WelcomeScreen(),
                         // ));

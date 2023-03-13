@@ -207,6 +207,8 @@ class _VerifyState extends State<Verify> {
                         verifyCode(
                             verificationId: widget.verificationId,
                             smsCode: phoneController.text);
+                        phoneController.clear();
+
                       } else {
                         ToastMessage.showToast(
                             'Please enter a invalid phone number.');

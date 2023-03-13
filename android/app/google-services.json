@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "594283361767-3kup8m02voek20k4fenigjvnl1eed0td.apps.googleusercontent.com",
+          "client_id": "594283361767-cpur2dj1a2vb34uooek9ce9snkst4299.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.getmarriedapp",
@@ -23,19 +23,27 @@
           }
         },
         {
-          "client_id": "594283361767-fn1q8cjq3sg7bll8rk2sudi60h90aph2.apps.googleusercontent.com",
+          "client_id": "594283361767-d5uhpambolc4u833qs0jjh1nncghs13q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.getmarriedapp",
-            "certificate_hash": "102a3a45e2663ebfd7b23bf22fcaeb677464fa2c"
+            "certificate_hash": "47ce093f2c425efc274279ad0a7bd80bfca4feaf"
           }
         },
         {
-          "client_id": "594283361767-rjbr933l64nhpndinauka2g4m8cc4nd4.apps.googleusercontent.com",
+          "client_id": "594283361767-j8563fddjpf3gaqhs938qqf30p1v7aoi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.getmarriedapp",
             "certificate_hash": "203e1b7139073893fbe37562b04a3f4b3ae43c9c"
+          }
+        },
+        {
+          "client_id": "594283361767-m6jqqgjshg3ca33mkcf55uol6jl86pov.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.getmarriedapp",
+            "certificate_hash": "d4be4ba54fc910ea52343180427218680796a41e"
           }
         },
         {

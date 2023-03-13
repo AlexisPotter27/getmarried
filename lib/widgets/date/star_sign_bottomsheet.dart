@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 
 class StarSignBottomSheet extends StatefulWidget {
-  const StarSignBottomSheet({Key? key}) : super(key: key);
+  const StarSignBottomSheet({Key? key, required  this.onSelected, this.value}) : super(key: key);
+  final Function(String value) onSelected;
+  final String? value;
 
   @override
   State<StarSignBottomSheet> createState() => _StarSignBottomSheetState();
@@ -55,9 +57,10 @@ class _StarSignBottomSheetState extends State<StarSignBottomSheet> {
                   onChanged: (val) {
                     setState(() {
                       if (val != null) {
-                        selectedOption = val;
+                        widget.onSelected(val);
                       }
                     });
+                    Navigator.pop(context);
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),

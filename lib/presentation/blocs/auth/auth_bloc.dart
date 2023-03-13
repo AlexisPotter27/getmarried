@@ -7,7 +7,6 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/data/repositories/remote/auth/auth_repository.dart';
-import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/models/user.dart';
 
 part 'auth_event.dart';
@@ -125,7 +124,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> _mapDeleteUserEventToState(
       DeleteUserEvent event, Emitter<AuthState> emit) async {
-    emit(const UpdateUserImageLoadingState());
+    emit(const DeleteUserLoadingState());
 
     try {
       ApiResponse response = await authRepository.deleteUser(event.uid);
