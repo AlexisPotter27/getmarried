@@ -100,6 +100,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
 
       if (docs.isNotEmpty) {
+        log('LOGED IN USER ${docs.first.data().toString()}');
         return ApiResponse(
             data: UserData.fromJson(docs.first.data()), error: null);
       } else {

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/button.dart';
 import '../../../widgets/social_button.dart';
 import '../number.dart';
@@ -47,6 +48,7 @@ class Onboard extends StatelessWidget {
                           title: 'Continue with Google',
                           textcolour: Colors.white,
                           ontap: () {
+                            showCustomToast('Coming soon');
                             /*Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -62,6 +64,8 @@ class Onboard extends StatelessWidget {
                       title: 'Continue with Apple ID',
                       textcolour: Colors.white,
                       ontap: () {
+
+                        showCustomToast('Coming soon');
                         /*Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -77,6 +81,7 @@ class Onboard extends StatelessWidget {
                       title: 'Continue with Facebook',
                       textcolour: Colors.white,
                       ontap: () {
+                        showCustomToast('Coming soon');
                         /*Navigator.push(
                             context,
                             MaterialPageRoute(

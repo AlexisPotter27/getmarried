@@ -55,7 +55,7 @@ class _ConversationItemState extends State<ConversationItem> {
                       ),
                     ),
                     Text(
-                      DateFormat.jm()
+                      DateFormat.jms()
                           .format(widget.conversation.lastMessage.timeSent),
                       style: const TextStyle(
                         fontSize: 13,
