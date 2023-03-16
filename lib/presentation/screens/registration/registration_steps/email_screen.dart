@@ -53,6 +53,7 @@ class _EmailScreenState extends State<EmailScreen>
                 focusNode: FocusNode(),
                 controller: _emailController,
                 hintText: 'Add recovery email',
+                keyboardType: TextInputType.emailAddress,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               )

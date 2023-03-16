@@ -187,7 +187,7 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
                       showCustomToast('Please select an option');
                     } else {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>  Onboard(),
+                        builder: (context) => Onboard(),
                       ));
                     }
 
