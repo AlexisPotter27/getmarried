@@ -20,6 +20,7 @@ abstract class AuthRepository {
   Future<ApiResponse> signinWithPhoneNumber(PhoneAuthCredential credential);
 
   Future<ApiResponse> signinUser(String uid);
+  Future<ApiResponse> signInWithGoogle();
   Future<ApiResponse> deleteUser(String uid);
 
 

@@ -10,6 +10,7 @@ import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/screens/number.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'auth_repository.dart';
 
@@ -95,9 +96,8 @@ class AuthRepositoryImpl extends AuthRepository {
       QuerySnapshot<Map<String, dynamic>> snapshots =
           await db.collection(FirebaseKeys.users).get();
 
-      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs = snapshots.docs.where((element) => element.id == uid).toList();
-
-
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs =
+          snapshots.docs.where((element) => element.id == uid).toList();
 
       if (docs.isNotEmpty) {
         log('LOGED IN USER ${docs.first.data().toString()}');
@@ -215,6 +215,42 @@ class AuthRepositoryImpl extends AuthRepository {
     } on Exception catch (e) {
       log(e.toString());
       return ApiResponse(data: null, error: e.toString());
+    }
+  }
+
+  @override
+  Future<ApiResponse> signInWithGoogle() async {
+    // Trigger the authentication flow
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: [
+        'email',
+        'profile',
+      ]).signIn();
+
+      // Obtain the auth details from the request
+      if (googleUser != null) {
+        final GoogleSignInAuthentication? googleAuth =
+            await googleUser.authentication;
+
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken,
+          idToken: googleAuth?.idToken,
+        );
+        // Once signed in, return the UserCredential
+        UserCredential userCredential =
+            await auth.signInWithCredential(credential).then((value) {
+          log(value.user.toString());
+          return value;
+        });
+
+        return signinUser(userCredential.user!.uid);
+      } else {
+        log('not signed in');
+        return ApiResponse(data: null, error: 'Unsuccessful');
+      }
+    } on FirebaseAuthException catch (e) {
+      log('FIREBASE ERROR${e.message.toString()}');
+      return ApiResponse(data: null, error: e.code);
     }
   }
 }

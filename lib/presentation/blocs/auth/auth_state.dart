@@ -111,7 +111,6 @@ class DeleteUserLoadingState extends AuthState {
 }
 
 class DeleteUserSuccessState extends AuthState {
-
   @override
   List<Object> get props => [];
 
@@ -125,4 +124,29 @@ class DeleteUserFailureState extends AuthState {
   List<Object> get props => [error];
 
   const DeleteUserFailureState(this.error);
+}
+
+class GoogleSignInLoadingState extends AuthState {
+  @override
+  List<Object> get props => [];
+
+  const GoogleSignInLoadingState();
+}
+
+class GoogleSignInSuccessState extends AuthState {
+  final UserData user;
+
+  @override
+  List<Object> get props => [];
+
+  const GoogleSignInSuccessState(this.user);
+}
+
+class GoogleSignInFailureState extends AuthState {
+  final String error;
+
+  @override
+  List<Object> get props => [error];
+
+  const GoogleSignInFailureState(this.error);
 }
