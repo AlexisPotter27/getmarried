@@ -54,6 +54,10 @@ class PhoneNumberSigninEvent extends AuthEvent {
 
   const PhoneNumberSigninEvent(this.credential);
 }
+class GoogleSigninEvent extends AuthEvent {
+
+  const GoogleSigninEvent();
+}
 
 class UpdateUserEvent extends AuthEvent {
   final UserData userData;

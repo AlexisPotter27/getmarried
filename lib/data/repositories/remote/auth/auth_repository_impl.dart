@@ -5,11 +5,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:getmarried/constants/firebase_keys.dart';
 import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/screens/number.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'auth_repository.dart';
 
@@ -17,19 +19,19 @@ class AuthRepositoryImpl extends AuthRepository {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
+  final fb = FacebookAuth.instance;
 
   @override
-  Future sendSms(
-      {required String number,
-      String? resendToken,
-      required final Function(FirebaseAuthException exception)
-          onVerificationFailed,
-      required final Function(PhoneAuthCredential credential)
-          onVerificationCompleted,
-      required final Function(String verificationID, int? resendToken)
-          onCodeSent,
-      required final Function(String verificationID)
-          onCodeAutoRetrievalTimeout}) async {
+  Future sendSms({required String number,
+    String? resendToken,
+    required final Function(FirebaseAuthException exception)
+    onVerificationFailed,
+    required final Function(PhoneAuthCredential credential)
+    onVerificationCompleted,
+    required final Function(String verificationID, int? resendToken)
+    onCodeSent,
+    required final Function(String verificationID)
+    onCodeAutoRetrievalTimeout}) async {
     log('This is with code: $number');
     log('Only Number: $phoneController');
     log('Country Code: $countryCode');
@@ -90,16 +92,16 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<ApiResponse> signinUser(String uid) async {
     try {
-      debugPrint('RETREIVING USER DETAILS');
+      debugPrint('RETRIEVING USER DETAILS');
 
       QuerySnapshot<Map<String, dynamic>> snapshots =
-          await db.collection(FirebaseKeys.users).get();
+      await db.collection(FirebaseKeys.users).get();
 
-      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs = snapshots.docs.where((element) => element.id == uid).toList();
-
-
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs =
+      snapshots.docs.where((element) => element.id == uid).toList();
 
       if (docs.isNotEmpty) {
+        log('LOGGED IN USER ${docs.first.data().toString()}');
         return ApiResponse(
             data: UserData.fromJson(docs.first.data()), error: null);
       } else {
@@ -156,8 +158,8 @@ class AuthRepositoryImpl extends AuthRepository {
           .collection(FirebaseKeys.users)
           .doc(userData.uid)
           .update(
-            userData.toJson(),
-          )
+        userData.toJson(),
+      )
           .then((val) => {log('Finished uploading')});
 
       // WriteBatch batch = db.batch();
@@ -215,5 +217,78 @@ class AuthRepositoryImpl extends AuthRepository {
       log(e.toString());
       return ApiResponse(data: null, error: e.toString());
     }
+  }
+
+  @override
+  Future<ApiResponse> signInWithGoogle() async {
+    // Trigger the authentication flow
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: [
+        'email',
+        'profile',
+      ]).signIn();
+
+      // Obtain the auth details from the request
+      if (googleUser != null) {
+        final GoogleSignInAuthentication? googleAuth =
+        await googleUser.authentication;
+
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken,
+          idToken: googleAuth?.idToken,
+        );
+        // Once signed in, return the UserCredential
+        UserCredential userCredential =
+        await auth.signInWithCredential(credential).then((value) {
+          log(value.user.toString());
+          return value;
+        });
+
+        return signinUser(userCredential.user!.uid);
+      } else {
+        log('not signed in');
+        return ApiResponse(data: null, error: 'Unsuccessful');
+      }
+    } on FirebaseAuthException catch (e) {
+      log('FIREBASE ERROR${e.message.toString()}');
+      return ApiResponse(data: null, error: e.code);
+    }
+  }
+
+  @override
+  Future<ApiResponse> signInWithFacebook() async {
+    try {
+      final LoginResult res = await fb.login(
+          permissions: ['email', 'public_profile']);
+
+      // Obtain the auth details from the request
+      if (res.accessToken != null) {
+        fb.getUserData();
+
+        final credential = GoogleAuthProvider.credential(
+          accessToken: res.accessToken!.token,
+          idToken: 'googleAuth?.idToken',
+        );
+        // Once signed in, return the UserCredential
+        UserCredential userCredential =
+        await auth.signInWithCredential(credential).then((value) {
+          log(value.user.toString());
+          return value;
+        });
+
+        return signinUser(userCredential.user!.uid);
+      } else {
+        log('not signed in');
+        return ApiResponse(data: null, error: 'Unsuccessful');
+      }
+    } on FirebaseAuthException catch (e) {
+      log('FIREBASE ERROR${e.message.toString()}');
+      return ApiResponse(data: null, error: e.code);
+    }
+
+// Log in
+//     final LoginResult res =
+//         await fb.login(permissions: ['email', 'public_profile']);
+
   }
 }

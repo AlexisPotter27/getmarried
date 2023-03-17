@@ -229,7 +229,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         backgroundColor: Colors.grey.shade300,
                         foregroundColor: Colors.black),
                     onPressed: () {
-                      StorageHelper.setBoolean(StorageKeys.isUserLoggedIn, false);
+                      StorageHelper.setBoolean(
+                          StorageKeys.isUserLoggedIn, false);
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
