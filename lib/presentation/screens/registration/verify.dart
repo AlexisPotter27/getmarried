@@ -174,6 +174,11 @@ class _VerifyState extends State<Verify> {
                           textInputAction: TextInputAction.done,
                           autofocus: true,
                           cursorColor: primaryColour,
+                          onFieldSubmitted: (val){
+                            verifyCode(
+                                verificationId: widget.verificationId,
+                                smsCode: phoneController.text);
+                          },
                           onChanged: (val) {
                             setState(() {});
                           },

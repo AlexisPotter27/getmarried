@@ -39,7 +39,7 @@ class _AthleticState extends State<Athletic> {
               const Text(
                 "I feel like I'm an athletic person ?",
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

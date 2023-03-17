@@ -48,7 +48,7 @@ class _ReligionScreenState extends State<ReligionScreen> {
                 height: 10,
               ),
               const Text(
-                'Do you identify with a religion?',
+                'What is your religion ?',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(

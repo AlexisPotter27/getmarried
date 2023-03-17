@@ -11,13 +11,16 @@ import 'package:getmarried/presentation/screens/splashScreen.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'constants/storage_keys.dart';
 import 'di/injector.dart';
+import 'firebase_options.dart';
 import 'helper/storage_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   injector.init();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   CacheCubit cubit = getIt.get<CacheCubit>();
   cubit.getCachedUser();
   Future.delayed(const Duration(milliseconds: 500));
