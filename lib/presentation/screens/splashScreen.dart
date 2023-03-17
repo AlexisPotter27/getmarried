@@ -24,6 +24,7 @@ class _SplashscreenState extends State<Splashscreen> {
     return Scaffold(
       backgroundColor: Colors.indigoAccent,
       body: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
               flex: 2,
