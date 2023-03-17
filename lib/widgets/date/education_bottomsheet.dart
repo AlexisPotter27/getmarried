@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 
 class EducationBottomSheet extends StatefulWidget {
-  const EducationBottomSheet({Key? key}) : super(key: key);
+  const EducationBottomSheet(
+      {Key? key, required this.onEducationSelected, this.value})
+      : super(key: key);
+  final Function(String excercise) onEducationSelected;
+  final String? value;
 
   @override
   State<EducationBottomSheet> createState() => _EducationBottomSheetState();
@@ -56,16 +60,17 @@ class _EducationBottomSheetState extends State<EducationBottomSheet> {
                   onChanged: (val) {
                     setState(() {
                       if (val != null) {
-                        selecetdEducation = val;
+                        widget.onEducationSelected(val);
                       }
                     });
+                    Navigator.pop(context);
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                       side:
                           BorderSide(width: 0.5, color: Colors.grey.shade300)),
                   title: Text(educations[index]),
-                  groupValue: selecetdEducation,
+                  groupValue: widget.value,
                 ),
               ),
             ),

@@ -7,7 +7,6 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/data/repositories/remote/auth/auth_repository.dart';
-import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/models/user.dart';
 
 part 'auth_event.dart';
@@ -29,6 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     // on<VerificationCompletedEvent>(
     //     (event, emit) => add(PhoneNumberSigninEvent(event.credential)));
     on<PhoneNumberSigninEvent>(_mapPhoneNumberSignin);
+    on<GoogleSigninEvent>(_mapGoogleSigninEventToState);
     on<UpdateUserEvent>(_mapUpdateUserEventToState);
     on<DeleteUserEvent>(_mapDeleteUserEventToState);
     on<UpdateUserImageEvent>(_mapUpdateUserImageEventToState);
@@ -76,7 +76,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (response.error == null) {
         emit(PhoneAuthSuccessState(response.data));
       } else {
-
         emit(PhoneAuthFailureState(response.error.toString()));
       }
     } on FirebaseAuthException catch (e) {
@@ -125,7 +124,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> _mapDeleteUserEventToState(
       DeleteUserEvent event, Emitter<AuthState> emit) async {
-    emit(const UpdateUserImageLoadingState());
+    emit(const DeleteUserLoadingState());
 
     try {
       ApiResponse response = await authRepository.deleteUser(event.uid);
@@ -137,6 +136,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     } on Exception catch (e) {
       emit(DeleteUserFailureState(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapGoogleSigninEventToState(
+      GoogleSigninEvent event, Emitter<AuthState> emit) async {
+    emit(GoogleSignInLoadingState());
+
+    try {
+      ApiResponse response = await authRepository.signInWithGoogle();
+      if (response.error == null) {
+        emit(GoogleSignInSuccessState(response.data));
+      } else {
+        emit(GoogleSignInFailureState(response.error.toString()));
+      }
+    } on FirebaseAuthException catch (e) {
+      emit(GoogleSignInFailureState(e.code));
+    } catch (e) {
+      emit(GoogleSignInFailureState(e.toString()));
     }
   }
 }

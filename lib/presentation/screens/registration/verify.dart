@@ -76,9 +76,11 @@ class _VerifyState extends State<Verify> {
           }
 
           if (state is PhoneAuthSuccessState) {
-            updateCache();
             getIt.get<CacheCubit>().updateUser(state.userData);
             getIt.get<CacheCubit>().getCachedUser();
+
+            updateCache();
+
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -207,6 +209,8 @@ class _VerifyState extends State<Verify> {
                         verifyCode(
                             verificationId: widget.verificationId,
                             smsCode: phoneController.text);
+                        phoneController.clear();
+
                       } else {
                         ToastMessage.showToast(
                             'Please enter a invalid phone number.');
@@ -243,11 +247,13 @@ class _VerifyState extends State<Verify> {
     } else if (userData.regStatus == 1) {
       return const BuildProfileScreen();
     } else {
+      StorageHelper.setString(StorageKeys.regStatus, '2');
       return const HomeScreen();
     }
   }
 
   void updateCache() {
     StorageHelper.setBoolean(StorageKeys.isUserLoggedIn, true);
+
   }
 }

@@ -2,11 +2,12 @@ import 'dart:developer';
 
 import 'package:getmarried/constants/storage_keys.dart';
 import 'package:getmarried/data/repositories/local/hive_store.dart';
+import 'package:getmarried/data/repositories/local/share_preference_store.dart';
 import 'package:getmarried/data/repositories/remote/profile/profile_repository.dart';
 import 'package:getmarried/models/user.dart';
 
 class ProfileRepositoryImpl extends ProfileRepository {
-  final store = HiveStore(StorageKeys.userStore);
+  final store = SharedPreferenceStore();
 
   // FirebaseStorage storage
 

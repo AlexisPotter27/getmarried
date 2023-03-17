@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 
 class TopicsBottomSheet extends StatefulWidget {
-  const TopicsBottomSheet({Key? key}) : super(key: key);
+  const TopicsBottomSheet({Key? key, required this.onSelected, this.value})
+      : super(key: key);
+  final Function(String value) onSelected;
+  final String? value;
 
   @override
   State<TopicsBottomSheet> createState() => _TopicsBottomSheetState();
@@ -57,16 +60,17 @@ class _TopicsBottomSheetState extends State<TopicsBottomSheet> {
                   onChanged: (val) {
                     setState(() {
                       if (val != null) {
-                        selectedOption = val;
+                        widget.onSelected(val);
                       }
                     });
+                    Navigator.pop(context);
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                       side:
                           BorderSide(width: 0.5, color: Colors.grey.shade300)),
                   title: Text(topics[index]),
-                  groupValue: selectedOption,
+                  groupValue: widget.value,
                 ),
               ),
             ),

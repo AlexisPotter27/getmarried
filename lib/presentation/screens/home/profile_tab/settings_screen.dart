@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/constants/storage_keys.dart';
 import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/helper/app_utils.dart';
-import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
+import 'package:getmarried/helper/storage_helper.dart';
 import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
 import 'package:getmarried/presentation/screens/registration/onboard.dart';
-import 'package:getmarried/presentation/screens/registration/registration_screen.dart';
 import 'package:getmarried/widgets/date/settings_tile.dart';
 import 'package:getmarried/widgets/secondary_widget.dart';
 
@@ -229,10 +229,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         backgroundColor: Colors.grey.shade300,
                         foregroundColor: Colors.black),
                     onPressed: () {
+                      StorageHelper.setBoolean(
+                          StorageKeys.isUserLoggedIn, false);
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RegistrationScreen(),
+                            builder: (context) => Onboard(),
                           ),
                           (route) => true);
                     },

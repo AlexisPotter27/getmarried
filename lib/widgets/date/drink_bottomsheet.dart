@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 
 class DrinkBottomSheet extends StatefulWidget {
-  const DrinkBottomSheet({Key? key}) : super(key: key);
+  const DrinkBottomSheet({Key? key, required this.onSelected, this.value})
+      : super(key: key);
+  final Function(String value) onSelected;
+  final String? value;
 
   @override
   State<DrinkBottomSheet> createState() => _DrinkBottomSheetState();
@@ -26,7 +29,6 @@ class _DrinkBottomSheetState extends State<DrinkBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
-
               children: [
                 IconButton(
                     onPressed: () {},
@@ -36,7 +38,10 @@ class _DrinkBottomSheetState extends State<DrinkBottomSheet> {
                     )),
                 const Text(
                   'Do they drink? ',
-                  style: TextStyle(color: Colors.black, fontSize: 16,fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
                 )
               ],
             ),
@@ -55,16 +60,17 @@ class _DrinkBottomSheetState extends State<DrinkBottomSheet> {
                   onChanged: (val) {
                     setState(() {
                       if (val != null) {
-                        selectedOption = val;
+                        widget.onSelected(val);
                       }
                     });
+                    Navigator.pop(context);
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                       side:
-                      BorderSide(width: 0.5, color: Colors.grey.shade300)),
+                          BorderSide(width: 0.5, color: Colors.grey.shade300)),
                   title: Text(drinkingOptions[index]),
-                  groupValue: selectedOption,
+                  groupValue: widget.value,
                 ),
               ),
             ),
@@ -101,6 +107,4 @@ List<String> drinkOptions = [
   'Never',
   'Frequently',
   'Sober',
-
-
 ];

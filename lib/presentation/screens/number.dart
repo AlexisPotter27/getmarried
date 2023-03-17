@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
@@ -304,6 +303,8 @@ class _PhoneState extends State<Phone> {
                                                     ),
                                                     GestureDetector(
                                                         onTap: () {
+                                                          phoneController.clear();
+                                                          countryCode.clear();
                                                           Navigator.pop(
                                                               context);
                                                           authBloc.add(

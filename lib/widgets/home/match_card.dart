@@ -47,6 +47,7 @@ class _MatchCardState extends State<MatchCard> {
                       color: Colors.indigo.shade100,
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           height: MediaQuery.of(context).size.height - 170,
@@ -99,7 +100,7 @@ class _MatchCardState extends State<MatchCard> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      widget.user.firstname!,
+                                      '${widget.user.firstname!} ${widget.user.age}',
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 18,
@@ -118,7 +119,7 @@ class _MatchCardState extends State<MatchCard> {
                                           width: 10,
                                         ),
                                         Text(
-                                          widget.user.education??'',
+                                          widget.user.education ?? '',
                                           style: const TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w400),
@@ -135,7 +136,7 @@ class _MatchCardState extends State<MatchCard> {
                           height: 8,
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -147,7 +148,7 @@ class _MatchCardState extends State<MatchCard> {
                                 height: 8,
                               ),
                               Text(
-                                widget.user.about??'',
+                                widget.user.about ?? '',
                                 style: const TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w500),
                               ),
@@ -208,87 +209,98 @@ class _MatchCardState extends State<MatchCard> {
                               const SizedBox(
                                 height: 16,
                               ),
-                              // Row(
-                              //   children: const [
-                              //     Icon(Icons.share_location),
-                              //     SizedBox(
-                              //       width: 10,
-                              //     ),
-                              //     Text(
-                              //       'Sonia\'s location.',
-                              //       style: TextStyle(color: Colors.black45),
-                              //     ),
-                              //   ],
-                              // ),
-                              // const SizedBox(
-                              //   height: 8,
-                              // ),
-                              // const Text(
-                              //   'Owerri, Imo state \n-16 km away',
-                              //   style: TextStyle(
-                              //       fontSize: 16, fontWeight: FontWeight.w500),
-                              // ),
-                              const SizedBox(
-                                height: 60,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  width: deviceWidth(),
-                                  // height: 100,
-                                  child: Stack(
-                                    clipBehavior: Clip.none,
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: const [
-                                          CircleAvatar(
-                                            radius: 30,
-                                            backgroundColor: primaryColour,
-                                            child: Icon(
-                                              Icons.close,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          CircleAvatar(
-                                            radius: 30,
-                                            backgroundColor: primaryColour,
-                                            child: Icon(
-                                              Icons.check,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
+                            ],
+                          ),
+                        ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: widget.user.photos!.length - 1,
+                          itemBuilder: (context, index) => Image.network(
+                            widget.user.photos![index + 1],
+                            height: 270,
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width,
+                          ),
+                        ),
+                        // Row(
+                        //   children: const [
+                        //     Icon(Icons.share_location),
+                        //     SizedBox(
+                        //       width: 10,
+                        //     ),
+                        //     Text(
+                        //       'Sonia\'s location.',
+                        //       style: TextStyle(color: Colors.black45),
+                        //     ),
+                        //   ],
+                        // ),
+                        // const SizedBox(
+                        //   height: 8,
+                        // ),
+                        // const Text(
+                        //   'Owerri, Imo state \n-16 km away',
+                        //   style: TextStyle(
+                        //       fontSize: 16, fontWeight: FontWeight.w500),
+                        // ),
+                        SizedBox(
+                          height: 60,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: deviceWidth(),
+                            // height: 100,
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              alignment: Alignment.center,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: const [
+                                    CircleAvatar(
+                                      radius: 30,
+                                      backgroundColor: primaryColour,
+                                      child: Icon(
+                                        Icons.close,
+                                        color: Colors.black,
                                       ),
-                                      Positioned(
-                                        top: -60,
-                                        child: SizedBox(
-                                          height: 90,
-                                          width: 90,
-                                          child: ClipPolygon(
-                                            borderRadius: 8.0,
-                                            sides: 6,
-                                            child: Container(
-                                              color: primaryColour,
-                                              child: Container(
-                                                color: primaryColour,
-                                                child: Image.asset(
-                                                  'assets/superswipe.png',
-                                                  height: 25,
-                                                  width: 25,
-                                                ),
-                                              ),
-                                            ),
+                                    ),
+                                    CircleAvatar(
+                                      radius: 30,
+                                      backgroundColor: primaryColour,
+                                      child: Icon(
+                                        Icons.check,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Positioned(
+                                  top: -60,
+                                  child: SizedBox(
+                                    height: 90,
+                                    width: 90,
+                                    child: ClipPolygon(
+                                      borderRadius: 8.0,
+                                      sides: 6,
+                                      child: Container(
+                                        color: primaryColour,
+                                        child: Container(
+                                          color: primaryColour,
+                                          child: Image.asset(
+                                            'assets/superswipe.png',
+                                            height: 25,
+                                            width: 25,
                                           ),
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         Padding(

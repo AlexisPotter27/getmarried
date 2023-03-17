@@ -4,6 +4,7 @@
 import 'dart:convert';
 
 import 'package:getmarried/data/models/conversation.dart';
+import 'package:getmarried/data/models/date_filters.dart';
 
 UserData userDataFromJson(String str) => UserData.fromJson(json.decode(str));
 
@@ -58,6 +59,7 @@ class UserData {
     this.occupations,
     this.educationColledge,
     this.languages,
+    this.dateFilters,
   });
 
   String? uid;
@@ -103,6 +105,7 @@ class UserData {
   String? moreAbout;
   bool? policyAgreed;
   int? regStatus;
+  DateFilters? dateFilters;
   List<dynamic>? photos;
   List<dynamic>? occupations;
   List<dynamic>? educationColledge;
@@ -152,6 +155,7 @@ class UserData {
     String? moreAbout,
     bool? policyAgreed,
     int? regStatus,
+    DateFilters? dateFilters,
     List<dynamic>? photos,
     List<dynamic>? occupations,
     List<dynamic>? educationColledge,
@@ -206,6 +210,7 @@ class UserData {
         occupations: occupations ?? this.occupations,
         educationColledge: educationColledge ?? this.educationColledge,
         languages: languages ?? this.languages,
+        dateFilters: dateFilters ?? this.dateFilters,
       );
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
@@ -254,6 +259,9 @@ class UserData {
         moreAbout: json["more_about"],
         policyAgreed: json["policy_agreed"],
         regStatus: json["reg_status"],
+        dateFilters: json["date_filters"] == null
+            ? null
+            : DateFilters.fromJson(json['date_filters']),
         photos: json["photos"] == null
             ? []
             : List<dynamic>.from(json["photos"]!.map((x) => x)),
@@ -314,6 +322,7 @@ class UserData {
         "more_about": moreAbout,
         "policy_agreed": policyAgreed,
         "reg_status": regStatus,
+        "date_filters": dateFilters?.toJson(),
         "photos":
             photos == null ? [] : List<dynamic>.from(photos!.map((x) => x)),
         "occupations": occupations == null

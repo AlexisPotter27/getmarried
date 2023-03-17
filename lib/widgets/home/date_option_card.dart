@@ -6,9 +6,10 @@ import 'package:collection/collection.dart';
 class DateOptionCard extends StatefulWidget {
   const DateOptionCard({
     Key? key,
-    required this.onValueChanged,
+    required this.onValueChanged, required this.value,
   }) : super(key: key);
-  final Function(List dates) onValueChanged;
+  final Function(String date) onValueChanged;
+  final String value;
 
   @override
   State<DateOptionCard> createState() => _DateOptionCardState();
@@ -69,14 +70,12 @@ class _DateOptionCardState extends State<DateOptionCard> {
 
               RadioListTile<String>(
                   value: 'man',
-                  groupValue: date,
+                  groupValue: widget.value,
                   controlAffinity: ListTileControlAffinity.trailing,
                   contentPadding: EdgeInsets.zero,
                   activeColor: primaryColour,
                   onChanged: (val) {
-                    setState(() {
-                      date = val!;
-                    });
+                   widget.onValueChanged(val!);
                   },
                   title: const Text('Man', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),)),
               const Divider(
@@ -84,14 +83,13 @@ class _DateOptionCardState extends State<DateOptionCard> {
               ),
               RadioListTile<String>(
                   value: 'woman',
-                  groupValue: date,
+                  groupValue: widget.value,
                   controlAffinity: ListTileControlAffinity.trailing,
                   contentPadding: EdgeInsets.zero,
                   activeColor: primaryColour,
                   onChanged: (val) {
-                    setState(() {
-                      date = val!;
-                    });
+                    widget.onValueChanged(val!);
+
                   },
                   title: const Text('Woman', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),)),
               // CheckBoxTile(

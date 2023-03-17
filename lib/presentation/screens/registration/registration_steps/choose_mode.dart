@@ -35,7 +35,7 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
                       height: 50,
                     ),
                     const Text(
-                      'What are you looking for  ?',
+                      'Looking for ?',
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -187,7 +187,7 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
                       showCustomToast('Please select an option');
                     } else {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Onboard(),
+                        builder: (context) => Onboard(),
                       ));
                     }
 
