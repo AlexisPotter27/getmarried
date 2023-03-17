@@ -28,6 +28,7 @@ void main() async {
   runApp(MyApp(
     firstScreen: firstScreen,
   ));
+
   /*if (Platform.ios || Platform.isMacOS) {
     StoreConfig(
       store: Store.appleStore,
