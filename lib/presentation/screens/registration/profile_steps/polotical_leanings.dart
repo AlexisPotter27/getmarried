@@ -48,8 +48,8 @@ class _PoliticalLeaningsscreenState extends State<PoliticalLeaningsscreen> {
                   height: 10,
                 ),
                 const Text(
-                  'What are your Political Leanings?',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                  'What\'s your political leaning?',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
                 const SizedBox(
                   height: 20,

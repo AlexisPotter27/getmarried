@@ -54,8 +54,8 @@ class PhoneNumberSigninEvent extends AuthEvent {
 
   const PhoneNumberSigninEvent(this.credential);
 }
-class GoogleSigninEvent extends AuthEvent {
 
+class GoogleSigninEvent extends AuthEvent {
   const GoogleSigninEvent();
 }
 
@@ -69,13 +69,15 @@ class UpdateUserEvent extends AuthEvent {
 class DeleteUserEvent extends AuthEvent {
   final String uid;
 
-
   DeleteUserEvent(this.uid);
 }
 
 class UpdateUserImageEvent extends AuthEvent {
-
   List<File>? images;
 
   UpdateUserImageEvent({this.images = const []});
+}
+
+class FacebookSigninEvent extends AuthEvent {
+  FacebookSigninEvent();
 }

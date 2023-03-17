@@ -39,7 +39,7 @@ class _AttractiveState extends State<Attractive> {
                 height: 10,
               ),
               const Text(
-                'How important is it that your partner is attractive?',
+                'How important is it that\n your partner is attractive?',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(

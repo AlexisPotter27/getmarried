@@ -59,8 +59,8 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
         title: Center(
             child: Image.asset(
           'assets/ilogo.png',
-          width: 50,
-          height: 50,
+          width: 70,
+          height: 70,
         )),
         elevation: 0,
         backgroundColor: Colors.indigoAccent,
