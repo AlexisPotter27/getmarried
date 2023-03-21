@@ -81,6 +81,64 @@ Future<String?> pickImageFromCamera() async {
   }
   return null;
 }
+
+void showConfirmDialog(BuildContext context,
+    {String? tittle,
+    String? confirmButtonText,
+    String? cancelButtonText,
+    VoidCallback? onDismiss,
+    VoidCallback? onConfirm}) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(tittle ?? 'Are you sure you want to exit ?'),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+// foregroundColor: Colors.transparent
+                    ),
+                    onPressed: onDismiss ??
+                        () {
+                          Navigator.pop(context);
+                        },
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(
+                        color: Colors.redAccent,
+                      ),
+                    )),
+                const SizedBox(),
+                TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+// foregroundColor: Colors.transparent
+                    ),
+                    onPressed: onConfirm ??
+                        () {
+                          Navigator.pop(context);
+                        },
+                    child: const Text(
+                      'Yes',
+                      style: TextStyle(color: Colors.indigo),
+                    )),
+              ],
+            )
+          ],
+        )),
+  );
+}
+
 //  selectFiles(BuildContext context, Function(List<String>) onSelected,
 //     {bool allowMultiple = false,
 //       bool hasViewAction = false,

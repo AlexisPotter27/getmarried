@@ -14,25 +14,25 @@ class NextButton extends StatefulWidget {
 class _NextButtonState extends State<NextButton> {
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: widget.onPressed,
-      style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.all(16),
-          shape: const CircleBorder(),
-          primary: Colors.white,
-          onPrimary: Colors.white.withOpacity(0.7),
-          onSurface: Colors.white.withOpacity(0.5),
-          shadowColor: Colors.black),
+    return InkWell(
+      onTap: widget.onPressed,
+      // style: ElevatedButton.styleFrom(
+      //     padding: const EdgeInsets.all(16),
+      //     shape: const CircleBorder(),
+      //     primary: Colors.white,
+      //     onPrimary: Colors.white.withOpacity(0.7),
+      //     onSurface: Colors.white.withOpacity(0.5),
+      //     shadowColor: Colors.black),
       child: widget.isNext
           ? Image.asset(
-              'assets/front.png',
-              height: 25,
-              width: 25,
+              'assets/forward.png',
+              height: 35,
+              width: 35,
             )
           : Image.asset(
-              'assets/back.png',
-              height: 25,
-              width: 25,
+              'assets/backward.png',
+              height: 35,
+              width: 35,
             ),
     );
   }

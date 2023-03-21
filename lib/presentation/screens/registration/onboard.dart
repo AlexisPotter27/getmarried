@@ -123,7 +123,6 @@ class Onboard extends StatelessWidget {
                               title: 'Continue with Google',
                               textcolour: Colors.white,
                               ontap: () {
-                                showCustomToast('Coming soon');
                                 authBloc.add(GoogleSigninEvent());
                                 /*Navigator.push(
                                 context,
@@ -166,7 +165,6 @@ class Onboard extends StatelessWidget {
                               title: 'Continue with Facebook',
                               textcolour: Colors.white,
                               ontap: () async {
-                                showCustomToast('Coming soon');
                                 authBloc.add(FacebookSigninEvent());
                                 /*Navigator.push(
                             context,
