@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/data/models/date_filters.dart';
 import 'package:getmarried/di/injector.dart';
@@ -14,6 +15,16 @@ import 'package:getmarried/widgets/date/settings_tile.dart';
 import 'package:getmarried/widgets/date/smoke_bottomsheet.dart';
 import 'package:getmarried/widgets/date/star_sign_bottomsheet.dart';
 import 'package:getmarried/widgets/date/topics_bottomsheet.dart';
+import 'package:purchases_flutter/models/customer_info_wrapper.dart';
+import 'package:purchases_flutter/models/offerings_wrapper.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+import '../../../../constant.dart';
+import '../../../../helper/toastMessage.dart';
+import '../../../../models/singletons_data.dart';
+import '../../../../models/styles.dart';
+import '../../../../models/user.dart';
+import '../../../../widgets/native_dialog.dart';
+import '../../../paywall.dart';
 
 class AdvancedFiltersScreen extends StatefulWidget {
   const AdvancedFiltersScreen({Key? key}) : super(key: key);
@@ -26,6 +37,9 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
   DateFilters? filters = getIt.get<CacheCubit>().user!.dateFilters;
   AuthBloc authBloc = getIt.get<AuthBloc>();
   bool verifiedOnly = true;
+
+  bool _isLoading = false;
+  late Offerings offerings;
 
   @override
   Widget build(BuildContext context) {
@@ -502,7 +516,9 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                 left: 0,
                 child: Center(
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      performPayment();
+                    },
                     style: TextButton.styleFrom(
                         shape: const StadiumBorder(),
                         backgroundColor: primaryColour,
@@ -519,5 +535,65 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
         ),
       ),
     );
+  }
+  /*
+    We should check if subscription active and if not, display the paywall.
+  */
+  void performPayment() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    CustomerInfo customerInfo = await Purchases.getCustomerInfo();
+
+    if (customerInfo.entitlements.all[entitlementID] != null &&
+        customerInfo.entitlements.all[entitlementID]?.isActive == true) {
+      appData.currentData = UserData.generateData();
+      setState(() {
+        _isLoading = false;
+      });
+    } else {
+      //Offerings? offerings;
+      try {
+        setState(() {
+          _isLoading = false;
+        });
+        Offerings offerings = await Purchases.getOfferings();
+        if (offerings != null && offerings.current != null) {
+          await showModalBottomSheet(
+            useRootNavigator: true,
+            isDismissible: true,
+            isScrollControlled: true,
+            backgroundColor: kColorBackground,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+            ),
+            context: context,
+            builder: (BuildContext context) {
+              return StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setModalState) {
+                    return Paywall(
+                      offering: offerings.current!,
+                    );
+                  });
+            },
+          );
+        } else {
+          // offerings are empty, show a message to your user
+          ToastMessage.showToast('There is no offering.');
+        }
+      } on PlatformException catch (e) {
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) => ShowDialogToDismiss(
+                title: "Error",
+                content: e.message.toString(),
+                buttonText: 'OK'));
+      }
+
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 }

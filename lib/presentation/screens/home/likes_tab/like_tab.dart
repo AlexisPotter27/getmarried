@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:getmarried/widgets/likes/liker_item.dart';
-import 'package:getmarried/widgets/profile_tab/subscription_card.dart';
-
+import 'package:purchases_flutter/models/customer_info_wrapper.dart';
+import 'package:purchases_flutter/models/offerings_wrapper.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+import '../../../../constant.dart';
+import '../../../../helper/toastMessage.dart';
+import '../../../../models/singletons_data.dart';
+import '../../../../models/styles.dart';
+import '../../../../models/user.dart';
+import '../../../../widgets/native_dialog.dart';
 import '../../../paywall.dart';
 
 class LikeTab extends StatefulWidget {
@@ -12,7 +20,10 @@ class LikeTab extends StatefulWidget {
 }
 
 class _LikeTabState extends State<LikeTab> {
-  int _currendIndex = 0;
+  int _currentIndex = 0;
+
+  bool _isLoading = false;
+  late Offerings offerings;
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +114,7 @@ class _LikeTabState extends State<LikeTab> {
                   ),
                   GestureDetector(
                     onTap: (){
-                       // SubscriptionCard.performPayment();
-                      //Navigator.push(context, Paywall(offering: offerings));
+                      performPayment();
                     },
                     child: Container(
                       padding:
@@ -115,7 +125,7 @@ class _LikeTabState extends State<LikeTab> {
                       child: Column(
                         children: const [
                           Text(
-                            'Upgrade for.',
+                            'Upgrade For',
                             style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
@@ -159,7 +169,7 @@ class _LikeTabState extends State<LikeTab> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              _currendIndex = 0;
+                              _currentIndex = 0;
                             });
                           },
                           child: Chip(
@@ -170,13 +180,13 @@ class _LikeTabState extends State<LikeTab> {
                                 'All 3',
                                 style: TextStyle(
                                     fontSize: 13,
-                                    color: _currendIndex == 1
+                                    color: _currentIndex == 1
                                         ? Colors.black
                                         : Colors.white),
                               ),
                             ),
                             backgroundColor:
-                                _currendIndex == 0 ? Colors.blue : Colors.black,
+                                _currentIndex == 0 ? Colors.blue : Colors.black,
                           ),
                         ),
                         const SizedBox(
@@ -185,7 +195,7 @@ class _LikeTabState extends State<LikeTab> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              _currendIndex = 1;
+                              _currentIndex = 1;
                             });
                           },
                           child: Chip(
@@ -196,13 +206,13 @@ class _LikeTabState extends State<LikeTab> {
                                 'New 1',
                                 style: TextStyle(
                                     fontSize: 13,
-                                    color: _currendIndex == 1
+                                    color: _currentIndex == 1
                                         ? Colors.white
                                         : Colors.black),
                               ),
                             ),
                             backgroundColor:
-                                _currendIndex == 1 ? Colors.blue : Colors.black,
+                                _currentIndex == 1 ? Colors.blue : Colors.black,
                           ),
                         ),
                         const SizedBox(
@@ -211,7 +221,7 @@ class _LikeTabState extends State<LikeTab> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              _currendIndex = 2;
+                              _currentIndex = 2;
                             });
                           },
                           child: Chip(
@@ -222,13 +232,13 @@ class _LikeTabState extends State<LikeTab> {
                                 'Nearby',
                                 style: TextStyle(
                                     fontSize: 13,
-                                    color: _currendIndex == 2
+                                    color: _currentIndex == 2
                                         ? Colors.white
                                         : Colors.black),
                               ),
                             ),
                             backgroundColor:
-                                _currendIndex == 2 ? Colors.black : Colors.blue,
+                                _currentIndex == 2 ? Colors.black : Colors.blue,
                           ),
                         ),
                         const SizedBox(
@@ -237,7 +247,7 @@ class _LikeTabState extends State<LikeTab> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              _currendIndex = 3;
+                              _currentIndex = 3;
                             });
                           },
                           child: Chip(
@@ -248,13 +258,13 @@ class _LikeTabState extends State<LikeTab> {
                                 'Recently active',
                                 style: TextStyle(
                                     fontSize: 13,
-                                    color: _currendIndex == 3
+                                    color: _currentIndex == 3
                                         ? Colors.white
                                         : Colors.black),
                               ),
                             ),
                             backgroundColor:
-                                _currendIndex == 3 ? Colors.black : Colors.blue,
+                                _currentIndex == 3 ? Colors.black : Colors.blue,
                           ),
                         ),
                       ],
@@ -283,5 +293,66 @@ class _LikeTabState extends State<LikeTab> {
         ),
       ),
     );
+  }
+
+  /*
+    We should check if subscription active and if not, display the paywall.
+  */
+  void performPayment() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    CustomerInfo customerInfo = await Purchases.getCustomerInfo();
+
+    if (customerInfo.entitlements.all[entitlementID] != null &&
+        customerInfo.entitlements.all[entitlementID]?.isActive == true) {
+      appData.currentData = UserData.generateData();
+      setState(() {
+        _isLoading = false;
+      });
+    } else {
+      //Offerings? offerings;
+      try {
+        setState(() {
+          _isLoading = false;
+        });
+        Offerings offerings = await Purchases.getOfferings();
+        if (offerings != null && offerings.current != null) {
+          await showModalBottomSheet(
+            useRootNavigator: true,
+            isDismissible: true,
+            isScrollControlled: true,
+            backgroundColor: kColorBackground,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+            ),
+            context: context,
+            builder: (BuildContext context) {
+              return StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setModalState) {
+                    return Paywall(
+                      offering: offerings.current!,
+                    );
+                  });
+            },
+          );
+        } else {
+          // offerings are empty, show a message to your user
+          ToastMessage.showToast('There is no offering.');
+        }
+      } on PlatformException catch (e) {
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) => ShowDialogToDismiss(
+                title: "Error",
+                content: e.message.toString(),
+                buttonText: 'OK'));
+      }
+
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 }

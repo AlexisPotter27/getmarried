@@ -41,7 +41,7 @@ class _PaywallState extends State<Paywall> {
               child: SizedBox(
                 child: Center(
                   child: Text(
-                    ' Unlock all of our features to be in complete control of your experience',
+                    'Unlock all of our features to be in complete control of your experience',
                     style: kDescriptionTextStyle,
                   ),
                 ),

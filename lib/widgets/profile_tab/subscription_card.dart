@@ -67,9 +67,6 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0.1),
             child: UpgradeButton(
                 onPressed: () {
-                  /*Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>  Paywall(offering: offerings),
-                  ));*/
                   performPayment();
                 },
                 child: Text(widget.buttonText)),
@@ -78,9 +75,11 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
       ),
     );
   }
+
   /*
     We should check if subscription active and if not, display the paywall.
   */
+
   void performPayment() async {
     setState(() {
       _isLoading = true;
@@ -136,33 +135,6 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
       setState(() {
         _isLoading = false;
       });
-
-      /* if (offerings == null || offerings.current == null)
-      {
-        // offerings are empty, show a message to your user
-        ToastMessage.showToast('There is no offering.');
-      }
-      else {
-        // current offering is available, show paywall
-        await showModalBottomSheet(
-          useRootNavigator: true,
-          isDismissible: true,
-          isScrollControlled: true,
-          backgroundColor: kColorBackground,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
-          ),
-          context: context,
-          builder: (BuildContext context) {
-            return StatefulBuilder(
-                builder: (BuildContext context, StateSetter setModalState) {
-                  return Paywall(
-                    offering: offerings?.current,
-                  );
-                });
-          },
-        );
-      }*/
     }
   }
 }
