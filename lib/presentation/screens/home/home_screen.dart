@@ -6,6 +6,10 @@ import 'package:getmarried/presentation/screens/home/home_tab/home_tab.dart';
 import 'package:getmarried/presentation/screens/home/likes_tab/like_refractor.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/profile_tab.dart';
 import 'package:getmarried/widgets/home/connection_menu_item.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+import '../../../constant.dart';
+import '../../../models/singletons_data.dart';
+import '../../../store_config.dart';
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey(); //
 
@@ -20,9 +24,47 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   int _currentIndex = 1;
 
+
   @override
   void initState() {
+    initPlatformState();
     super.initState();
+  }
+
+  Future<void> initPlatformState() async {
+    // Enable debug logs before calling `configure`.
+    await Purchases.setLogLevel(LogLevel.debug);
+
+    /*
+    - appUserID is nil, so an anonymous ID will be generated automatically by the Purchases SDK. Read more about Identifying Users here: https://docs.revenuecat.com/docs/user-ids
+
+    - observerMode is false, so Purchases will automatically handle finishing transactions. Read more about Observer Mode here: https://docs.revenuecat.com/docs/observer-mode
+    */
+    PurchasesConfiguration configuration;
+    if (StoreConfig.isForAmazonAppstore()) {
+      configuration = AmazonConfiguration(StoreConfig.instance.apiKey)
+        ..appUserID = null
+        ..observerMode = false;
+    } else {
+      configuration = PurchasesConfiguration(StoreConfig.instance.apiKey)
+        ..appUserID = null
+        ..observerMode = false;
+    }
+    await Purchases.configure(configuration);
+
+    appData.appUserID = await Purchases.appUserID;
+
+    Purchases.addCustomerInfoUpdateListener((customerInfo) async {
+      appData.appUserID = await Purchases.appUserID;
+
+      CustomerInfo customerInfo = await Purchases.getCustomerInfo();
+      (customerInfo.entitlements.all[entitlementID] != null &&
+          customerInfo.entitlements.all[entitlementID]?.isActive == true)
+          ? appData.entitlementIsActive = true
+          : appData.entitlementIsActive = false;
+
+      setState(() {});
+    });
   }
 
   @override

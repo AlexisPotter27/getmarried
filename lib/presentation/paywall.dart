@@ -11,7 +11,7 @@ class Paywall extends StatefulWidget {
 
   final Offering offering;
 
-  const Paywall({ Key? key,  required this.offering}) : super(key: key);
+  const Paywall({Key? key, required this.offering, }) : super(key: key);
 
   @override
   _PaywallState createState() => _PaywallState();

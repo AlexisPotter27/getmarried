@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/helper/toastMessage.dart';
 import 'package:getmarried/presentation/paywall.dart';
 import 'package:getmarried/widgets/upgrade_button.dart';
 import 'package:purchases_flutter/models/customer_info_wrapper.dart';
@@ -32,8 +33,7 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
   bool _isLoading = false;
 
   /*
-    We should check if we can magically change the weather 
-    (subscription active) and if not, display the paywall.
+    We should check if subscription active and if not, display the paywall.
   */
   void performPayment() async {
     setState(() {
@@ -44,29 +44,59 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
 
     if (customerInfo.entitlements.all[entitlementID] != null &&
         customerInfo.entitlements.all[entitlementID]?.isActive == true) {
-      //appData.currentData = UserData;
-
+      appData.currentData = UserData.generateData();
       setState(() {
         _isLoading = false;
       });
     } else {
-      Offerings offerings;
+      //Offerings? offerings;
       try {
-        offerings = await Purchases.getOfferings();
+        setState(() {
+          _isLoading = false;
+        });
+        Offerings offerings = await Purchases.getOfferings();
+        if (offerings != null && offerings.current != null) {
+          await showModalBottomSheet(
+            useRootNavigator: true,
+            isDismissible: true,
+            isScrollControlled: true,
+            backgroundColor: kColorBackground,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+            ),
+            context: context,
+            builder: (BuildContext context) {
+              return StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setModalState) {
+                return Paywall(
+                  offering: offerings.current!,
+                );
+              });
+            },
+          );
+        } else {
+          // offerings are empty, show a message to your user
+          ToastMessage.showToast('There is no offering.');
+        }
       } on PlatformException catch (e) {
         await showDialog(
             context: context,
             builder: (BuildContext context) => ShowDialogToDismiss(
-                title: "Error", content: e.message.toString(), buttonText: 'OK'));
+                title: "Error",
+                content: e.message.toString(),
+                buttonText: 'OK'));
       }
 
       setState(() {
         _isLoading = false;
       });
 
-      if (offerings == null || offerings.current == null) {
+      /* if (offerings == null || offerings.current == null)
+      {
         // offerings are empty, show a message to your user
-      } else {
+        ToastMessage.showToast('There is no offering.');
+      }
+      else {
         // current offering is available, show paywall
         await showModalBottomSheet(
           useRootNavigator: true,
@@ -81,12 +111,12 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
             return StatefulBuilder(
                 builder: (BuildContext context, StateSetter setModalState) {
                   return Paywall(
-                    offering: offerings.current,
+                    offering: offerings?.current,
                   );
                 });
           },
         );
-      }
+      }*/
     }
   }
 
