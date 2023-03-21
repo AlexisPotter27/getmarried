@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:getmarried/constants/storage_keys.dart';
 import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/helper/app_utils.dart';
@@ -33,7 +32,6 @@ class Onboard extends StatelessWidget {
           if (state is GoogleSignInLoadingState) {
             showAnimatedProgressDialog(context);
           }
-
           if (state is GoogleSignInSuccessState) {
             getIt.get<CacheCubit>().updateUser(state.user);
             getIt.get<CacheCubit>().getCachedUser();
@@ -46,6 +44,24 @@ class Onboard extends StatelessWidget {
                     builder: (context) => getNextScreen(state.user)));
           }
           if (state is GoogleSignInFailureState) {
+            Navigator.pop(context);
+            showCustomToast(state.error);
+          }
+          if (state is FacebookSignInLoadingState) {
+            showAnimatedProgressDialog(context);
+          }
+          if (state is FacebookSignInSuccessState) {
+            getIt.get<CacheCubit>().updateUser(state.user);
+            getIt.get<CacheCubit>().getCachedUser();
+
+            updateCache();
+
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => getNextScreen(state.user)));
+          }
+          if (state is FacebookSignInFailedState) {
             Navigator.pop(context);
             showCustomToast(state.error);
           }
@@ -107,7 +123,6 @@ class Onboard extends StatelessWidget {
                               title: 'Continue with Google',
                               textcolour: Colors.white,
                               ontap: () {
-                                showCustomToast('Coming soon');
                                 authBloc.add(GoogleSigninEvent());
                                 /*Navigator.push(
                                 context,
@@ -150,13 +165,7 @@ class Onboard extends StatelessWidget {
                               title: 'Continue with Facebook',
                               textcolour: Colors.white,
                               ontap: () async {
-                                showCustomToast('Coming soon');
-                                final fb = FacebookAuth.instance;
-
-// Log in
-                                final res = await fb.login(permissions: [
-                                  'email', 'public_profile'
-                                ]);
+                                authBloc.add(FacebookSigninEvent());
                                 /*Navigator.push(
                             context,
                             MaterialPageRoute(

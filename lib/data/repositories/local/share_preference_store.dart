@@ -17,7 +17,7 @@ class SharedPreferenceStore extends LocalStore {
   @override
   Future get(String key) async {
     String? value = await StorageHelper.getString(key);
-     Map<String,dynamic> userMap =jsonDecode(value!);
+    Map<String, dynamic> userMap = jsonDecode(value!);
     return userMap;
   }
 

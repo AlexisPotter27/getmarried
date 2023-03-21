@@ -57,6 +57,7 @@ class _ChatTabState extends State<ChatTab> {
         // floating: true,
 
         actions: [
+
           GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -103,7 +104,7 @@ class _ChatTabState extends State<ChatTab> {
                         children: [
                           Text('SelectUser to start chat'),
                           SizedBox(
-                            height: 10,
+                            height: 25,
                           ),
                           SizedBox(
                             height: 70,

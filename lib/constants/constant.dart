@@ -63,6 +63,24 @@ List<ChipChoiceModel> sports = [
   ChipChoiceModel(label: 'Swimming', icon: Icons.sports_score),
   ChipChoiceModel(label: 'None', icon: Icons.sports_score),
 ];
+List<ChipChoiceModel> music = [
+  ChipChoiceModel(label: 'Hip hop', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'Rock', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'Electronic', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'R & B', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'Classical', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'Country', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'Desi', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'Jazz', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'Afro-beat', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'Afro-pop', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'Rap', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'Indie', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'Pop', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'EDM', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'Funk', icon: Icons.music_note_rounded),
+  ChipChoiceModel(label: 'K-pop', icon: Icons.music_note_rounded),
+];
 
 List<ChipChoiceModel> goingOut = [
   ChipChoiceModel(label: 'Gigs', icon: Icons.celebration),
@@ -114,7 +132,7 @@ List<String> starSigns = [
 
 List<String> ethnic = [
   'White or Caucasian',
-  'Native American Indian or Native Alaskan',
+  'Native Alaskan',
   'Asian',
   'Native Hawaiian or Pacific',
   'Black or African-American',
@@ -127,9 +145,9 @@ List<String> educations = [
   'High school',
   'Trade/tech school',
   'College degree',
-  'In grad school',
+  'In Graduate school',
   'Graduate degree',
-  'PHD/ doctorate degree'
+  'PHD/ Doctorate degree'
 ];
 
 List<String> drinkingOptions = [
@@ -157,6 +175,19 @@ List<String> havChildrenOptions = [
   'Have and want more',
   "Have and don't want more",
   'Not sure yet',
+];
+List<String> timeForChildrenOptions = [
+  "Within 1 year of marriage. ",
+  "Within 2 years of marriage",
+  "After 3 years of marriage.",
+  "Whenever it happens",
+];
+List<String> howManyChildrenOptions = [
+  "Yes",
+  "No",
+  "1 child",
+  "2 children",
+  "3 children",
 ];
 
 List<String> religions = [

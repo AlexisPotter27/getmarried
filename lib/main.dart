@@ -14,8 +14,8 @@ import 'package:hive_flutter/adapters.dart';
 import 'constant.dart';
 import 'constants/storage_keys.dart';
 import 'di/injector.dart';
+import 'firebase_options.dart';
 import 'helper/storage_helper.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +23,12 @@ void main() async {
   injector.init();
   await Firebase.initializeApp();
   Future.delayed(const Duration(milliseconds: 300));
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   CacheCubit cubit = getIt.get<CacheCubit>();
   cubit.getCachedUser();
-  Future.delayed(const Duration(milliseconds: 500));
+  // Future.delayed(const Duration(milliseconds: 500));
   final firstScreen = await getFirstScreen();
   runApp(MyApp(
     firstScreen: firstScreen,

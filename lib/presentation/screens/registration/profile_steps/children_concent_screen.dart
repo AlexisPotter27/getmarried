@@ -48,7 +48,7 @@ class _ChildrenConsentScreenState extends State<ChildrenConsentScreen> {
               ),
               const Text(
                 'Would you like to have Children ?',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(
                 height: 20,

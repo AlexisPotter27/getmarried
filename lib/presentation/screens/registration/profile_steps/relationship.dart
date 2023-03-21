@@ -39,7 +39,7 @@ class _RelationshipState extends State<Relationship> {
               const Text(
                 'To me, sex in a relationship is:',
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
@@ -128,6 +128,11 @@ class _RelationshipState extends State<Relationship> {
           padding: const EdgeInsets.all(10.0),
           child: Row(
             children: [
+              NextButton(
+                  onPressed: () {
+                    widget.onPrev();
+                  },
+                  isNext: false),
               Expanded(
                 child: Center(
                   child: GestureDetector(

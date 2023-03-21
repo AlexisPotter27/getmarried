@@ -38,9 +38,9 @@ class _PlanningEventState extends State<PlanningEvent> {
                 height: 10,
               ),
               const Text(
-                "You're planning an event for you and your significant other, which option would you select:",
+                "Chose event for both of you",
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

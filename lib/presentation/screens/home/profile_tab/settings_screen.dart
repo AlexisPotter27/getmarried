@@ -234,14 +234,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         backgroundColor: Colors.grey.shade300,
                         foregroundColor: Colors.black),
                     onPressed: () {
-                      StorageHelper.setBoolean(
-                          StorageKeys.isUserLoggedIn, false);
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Onboard(),
-                          ),
+                      showConfirmDialog(
+                        context,
+                        tittle: 'Are you sure you want to sign out ?',
+                        onConfirm: () {
+                          StorageHelper.setBoolean(
+                              StorageKeys.isUserLoggedIn, false);
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Onboard(),
+                              ),
                               (route) => true);
+                        },
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -261,8 +267,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 TransaparentButton(
                     child: const Text('Delete account'),
                     onPressed: () {
-                      String id = FirebaseAuth.instance.currentUser!.uid;
-                      authBloc.add(DeleteUserEvent(id));
+                      showConfirmDialog(
+                        context,
+                        tittle: 'Are you sure you want to delete this account  ?',
+                        onConfirm: () {
+                          String id = FirebaseAuth.instance.currentUser!.uid;
+                          authBloc.add(DeleteUserEvent(id));
+                        },
+                      );
+
                     }),
                 const SizedBox(
                   height: 70,

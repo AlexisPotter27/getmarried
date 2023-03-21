@@ -4,25 +4,25 @@ import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-class DrinkingScreen extends StatefulWidget {
-  const DrinkingScreen(
+class TimeForChildrenScreen extends StatefulWidget {
+  const TimeForChildrenScreen(
       {Key? key, required this.onComplete, required this.onPrev})
       : super(key: key);
-  final Function(String? drinking) onComplete;
+  final Function(String? children) onComplete;
   final Function onPrev;
 
   @override
-  State<DrinkingScreen> createState() => _DrinkingScreenState();
+  State<TimeForChildrenScreen> createState() => _TimeForChildrenScreenState();
 }
 
-class _DrinkingScreenState extends State<DrinkingScreen> {
+class _TimeForChildrenScreenState extends State<TimeForChildrenScreen> {
   String value = '';
   late List<String> options;
 
   @override
   void initState() {
     super.initState();
-    options = drinkingOptions;
+    options = timeForChildrenOptions;
   }
 
   @override
@@ -38,7 +38,7 @@ class _DrinkingScreenState extends State<DrinkingScreen> {
                 height: 20,
               ),
               const Icon(
-                Icons.wine_bar,
+                Icons.child_care_outlined,
                 size: 25,
                 color: Colors.black,
               ),
@@ -46,36 +46,38 @@ class _DrinkingScreenState extends State<DrinkingScreen> {
                 height: 10,
               ),
               const Text(
-                'Do you drink?',
+                'When do you want have children ?',
                 style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
               ),
-              ListView.builder(
-                itemCount: options.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) => Column(
-                  children: [
-                    CustomRadioTile<String>(
-                      onSubtitleClicked: () {},
-                      toggleSubtitle: false,
-                      value: options[index],
-                      groupValue: value,
-                      tittle: options[index],
-                      onChanged: (val) {
-                        setState(() {
-                          value = val;
-                        });
-                      },
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    )
-                  ],
+              Expanded(
+                child: ListView.builder(
+                  itemCount: options.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => Column(
+                    children: [
+                      CustomRadioTile<String>(
+                        onSubtitleClicked: () {},
+                        toggleSubtitle: false,
+                        value: options[index],
+                        groupValue: value,
+                        tittle: options[index],
+                        onChanged: (val) {
+                          setState(() {
+                            value = val;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -87,11 +89,14 @@ class _DrinkingScreenState extends State<DrinkingScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            NextButton(
-                isNext: false,
-                onPressed: () {
-                  widget.onPrev();
-                }),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: NextButton(
+                  isNext: false,
+                  onPressed: () {
+                    widget.onPrev();
+                  }),
+            ),
             GestureDetector(
               child: const Text(
                 'Skip',

@@ -7,10 +7,12 @@ import 'package:getmarried/data/models/chat_message.dart';
 import 'package:getmarried/data/models/conversation.dart';
 import 'package:getmarried/data/repositories/remote/chat/chat_repository_impl.dart';
 import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/blocs/chat/chat_bloc.dart';
 import 'package:getmarried/widgets/chat/message_box.dart';
+import 'package:getmarried/widgets/primary_button.dart';
 
 class MessagingScreen extends StatefulWidget {
   const MessagingScreen({Key? key, this.conversationId, this.userData})
@@ -175,11 +177,22 @@ class _AppBarActionsWidget extends StatelessWidget {
         //       Icons.call,
         //       color: Colors.grey.shade400,
         //     )),
+        IconButton(
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) => ReportWidget(),
+              );
+            },
+            icon: Icon(
+              Icons.report,
+              color: Colors.red,
+            )),
         TextButton(
             onPressed: () {},
             child: Text(
               'Unmatched',
-              style: TextStyle(color: Colors.red),
+              style: TextStyle(color: Colors.orange),
             ))
       ],
     );
@@ -248,6 +261,64 @@ class _InputBoxState extends State<_InputBox> {
             ),
           ),
           hintStyle: const TextStyle(color: Colors.grey)),
+    );
+  }
+}
+
+class ReportWidget extends StatefulWidget {
+  const ReportWidget({Key? key}) : super(key: key);
+
+  @override
+  State<ReportWidget> createState() => _ReportWidgetState();
+}
+
+class _ReportWidgetState extends State<ReportWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Report',
+            style: TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
+          ),
+          Text(
+            'Why do you wish to report this user. ?',
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.grey,
+            ),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: TextField(
+              maxLines: 4,
+              decoration: inputDecoration(context).copyWith(
+                  fillColor: Colors.grey.shade300,
+                  hintStyle: TextStyle(color: Colors.grey),
+                  hintText: 'Reason for report.'),
+            ),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          PrimaryButton(
+            onPressed: () {
+              Navigator.pop(context);
+              showCustomToast('Report sent');
+            },
+            child: Text('Report'),
+          )
+        ],
+      ),
     );
   }
 }

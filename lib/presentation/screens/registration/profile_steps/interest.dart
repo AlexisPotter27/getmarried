@@ -21,6 +21,7 @@ class _InterestScreenState extends State<InterestScreen>
   List<ChipChoiceModel> sportsSelections = [];
   List<ChipChoiceModel> goingOutSelections = [];
   List<ChipChoiceModel> filmTvSelections = [];
+  List<ChipChoiceModel> musicSelections = [];
   List<ChipChoiceModel> stayingInSelections = [];
 
   @override
@@ -118,6 +119,17 @@ class _InterestScreenState extends State<InterestScreen>
                         filmTvSelections = val;
                       });
                     }),
+                const SizedBox(
+                  height: 10,
+                ),
+                ChoiceWidget(
+                    options: music,
+                    tittle: 'Film & Tv',
+                    onSelectionChanged: (val) {
+                      setState(() {
+                        filmTvSelections = val;
+                      });
+                    }),
               ],
             ),
           ),
@@ -147,13 +159,13 @@ class _InterestScreenState extends State<InterestScreen>
             ),
             Row(
               children: [
-                Text(
-                  '${selectedCategories()}/5 selected',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white),
-                ),
+                // Text(
+                //   '${selectedCategories()}/5 selected',
+                //   style: TextStyle(
+                //       fontSize: 14,
+                //       fontWeight: FontWeight.w500,
+                //       color: Colors.white),
+                // ),
                 NextButton(onPressed: () {
                   if (allInterests.isEmpty) {
                     showCustomToast('Select atleast one interest');

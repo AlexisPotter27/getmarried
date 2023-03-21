@@ -37,8 +37,8 @@ class _OutgoingState extends State<Outgoing> {
                 height: 10,
               ),
               const Text(
-                "I feel like I'm an outgoing person ?",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                "I'm an outgoing person ?",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(
                 height: 20,

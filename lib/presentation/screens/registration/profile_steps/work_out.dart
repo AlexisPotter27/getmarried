@@ -40,7 +40,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               ),
               const Text(
                 'Do you work out ?',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(
                 height: 20,

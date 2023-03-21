@@ -39,7 +39,7 @@ class _BodyTypeState extends State<BodyType> {
               const Text(
                 'What is your body type ?',
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

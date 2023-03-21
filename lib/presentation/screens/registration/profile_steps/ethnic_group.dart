@@ -45,9 +45,9 @@ class _EthnicGroupState extends State<EthnicGroup> {
                 height: 10,
               ),
               const Text(
-                'What ethnic group do you belong to ?',
+                'Ethnic group',
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
