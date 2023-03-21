@@ -104,7 +104,7 @@ class _ChatTabState extends State<ChatTab> {
                         children: [
                           Text('SelectUser to start chat'),
                           SizedBox(
-                            height: 10,
+                            height: 25,
                           ),
                           SizedBox(
                             height: 70,

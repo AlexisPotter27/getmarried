@@ -176,6 +176,19 @@ List<String> havChildrenOptions = [
   "Have and don't want more",
   'Not sure yet',
 ];
+List<String> timeForChildrenOptions = [
+  "Within 1 year of marriage. ",
+  "Within 2 years of marriage",
+  "After 3 years of marriage.",
+  "Whenever it happens",
+];
+List<String> howManyChildrenOptions = [
+  "Yes",
+  "No",
+  "1 child",
+  "2 children",
+  "3 children",
+];
 
 List<String> religions = [
   'Agnostic',
