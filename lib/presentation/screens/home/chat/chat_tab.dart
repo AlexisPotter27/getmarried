@@ -57,6 +57,7 @@ class _ChatTabState extends State<ChatTab> {
         // floating: true,
 
         actions: [
+
           GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(

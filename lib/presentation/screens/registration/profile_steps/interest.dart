@@ -159,13 +159,13 @@ class _InterestScreenState extends State<InterestScreen>
             ),
             Row(
               children: [
-                Text(
-                  '${selectedCategories()}/5 selected',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white),
-                ),
+                // Text(
+                //   '${selectedCategories()}/5 selected',
+                //   style: TextStyle(
+                //       fontSize: 14,
+                //       fontWeight: FontWeight.w500,
+                //       color: Colors.white),
+                // ),
                 NextButton(onPressed: () {
                   if (allInterests.isEmpty) {
                     showCustomToast('Select atleast one interest');

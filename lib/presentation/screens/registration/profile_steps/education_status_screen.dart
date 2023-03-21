@@ -25,7 +25,6 @@ class _EducationStatusState extends State<EducationStatus> {
     super.initState();
     educationLevels = educations;
   }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -48,7 +47,7 @@ class _EducationStatusState extends State<EducationStatus> {
               ),
               const Text(
                 'What is your Education level?',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(
                 height: 20,

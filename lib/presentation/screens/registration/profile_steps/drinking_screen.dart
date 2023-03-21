@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/helper/app_utils.dart';
-
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-
-
 class DrinkingScreen extends StatefulWidget {
-  const DrinkingScreen({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
+  const DrinkingScreen(
+      {Key? key, required this.onComplete, required this.onPrev})
+      : super(key: key);
   final Function(String? drinking) onComplete;
   final Function onPrev;
 
@@ -25,6 +24,7 @@ class _DrinkingScreenState extends State<DrinkingScreen> {
     super.initState();
     options = drinkingOptions;
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,7 +47,10 @@ class _DrinkingScreenState extends State<DrinkingScreen> {
               ),
               const Text(
                 'Do you drink?',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
@@ -55,21 +58,25 @@ class _DrinkingScreenState extends State<DrinkingScreen> {
               ListView.builder(
                 itemCount: options.length,
                 shrinkWrap: true,
-                itemBuilder: (context, index) => Column(children: [
-                  CustomRadioTile<String>(
-                    onSubtitleClicked: () {},
-                    toggleSubtitle: false,
-                    value: options[index],
-                    groupValue: value,
-                    tittle:  options[index],
-                    onChanged: (val) {
-                      setState(() {
-                        value = val;
-                      });
-                    },
-                  ),
-                  const  SizedBox(height: 16,)
-                ],),
+                itemBuilder: (context, index) => Column(
+                  children: [
+                    CustomRadioTile<String>(
+                      onSubtitleClicked: () {},
+                      toggleSubtitle: false,
+                      value: options[index],
+                      groupValue: value,
+                      tittle: options[index],
+                      onChanged: (val) {
+                        setState(() {
+                          value = val;
+                        });
+                      },
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    )
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 16,

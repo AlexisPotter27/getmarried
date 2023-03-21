@@ -33,7 +33,7 @@ class _AboutYouScreenState extends State<AboutYouScreen> {
               const Text(
                 'Tell us more about yourself?',
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
@@ -49,7 +49,7 @@ class _AboutYouScreenState extends State<AboutYouScreen> {
               ),*/
               CustomFormField(
                 focusNode: FocusNode(),
-                maxLines: 6,
+                maxLines: 9,
                 controller: _aboutController,
                 hintText: 'Enter more about you',
               )

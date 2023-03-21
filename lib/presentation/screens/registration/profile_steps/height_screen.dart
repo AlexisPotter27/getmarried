@@ -62,7 +62,7 @@ class _HeightScreenState extends State<HeightScreen> {
               const Text(
                 'What is  your height ?',
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

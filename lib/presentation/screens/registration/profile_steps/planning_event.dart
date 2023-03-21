@@ -40,7 +40,7 @@ class _PlanningEventState extends State<PlanningEvent> {
               const Text(
                 "Chose event for both of you",
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

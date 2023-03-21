@@ -38,9 +38,9 @@ class _PartnersBodyTypeState extends State<PartnersBodyType> {
                 height: 10,
               ),
               const Text(
-                'What is your ideal partners body type ?',
+                'What is your ideal partners\nbody type ?',
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

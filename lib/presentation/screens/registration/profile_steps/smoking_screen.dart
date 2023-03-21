@@ -48,7 +48,7 @@ class _SmokingScreenState extends State<SmokingScreen> {
               const Text(
                 'Do you smoke?',
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

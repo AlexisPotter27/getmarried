@@ -38,7 +38,7 @@ class _AmbitiousState extends State<Ambitious> {
               ),
               const Text(
                 "I'm an ambitious person ?",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(
                 height: 20,

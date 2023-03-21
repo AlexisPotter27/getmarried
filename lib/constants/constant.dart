@@ -145,7 +145,7 @@ List<String> educations = [
   'High school',
   'Trade/tech school',
   'College degree',
-  'In grad school',
+  'In Graduate school',
   'Graduate degree',
   'PHD/ Doctorate degree'
 ];

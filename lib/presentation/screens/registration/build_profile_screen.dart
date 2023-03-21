@@ -111,7 +111,7 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                   Expanded(
                       child: PageView(
                     controller: _pageController,
-                    // physics: const NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       InterestScreen(
                         onComplete: (interests) {
@@ -263,32 +263,32 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                       //   switchPage(24);
                       // }),
 
-                      StartingAndFinishing(onPrev: () {
-                        prevPage(21);
-                      }, onComplete: (startingFinishing) {
-                        userData?.startingAndFinishing = startingFinishing;
-                        switchPage(23);
-                      }),
+                      // StartingAndFinishing(onPrev: () {
+                      //   prevPage(21);
+                      // }, onComplete: (startingFinishing) {
+                      //   userData?.startingAndFinishing = startingFinishing;
+                      //   switchPage(23);
+                      // }),
                       Relationship(onPrev: () {
-                        prevPage(22);
+                        prevPage(21);
                       }, onComplete: (relationShip) {
                         userData?.sexInRelationship = relationShip;
-                        switchPage(24);
+                        switchPage(23);
                       }),
                       Monogamy(onPrev: () {
-                        prevPage(23);
+                        prevPage(22);
                       }, onComplete: (monogamy) {
                         userData?.monogamy = monogamy;
-                        switchPage(25);
+                        switchPage(24);
                       }),
-                      Creativity(onPrev: () {
-                        prevPage(24);
-                      }, onComplete: (creativity) {
-                        userData?.creativity = creativity;
-                        switchPage(26);
-                      }),
+                      // Creativity(onPrev: () {
+                      //   prevPage(24);
+                      // }, onComplete: (creativity) {
+                      //   userData?.creativity = creativity;
+                      //   switchPage(26);
+                      // }),
                       AboutYouScreen(onPrev: () {
-                        prevPage(25);
+                        prevPage(23);
                       }, onComplete: (about) {
                         userData?.about = about;
                         authBloc.add(UpdateUserEvent(userData!.copyWith(
