@@ -19,7 +19,7 @@
         android:extractNativeLibs="false"
         android:label="GetMarriedApp"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ilogo">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

@@ -1,5 +1,6 @@
-import 'dart:io';
+import 'dart:io' show Platform;
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/di/injector.dart' as injector;
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
@@ -30,23 +31,37 @@ void main() async {
   cubit.getCachedUser();
   // Future.delayed(const Duration(milliseconds: 500));
   final firstScreen = await getFirstScreen();
-  runApp(MyApp(
-    firstScreen: firstScreen,
-  ));
 
-  if (Platform.isIOS || Platform.isMacOS) {
+  /*if (Platform.isIOS || Platform.isMacOS) {
     StoreConfig(
       store: Store.appleStore,
       apiKey: appleApiKey,
     );
   } else if (Platform.isAndroid) {
     // Run the app passing --dart-define=AMAZON=true
-    const useAmazon = bool.fromEnvironment("amazon");
+    //const useAmazon = bool.fromEnvironment("amazon");
     StoreConfig(
-      store: useAmazon ? Store.amazonAppstore : Store.googlePlay,
-      apiKey: useAmazon ? amazonApiKey : googleApiKey,
+      store:  Store.googlePlay,
+      apiKey: googleApiKey,
+    );
+  }*/
+  if (defaultTargetPlatform == TargetPlatform.android) {
+      StoreConfig(
+        store: Store.googlePlay,
+        apiKey: googleApiKey,
+      );
+
+  }else {
+    StoreConfig(
+      store: Store.appleStore,
+      apiKey: appleApiKey,
     );
   }
+  runApp(MyApp(
+    firstScreen: firstScreen,
+  ));
+
+
 
 }
 

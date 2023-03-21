@@ -9,17 +9,9 @@ const kColorSuccess = Colors.green;
 const kColorNavIcon = Color.fromRGBO(131, 136, 139, 1.0);
 const kColorBackground = Color.fromRGBO(30, 28, 33, 1.0);
 
-// Weather Colors
-const kWeatherReallyCold = Color.fromRGBO(3, 75, 132, 1);
-const kWeatherCold = Color.fromRGBO(0, 39, 96, 1);
-const kWeatherCloudy = Color.fromRGBO(51, 0, 58, 1);
-const kWeatherSunny = Color.fromRGBO(212, 70, 62, 1);
-const kWeatherHot = Color.fromRGBO(181, 0, 58, 1);
-const kWeatherReallyHot = Color.fromRGBO(204, 0, 58, 1);
-
 // Text Styles
 const kFontSizeSuperSmall = 10.0;
-const kFontSizeNormal = 16.0;
+const kFontSizeNormal = 15.0;
 const kFontSizeMedium = 18.0;
 const kFontSizeLarge = 96.0;
 
@@ -27,6 +19,7 @@ const kDescriptionTextStyle = TextStyle(
   color: kColorText,
   fontWeight: FontWeight.normal,
   fontSize: kFontSizeNormal,
+
 );
 
 const kTitleTextStyle = TextStyle(

@@ -31,7 +31,53 @@ class SubscriptionCard extends StatefulWidget {
 
 class _SubscriptionCardState extends State<SubscriptionCard> {
   bool _isLoading = false;
+  late Offerings offerings;
 
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: deviceWidth(),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: primaryColour,
+        borderRadius: BorderRadius.circular(16),
+        gradient: widget.gradient,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            widget.tittle,
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Text(
+            widget.description,
+            style: const TextStyle(fontSize: 13),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0.1),
+            child: UpgradeButton(
+                onPressed: () {
+                  /*Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>  Paywall(offering: offerings),
+                  ));*/
+                  performPayment();
+                },
+                child: Text(widget.buttonText)),
+          )
+        ],
+      ),
+    );
+  }
   /*
     We should check if subscription active and if not, display the paywall.
   */
@@ -68,10 +114,10 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
             builder: (BuildContext context) {
               return StatefulBuilder(
                   builder: (BuildContext context, StateSetter setModalState) {
-                return Paywall(
-                  offering: offerings.current!,
-                );
-              });
+                    return Paywall(
+                      offering: offerings.current!,
+                    );
+                  });
             },
           );
         } else {
@@ -118,51 +164,5 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
         );
       }*/
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: deviceWidth(),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: primaryColour,
-        borderRadius: BorderRadius.circular(16),
-        gradient: widget.gradient,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            widget.tittle,
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-            ),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            widget.description,
-            style: const TextStyle(fontSize: 13),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0.1),
-            child: UpgradeButton(
-                onPressed: () {
-                  /*Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>  Paywall(offering: offerings.current),
-                  ));*/
-                  performPayment();
-                },
-                child: Text(widget.buttonText)),
-          )
-        ],
-      ),
-    );
   }
 }

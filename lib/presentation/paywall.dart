@@ -28,7 +28,7 @@ class _PaywallState extends State<Paywall> {
               height: 70.0,
               width: double.infinity,
               decoration: const BoxDecoration(
-                  color: kColorBar,
+                  color: Colors.blueAccent,
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(25.0))),
               child: const Center(
@@ -39,9 +39,11 @@ class _PaywallState extends State<Paywall> {
               padding:
                   EdgeInsets.only(top: 32, bottom: 16, left: 16.0, right: 16.0),
               child: SizedBox(
-                child: Text(
-                  ' PREMIUM',
-                  style: kDescriptionTextStyle,
+                child: Center(
+                  child: Text(
+                    ' Unlock all of our features to be in complete control of your experience',
+                    style: kDescriptionTextStyle,
+                  ),
                 ),
                 width: double.infinity,
               ),
@@ -51,7 +53,7 @@ class _PaywallState extends State<Paywall> {
               itemBuilder: (BuildContext context, int index) {
                 var myProductList = widget.offering.availablePackages;
                 return Card(
-                  color: Colors.black,
+                  color: Colors.blueAccent,
                   child: ListTile(
                       onTap: () async {
                         try {
@@ -87,6 +89,7 @@ class _PaywallState extends State<Paywall> {
               padding:
                   EdgeInsets.only(top: 32, bottom: 16, left: 16.0, right: 16.0),
               child: SizedBox(
+
                 child: Text(
                   footerText,
                   style: kDescriptionTextStyle,

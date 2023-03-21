@@ -278,7 +278,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                     }),
                 const SizedBox(
-                  height: 70,
+                  height: 10,
                 ),
                 TransaparentButton(
                     child: Text('Restore Purchases'),

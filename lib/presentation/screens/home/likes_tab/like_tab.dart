@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/widgets/likes/liker_item.dart';
+import 'package:getmarried/widgets/profile_tab/subscription_card.dart';
+
+import '../../../paywall.dart';
 
 class LikeTab extends StatefulWidget {
   const LikeTab({Key? key}) : super(key: key);
@@ -98,29 +101,35 @@ class _LikeTabState extends State<LikeTab> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16)),
-                    child: Column(
-                      children: const [
-                        Text(
-                          'Upgrade for.',
-                          style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue),
-                        ),
-                        Text(
-                          '8.59 USD',
-                          style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue),
-                        ),
-                      ],
+                  GestureDetector(
+                    onTap: (){
+                       // SubscriptionCard.performPayment();
+                      //Navigator.push(context, Paywall(offering: offerings));
+                    },
+                    child: Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16)),
+                      child: Column(
+                        children: const [
+                          Text(
+                            'Upgrade for.',
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
+                          Text(
+                            '8.59 USD',
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(

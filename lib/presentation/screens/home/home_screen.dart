@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:getmarried/constants/constant.dart';
@@ -7,9 +8,7 @@ import 'package:getmarried/presentation/screens/home/likes_tab/like_refractor.da
 import 'package:getmarried/presentation/screens/home/profile_tab/profile_tab.dart';
 import 'package:getmarried/widgets/home/connection_menu_item.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
-import '../../../constant.dart';
-import '../../../models/singletons_data.dart';
-import '../../../store_config.dart';
+
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey(); //
 
@@ -30,41 +29,23 @@ class _HomeScreenState extends State<HomeScreen>
     initPlatformState();
     super.initState();
   }
-
+    bool enabled = true;
   Future<void> initPlatformState() async {
-    // Enable debug logs before calling `configure`.
-    await Purchases.setLogLevel(LogLevel.debug);
+    await Purchases.setDebugLogsEnabled(enabled);
 
-    /*
-    - appUserID is nil, so an anonymous ID will be generated automatically by the Purchases SDK. Read more about Identifying Users here: https://docs.revenuecat.com/docs/user-ids
-
-    - observerMode is false, so Purchases will automatically handle finishing transactions. Read more about Observer Mode here: https://docs.revenuecat.com/docs/observer-mode
-    */
-    PurchasesConfiguration configuration;
-    if (StoreConfig.isForAmazonAppstore()) {
-      configuration = AmazonConfiguration(StoreConfig.instance.apiKey)
-        ..appUserID = null
-        ..observerMode = false;
-    } else {
-      configuration = PurchasesConfiguration(StoreConfig.instance.apiKey)
-        ..appUserID = null
-        ..observerMode = false;
+    PurchasesConfiguration? configuration;
+    if (Platform.isAndroid) {
+      configuration = PurchasesConfiguration('goog_VolvlJikxUaeRLgdQMSokvUSyWZ');
+      //String config = configuration as String;
+      /*if (buildingForAmazon) {
+        // use your preferred way to determine if this build is for Amazon store
+        // checkout our MagicWeather sample for a suggestion
+        configuration = AmazonConfiguration(<public_amazon_api_key>);
+      }*/
+    } else if (Platform.isIOS) {
+      configuration = PurchasesConfiguration('appl_XWZlhcEkesNwkmyPmcxJNMkJkkX');
     }
-    await Purchases.configure(configuration);
-
-    appData.appUserID = await Purchases.appUserID;
-
-    Purchases.addCustomerInfoUpdateListener((customerInfo) async {
-      appData.appUserID = await Purchases.appUserID;
-
-      CustomerInfo customerInfo = await Purchases.getCustomerInfo();
-      (customerInfo.entitlements.all[entitlementID] != null &&
-          customerInfo.entitlements.all[entitlementID]?.isActive == true)
-          ? appData.entitlementIsActive = true
-          : appData.entitlementIsActive = false;
-
-      setState(() {});
-    });
+    await Purchases.configure(configuration!);
   }
 
   @override
