@@ -9,6 +9,7 @@ import 'package:getmarried/widgets/profile_tab/card_tile.dart';
 import 'package:getmarried/widgets/profile_tab/features_tile.dart';
 import 'package:getmarried/widgets/profile_tab/subscription_card.dart';
 
+
 class ProfileTab extends StatefulWidget {
   const ProfileTab({Key? key}) : super(key: key);
 
@@ -262,7 +263,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 ),
                 childCount: features.length,
               ),
-            )
+            ),
           ],
         ),
       ),

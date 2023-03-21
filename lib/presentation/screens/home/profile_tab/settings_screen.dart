@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/constants/storage_keys.dart';
@@ -11,6 +12,9 @@ import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
 import 'package:getmarried/presentation/screens/registration/onboard.dart';
 import 'package:getmarried/widgets/date/settings_tile.dart';
 import 'package:getmarried/widgets/secondary_widget.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+import '../../../../models/singletons_data.dart';
+import '../../../../widgets/native_dialog.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -21,6 +25,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   AuthBloc authBloc = AuthBloc(getIt.get());
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -262,11 +267,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const SizedBox(
                   height: 70,
                 ),
+                TransaparentButton(
+                    child: Text('Restore Purchases'),
+                    onPressed: (){
+                      _manageUser('restore', null);
+                    })
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  _manageUser(String task, String ?newAppUserID) async
+  {
+    setState(() {
+      _isLoading = true;
+    });
+
+    /*
+      How to login and identify your users with the Purchases SDK.
+
+      Read more about Identifying Users here: https://docs.revenuecat.com/docs/user-ids
+    */
+
+    try {
+      if (task == "login") {
+        await Purchases.logIn(newAppUserID!);
+      } else if (task == "logout") {
+        await Purchases.logOut();
+      } else if (task == "restore") {
+        await Purchases.restorePurchases();
+      }
+
+      appData.appUserID = await Purchases.appUserID;
+    } on PlatformException catch (e) {
+      await showDialog(
+          context: context,
+          builder: (BuildContext context) => ShowDialogToDismiss(
+              title: "Error", content: e.message.toString(), buttonText: 'OK'));
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 }

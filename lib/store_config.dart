@@ -1,13 +1,13 @@
 
-//enum Store { appleStore, googlePlay, amazonAppstore }
+enum Store { appleStore, googlePlay, amazonAppstore }
 
-/*class StoreConfig {
+class StoreConfig {
   final Store store;
   final String apiKey;
- static StoreConfig instanceOf;
+  static StoreConfig _instance;
 
   factory StoreConfig({required Store store, required String apiKey}) {
-    _instance = StoreConfig._internal(store, apiKey);
+    _instance;
     return _instance;
   }
 
@@ -22,4 +22,4 @@
   static bool isForGooglePlay() => _instance.store == Store.googlePlay;
 
   static bool isForAmazonAppstore() => _instance.store == Store.amazonAppstore;
-}*/
+}

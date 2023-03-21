@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'models/styles.dart';
 
-class MagicWeatherFlutter extends StatelessWidget {
-  const MagicWeatherFlutter({required Key key}) : super(key: key);
+class App extends StatelessWidget {
+  const App({required Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

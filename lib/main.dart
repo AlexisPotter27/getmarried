@@ -1,6 +1,6 @@
+import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:getmarried/api/purchase_api.dart';
 import 'package:getmarried/di/injector.dart' as injector;
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
@@ -9,7 +9,9 @@ import 'package:getmarried/presentation/screens/registration/privacy_screen.dart
 import 'package:getmarried/presentation/screens/registration/registration_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/choose_mode.dart';
 import 'package:getmarried/presentation/screens/splashScreen.dart';
+import 'package:getmarried/store_config.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'constant.dart';
 import 'constants/storage_keys.dart';
 import 'di/injector.dart';
 import 'helper/storage_helper.dart';
@@ -20,7 +22,6 @@ void main() async {
   await Hive.initFlutter();
   injector.init();
   await Firebase.initializeApp();
-  await PurchaseApi.init();
   Future.delayed(const Duration(milliseconds: 300));
   CacheCubit cubit = getIt.get<CacheCubit>();
   cubit.getCachedUser();
@@ -30,7 +31,7 @@ void main() async {
     firstScreen: firstScreen,
   ));
 
-  /*if (Platform.ios || Platform.isMacOS) {
+  if (Platform.isIOS || Platform.isMacOS) {
     StoreConfig(
       store: Store.appleStore,
       apiKey: appleApiKey,
@@ -42,7 +43,7 @@ void main() async {
       store: useAmazon ? Store.amazonAppstore : Store.googlePlay,
       apiKey: useAmazon ? amazonApiKey : googleApiKey,
     );
-  }*/
+  }
 
 }
 

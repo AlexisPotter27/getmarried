@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import '../constant.dart';
+import '../models/singletons_data.dart';
+/*import 'package:purchases_flutter/models/customer_info_wrapper.dart';
+import 'package:purchases_flutter/models/entitlement_info_wrapper.dart';*/
 import '../models/styles.dart';
 
 
 class Paywall extends StatefulWidget {
+
   final Offering offering;
 
-  const Paywall({required Key key, required this.offering}) : super(key: key);
+  const Paywall({ Key? key,  required this.offering}) : super(key: key);
 
   @override
   _PaywallState createState() => _PaywallState();
@@ -29,14 +33,14 @@ class _PaywallState extends State<Paywall> {
                       BorderRadius.vertical(top: Radius.circular(25.0))),
               child: const Center(
                   child:
-                      Text('✨ Magic Weather Premium', style: kTitleTextStyle)),
+                      Text('✨ GetMarriedApp Premium', style: kTitleTextStyle)),
             ),
             const Padding(
               padding:
                   EdgeInsets.only(top: 32, bottom: 16, left: 16.0, right: 16.0),
               child: SizedBox(
                 child: Text(
-                  'MAGIC WEATHER PREMIUM',
+                  ' PREMIUM',
                   style: kDescriptionTextStyle,
                 ),
                 width: double.infinity,
@@ -54,12 +58,11 @@ class _PaywallState extends State<Paywall> {
                           CustomerInfo customerInfo =
                               await Purchases.purchasePackage(
                                   myProductList[index]);
-                          /*appData.entitlementIsActive = customerInfo
-                              .entitlements.all[entitlementID]?.isActive!!;*/
+                            appData.entitlementIsActive = customerInfo
+                              .entitlements.all[entitlementID]?.isActive == true;
                         } catch (e) {
                           print(e);
                         }
-
                         setState(() {});
                         Navigator.pop(context);
                       },
