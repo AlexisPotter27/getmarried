@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:getmarried/api/purchase_api.dart';
 import 'package:getmarried/di/injector.dart' as injector;
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
@@ -21,9 +22,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await PurchaseApi.init();
   CacheCubit cubit = getIt.get<CacheCubit>();
   cubit.getCachedUser();
-  Future.delayed(const Duration(milliseconds: 500));
+  // Future.delayed(const Duration(milliseconds: 500));
   final firstScreen = await getFirstScreen();
   runApp(MyApp(
     firstScreen: firstScreen,

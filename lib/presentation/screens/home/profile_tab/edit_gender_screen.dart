@@ -173,7 +173,7 @@ class _ShowGenderWidgetState extends State<ShowGenderWidget> {
               TextButton(
                 onPressed: () {},
                 style: TextButton.styleFrom(
-                    foregroundColor:
+                    primary:
                         hiddenFromProfile ? Colors.black54 : Colors.white,
                     shape: StadiumBorder(
                         side: hiddenFromProfile
