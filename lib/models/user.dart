@@ -341,4 +341,9 @@ class UserData {
       name: this.firstname!,
       photos: this.photos!,
       about: this.about!);
+
+  static generateData() {
+
+
+  }
 }

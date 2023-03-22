@@ -1,6 +1,7 @@
+import 'dart:io' show Platform;
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:getmarried/api/purchase_api.dart';
 import 'package:getmarried/di/injector.dart' as injector;
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
@@ -9,7 +10,9 @@ import 'package:getmarried/presentation/screens/registration/privacy_screen.dart
 import 'package:getmarried/presentation/screens/registration/registration_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/choose_mode.dart';
 import 'package:getmarried/presentation/screens/splashScreen.dart';
+import 'package:getmarried/store_config.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'constant.dart';
 import 'constants/storage_keys.dart';
 import 'di/injector.dart';
 import 'firebase_options.dart';
@@ -19,17 +22,47 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   injector.init();
+  await Firebase.initializeApp();
+  Future.delayed(const Duration(milliseconds: 300));
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await PurchaseApi.init();
   CacheCubit cubit = getIt.get<CacheCubit>();
   cubit.getCachedUser();
   // Future.delayed(const Duration(milliseconds: 500));
   final firstScreen = await getFirstScreen();
+
+  /*if (Platform.isIOS || Platform.isMacOS) {
+    StoreConfig(
+      store: Store.appleStore,
+      apiKey: appleApiKey,
+    );
+  } else if (Platform.isAndroid) {
+    // Run the app passing --dart-define=AMAZON=true
+    //const useAmazon = bool.fromEnvironment("amazon");
+    StoreConfig(
+      store:  Store.googlePlay,
+      apiKey: googleApiKey,
+    );
+  }*/
+  if (defaultTargetPlatform == TargetPlatform.android) {
+      StoreConfig(
+        store: Store.googlePlay,
+        apiKey: googleApiKey,
+      );
+
+  }else {
+    StoreConfig(
+      store: Store.appleStore,
+      apiKey: appleApiKey,
+    );
+  }
   runApp(MyApp(
     firstScreen: firstScreen,
   ));
+
+
+
 }
 
 class MyApp extends StatelessWidget {

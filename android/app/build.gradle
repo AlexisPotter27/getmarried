@@ -13,12 +13,12 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '1.1'
+    flutterVersionCode = '1.0.2'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.1'
+    flutterVersionName = '1'
 }
 
 apply plugin: 'com.android.application'
@@ -94,4 +94,5 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.2.2')
     implementation 'com.android.support:multidex:2.0.1'
     implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.revenuecat.purchases:purchases:5.7.1'
 }
