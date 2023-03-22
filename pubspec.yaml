@@ -48,7 +48,7 @@ dependencies:
   #  firebase_database: ^10.0.14
   fluttertoast: ^8.2.1
   cloud_firestore:
-  flutter_stripe: ^5.0.0
+#  flutter_stripe: ^5.0.0
   flutter_dotenv: ^5.0.2
   http: ^0.13.5
   flutter_polygon: ^0.3.0+2

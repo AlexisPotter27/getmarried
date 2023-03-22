@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-
-    
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -24,14 +22,48 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-<!--	<key>CFBundleURLTypes</key>-->
-<!--	<array>-->
-<!--	-->
-<!--	</array>-->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb961222375245423D</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLIconFile</key>
+			<string></string>
+			<key>CFBundleURLName</key>
+			<string></string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.594283361767-k88keavhjmcfor3nia01otlf1vs0edr9</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>None</string>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>961222375245423D</string>
+	<key>FacebookClientToken</key>
+	<string>afddf345be917af17e92353a4d952297</string>
+	<key>FacebookDisplayName</key>
+	<string>GetmarriedApp</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
@@ -67,52 +99,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-    
-    <!--  Faceboook login  -->
-
-        <key>CFBundleURLTypes</key>
-        <array>
-          <dict>
-          <key>CFBundleURLSchemes</key>
-          <array>
-            <string>fb961222375245423D</string>
-          </array>
-          </dict>
-          
-<!--    Merging    CFBundleURLSchemes    -->
-          <dict>
-              <key>CFBundleTypeRole</key>
-              <string>Editor</string>
-              <key>CFBundleURLIconFile</key>
-              <string></string>
-              <key>CFBundleURLName</key>
-              <string></string>
-              <key>CFBundleURLSchemes</key>
-              <array>
-                  <string>com.googleusercontent.apps.594283361767-lkcp68lhflac3jf58ou9viflnhrolc21</string>
-              </array>
-          </dict>
-          <dict>
-              <key>CFBundleTypeRole</key>
-              <string>None</string>
-          </dict>
-          <!--    Merging    CFBundleURLSchemes  End   -->
-          
-        </array>
-        <key>FacebookAppID</key>
-        <string>961222375245423D</string>
-        <key>FacebookClientToken</key>
-        <string>afddf345be917af17e92353a4d952297</string>
-        <key>FacebookDisplayName</key>
-        <string>GetmarriedApp</string>
-        <key>LSApplicationQueriesSchemes</key>
-        <array>
-            <string>fbapi</string>
-            <string>fb-messenger-share-api</string>
-            <string>fbauth2</string>
-            <string>fbshareextension</string>
-        </array>
-        <!--  Faceboook login End  -->
-    
 </dict>
 </plist>

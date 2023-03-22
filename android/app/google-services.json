@@ -39,6 +39,14 @@
           }
         },
         {
+          "client_id": "594283361767-kld93ks8ed4esngr3jblhcr5n0feptk5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.getmarriedapp",
+            "certificate_hash": "102a3a45e2663ebfd7b23bf22fcaeb677464fa2c"
+          }
+        },
+        {
           "client_id": "594283361767-m6jqqgjshg3ca33mkcf55uol6jl86pov.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -47,7 +55,7 @@
           }
         },
         {
-          "client_id": "594283361767-7rd8423gsdq9p5ltce55j9fq4bi979ga.apps.googleusercontent.com",
+          "client_id": "594283361767-ldk3sko5labf4i4dpf25m0jf11tamus8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
