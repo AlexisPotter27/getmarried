@@ -88,7 +88,7 @@ class _HeightScreenState extends State<HeightScreen> {
                     children: List.generate(
                       heights.length,
                       (index) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(vertical: 6),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [

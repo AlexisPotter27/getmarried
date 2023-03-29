@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen>
           fixedColor: primaryColour,
           type: BottomNavigationBarType.fixed,
           unselectedIconTheme:
-              const IconThemeData(color: Colors.black, size: 25),
+              const IconThemeData(color: Colors.grey, size: 25),
           onTap: (index) {
             setState(() {
               _currentIndex = index;
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen>
               label: 'Profile',
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.format_align_center), label: 'Home'),
+                icon: Icon(Icons.home_filled), label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.favorite_rounded), label: 'Like'),
             BottomNavigationBarItem(

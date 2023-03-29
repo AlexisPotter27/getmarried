@@ -22,15 +22,15 @@ class _LikeRefractorState extends State<LikeRefractor> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              leading: GestureDetector(
-                  onTap: () {
-                    scaffoldKey.currentState!.openDrawer();
-                  },
-                  child: const Icon(
-                    Icons.menu,
-                    color: Colors.grey,
-                    size: 25,
-                  )),
+              // leading: GestureDetector(
+              //     onTap: () {
+              //       scaffoldKey.currentState!.openDrawer();
+              //     },
+              //     child: const Icon(
+              //       Icons.menu,
+              //       color: Colors.grey,
+              //       size: 25,
+              //     )),
               elevation: 0,
               backgroundColor: primaryColour,
               pinned: true,
@@ -229,7 +229,7 @@ class _LikeRefractorState extends State<LikeRefractor> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: const [
                                   Text(
-                                    '8.59 USD',
+                                    '45 USD',
                                     style: TextStyle(
                                         fontSize: 13,
                                         fontWeight: FontWeight.bold,

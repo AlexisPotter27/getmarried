@@ -1,9 +1,28 @@
-import 'dart:developer';
+import 'dart:convert';
+import 'dart:developer' as dev;
+import 'dart:math';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
+/// Generates a cryptographically secure random nonce, to be included in a
+/// credential request.
+String generateNonce([int length = 32]) {
+  final charset =
+      '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+  final random = Random.secure();
+  return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+      .join();
+}
+
+/// Returns the sha256 hash of [input] in hex notation.
+String sha256ofString(String input) {
+  final bytes = utf8.encode(input);
+  final digest = sha256.convert(bytes);
+  return digest.toString();
+}
 void showCustomToast(String msg, [Color? bgColor, Color? textColor]) =>
     Fluttertoast.showToast(
         msg: msg,
@@ -65,7 +84,7 @@ void showAnimatedProgressDialog(BuildContext context, {String? title}) {
 Future<String?> pickImage() async {
   XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
   if (file != null) {
-    log(file.path);
+    dev.log(file.path);
     return file.path;
 //setState(() {});
   }
@@ -75,7 +94,7 @@ Future<String?> pickImage() async {
 Future<String?> pickImageFromCamera() async {
   XFile? file = await ImagePicker().pickImage(source: ImageSource.camera);
   if (file != null) {
-    log(file.path);
+    dev.log(file.path);
     return file.path;
 //setState(() {});
   }

@@ -124,10 +124,10 @@ class _InterestScreenState extends State<InterestScreen>
                 ),
                 ChoiceWidget(
                     options: music,
-                    tittle: 'Film & Tv',
+                    tittle: 'Music',
                     onSelectionChanged: (val) {
                       setState(() {
-                        filmTvSelections = val;
+                        musicSelections = val;
                       });
                     }),
               ],

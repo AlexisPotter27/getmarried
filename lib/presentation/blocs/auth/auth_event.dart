@@ -81,3 +81,7 @@ class UpdateUserImageEvent extends AuthEvent {
 class FacebookSigninEvent extends AuthEvent {
   FacebookSigninEvent();
 }
+
+class AppleSigninEvent extends AuthEvent {
+  AppleSigninEvent();
+}

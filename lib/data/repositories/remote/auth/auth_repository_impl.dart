@@ -5,13 +5,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:getmarried/constants/firebase_keys.dart';
 import 'package:getmarried/data/models/api_response.dart';
-import 'package:getmarried/helper/app_utils.dart';
+import 'package:getmarried/helper/app_utils.dart' as utils;
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/screens/number.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import 'auth_repository.dart';
 
@@ -70,7 +72,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<ApiResponse> signinWithPhoneNumber(credential) async {
-    debugPrint('Singining in with:${credential.smsCode}');
+    debugPrint('Singing in with:${credential.smsCode}');
     try {
       UserCredential user = await auth.signInWithCredential(
         credential,
@@ -139,7 +141,7 @@ class AuthRepositoryImpl extends AuthRepository {
     } on FirebaseException catch (e) {
       return ApiResponse(data: null, error: e.code);
     } on Exception catch (e, stack) {
-      showCustomToast(stack.toString());
+      utils.showCustomToast(stack.toString());
       return ApiResponse(data: null, error: e.toString());
     }
   }
@@ -278,5 +280,59 @@ class AuthRepositoryImpl extends AuthRepository {
 // Log in
 //     final LoginResult res =
 //         await fb.login(permissions: ['email', 'public_profile']);
+  }
+
+  @override
+  Future<ApiResponse> signInWithAppleId() async {
+    try {
+      final rawNonce = generateNonce();
+      final nonce = utils.sha256ofString(rawNonce);
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: nonce,
+        // state:,
+        webAuthenticationOptions: WebAuthenticationOptions(
+          // TODO: Set the `clientId` and `redirectUri` arguments to the values you entered in the Apple Developer portal during the setup
+          clientId: 'com.getmarried',
+          redirectUri:
+              // For web your redirect URI needs to be the host of the "current page",
+              // while for Android you will be using the API server that redirects back into your app via a deep link
+              // kIsWeb
+              //     ? Uri.parse('https://${window.location.host}/')
+              //     :
+              Uri.parse(
+            'https://getmarriedapp-810aa.firebaseapp.com/__/auth/handler',
+          ),
+        ),
+      );
+
+      // Obtain the auth details from the request
+      if (credential.identityToken != null) {
+        // Create an `OAuthCredential` from the credential returned by Apple.
+
+        final oauthCredential = OAuthProvider("apple.com").credential(
+          idToken: credential.identityToken,
+          rawNonce: rawNonce,
+        );
+
+        // Once signed in, return the UserCredential
+        UserCredential userCredential =
+            await auth.signInWithCredential(oauthCredential).then((value) {
+          log(value.user.toString());
+          return value;
+        });
+
+        return signinUser(userCredential.user!.uid);
+      } else {
+        log('not signed in');
+        return ApiResponse(data: null, error: 'Unsuccessful');
+      }
+    } on FirebaseAuthException catch (e) {
+      log('FIREBASE ERROR${e.message.toString()}');
+      return ApiResponse(data: null, error: e.code);
+    }
   }
 }

@@ -1,4 +1,8 @@
+import 'dart:developer';
+// import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/storage_keys.dart';
@@ -12,6 +16,7 @@ import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/registration/location.dart';
 import 'package:getmarried/presentation/screens/registration/registration_screen.dart';
 import 'package:getmarried/widgets/button.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../widgets/social_button.dart';
 import '../number.dart';
 import 'build_profile_screen.dart';
@@ -62,6 +67,24 @@ class Onboard extends StatelessWidget {
                     builder: (context) => getNextScreen(state.user)));
           }
           if (state is FacebookSignInFailedState) {
+            Navigator.pop(context);
+            showCustomToast(state.error);
+          }
+          if (state is AppleSignInLoadingState) {
+            showAnimatedProgressDialog(context);
+          }
+          if (state is AppleSignInSuccessState) {
+            getIt.get<CacheCubit>().updateUser(state.user);
+            getIt.get<CacheCubit>().getCachedUser();
+
+            updateCache();
+
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => getNextScreen(state.user)));
+          }
+          if (state is AppleSignInFailureState) {
             Navigator.pop(context);
             showCustomToast(state.error);
           }
@@ -143,8 +166,19 @@ class Onboard extends StatelessWidget {
                               colour: Colors.black,
                               title: 'Continue with Apple ID',
                               textcolour: Colors.white,
-                              ontap: () {
-                                showCustomToast('Coming soon');
+                              ontap: () async {
+                                authBloc.add(AppleSigninEvent());
+
+                                // ignore: avoid_print
+
+                                // This is the endpoint that will convert an authorization code obtained
+                                // via Sign in with Apple into a session in your system
+
+                                // final session = await http.Client().post(
+                                //   signInWithAppleEndpoint,
+                                // );
+
+                                // showCustomToast('Coming soon');
                                 /*Navigator.push(
                             context,
                             MaterialPageRoute(

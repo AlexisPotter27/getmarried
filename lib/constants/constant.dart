@@ -54,7 +54,7 @@ List<ChipChoiceModel> creativityChoices = [
 List<ChipChoiceModel> sports = [
   ChipChoiceModel(label: 'Yoga', icon: Icons.sports_score),
   ChipChoiceModel(label: 'Running', icon: Icons.sports_score),
-  ChipChoiceModel(label: 'Cricket', icon: Icons.sports_score),
+  ChipChoiceModel(label: 'Tennis', icon: Icons.sports_score),
   ChipChoiceModel(label: 'Football', icon: Icons.sports_score),
   ChipChoiceModel(label: 'BasketBall', icon: Icons.sports_score),
   ChipChoiceModel(label: 'Soccer', icon: Icons.sports_score),
@@ -72,14 +72,9 @@ List<ChipChoiceModel> music = [
   ChipChoiceModel(label: 'Country', icon: Icons.music_note_rounded),
   ChipChoiceModel(label: 'Desi', icon: Icons.music_note_rounded),
   ChipChoiceModel(label: 'Jazz', icon: Icons.music_note_rounded),
-  ChipChoiceModel(label: 'Afro-beat', icon: Icons.music_note_rounded),
-  ChipChoiceModel(label: 'Afro-pop', icon: Icons.music_note_rounded),
-  ChipChoiceModel(label: 'Rap', icon: Icons.music_note_rounded),
-  ChipChoiceModel(label: 'Indie', icon: Icons.music_note_rounded),
   ChipChoiceModel(label: 'Pop', icon: Icons.music_note_rounded),
   ChipChoiceModel(label: 'EDM', icon: Icons.music_note_rounded),
   ChipChoiceModel(label: 'Funk', icon: Icons.music_note_rounded),
-  ChipChoiceModel(label: 'K-pop', icon: Icons.music_note_rounded),
 ];
 
 List<ChipChoiceModel> goingOut = [
@@ -112,7 +107,7 @@ List<ChipChoiceModel> filmTv = [
   ChipChoiceModel(label: 'Thriller', icon: Icons.tv),
   ChipChoiceModel(label: 'Fantasy', icon: Icons.tv),
   ChipChoiceModel(label: 'Sci fi', icon: Icons.tv),
-  ChipChoiceModel(label: 'Anime', icon: Icons.tv),
+  ChipChoiceModel(label: 'Adventure', icon: Icons.tv),
 ];
 
 List<String> starSigns = [
@@ -182,9 +177,11 @@ List<String> timeForChildrenOptions = [
   "After 3 years of marriage.",
   "Whenever it happens",
 ];
-List<String> howManyChildrenOptions = [
+List<String> doYouhaveChildrenOptions = [
   "Yes",
   "No",
+];
+List<String> howManyChildrenOptions = [
   "1 child",
   "2 children",
   "3 children",
@@ -291,18 +288,13 @@ List<FeatureModel> features = [
 List<String> languages = [
   'English',
   'Spanish',
-  'Arabic',
-  'German',
-  'Deutsch',
+  'German'
   'Portuguese',
-  'Greek',
-  'Hebrew',
+  'French',
+
   'Italian',
   'Japanese',
-  'Russian',
-  'Swedish',
-  'Taiwanese'
-      'Turkish'
+
 ];
 
 List<ChipChoiceModel> myLanguage = [
