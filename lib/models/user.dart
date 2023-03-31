@@ -343,7 +343,6 @@ class UserData {
       about: this.about!);
 
   static generateData() {
-
-
+    // Null
   }
 }
