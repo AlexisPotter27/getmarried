@@ -29,6 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     //     (event, emit) => add(PhoneNumberSigninEvent(event.credential)));
     on<PhoneNumberSigninEvent>(_mapPhoneNumberSignin);
     on<GoogleSigninEvent>(_mapGoogleSigninEventToState);
+    on<AppleSigninEvent>(_mapAppleSigninEventToState);
     on<FacebookSigninEvent>(_mapFaceBookSigninEventToState);
     on<UpdateUserEvent>(_mapUpdateUserEventToState);
     on<DeleteUserEvent>(_mapDeleteUserEventToState);
@@ -173,6 +174,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(FacebookSignInFailedState(e.code));
     } catch (e) {
       emit(FacebookSignInFailedState(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapAppleSigninEventToState(
+      AppleSigninEvent event, Emitter<AuthState> emit) async {
+    emit(AppleSignInLoadingState());
+
+    try {
+      ApiResponse response = await authRepository.signInWithAppleId();
+      if (response.error == null) {
+        emit(AppleSignInSuccessState(response.data));
+      } else {
+        emit(AppleSignInFailureState(response.error.toString()));
+      }
+    } on FirebaseAuthException catch (e) {
+      emit(AppleSignInFailureState(e.code));
+    } catch (e) {
+      emit(AppleSignInFailureState(e.toString()));
     }
   }
 }

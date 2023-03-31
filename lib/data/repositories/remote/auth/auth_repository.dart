@@ -21,6 +21,7 @@ abstract class AuthRepository {
 
   Future<ApiResponse> signinUser(String uid);
   Future<ApiResponse> signInWithGoogle();
+  Future<ApiResponse> signInWithAppleId();
   Future<ApiResponse> signInWithFacebook();
   Future<ApiResponse> deleteUser(String uid);
 

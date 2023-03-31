@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/data/repositories/remote/chat/chat_repository_impl.dart';
+import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/models/user.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/blocs/chat/chat_bloc.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/home/match_card.dart';
@@ -44,14 +46,14 @@ class _HomeTabState extends State<HomeTab> {
         children: [
           Row(
             children: [
-              IconButton(
-                  onPressed: () {
-                    // scaffoldKey.currentState!.openDrawer();
-                  },
-                  icon: const Icon(
-                    Icons.menu,
-                    size: 30,
-                  )),
+              // IconButton(
+              //     onPressed: () {
+              //       // scaffoldKey.currentState!.openDrawer();
+              //     },
+              //     icon: const Icon(
+              //       Icons.menu,
+              //       size: 30,
+              //     )),
               Expanded(
                   child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -88,9 +90,7 @@ class _HomeTabState extends State<HomeTab> {
             bloc: chatBloc,
             listener: (context, state) {
               if (state is UsersFetchedState) {
-                setState(() {
-                  items = state.users;
-                });
+                sortUsers(state.users);
               }
             },
             builder: (context, state) {
@@ -126,7 +126,7 @@ class _HomeTabState extends State<HomeTab> {
                 );
               }
               return Expanded(
-                child: Stack(
+                child: items.isNotEmpty? Stack(
                   children: [
                     Stack(
                       children: [
@@ -137,7 +137,9 @@ class _HomeTabState extends State<HomeTab> {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                               const SizedBox(height: 100,),
+                                const SizedBox(
+                                  height: 100,
+                                ),
                                 const Text('You are caught up'),
                                 const SizedBox(
                                   height: 16,
@@ -185,7 +187,6 @@ class _HomeTabState extends State<HomeTab> {
                                     user: items[index],
                                   ),
                                 )).reversed.toList().reversed.toList(),
-
                       ],
                     ),
                     Center(
@@ -230,7 +231,33 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                     ),
                   ],
-                ),
+                ):Center(child:   Container(
+                  decoration: const BoxDecoration(),
+                  alignment: Alignment.center,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(
+                          height: 100,
+                        ),
+                        const Text('You have not matches yet,'),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        SizedBox(
+                          width: 100,
+                          child: PrimaryButton(
+                            onPressed: () {
+                              chatBloc.add(GetUsersEvent());
+                            },
+                            child: const Text('Refresh'),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ) ,),
               );
             },
           )
@@ -245,6 +272,16 @@ class _HomeTabState extends State<HomeTab> {
       disLikeButtonOffset = Offset((deviceWidth() / 2) + 50, 0);
       likeScale = 0.5;
       disLikeScale = 0.5;
+    });
+  }
+
+  void sortUsers(List<UserData> fetchedUsers) {
+    UserData user = getIt.get<CacheCubit>().user!;
+
+    setState(() {
+      items = fetchedUsers
+          .where((element) => element.gender != user.gender)
+          .toList();
     });
   }
 }

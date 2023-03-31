@@ -222,7 +222,8 @@ class _VerifyState extends State<Verify> {
                       }
                     })
                   ],
-                )
+                ),
+                SizedBox(height: 20,)
               ],
             ),
           );

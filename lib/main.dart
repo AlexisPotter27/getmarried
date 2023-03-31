@@ -22,8 +22,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   injector.init();
-  await Firebase.initializeApp();
-  Future.delayed(const Duration(milliseconds: 300));
+  // await Firebase.initializeApp(
+  //
+  // );
+  // Future.delayed(const Duration(milliseconds: 300));
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

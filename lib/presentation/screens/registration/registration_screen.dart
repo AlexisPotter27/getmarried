@@ -45,12 +45,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             Navigator.pop(context);
             getIt.get<CacheCubit>().updateUser(state.userData);
 
-            Navigator.pushAndRemoveUntil(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const BuildProfileOnboard(),
-                ),
-                (route) => true);
+                ));
           }
           if (state is UpdateUserFailureState) {
             Navigator.pop(context);
@@ -197,6 +196,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       // AddPhotosScreen(),
                     ],
                   )),
+                  SizedBox(height: 50,)
                 ],
               ),
             ),

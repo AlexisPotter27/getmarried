@@ -131,9 +131,9 @@ class _AddPhotosScreenState extends State<AddPhotosScreen>
                               height: 400,
                               color: Colors.white,
                               alignment: Alignment.center,
-                              child: image1 != null
-                                  ? Image.file(
-                                      io.File(image1.toString()),
+                              child: imageUrls.isNotEmpty
+                                  ? Image.network(
+                                imageUrls[0],
                                       fit: BoxFit.cover,
                                     )
                                   : const Icon(Icons.add),

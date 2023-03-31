@@ -51,6 +51,7 @@ class _AboutYouScreenState extends State<AboutYouScreen> {
                 focusNode: FocusNode(),
                 maxLines: 9,
                 controller: _aboutController,
+                keyboardType: TextInputType.text,
                 hintText: 'Enter more about you',
               )
             ],

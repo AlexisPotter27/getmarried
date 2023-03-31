@@ -47,15 +47,15 @@ class _ProfileTabState extends State<ProfileTab> {
                 ),
               ),
 
-              leading: GestureDetector(
-                  onTap: () {
-                    // scaffoldKey.currentState!.openDrawer();
-                  },
-                  child: const Icon(
-                    Icons.menu,
-                    color: Colors.grey,
-                    size: 25,
-                  )),
+              // leading: GestureDetector(
+              //     onTap: () {
+              //       // scaffoldKey.currentState!.openDrawer();
+              //     },
+              //     child: const Icon(
+              //       Icons.menu,
+              //       color: Colors.grey,
+              //       size: 25,
+              //     )),
               elevation: 0,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               pinned: true,
@@ -135,10 +135,10 @@ class _ProfileTabState extends State<ProfileTab> {
                               'Complete my profile',
                               style: TextStyle(
                                 fontSize: 13,
-                                color: Colors.grey,
+                                color: Colors.white,
                               ),
                             ),
-                            backgroundColor: Colors.grey.shade300,
+                            backgroundColor: primaryColour,
                           ),
                         ),
                       ),
@@ -179,8 +179,8 @@ class _ProfileTabState extends State<ProfileTab> {
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             child: SubscriptionCard(
                               tittle: '50% off Premium',
-                              description: 'Offer ends in 12:12:27',
-                              buttonText: 'Upgrade for ONLY \$9 /mo.',
+                              description: 'Free for first 500 users',
+                              buttonText: 'Upgrade for ONLY \$45 /mo.',
                             ),
                           ),
                           SubscriptionCard(
@@ -195,8 +195,8 @@ class _ProfileTabState extends State<ProfileTab> {
                                   Colors.cyan,
                                 ]),
                             description:
-                                'More chances to match with extra features to boost your profile',
-                            buttonText: 'Upgrade for ONLY \$18 /mo.',
+                                'Free for first 500 users',
+                            buttonText: 'Upgrade for ONLY \$45 /mo.',
                           ),
                         ],
                       ),

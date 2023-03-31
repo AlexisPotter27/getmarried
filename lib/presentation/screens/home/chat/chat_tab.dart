@@ -22,6 +22,7 @@ class ChatTab extends StatefulWidget {
 class _ChatTabState extends State<ChatTab> {
   ChatBloc chatBloc = ChatBloc(ChatRepositoryImpl());
   UserData userData = getIt.get<CacheCubit>().user!;
+  List<UserData> items = [];
 
   @override
   void initState() {
@@ -42,22 +43,21 @@ class _ChatTabState extends State<ChatTab> {
           ),
         ),
 
-        leading: GestureDetector(
-            onTap: () {
-              // scaffoldKey.currentState!.openDrawer();
-            },
-            child: const Icon(
-              Icons.menu,
-              color: Colors.grey,
-              size: 25,
-            )),
+        // leading: GestureDetector(
+        //     onTap: () {
+        //       // scaffoldKey.currentState!.openDrawer();
+        //     },
+        //     child: const Icon(
+        //       Icons.menu,
+        //       color: Colors.grey,
+        //       size: 25,
+        //     )),
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
         // floating: true,
 
         actions: [
-
           GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -86,7 +86,11 @@ class _ChatTabState extends State<ChatTab> {
                     curr is UsersLoadingState ||
                     curr is UsersFetchedState ||
                     curr is UsersErrorState,
-                listener: (context, state) {},
+                listener: (context, state) {
+                  if (state is UsersFetchedState) {
+                    sortUsers(state.users);
+                  }
+                },
                 builder: (context, state) {
                   if (state is UsersLoadingState) {
                     return const Center(
@@ -97,12 +101,12 @@ class _ChatTabState extends State<ChatTab> {
                     );
                   }
                   if (state is UsersFetchedState) {
-                    if (state.users.isNotEmpty) {
+                    if (items.isNotEmpty) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('SelectUser to start chat'),
+                          Text('Mutual matches'),
                           SizedBox(
                             height: 25,
                           ),
@@ -110,7 +114,7 @@ class _ChatTabState extends State<ChatTab> {
                             height: 70,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: state.users.length,
+                              itemCount: items.length,
                               itemBuilder: (context, index) => GestureDetector(
                                   onTap: () {
                                     // chatBloc.add(GetConversationEvent());
@@ -119,8 +123,7 @@ class _ChatTabState extends State<ChatTab> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => MessagingScreen(
-                                            userData:
-                                                state.users[index].toChatUser(),
+                                            userData: items[index].toChatUser(),
                                           ),
                                         ));
                                   },
@@ -223,5 +226,15 @@ class _ChatTabState extends State<ChatTab> {
         ),
       ),
     );
+  }
+
+  void sortUsers(List<UserData> fetchedUsers) {
+    UserData user = getIt.get<CacheCubit>().user!;
+
+    setState(() {
+      items = fetchedUsers
+          .where((element) => element.gender != user.gender)
+          .toList();
+    });
   }
 }

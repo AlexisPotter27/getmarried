@@ -142,7 +142,7 @@ class GoogleSignInSuccessState extends AuthState {
   const GoogleSignInSuccessState(this.user);
 }
 
-class  GoogleSignInFailureState extends AuthState {
+class GoogleSignInFailureState extends AuthState {
   final String error;
 
   @override
@@ -150,7 +150,6 @@ class  GoogleSignInFailureState extends AuthState {
 
   const GoogleSignInFailureState(this.error);
 }
-
 
 class FacebookSignInLoadingState extends AuthState {
   @override
@@ -175,4 +174,30 @@ class FacebookSignInFailedState extends AuthState {
   List<Object> get props => [error];
 
   const FacebookSignInFailedState(this.error);
+}
+
+
+class AppleSignInLoadingState extends AuthState {
+  @override
+  List<Object> get props => [];
+
+  const AppleSignInLoadingState();
+}
+
+class AppleSignInSuccessState extends AuthState {
+  final UserData user;
+
+  @override
+  List<Object> get props => [];
+
+  const AppleSignInSuccessState(this.user);
+}
+
+class AppleSignInFailureState extends AuthState {
+  final String error;
+
+  @override
+  List<Object> get props => [error];
+
+  const AppleSignInFailureState(this.error);
 }

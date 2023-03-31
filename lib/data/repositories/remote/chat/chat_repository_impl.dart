@@ -62,7 +62,7 @@ class ChatRepositoryImpl extends ChatRepository {
   Future<ApiResponse> getUsers() async {
     try {
       QuerySnapshot<Map<String, dynamic>> snapshot =
-          await db.collection(FirebaseKeys.users).get();
+          await db.collection(FirebaseKeys.users).where('gender').get();
       List<UserData> users =
           snapshot.docs.map((e) => UserData.fromJson(e.data())).toList();
       return ApiResponse(data: users, error: null);
@@ -117,13 +117,13 @@ class ChatRepositoryImpl extends ChatRepository {
   }
 
   @override
-  Future<ApiResponse<List<Conversation>,dynamic>> getMessageWithId(
+  Future<ApiResponse<List<Conversation>, dynamic>> getMessageWithId(
       {required String user1, required String user2}) async {
     try {
       QuerySnapshot<Map<String, dynamic>> data = await db
           .collection(FirebaseKeys.conversation)
           .where('id', whereIn: ['$user1-$user2', '$user2-$user1']).get();
-      return ApiResponse<List<Conversation>,dynamic>(
+      return ApiResponse<List<Conversation>, dynamic>(
           data: data.docs.map((e) => Conversation.fromJson(e.data())).toList(),
           error: null);
     } on FirebaseException catch (e) {

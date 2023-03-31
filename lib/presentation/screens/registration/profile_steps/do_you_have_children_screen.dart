@@ -4,25 +4,25 @@ import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-class HowManyChildrenScreen extends StatefulWidget {
-  const HowManyChildrenScreen(
+class DoYouHaveChildrenScreen extends StatefulWidget {
+  const DoYouHaveChildrenScreen(
       {Key? key, required this.onComplete, required this.onPrev})
       : super(key: key);
   final Function(String? children) onComplete;
   final Function onPrev;
 
   @override
-  State<HowManyChildrenScreen> createState() => _HowManyChildrenScreenState();
+  State<DoYouHaveChildrenScreen> createState() => _DoYouHaveChildrenScreenState();
 }
 
-class _HowManyChildrenScreenState extends State<HowManyChildrenScreen> {
+class _DoYouHaveChildrenScreenState extends State<DoYouHaveChildrenScreen> {
   String value = '';
   late List<String> options;
 
   @override
   void initState() {
     super.initState();
-    options = howManyChildrenOptions;
+    options = doYouhaveChildrenOptions;
   }
 
   @override
@@ -46,7 +46,7 @@ class _HowManyChildrenScreenState extends State<HowManyChildrenScreen> {
                 height: 10,
               ),
               const Text(
-                'How many children do you want',
+                'Do you have children ?',
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
