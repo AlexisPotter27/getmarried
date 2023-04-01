@@ -23,106 +23,108 @@ class _PartnersBodyTypeState extends State<PartnersBodyType> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              const Icon(
-                Icons.fitness_center_outlined,
-                size: 25,
-                color: Colors.black,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Text(
-                'What is your ideal partners\nbody type ?',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomRadioTile<String>(
-                onSubtitleClicked: () {},
-                toggleSubtitle: false,
-                value: 'slim',
-                groupValue: value,
-                tittle: 'Slim',
-                onChanged: (val) {
-                  setState(() {
-                    value = val;
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              CustomRadioTile<String>(
-                onSubtitleClicked: () {},
-                toggleSubtitle: false,
-                value: 'athletic',
-                groupValue: value,
-                tittle: 'Athletic',
-                onChanged: (val) {
-                  setState(() {
-                    value = val;
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              CustomRadioTile<String>(
-                onSubtitleClicked: () {},
-                toggleSubtitle: false,
-                value: 'average',
-                groupValue: value,
-                tittle: 'Average',
-                onChanged: (val) {
-                  setState(() {
-                    value = val;
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              CustomRadioTile<String>(
-                onSubtitleClicked: () {},
-                toggleSubtitle: false,
-                value: 'slightly overweight',
-                groupValue: value,
-                tittle: 'Slightly Overweight',
-                onChanged: (val) {
-                  setState(() {
-                    value = val;
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              CustomRadioTile<String>(
-                onSubtitleClicked: () {},
-                toggleSubtitle: false,
-                value: 'doesnt matter',
-                groupValue: value,
-                tittle: 'It doesn\'t matter to me ',
-                onChanged: (val) {
-                  setState(() {
-                    value = val;
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                const Icon(
+                  Icons.fitness_center_outlined,
+                  size: 25,
+                  color: Colors.black,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  'What is your ideal partners\nbody type ?',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomRadioTile<String>(
+                  onSubtitleClicked: () {},
+                  toggleSubtitle: false,
+                  value: 'slim',
+                  groupValue: value,
+                  tittle: 'Slim',
+                  onChanged: (val) {
+                    setState(() {
+                      value = val;
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                CustomRadioTile<String>(
+                  onSubtitleClicked: () {},
+                  toggleSubtitle: false,
+                  value: 'athletic',
+                  groupValue: value,
+                  tittle: 'Athletic',
+                  onChanged: (val) {
+                    setState(() {
+                      value = val;
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                CustomRadioTile<String>(
+                  onSubtitleClicked: () {},
+                  toggleSubtitle: false,
+                  value: 'average',
+                  groupValue: value,
+                  tittle: 'Average',
+                  onChanged: (val) {
+                    setState(() {
+                      value = val;
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                CustomRadioTile<String>(
+                  onSubtitleClicked: () {},
+                  toggleSubtitle: false,
+                  value: 'slightly overweight',
+                  groupValue: value,
+                  tittle: 'Slightly Overweight',
+                  onChanged: (val) {
+                    setState(() {
+                      value = val;
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                CustomRadioTile<String>(
+                  onSubtitleClicked: () {},
+                  toggleSubtitle: false,
+                  value: 'doesnt matter',
+                  groupValue: value,
+                  tittle: 'It doesn\'t matter to me ',
+                  onChanged: (val) {
+                    setState(() {
+                      value = val;
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+              ],
+            ),
           ),
         ),
         Row(

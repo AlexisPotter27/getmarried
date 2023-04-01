@@ -78,7 +78,7 @@ class _ProfileTabState extends State<ProfileTab> {
                       ),
                     )),
               ],
-              expandedHeight: 270,
+              expandedHeight: 290,
               collapsedHeight: 60,
               flexibleSpace: FlexibleSpaceBar(
                   collapseMode: CollapseMode.none,
@@ -89,9 +89,13 @@ class _ProfileTabState extends State<ProfileTab> {
                       ),
                       Center(
                         child: CircleAvatar(
-                          radius: 50,
-                          backgroundImage: NetworkImage(
-                            getIt.get<CacheCubit>().user!.photos![0].toString(),
+                          backgroundColor: primaryColour,
+                          radius: 63,
+                          child: CircleAvatar(
+                            radius: 60,
+                            backgroundImage: NetworkImage(
+                              getIt.get<CacheCubit>().user!.photos![0].toString(),
+                            ),
                           ),
                         ),
                       ),
@@ -114,11 +118,11 @@ class _ProfileTabState extends State<ProfileTab> {
                             const SizedBox(
                               width: 10,
                             ),
-                            const Icon(
-                              Icons.security,
-                              size: 16,
-                              color: Colors.grey,
-                            )
+                            // const Icon(
+                            //   Icons.security,
+                            //   size: 16,
+                            //   color: Colors.grey,
+                            // )
                           ],
                         ),
                       ),
@@ -153,15 +157,15 @@ class _ProfileTabState extends State<ProfileTab> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
-                    Row(
-                      children: const [
-                        Expanded(child: CardTile()),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(child: CardTile())
-                      ],
-                    ),
+                    // Row(
+                    //   children: const [
+                    //     Expanded(child: CardTile()),
+                    //     SizedBox(
+                    //       width: 10,
+                    //     ),
+                    //     Expanded(child: CardTile())
+                    //   ],
+                    // ),
                     const SizedBox(
                       height: 16,
                     ),
@@ -180,6 +184,7 @@ class _ProfileTabState extends State<ProfileTab> {
                             child: SubscriptionCard(
                               tittle: '50% off Premium',
                               description: 'Free for first 500 users',
+                              // bgImage: 'assets/upgrade_bg.jpeg',
                               buttonText: 'Upgrade for ONLY \$45 /mo.',
                             ),
                           ),

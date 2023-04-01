@@ -61,7 +61,7 @@ class GoogleSigninEvent extends AuthEvent {
 
 class UpdateUserEvent extends AuthEvent {
   final UserData userData;
-  List<File>? images;
+  List<XFile>? images;
 
   UpdateUserEvent(this.userData, {this.images = const []});
 }
@@ -73,7 +73,7 @@ class DeleteUserEvent extends AuthEvent {
 }
 
 class UpdateUserImageEvent extends AuthEvent {
-  List<File>? images;
+  List<XFile>? images;
 
   UpdateUserImageEvent({this.images = const []});
 }

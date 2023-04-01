@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/data/repositories/remote/auth/auth_repository.dart';
 import 'package:getmarried/models/user.dart';
+import 'package:image_picker/image_picker.dart';
 
 part 'auth_event.dart';
 

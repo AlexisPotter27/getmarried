@@ -203,7 +203,12 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                         prevPage(11);
                       }, onComplete: (children) {
                         userData?.children = children;
-                        switchPage(13);
+                        if (children == "Want someday" ||
+                            children == 'Have and want more') {
+                          switchPage(13);
+                        } else {
+                          switchPage(16);
+                        }
                       }),
                       TimeForChildrenScreen(onPrev: () {
                         prevPage(12);
@@ -211,71 +216,77 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                         // userData?.children = children;
                         switchPage(14);
                       }),
-                      DoYouHaveChildrenScreen(onPrev: () {
+                      // DoYouHaveChildrenScreen(onPrev: () {
+                      //   prevPage(13);
+                      // }, onComplete: (children) {
+                      //   // userData?.children = children;
+                      //   switchPage(15);
+                      // }),
+                      HowManyChildrenScreen(onPrev: () {
                         prevPage(13);
                       }, onComplete: (children) {
-                        // userData?.children = children;
+                        userData?.children = children;
                         switchPage(15);
                       }),
-                      HowManyChildrenScreen(onPrev: () {
-                        prevPage(14);
-                      }, onComplete: (children) {
-                        userData?.children = children;
-                        switchPage(16);
-                      }),
                       ReligionScreen(onPrev: () {
-                        prevPage(15);
+                        if (userData?.children == "Want someday" ||
+                            userData?.children == 'Have and want more') {
+                          prevPage(12);
+                        } else {
+                          prevPage(14);
+                        }
+                        prevPage(14);
                       }, onComplete: (religion) {
                         userData?.religion = religion;
-                        switchPage(17);
+                        switchPage(16);
                       }),
                       PartnersReligion(onPrev: () {
-                        prevPage(16);
+                        prevPage(15);
                       }, onComplete: (pReligion) {
                         userData?.partnerReligion = pReligion;
-                        switchPage(18);
+                        switchPage(17);
                       }),
                       PoliticalLeaningsscreen(onPrev: () {
-                        prevPage(17);
+                        prevPage(16);
                       }, onComplete: (politics) {
                         userData?.political = politics;
-                        switchPage(19);
+                        switchPage(18);
                       }),
                       EthnicGroup(onPrev: () {
-                        prevPage(18);
+                        prevPage(17);
                       }, onComplete: (ethnicGroup) {
                         userData?.ethnicity = ethnicGroup;
-                        switchPage(20);
+                        switchPage(19);
                       }),
                       PartnersEthnicity(onPrev: () {
-                        prevPage(19);
+                        prevPage(18);
                       }, onComplete: (pEthnicity) {
                         userData?.partnerEthnicity = pEthnicity;
-                        switchPage(21);
+                        switchPage(20);
                       }),
                       PlanningEvent(onPrev: () {
-                        prevPage(20);
+                        prevPage(19);
                       }, onComplete: (eventType) {
-                        switchPage(22);
+                        switchPage(21);
                         userData?.potentialEvent = eventType;
                       }),
                       Understanding(onPrev: () {
-                        prevPage(21);
+                        prevPage(20);
                       }, onComplete: (understanding) {
                         userData?.understanding = understanding;
-                        switchPage(23);
+                        switchPage(22);
                       }),
                       Outgoing(onPrev: () {
-                        prevPage(22);
+                        prevPage(21);
                       }, onComplete: (outgoing) {
                         userData?.outgoing = outgoing;
-                        switchPage(24);
+                        switchPage(23);
                       }),
                       Ambitious(onPrev: () {
-                        prevPage(23);
+                        prevPage(22);
                       }, onComplete: (ambitious) {
                         userData?.ambitious = ambitious;
-                        switchPage(25);
+                        switchPage(24);
                       }),
 
                       // Athletic(onPrev: () {
@@ -291,16 +302,16 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                       //   switchPage(25);
                       // }),
                       Relationship(onPrev: () {
-                        prevPage(24);
+                        prevPage(23);
                       }, onComplete: (relationShip) {
                         userData?.sexInRelationship = relationShip;
-                        switchPage(26);
+                        switchPage(25);
                       }),
                       Monogamy(onPrev: () {
-                        prevPage(25);
+                        prevPage(24);
                       }, onComplete: (monogamy) {
                         userData?.monogamy = monogamy;
-                        switchPage(27);
+                        switchPage(26);
                       }),
                       // Creativity(onPrev: () {
                       //   prevPage(26);
@@ -309,7 +320,7 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                       //   switchPage(28);
                       // }),
                       AboutYouScreen(onPrev: () {
-                        prevPage(26);
+                        prevPage(25);
                       }, onComplete: (about) {
                         userData?.about = about;
                         authBloc.add(UpdateUserEvent(userData!.copyWith(
@@ -334,14 +345,14 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
   void switchPage(int to) {
     setState(() {
       _pageController.jumpToPage(to);
-      progress += 0.036;
+      progress = 0.036 * to;
     });
   }
 
   void prevPage(int to) {
     setState(() {
       _pageController.jumpToPage(to);
-      progress -= 0.04;
+      progress = 0.036 * to;
     });
   }
 

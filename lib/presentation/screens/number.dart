@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
@@ -230,13 +231,13 @@ class _PhoneState extends State<Phone> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(0.0),
                                         child: Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          //padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.2,
+                                          // width:
+                                          //     MediaQuery.of(context).size.width,
+                                          // //padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                                          // height: MediaQuery.of(context)
+                                          //         .size
+                                          //         .height *
+                                          //     0.2,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius:
@@ -347,7 +348,8 @@ class _PhoneState extends State<Phone> {
                       },
                     )
                   ],
-                )
+                ),
+                SizedBox(height: kIsWeb? 30:0,)
               ],
             ),
           );

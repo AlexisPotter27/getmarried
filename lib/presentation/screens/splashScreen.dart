@@ -28,9 +28,9 @@ class _SplashscreenState extends State<Splashscreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
-              'assets/logo.png',
-              height: 200,
-              width: 200,
+              'assets/ilogo.png',
+              height: 70,
+              width: 70,
             ),
             SizedBox(
               height: 16,

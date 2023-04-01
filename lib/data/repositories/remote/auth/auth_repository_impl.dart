@@ -13,6 +13,7 @@ import 'package:getmarried/helper/app_utils.dart' as utils;
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/screens/number.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import 'auth_repository.dart';
@@ -39,6 +40,25 @@ class AuthRepositoryImpl extends AuthRepository {
     log('Only Number: $phoneController');
     log('Country Code: $countryCode');
 
+    if (kIsWeb) {
+      try {
+        ConfirmationResult result = await auth
+            .signInWithPhoneNumber(
+              number,
+          // RecaptchaVerifier(auth: )
+            )
+            .onError((error, stackTrace) => onVerificationFailed(
+                FirebaseAuthException(code: error.toString())));
+        onCodeSent(result.verificationId, 0);
+
+        // await  result.confirm(verificationCode);
+
+      } on Exception catch (e) {
+        // TODO
+      }
+
+      // result.confirm(verificationCode)
+    }
     auth.verifyPhoneNumber(
         phoneNumber: number,
         // autoRetrievedSmsCodeForTesting: ,
@@ -147,7 +167,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<ApiResponse> updateUser(UserData userData, List<File>? images) async {
+  Future<ApiResponse> updateUser(UserData userData, List<XFile>? images) async {
     if (images != null && images.isNotEmpty) {
       ApiResponse imageUploadResponse = await uploadUserImages(images);
       if (imageUploadResponse.error == null) {
@@ -183,14 +203,21 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<ApiResponse> uploadUserImages(List<File>? files) async {
+  Future<ApiResponse> uploadUserImages(List<XFile>? files) async {
     List<String> images = [];
     try {
-      for (File file in files ?? []) {
+      for (XFile file in files ?? []) {
         Reference imageRef = storage
             .ref(FirebaseKeys.userImages)
             .child(DateTime.now().toIso8601String());
-        await imageRef.putFile(file);
+        if (kIsWeb) {
+          await imageRef.putData(
+            await file.readAsBytes(),
+            SettableMetadata(contentType: 'image/jpeg}'),
+          );
+        } else {
+          await imageRef.putFile(File(file.path));
+        }
         images.add(await imageRef.getDownloadURL());
         // task.whenComplete(() {
         //

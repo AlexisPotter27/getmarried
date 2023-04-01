@@ -1,0 +1,105 @@
+import 'package:flutter/material.dart';
+import 'package:getmarried/constants/storage_keys.dart';
+import 'package:getmarried/helper/storage_helper.dart';
+import 'package:getmarried/presentation/screens/registration/signin_screen.dart';
+import 'package:getmarried/widgets/reigistration/indicator.dart';
+import 'package:getmarried/widgets/reigistration/onboading_button.dart';
+import 'package:getmarried/widgets/reigistration/onboardinng_item.dart';
+
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({Key? key}) : super(key: key);
+
+  @override
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  int _currentIndex = 0;
+  double progress = 0.5;
+
+  final _pageController = PageController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Column(
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.75,
+          child: PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
+                setState(() {
+                  if (index < _currentIndex) {
+                    progress -= 0.5;
+                  } else {
+                    progress += 0.5;
+                  }
+                  _currentIndex = index;
+                });
+              },
+              children: const [
+                OnboardingItem(
+                  img: 'assets/connected1.png',
+                  header: 'Getmarried App',
+                  text:
+                      'Is designed to all that are seriously looking to GetMarried! The first 500 subscribers are FREE NOW! ',
+                ),
+                OnboardingItem(
+                  img: 'assets/connected2.png',
+                  header: 'Join us today !',
+                  text:
+                      'Once the first 500 are added the subscription will cost a yearly flat fee of \$250',
+                ),
+
+              ]),
+        ),
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Indicator(
+                        seledtedIndex: _currentIndex,
+                        items_count: 2,
+                      ),
+                      OnboardingButton(
+                          onTap: () {
+                            switchPage();
+                          },
+                          progress: progress),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ));
+  }
+
+  void switchPage() {
+    if (_currentIndex == 1) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SigninScreen(),
+          ));
+      StorageHelper.setBoolean(StorageKeys.isFirstTime, false);
+    }
+    setState(() {
+      _pageController.jumpToPage(_currentIndex + 1);
+    });
+  }
+}

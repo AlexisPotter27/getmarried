@@ -53,7 +53,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
       cursorHeight: 24,
       focusNode: widget.focusNode,
       maxLines: widget.maxLines,
-      style: const TextStyle(color: Colors.black),
+      style: const TextStyle(color: Colors.black,fontSize: 13 ),
       decoration: inputDecoration(context).copyWith(
           hintText: widget.hintText,
           prefixIcon: widget.prefixIcon,
