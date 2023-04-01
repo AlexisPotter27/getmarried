@@ -52,7 +52,6 @@ void main() async {
         store: Store.googlePlay,
         apiKey: googleApiKey,
       );
-
   }else {
     StoreConfig(
       store: Store.appleStore,
@@ -62,9 +61,6 @@ void main() async {
   runApp(MyApp(
     firstScreen: firstScreen,
   ));
-
-
-
 }
 
 class MyApp extends StatelessWidget {
