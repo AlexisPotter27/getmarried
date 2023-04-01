@@ -193,20 +193,24 @@ class _ChatTabState extends State<ChatTab> {
                           ),
                         );
                       } else {
-                        return Center(
-                          child: Column(
-                            children: [
-                              Text('You have no conversations'),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              PrimaryButton(
-                                  child: Text('Refresh'),
-                                  onPressed: () {
-                                    chatBloc.add(
-                                        GetConversationEvent(userData.uid!));
-                                  })
-                            ],
+                        return Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text('You have no conversations'),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                PrimaryButton(
+                                    child: Text('Refresh'),
+                                    onPressed: () {
+                                      chatBloc.add(
+                                          GetConversationEvent(userData.uid!));
+                                    })
+                              ],
+                            ),
                           ),
                         );
                       }

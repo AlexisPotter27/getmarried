@@ -9,7 +9,7 @@ import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/helper/storage_helper.dart';
 import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
-import 'package:getmarried/presentation/screens/registration/onboard.dart';
+import 'package:getmarried/presentation/screens/registration/signin_screen.dart';
 import 'package:getmarried/widgets/date/settings_tile.dart';
 import 'package:getmarried/widgets/secondary_widget.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
@@ -66,7 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Onboard(),
+                  builder: (context) => SigninScreen(),
                 ));
           }
         },
@@ -243,7 +243,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Onboard(),
+                                builder: (context) => SigninScreen(),
                               ),
                               (route) => true);
                         },
@@ -269,20 +269,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onPressed: () {
                       showConfirmDialog(
                         context,
-                        tittle: 'Are you sure you want to delete this account  ?',
+                        tittle:
+                            'Are you sure you want to delete this account  ?',
                         onConfirm: () {
                           String id = FirebaseAuth.instance.currentUser!.uid;
                           authBloc.add(DeleteUserEvent(id));
                         },
                       );
-
                     }),
                 const SizedBox(
                   height: 10,
                 ),
                 TransaparentButton(
                     child: Text('Restore Purchases'),
-                    onPressed: (){
+                    onPressed: () {
                       _manageUser('restore', null);
                     })
               ],
@@ -293,8 +293,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  _manageUser(String task, String ?newAppUserID) async
-  {
+  _manageUser(String task, String? newAppUserID) async {
     setState(() {
       _isLoading = true;
     });

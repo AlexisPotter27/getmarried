@@ -6,6 +6,7 @@ import 'package:getmarried/di/injector.dart' as injector;
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/registration/build_profile_onboard.dart';
+import 'package:getmarried/presentation/screens/registration/onboarding_screen.dart';
 import 'package:getmarried/presentation/screens/registration/privacy_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_screen.dart';
 import 'package:getmarried/presentation/screens/registration/registration_steps/choose_mode.dart';
@@ -48,12 +49,11 @@ void main() async {
     );
   }*/
   if (defaultTargetPlatform == TargetPlatform.android) {
-      StoreConfig(
-        store: Store.googlePlay,
-        apiKey: googleApiKey,
-      );
-
-  }else {
+    StoreConfig(
+      store: Store.googlePlay,
+      apiKey: googleApiKey,
+    );
+  } else {
     StoreConfig(
       store: Store.appleStore,
       apiKey: appleApiKey,
@@ -62,9 +62,6 @@ void main() async {
   runApp(MyApp(
     firstScreen: firstScreen,
   ));
-
-
-
 }
 
 class MyApp extends StatelessWidget {
@@ -90,19 +87,27 @@ class MyApp extends StatelessWidget {
 Future<Widget> getFirstScreen() async {
   bool stayLogin =
       await StorageHelper.getBoolean(StorageKeys.isUserLoggedIn, false);
+  bool isFirstTime =
+  await StorageHelper.getBoolean(StorageKeys.isFirstTime, true);
   String? regStatus = await StorageHelper.getString(StorageKeys.regStatus);
 
-  if (stayLogin) {
-    if (regStatus == null) {
-      return const PrivacyScreen();
-    } else if (regStatus == '0') {
-      return const RegistrationScreen();
-    } else if (regStatus == '1') {
-      return const BuildProfileOnboard();
+  if(!isFirstTime){
+    if (stayLogin) {
+      if (regStatus == null) {
+        return const PrivacyScreen();
+      } else if (regStatus == '0') {
+        return const RegistrationScreen();
+      } else if (regStatus == '1') {
+        return const BuildProfileOnboard();
+      } else {
+        return const HomeScreen();
+      }
     } else {
-      return const HomeScreen();
+      return ChooseModeScreen(onComplete: () {});
     }
-  } else {
-    return ChooseModeScreen(onComplete: () {});
+  }else{
+    return OnboardingScreen();
   }
+
+
 }

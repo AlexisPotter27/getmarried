@@ -5,17 +5,21 @@ class SocialButton extends StatelessWidget {
   final Color textcolour;
   final String title;
   final VoidCallback ontap;
-  final Icon icons ;
+  final Icon icons;
 
-  const SocialButton({required this.colour, required this.title,required this.ontap,required this.textcolour, required this.icons});
+  const SocialButton(
+      {required this.colour, required this.title, required this.ontap, required this.textcolour, required this.icons});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: ontap,
       child: Container(
-          width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.all(10),
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
+          padding: const EdgeInsets.all(10),
 
           decoration: BoxDecoration(
               color: colour,
@@ -23,12 +27,12 @@ class SocialButton extends StatelessWidget {
 
           ),
           child: Center(
-            child:Padding(
-              padding: const EdgeInsets.only(left: 16,right: 16),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                // icons: Icons.,
+                  icons,
                   const SizedBox(width: 10,),
                   Text(
                     title,

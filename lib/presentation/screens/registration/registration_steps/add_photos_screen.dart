@@ -70,176 +70,178 @@ class _AddPhotosScreenState extends State<AddPhotosScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    'Add your first 2 photos ?',
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    '2 photos are better than 1, its our science. You can change this later.',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
-                  ),
-                  const Text(
-                    'You can add more pictures later.',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  SizedBox(
-                    height: 150,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                backgroundColor: Colors.transparent,
-                                builder: (context) => FileUploadSheet(
-                                  onImageSelected: (String? path) {
-                                    Navigator.pop(context);
-                                    setState(() {
-                                      image1 = path;
-                                    });
-                                    if (image1 != null) {
-                                      bloc.add(UpdateUserImageEvent(
-                                          images: [io.File(image1!)]));
-                                    }
-                                  },
-                                ),
-                              );
-                            },
-                            child: Container(
-                              height: 400,
-                              color: Colors.white,
-                              alignment: Alignment.center,
-                              child: imageUrls.isNotEmpty
-                                  ? Image.network(
-                                imageUrls[0],
-                                      fit: BoxFit.cover,
-                                    )
-                                  : const Icon(Icons.add),
-                              // ImagePickerCard(),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                backgroundColor: Colors.transparent,
-                                builder: (context) => FileUploadSheet(
-                                  onImageSelected: (String? path) {
-                                    Navigator.pop(context);
-                                    setState(() {
-                                      image2 = path;
-                                    });
-                                    if (image2 != null) {
-                                      bloc.add(UpdateUserImageEvent(
-                                          images: [io.File(image2!)]));
-                                    }
-                                  },
-                                ),
-                              );
-                            },
-                            child: Container(
-                              height: 400,
-                              color: Colors.white,
-                              alignment: Alignment.center,
-                              child: image2 != null
-                                  ? Image.file(
-                                      io.File(image2.toString()),
-                                      fit: BoxFit.cover,
-                                    )
-                                  : const Icon(Icons.add),
-                              // ImagePickerCard(),
-                            ),
-                          ),
-                        ),
-                        //Expanded(child: ImagePickerCard()),
-                      ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  //facebook
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 16),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
+                    const Text(
+                      'Add your first 2 photos ?',
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      '2 photos are better than 1, its our science. You can change this later.',
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white),
+                    ),
+                    const Text(
+                      'You can add more pictures later.',
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    SizedBox(
+                      height: 150,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            'Add from Facebook',
-                            style: TextStyle(fontWeight: FontWeight.w500),
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (context) => FileUploadSheet(
+                                    onImageSelected: (String? path) {
+                                      Navigator.pop(context);
+                                      setState(() {
+                                        image1 = path;
+                                      });
+                                      if (image1 != null) {
+                                        bloc.add(UpdateUserImageEvent(
+                                            images: [XFile(image1!)]));
+                                      }
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                height: 400,
+                                color: Colors.white,
+                                alignment: Alignment.center,
+                                child: imageUrls.isNotEmpty
+                                    ? Image.network(
+                                        imageUrls[0],
+                                        fit: BoxFit.cover,
+                                      )
+                                    : const Icon(Icons.add),
+                                // ImagePickerCard(),
+                              ),
+                            ),
                           ),
-                          Icon(
-                            Icons.facebook,
-                            color: Colors.blue,
-                          )
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (context) => FileUploadSheet(
+                                    onImageSelected: (String? path) {
+                                      Navigator.pop(context);
+                                      setState(() {
+                                        image2 = path;
+                                      });
+                                      if (image2 != null) {
+                                        bloc.add(UpdateUserImageEvent(
+                                            images: [XFile(image2!)]));
+                                      }
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                height: 400,
+                                color: Colors.white,
+                                alignment: Alignment.center,
+                                child: imageUrls.length>1
+                                    ? Image.network(
+                                        imageUrls[1],
+                                        fit: BoxFit.cover,
+                                      )
+                                    : const Icon(Icons.add),
+                                // ImagePickerCard(),
+                              ),
+                            ),
+                          ),
+                          //Expanded(child: ImagePickerCard()),
                         ],
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  //Instagram
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 16),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            'Add from Instagram',
-                            style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                          Image(
-                            image: AssetImage(
-                              'assets/instagram.png',
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    //facebook
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 16),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              'Add from Facebook',
+                              style: TextStyle(fontWeight: FontWeight.w500),
                             ),
-                            width: 20,
-                            height: 30,
-                          ),
-                        ],
+                            Icon(
+                              Icons.facebook,
+                              color: Colors.blue,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    //Instagram
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 16),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              'Add from Instagram',
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                            Image(
+                              image: AssetImage(
+                                'assets/instagram.png',
+                              ),
+                              width: 20,
+                              height: 30,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Column(

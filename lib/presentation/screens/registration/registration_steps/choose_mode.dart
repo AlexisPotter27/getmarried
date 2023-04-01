@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/helper/app_utils.dart';
-import 'package:getmarried/presentation/screens/registration/onboard.dart';
+import 'package:getmarried/presentation/screens/registration/signin_screen.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
@@ -187,7 +187,7 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
                       showCustomToast('Please select an option');
                     } else {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Onboard(),
+                        builder: (context) => SigninScreen(),
                       ));
                     }
 

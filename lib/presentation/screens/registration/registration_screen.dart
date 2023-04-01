@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
@@ -196,7 +197,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       // AddPhotosScreen(),
                     ],
                   )),
-                  SizedBox(height: 50,)
+                  SizedBox(height:  kIsWeb? 20:0,)
+
                 ],
               ),
             ),

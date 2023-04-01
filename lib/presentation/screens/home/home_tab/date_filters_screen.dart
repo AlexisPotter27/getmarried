@@ -57,51 +57,53 @@ class _DateFiltersScreenState extends State<DateFiltersScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(18.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DateOptionCard(
-                onValueChanged: (dates) {
-                  setState(() {
-                    user.lookingFor = dates;
-                  });
-                },
-                value: user.lookingFor ?? 'man',
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              const AgeSelectorCard(),
-              const SizedBox(
-                height: 16,
-              ),
-              SettingsTile(
-                text: 'Select languages',
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => LanguagesScreen(
-                      onLanguagesSelected: (List<dynamic> language) {},
-                    ),
-                  ));
-                },
-                tittle: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Languages they know'),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DateOptionCard(
+                  onValueChanged: (dates) {
+                    setState(() {
+                      user.lookingFor = dates;
+                    });
+                  },
+                  value: user.lookingFor ?? 'man',
                 ),
-              ),
-              SettingsTile(
-                text: 'Set advanced filters',
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const AdvancedFiltersScreen(),
-                  ));
-                },
-                tittle: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Advanced filters'),
+                const SizedBox(
+                  height: 16,
                 ),
-              )
-            ],
+                const AgeSelectorCard(),
+                const SizedBox(
+                  height: 16,
+                ),
+                SettingsTile(
+                  text: 'Select languages',
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => LanguagesScreen(
+                        onLanguagesSelected: (List<dynamic> language) {},
+                      ),
+                    ));
+                  },
+                  tittle: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Languages they know'),
+                  ),
+                ),
+                SettingsTile(
+                  text: 'Set advanced filters',
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const AdvancedFiltersScreen(),
+                    ));
+                  },
+                  tittle: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Advanced filters'),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

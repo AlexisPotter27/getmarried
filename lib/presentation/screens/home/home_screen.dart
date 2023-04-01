@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen>
           fixedColor: primaryColour,
           type: BottomNavigationBarType.fixed,
           unselectedIconTheme:
-              const IconThemeData(color: Colors.grey, size: 25),
+               IconThemeData(color: Colors.grey.shade400, size: 25),
           onTap: (index) {
             setState(() {
               _currentIndex = index;
@@ -81,15 +81,15 @@ class _HomeScreenState extends State<HomeScreen>
               const IconThemeData(color: primaryColour, size: 25),
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.solidUser),
+              icon: Icon(FontAwesomeIcons.user),
               label: 'Profile',
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.home_filled), label: 'Home'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_rounded), label: 'Like'),
+                icon: Icon(FontAwesomeIcons.heart), label: 'Like'),
             BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.solidComment), label: 'Chat'),
+                icon: Icon(FontAwesomeIcons.message), label: 'Chat'),
           ]),
     );
   }

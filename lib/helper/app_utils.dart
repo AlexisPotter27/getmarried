@@ -83,6 +83,7 @@ void showAnimatedProgressDialog(BuildContext context, {String? title}) {
 
 Future<String?> pickImage() async {
   XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
+
   if (file != null) {
     dev.log(file.path);
     return file.path;

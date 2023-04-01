@@ -147,10 +147,12 @@ class _HomeTabState extends State<HomeTab> {
                                 SizedBox(
                                   width: 100,
                                   child: PrimaryButton(
+                                    
+                                    padding: EdgeInsets.all(8),
                                     onPressed: () {
                                       chatBloc.add(GetUsersEvent());
                                     },
-                                    child: const Text('Refresh'),
+                                    child: const Text('Refresh',style: TextStyle(fontSize: 13),),
                                   ),
                                 )
                               ],

@@ -18,12 +18,13 @@ class SubscriptionCard extends StatefulWidget {
       required this.tittle,
       required this.description,
       required this.buttonText,
-      this.gradient})
+      this.gradient, this.bgImage})
       : super(key: key);
   final String tittle;
   final String description;
   final String buttonText;
   final Gradient? gradient;
+  final String? bgImage;
 
   @override
   State<SubscriptionCard> createState() => _SubscriptionCardState();
@@ -39,8 +40,9 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
       width: deviceWidth(),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: primaryColour,
+        color: widget.bgImage == null?primaryColour:null,
         borderRadius: BorderRadius.circular(16),
+          image: widget.bgImage != null? DecorationImage(image: AssetImage(widget.bgImage!,),fit: BoxFit.cover):null,
         gradient: widget.gradient,
       ),
       child: Column(

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/models/user.dart';
+import 'package:image_picker/image_picker.dart';
 
 abstract class AuthRepository {
   Future sendSms(
@@ -26,9 +27,9 @@ abstract class AuthRepository {
   Future<ApiResponse> deleteUser(String uid);
 
 
-  Future<ApiResponse> updateUser(UserData userData,List<File>? images);
+  Future<ApiResponse> updateUser(UserData userData,List<XFile>? images);
 
-  Future<ApiResponse> uploadUserImages(List<File>? files);
+  Future<ApiResponse> uploadUserImages(List<XFile>? files);
 
 // Future void signinWithPhoneNumber
 

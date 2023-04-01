@@ -15,6 +15,7 @@ import 'package:getmarried/widgets/profile_tab/chips_box.dart';
 import 'package:getmarried/widgets/profile_tab/edit_photo_staggered_view.dart';
 import 'package:getmarried/widgets/profile_tab/more_about_section.dart';
 import 'package:getmarried/widgets/profile_tab/profile_list_tile.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileSettingsScreen extends StatefulWidget {
   const ProfileSettingsScreen({Key? key}) : super(key: key);
@@ -136,7 +137,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                         if (image != null) {
                           Navigator.pop(context);
                           authBloc.add(UpdateUserEvent(cachedUser,
-                              images: [File(image)]));
+                              images: [XFile(image)]));
                         }
                       },
                     ),
@@ -337,10 +338,10 @@ class _LanguagesWidget extends StatelessWidget {
         ),
         SizedBox(
             width: MediaQuery.of(context).size.width,
-            child:  ChipsBox(
+            child: ChipsBox(
               items: user.languages!
                   .map((e) => ChipChoiceModel(
-                  label: e.toString(), icon: Icons.language))
+                      label: e.toString(), icon: Icons.language))
                   .toList(),
             )),
       ],

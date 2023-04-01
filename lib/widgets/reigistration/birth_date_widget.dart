@@ -60,6 +60,7 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
               child: CustomFormField(
                 focusNode: dayFocusNode,
                 maxLenght: 2,
+
                 hintText: 'MM',
                 keyboardType: TextInputType.number,
                 controller: widget.monthController,
