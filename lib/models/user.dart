@@ -60,6 +60,7 @@ class UserData {
     this.educationColledge,
     this.languages,
     this.dateFilters,
+    this.location,
   });
 
   String? uid;
@@ -110,6 +111,7 @@ class UserData {
   List<dynamic>? occupations;
   List<dynamic>? educationColledge;
   List<dynamic>? languages;
+  String? location;
 
   UserData copyWith({
     String? uid,
@@ -160,6 +162,7 @@ class UserData {
     List<dynamic>? occupations,
     List<dynamic>? educationColledge,
     List<dynamic>? languages,
+    String? location,
   }) =>
       UserData(
         uid: uid ?? this.uid,
@@ -211,6 +214,7 @@ class UserData {
         educationColledge: educationColledge ?? this.educationColledge,
         languages: languages ?? this.languages,
         dateFilters: dateFilters ?? this.dateFilters,
+        location: location ?? this.location,
       );
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
@@ -274,6 +278,7 @@ class UserData {
         languages: json["laguages"] == null
             ? []
             : List<dynamic>.from(json["languages"]!.map((x) => x)),
+        location: json["location"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -334,6 +339,7 @@ class UserData {
         "languages": languages == null
             ? []
             : List<dynamic>.from(languages!.map((x) => x)),
+        "location": location,
       };
 
   ChatUser toChatUser() => ChatUser(

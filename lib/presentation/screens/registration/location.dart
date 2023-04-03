@@ -3,7 +3,11 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:getmarried/presentation/screens/registration/privacy_screen.dart';
 import 'package:getmarried/widgets/button.dart';
+import '../../../di/injector.dart';
 import '../../../helper/toastMessage.dart';
+import '../../../models/user.dart';
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/cache_cubit/cache_cubit.dart';
 
 class Location extends StatefulWidget {
   const Location({Key? key}) : super(key: key);
@@ -12,13 +16,16 @@ class Location extends StatefulWidget {
   State<Location> createState() => _LocationState();
 }
 
-//Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 class _LocationState extends State<Location> {
-  String? _currentAddress;
-  Position? _currentPosition;
+
+  UserData? cachedUser = getIt.get<CacheCubit>().user;
+  AuthBloc authBloc = AuthBloc(getIt.get());
+
+  //String? _currentAddress;
+  //Position? _currentPosition;
 
   // Location Permission
-  Future<bool> _handleLocationPermission() async {
+ /* Future<bool> _handleLocationPermission() async{
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -45,14 +52,15 @@ class _LocationState extends State<Location> {
       return false;
     }
     return true;
-  }
+  }*/
 
   // Get Current Position
-  Future<void> _getCurrentPosition() async {
+ /* Future<void> _getCurrentPosition() async {
     final hasPermission = await _handleLocationPermission();
 
     if (!hasPermission) return;
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+    await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high)
         .then((Position position) {
       setState(() => _currentPosition = position);
       _getAddressFromLatLng(_currentPosition!);
@@ -60,12 +68,13 @@ class _LocationState extends State<Location> {
     }).catchError((e) {
       debugPrint(e);
     });
-  }
+  }*/
 
   // Get Address From Lat and Lng
-  Future<void> _getAddressFromLatLng(Position position) async {
-    await placemarkFromCoordinates(
-            _currentPosition!.latitude, _currentPosition!.longitude)
+  /*Future<void> _getAddressFromLatLng(Position position) async {
+        await placemarkFromCoordinates(
+            _currentPosition!.latitude,
+            _currentPosition!.longitude)
         .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
       setState(() {
@@ -74,6 +83,46 @@ class _LocationState extends State<Location> {
       });
     }).catchError((e) {
       debugPrint(e);
+    });
+  }*/
+
+  String location = 'Null';
+  String? Address;
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      return Future.error('Location Service are disabled');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    return await Geolocator.getCurrentPosition();
+  }
+
+  Future<void> getAddressFromLatLng(Position position) async {
+    List<Placemark> placemark =
+    await placemarkFromCoordinates(position.latitude, position.longitude);
+    print(placemark);
+    Placemark place = placemark[0];
+    Address = '${place.subLocality}, ${place.isoCountryCode} ';
+    setState(() {
+
     });
   }
 
@@ -146,8 +195,16 @@ class _LocationState extends State<Location> {
                   Button(
                       colour: Colors.white,
                       title: 'Enable location',
-                      ontap: () {
-                        _getCurrentPosition();
+                      ontap: () async {
+                        //_getCurrentPosition();
+                        Position position = await _determinePosition();
+                        print(position.latitude);
+                        location = '${position.latitude}, ${position.longitude}';
+                        getAddressFromLatLng(position);
+                        setState(() {
+
+                        });
+
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
