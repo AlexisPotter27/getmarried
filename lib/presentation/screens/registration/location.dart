@@ -18,8 +18,9 @@ class Location extends StatefulWidget {
 
 class _LocationState extends State<Location> {
 
-  UserData? cachedUser = getIt.get<CacheCubit>().user;
   AuthBloc authBloc = AuthBloc(getIt.get());
+  UserData? cachedUser = getIt.get<CacheCubit>().user;
+
 
   //String? _currentAddress;
   //Position? _currentPosition;
@@ -119,11 +120,12 @@ class _LocationState extends State<Location> {
     List<Placemark> placemark =
     await placemarkFromCoordinates(position.latitude, position.longitude);
     print(placemark);
+
     Placemark place = placemark[0];
     Address = '${place.subLocality}, ${place.isoCountryCode} ';
-    setState(() {
-
-    });
+    print('Location:: ${Address}');
+    cachedUser?.location = Address;
+    authBloc.add(UpdateUserEvent(cachedUser!));
   }
 
   @override
@@ -201,9 +203,6 @@ class _LocationState extends State<Location> {
                         print(position.latitude);
                         location = '${position.latitude}, ${position.longitude}';
                         getAddressFromLatLng(position);
-                        setState(() {
-
-                        });
 
                         Navigator.pushReplacement(
                             context,
