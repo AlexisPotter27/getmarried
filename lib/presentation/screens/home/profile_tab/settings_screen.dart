@@ -12,14 +12,12 @@ import 'package:getmarried/helper/storage_helper.dart';
 import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
 import 'package:getmarried/presentation/screens/registration/signin_screen.dart';
 import 'package:getmarried/widgets/date/settings_tile.dart';
-import 'package:getmarried/widgets/home/date_option_card.dart';
 import 'package:getmarried/widgets/secondary_widget.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import '../../../../models/singletons_data.dart';
 import '../../../../models/user.dart';
 import '../../../../widgets/native_dialog.dart';
 import 'package:geocoding/geocoding.dart';
-
 import '../../../blocs/cache_cubit/cache_cubit.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -32,9 +30,12 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   AuthBloc authBloc = AuthBloc(getIt.get());
   UserData user = getIt.get<CacheCubit>().user!;
+
+  UserData? cachedUser = getIt.get<CacheCubit>().user;
+
   bool _isLoading = false;
 
-  String location = 'Null';
+  String ? locate;
   String Address = 'Locating...';
 
   Future<Position> _determinePosition() async {
@@ -69,6 +70,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     print(placemark);
     Placemark place = placemark[0];
     Address = '${place.subLocality}, ${place.isoCountryCode} ';
+    cachedUser?.location = Address;
+    authBloc.add(UpdateUserEvent(cachedUser!));
     setState(() {
 
     });
@@ -215,7 +218,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                  onPressed: () async {
                     Position position = await _determinePosition();
                     print(position.latitude);
-                    location = '${position.latitude}, ${position.longitude}';
+                    locate = '${position.latitude}, ${position.longitude}';
                     getAddressFromLatLng(position);
                     setState(() {
 
@@ -229,7 +232,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     height: 25,
                     child: Row(
                       children: [
-                        Text('${Address}'),
+                        Text(getIt
+                            .get<CacheCubit>()
+                            .user!
+                            .location
+                            .toString(),),
                         SizedBox(
                           width: 8,
                         ),

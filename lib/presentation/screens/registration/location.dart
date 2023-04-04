@@ -21,72 +21,6 @@ class _LocationState extends State<Location> {
   AuthBloc authBloc = AuthBloc(getIt.get());
   UserData? cachedUser = getIt.get<CacheCubit>().user;
 
-
-  //String? _currentAddress;
-  //Position? _currentPosition;
-
-  // Location Permission
- /* Future<bool> _handleLocationPermission() async{
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'Location services are disabled. Please enable the services')));
-      return false;
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Location permissions are denied')));
-        return false;
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'Location permissions are permanently denied, we cannot request permissions.')));
-      return false;
-    }
-    return true;
-  }*/
-
-  // Get Current Position
- /* Future<void> _getCurrentPosition() async {
-    final hasPermission = await _handleLocationPermission();
-
-    if (!hasPermission) return;
-    await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) {
-      setState(() => _currentPosition = position);
-      _getAddressFromLatLng(_currentPosition!);
-      ToastMessage.showToast('Location enabled!');
-    }).catchError((e) {
-      debugPrint(e);
-    });
-  }*/
-
-  // Get Address From Lat and Lng
-  /*Future<void> _getAddressFromLatLng(Position position) async {
-        await placemarkFromCoordinates(
-            _currentPosition!.latitude,
-            _currentPosition!.longitude)
-        .then((List<Placemark> placemarks) {
-      Placemark place = placemarks[0];
-      setState(() {
-        _currentAddress =
-            '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
-      });
-    }).catchError((e) {
-      debugPrint(e);
-    });
-  }*/
-
   String location = 'Null';
   String? Address;
 
@@ -179,7 +113,7 @@ class _LocationState extends State<Location> {
                     height: 30,
                   ),
                   Text(
-                    'Your location services need to be turned\non in order for this to work.',
+                    'Your location services need to be turned \n on in order for this to work.',
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
