@@ -1,4 +1,4 @@
-import 'dart:io';
+// import 'dart:mirrors';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
@@ -100,8 +100,8 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              '8% complete',
+                            Text(
+                              '${cachedUser.getPercentage()} complete',
                               style: TextStyle(fontSize: 16),
                             ),
                             Icon(

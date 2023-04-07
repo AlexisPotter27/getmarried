@@ -163,25 +163,7 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Expanded(
-                    child: Row(
-                      children: const [
-                        Icon(Icons.lock, color: Colors.white),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Expanded(
-                            child: Text(
-                          'This will only be shown to others in the same mode',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, color: Colors.white),
-                        ))
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 6,
-                  ),
+                Spacer(),
                   NextButton(onPressed: () {
                     if (radioValue.isEmpty) {
                       showCustomToast('Please select an option');

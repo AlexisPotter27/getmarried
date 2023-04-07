@@ -22,15 +22,15 @@ class OnboardingButton extends StatelessWidget {
         child: Stack(
           fit: StackFit.loose,
           children: [
-            SizedBox(
-              height: 70,
-              width: 70,
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.grey.shade200,
-                color: primaryColour,
-                value: progress,
-              ),
-            ),
+            // SizedBox(
+            //   height: 70,
+            //   width: 70,
+            //   child: CircularProgressIndicator(
+            //     backgroundColor: Colors.grey.shade200,
+            //     color: primaryColour,
+            //     value: progress,
+            //   ),
+            // ),
             Center(
                 child: CircleAvatar(
               radius: 30,

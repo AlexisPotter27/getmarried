@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/constants/storage_keys.dart';
 import 'package:getmarried/helper/storage_helper.dart';
 import 'package:getmarried/presentation/screens/registration/signin_screen.dart';
@@ -40,17 +41,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               },
               children: const [
                 OnboardingItem(
-                  img: 'assets/connected1.png',
-                  header: 'Getmarried App',
-                  text:
-                      'Is designed to all that are seriously looking to GetMarried! The first 500 subscribers are FREE NOW! ',
-                ),
-                OnboardingItem(
                   img: 'assets/connected2.png',
-                  header: 'Join us today !',
-                  text:
-                      'Once the first 500 are added the subscription will cost a yearly flat fee of \$250',
+                  header: 'Getmarried App',
+                  text: introText,
                 ),
+
 
               ]),
         ),
@@ -69,10 +64,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Indicator(
-                        seledtedIndex: _currentIndex,
-                        items_count: 2,
-                      ),
+                      // Indicator(
+                      //   seledtedIndex: _currentIndex,
+                      //   items_count: 1,
+                      // ),
+                      Spacer(),
                       OnboardingButton(
                           onTap: () {
                             switchPage();
@@ -90,16 +86,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void switchPage() {
-    if (_currentIndex == 1) {
+
       Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => SigninScreen(),
           ));
       StorageHelper.setBoolean(StorageKeys.isFirstTime, false);
-    }
-    setState(() {
-      _pageController.jumpToPage(_currentIndex + 1);
-    });
+
+    // setState(() {
+    //   _pageController.jumpToPage(_currentIndex + 1);
+    // });
   }
 }
