@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/di/injector.dart';
@@ -8,7 +7,6 @@ import 'package:getmarried/presentation/screens/home/profile_tab/settings_screen
 import 'package:getmarried/widgets/profile_tab/card_tile.dart';
 import 'package:getmarried/widgets/profile_tab/features_tile.dart';
 import 'package:getmarried/widgets/profile_tab/subscription_card.dart';
-
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({Key? key}) : super(key: key);
@@ -94,7 +92,11 @@ class _ProfileTabState extends State<ProfileTab> {
                           child: CircleAvatar(
                             radius: 60,
                             backgroundImage: NetworkImage(
-                              getIt.get<CacheCubit>().user!.photos![0].toString(),
+                              getIt
+                                  .get<CacheCubit>()
+                                  .user!
+                                  .photos![0]
+                                  .toString(),
                             ),
                           ),
                         ),
@@ -199,8 +201,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                   Colors.cyan,
                                   Colors.cyan,
                                 ]),
-                            description:
-                                'Free for first 500 users',
+                            description: 'Free for first 500 users',
                             buttonText: 'Upgrade for ONLY \$45 /mo.',
                           ),
                         ],

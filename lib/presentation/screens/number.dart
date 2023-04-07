@@ -88,106 +88,108 @@ class _PhoneState extends State<Phone> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  const Text(
-                    "What's your number?",
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    'We protect our community by making sure everyone on GetMarriedApp is real',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5))),
-                          child: Center(
-                              child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 15,
-                            ),
-                            child: IntlPhoneField(
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.zero,
-                                hintStyle: TextStyle(),
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none),
+                Expanded(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    const Text(
+                      "What's your number?",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      'We protect our community by making sure everyone on GetMarriedApp is real',
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5))),
+                            child: Center(
+                                child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15,
                               ),
-                              //  showCountryFlag: true,
+                              child: IntlPhoneField(
+                                decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.zero,
+                                  hintStyle: TextStyle(),
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                ),
+                                //  showCountryFlag: true,
 
-                              style: const TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.w500),
-                              controller: countryCode,
-                              dropdownIconPosition: IconPosition.trailing,
-                              disableLengthCheck: true,
-                              //  initialCountryCode: 'US',
+                                style: const TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w500),
+                                controller: countryCode,
+                                dropdownIconPosition: IconPosition.trailing,
+                                disableLengthCheck: true,
+                                //  initialCountryCode: 'US',
 
-                              //  onCountryChanged: (),
-                              onChanged: (phone) {
-                                print('FullNumber: ${phone.completeNumber}');
-                                number = phone.completeNumber;
-                                print(number);
-                              },
-                              onCountryChanged: (country) {
-                                // countryCode.text = '+${country.dialCode}';
-                                // print('Code:${countryCode.text}');
-                              },
-                            ),
-                          )),
+                                //  onCountryChanged: (),
+                                onChanged: (phone) {
+                                  print('FullNumber: ${phone.completeNumber}');
+                                  number = phone.completeNumber;
+                                  print(number);
+                                },
+                                onCountryChanged: (country) {
+                                  // countryCode.text = '+${country.dialCode}';
+                                  // print('Code:${countryCode.text}');
+                                },
+                              ),
+                            )),
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      // Container(
-                      //
-                      //   width: 200,
-                      //   decoration: const BoxDecoration(
-                      //       color: Colors.white,
-                      //       borderRadius: BorderRadius.all(Radius.circular(5))),
-                      //   child: TextFormField(
-                      //     textInputAction: TextInputAction.done,
-                      //     autofocus: true,
-                      //     cursorColor: primaryColour,
-                      //     onChanged: (val) {
-                      //       setState(() {});
-                      //     },
-                      //     decoration: const InputDecoration(
-                      //         contentPadding: EdgeInsets.all(10),
-                      //         hintText: 'Phone number',
-                      //         hintStyle: TextStyle(color: Colors.grey),
-                      //         border: InputBorder.none),
-                      //     keyboardType: TextInputType.number,
-                      //     controller: phoneController,
-                      //     validator: (value) {
-                      //       if (value!.isEmpty) {
-                      //         return 'please enter your phone number';
-                      //       } else if (value.length < 14) {
-                      //         return 'phone number should be more than 14 characters';
-                      //       }
-                      //       return null;
-                      //     },
-                      //   ),
-                      // )
-                    ],
-                  ),
-                ]),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        // Container(
+                        //
+                        //   width: 200,
+                        //   decoration: const BoxDecoration(
+                        //       color: Colors.white,
+                        //       borderRadius: BorderRadius.all(Radius.circular(5))),
+                        //   child: TextFormField(
+                        //     textInputAction: TextInputAction.done,
+                        //     autofocus: true,
+                        //     cursorColor: primaryColour,
+                        //     onChanged: (val) {
+                        //       setState(() {});
+                        //     },
+                        //     decoration: const InputDecoration(
+                        //         contentPadding: EdgeInsets.all(10),
+                        //         hintText: 'Phone number',
+                        //         hintStyle: TextStyle(color: Colors.grey),
+                        //         border: InputBorder.none),
+                        //     keyboardType: TextInputType.number,
+                        //     controller: phoneController,
+                        //     validator: (value) {
+                        //       if (value!.isEmpty) {
+                        //         return 'please enter your phone number';
+                        //       } else if (value.length < 14) {
+                        //         return 'phone number should be more than 14 characters';
+                        //       }
+                        //       return null;
+                        //     },
+                        //   ),
+                        // )
+                      ],
+                    ),
+                  ]),
+                ),
                 Row(
                   children: [
                     Expanded(
@@ -349,7 +351,7 @@ class _PhoneState extends State<Phone> {
                     )
                   ],
                 ),
-                SizedBox(height: kIsWeb? 30:0,)
+                SizedBox(height: kIsWeb? 30:10,)
               ],
             ),
           );

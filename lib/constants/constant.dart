@@ -255,9 +255,9 @@ List<String> nonBinaryGenders = [
 List<FeatureModel> features = [
   FeatureModel(
       feature: 'Unlimited', description: '', plans: ['premium', 'boost']),
-  FeatureModel(feature: 'Beeline', description: '', plans: [
-    'premium',
-  ]),
+  // FeatureModel(feature: 'Beeline', description: '', plans: [
+  //   'premium',
+  // ]),
   FeatureModel(feature: 'Advanced filters', description: '', plans: [
     'premium',
   ]),

@@ -389,8 +389,7 @@ class UserData {
 
     int completed = all.where((element) => element != null).toList().length;
 
-
-    int percentage  = ((completed/all.length) * 100).round();
+    int percentage = ((completed / all.length) * 100).round();
 
     return '${percentage.toString()}%';
   }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_polygon/flutter_polygon.dart';
 import 'package:getmarried/constants/constant.dart';
@@ -9,7 +11,14 @@ import 'package:getmarried/widgets/secondary_widget.dart';
 import '../primary_button.dart';
 
 class MatchCard extends StatefulWidget {
-  const MatchCard({Key? key, required this.user}) : super(key: key);
+  const MatchCard(
+      {Key? key,
+      required this.user,
+      required this.onLiked,
+      required this.onDisLiked})
+      : super(key: key);
+  final VoidCallback onLiked;
+  final VoidCallback onDisLiked;
 
   // final String image;
   final UserData user;
@@ -259,21 +268,31 @@ class _MatchCardState extends State<MatchCard> {
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                  children: const [
-                                    CircleAvatar(
-                                      radius: 30,
-                                      backgroundColor: primaryColour,
-                                      child: Icon(
-                                        Icons.close,
-                                        color: Colors.black,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        widget.onDisLiked();
+                                      },
+                                      child: CircleAvatar(
+                                        radius: 30,
+                                        backgroundColor: primaryColour,
+                                        child: Icon(
+                                          Icons.close,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ),
-                                    CircleAvatar(
-                                      radius: 30,
-                                      backgroundColor: primaryColour,
-                                      child: Icon(
-                                        Icons.check,
-                                        color: Colors.black,
+                                    GestureDetector(
+                                      onTap: () {
+                                        widget.onLiked();
+                                      },
+                                      child: CircleAvatar(
+                                        radius: 30,
+                                        backgroundColor: primaryColour,
+                                        child: Icon(
+                                          Icons.check,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ),
                                   ],

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
@@ -237,7 +239,8 @@ class _ChatTabState extends State<ChatTab> {
 
     setState(() {
       items = fetchedUsers
-          .where((element) => element.gender != user.gender)
+          .where((element) =>
+              element.gender != user.gender && element.uid != user.uid)
           .toList();
     });
   }

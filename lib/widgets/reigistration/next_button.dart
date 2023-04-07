@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getmarried/constants/constant.dart';
 
 class NextButton extends StatefulWidget {
   final VoidCallback onPressed;
@@ -23,17 +24,28 @@ class _NextButtonState extends State<NextButton> {
       //     onPrimary: Colors.white.withOpacity(0.7),
       //     onSurface: Colors.white.withOpacity(0.5),
       //     shadowColor: Colors.black),
-      child: widget.isNext
-          ? Image.asset(
-              'assets/forward.png',
-              height: 35,
-              width: 35,
-            )
-          : Image.asset(
-              'assets/backward.png',
-              height: 35,
-              width: 35,
-            ),
+      // child: widget.isNext
+      //     ? Image.asset(
+      //   'assets/forward.png',
+      //   height: 35,
+      //   width: 35,
+      // )
+      //     : Image.asset(
+      //   'assets/backward.png',
+      //   height: 35,
+      //   width: 35,
+      // ),
+
+      child: CircleAvatar(
+        radius: 25,
+        backgroundColor: Colors.white,
+        child: Center(
+          child: Icon(
+            widget.isNext ? Icons.arrow_forward : Icons.arrow_back,
+            color: primaryColour,
+          ),
+        ),
+      ),
     );
   }
 }
