@@ -8,6 +8,8 @@ import 'package:getmarried/presentation/screens/home/chat/messaging_screen.dart'
 import 'package:getmarried/widgets/home/about_chip.dart';
 import 'package:getmarried/widgets/secondary_widget.dart';
 
+import '../../di/injector.dart';
+import '../../presentation/blocs/cache_cubit/cache_cubit.dart';
 import '../primary_button.dart';
 
 class MatchCard extends StatefulWidget {
@@ -233,26 +235,31 @@ class _MatchCardState extends State<MatchCard> {
                             width: MediaQuery.of(context).size.width,
                           ),
                         ),
-                        // Row(
-                        //   children: const [
-                        //     Icon(Icons.share_location),
-                        //     SizedBox(
-                        //       width: 10,
-                        //     ),
-                        //     Text(
-                        //       'Sonia\'s location.',
-                        //       style: TextStyle(color: Colors.black45),
-                        //     ),
-                        //   ],
-                        // ),
-                        // const SizedBox(
-                        //   height: 8,
-                        // ),
-                        // const Text(
-                        //   'Owerri, Imo state \n-16 km away',
-                        //   style: TextStyle(
-                        //       fontSize: 16, fontWeight: FontWeight.w500),
-                        // ),
+                        Row(
+                          children: [
+                            Icon(Icons.share_location),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "${getIt.get<CacheCubit>().user!.firstname.toString()}'s location",
+                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.grey.shade200),
+                            ),
+                            SizedBox(height: 10,),
+                            Text(
+                              "${getIt.get<CacheCubit>().user!.location.toString()}",
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        /*const Text(
+                          'Owerri, Imo state ',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w500),
+                        ),*/
                         SizedBox(
                           height: 60,
                         ),

@@ -69,8 +69,7 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0.1),
             child: UpgradeButton(
                 onPressed: () {
-                  // performPayment();
-
+                  performPayment();
                 },
                 child: Text(widget.buttonText)),
           )

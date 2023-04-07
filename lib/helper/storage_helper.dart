@@ -35,8 +35,8 @@ class StorageHelper {
   static void setString(String key, String value) async {
     // if (key.isEmpty || value.isEmpty) return;
     final SharedPreferences preferences = await _getInstance();
-    var succes = await preferences.setString(key, value);
-    log('TOKEN SET $succes');
+    var success = await preferences.setString(key, value);
+    log('TOKEN SET $success');
   }
 
   static Future<void> setBoolean(String key, bool value) async {
