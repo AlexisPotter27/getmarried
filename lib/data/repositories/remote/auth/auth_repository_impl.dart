@@ -208,9 +208,14 @@ class AuthRepositoryImpl extends AuthRepository {
     List<String> images = [];
     try {
       for (XFile file in files ?? []) {
-        Reference imageRef = storage.ref(FirebaseKeys.userImages).child(DateTime.now().toIso8601String());
+        Reference imageRef = storage
+            .ref(FirebaseKeys.userImages)
+            .child(DateTime.now().toIso8601String());
         if (kIsWeb) {
-          await imageRef.putData(await file.readAsBytes(), SettableMetadata(contentType: 'image/jpeg}'),);
+          await imageRef.putData(
+            await file.readAsBytes(),
+            SettableMetadata(contentType: 'image/jpeg}'),
+          );
         } else {
           await imageRef.putFile(File(file.path));
         }

@@ -8,7 +8,7 @@ import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/blocs/chat/chat_bloc.dart';
-import 'package:getmarried/presentation/blocs/swipe/swipe_bloc.dart';
+import 'package:getmarried/presentation/blocs/swipe_controller/swipe_bloc.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/home/match_card.dart';
 import 'package:getmarried/widgets/home/swippable_card.dart';
@@ -23,7 +23,7 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   ChatBloc chatBloc = ChatBloc(ChatRepositoryImpl());
-  SwipeBloc swipeBloc = SwipeBloc();
+  SwipeController swipeBloc = SwipeController();
 
   @override
   void initState() {
@@ -165,7 +165,7 @@ class _HomeTabState extends State<HomeTab> {
                                 ),
                               ),
                               ...List.generate(items.length, (index) {
-                                final controller = SwipeBloc();
+                                final controller = SwipeController();
                                 return SwipableCard(
                                   onLiked: () {
                                     setState(() {

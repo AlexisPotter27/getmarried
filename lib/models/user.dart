@@ -60,6 +60,8 @@ class UserData {
     this.educationColledge,
     this.languages,
     this.dateFilters,
+    this.likes,
+    this.likeMe,
   });
 
   String? uid;
@@ -110,57 +112,60 @@ class UserData {
   List<dynamic>? occupations;
   List<dynamic>? educationColledge;
   List<dynamic>? languages;
+  List<dynamic>? likes;
+  List<dynamic>? likeMe;
 
-  UserData copyWith({
-    String? uid,
-    String? firstname,
-    String? age,
-    String? dateOfBirth,
-    String? gender,
-    String? relationshipMode,
-    String? dateMatch,
-    String? email,
-    List<dynamic>? interests,
-    String? height,
-    String? workout,
-    String? starSign,
-    String? education,
-    String? drinking,
-    String? smoking,
-    String? children,
-    String? religion,
-    String? political,
-    String? about,
-    String? phoneNumber,
-    String? idealPartnerHeight,
-    bool? acceptedPrivacy,
-    String? accountCreated,
-    String? lookingFor,
-    String? bodyType,
-    String? partnerBodyType,
-    String? partnerAttractiveness,
-    String? drugs,
-    String? partnerReligion,
-    String? ethnicity,
-    String? partnerEthnicity,
-    String? potentialEvent,
-    String? understanding,
-    String? outgoing,
-    String? ambitious,
-    String? athletic,
-    String? startingAndFinishing,
-    String? sexInRelationship,
-    String? monogamy,
-    String? creativity,
-    String? moreAbout,
-    bool? policyAgreed,
-    int? regStatus,
-    DateFilters? dateFilters,
-    List<dynamic>? photos,
-    List<dynamic>? occupations,
-    List<dynamic>? educationColledge,
-    List<dynamic>? languages,
-  }) =>
+  UserData copyWith(
+          {String? uid,
+          String? firstname,
+          String? age,
+          String? dateOfBirth,
+          String? gender,
+          String? relationshipMode,
+          String? dateMatch,
+          String? email,
+          List<dynamic>? interests,
+          String? height,
+          String? workout,
+          String? starSign,
+          String? education,
+          String? drinking,
+          String? smoking,
+          String? children,
+          String? religion,
+          String? political,
+          String? about,
+          String? phoneNumber,
+          String? idealPartnerHeight,
+          bool? acceptedPrivacy,
+          String? accountCreated,
+          String? lookingFor,
+          String? bodyType,
+          String? partnerBodyType,
+          String? partnerAttractiveness,
+          String? drugs,
+          String? partnerReligion,
+          String? ethnicity,
+          String? partnerEthnicity,
+          String? potentialEvent,
+          String? understanding,
+          String? outgoing,
+          String? ambitious,
+          String? athletic,
+          String? startingAndFinishing,
+          String? sexInRelationship,
+          String? monogamy,
+          String? creativity,
+          String? moreAbout,
+          bool? policyAgreed,
+          int? regStatus,
+          DateFilters? dateFilters,
+          List<dynamic>? photos,
+          List<dynamic>? occupations,
+          List<dynamic>? educationColledge,
+          List<dynamic>? languages,
+          List<dynamic>? likes,
+          List<dynamic>? likeMe}) =>
       UserData(
         uid: uid ?? this.uid,
         firstname: firstname ?? this.firstname,
@@ -211,6 +216,8 @@ class UserData {
         educationColledge: educationColledge ?? this.educationColledge,
         languages: languages ?? this.languages,
         dateFilters: dateFilters ?? this.dateFilters,
+        likes: likes ?? this.likes,
+        likeMe: likeMe ?? this.likeMe,
       );
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
@@ -274,6 +281,12 @@ class UserData {
         languages: json["laguages"] == null
             ? []
             : List<dynamic>.from(json["languages"]!.map((x) => x)),
+        likes: json["likes"] == null
+            ? []
+            : List<dynamic>.from(json["likes"]!.map((x) => x)),
+        likeMe: json["like_me"] == null
+            ? []
+            : List<dynamic>.from(json["like_me"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -332,6 +345,12 @@ class UserData {
             ? []
             : List<dynamic>.from(educationColledge!.map((x) => x)),
         "languages": languages == null
+            ? []
+            : List<dynamic>.from(languages!.map((x) => x)),
+        "likes": languages == null
+            ? []
+            : List<dynamic>.from(languages!.map((x) => x)),
+        "like_me": languages == null
             ? []
             : List<dynamic>.from(languages!.map((x) => x)),
       };

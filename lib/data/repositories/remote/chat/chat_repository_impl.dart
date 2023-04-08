@@ -62,7 +62,7 @@ class ChatRepositoryImpl extends ChatRepository {
   Future<ApiResponse> getUsers() async {
     try {
       QuerySnapshot<Map<String, dynamic>> snapshot =
-          await db.collection(FirebaseKeys.users).where('gender').get();
+          await db.collection(FirebaseKeys.users).get();
       List<UserData> users =
           snapshot.docs.map((e) => UserData.fromJson(e.data())).toList();
       return ApiResponse(data: users, error: null);

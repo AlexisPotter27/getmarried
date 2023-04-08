@@ -1,16 +1,14 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 part 'swipe_event.dart';
 
 part 'swipe_state.dart';
 
-class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
-  SwipeBloc() : super(SwipeInitial()) {
+class SwipeController extends Bloc<SwipeEvent, SwipeState> {
+  SwipeController() : super(SwipeInitial()) {
     on<SwipeEvent>((event, emit) {});
-
     on<LikeEvent>(_mapLikeEventToState);
     on<DisLikeEvent>(_mapDisLikeEventToState);
   }
