@@ -82,7 +82,7 @@ class _ProfileTabState extends State<ProfileTab> {
                   background: Column(
                     children: [
                       const SizedBox(
-                        height: 60,
+                        height: 50,
                       ),
                       Center(
                         child: CircleAvatar(
