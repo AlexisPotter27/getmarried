@@ -45,7 +45,7 @@ class AuthRepositoryImpl extends AuthRepository {
         ConfirmationResult result = await auth
             .signInWithPhoneNumber(
               number,
-          // RecaptchaVerifier(auth: )
+              // RecaptchaVerifier(auth: )
             )
             .onError((error, stackTrace) => onVerificationFailed(
                 FirebaseAuthException(code: error.toString())));
@@ -58,7 +58,7 @@ class AuthRepositoryImpl extends AuthRepository {
       }
 
       // result.confirm(verificationCode)
-    }else{
+    } else {
       auth.verifyPhoneNumber(
           phoneNumber: number,
           // autoRetrievedSmsCodeForTesting: ,
@@ -89,7 +89,6 @@ class AuthRepositoryImpl extends AuthRepository {
             onCodeAutoRetrievalTimeout(verificationID);
           });
     }
-
   }
 
   @override
@@ -209,14 +208,9 @@ class AuthRepositoryImpl extends AuthRepository {
     List<String> images = [];
     try {
       for (XFile file in files ?? []) {
-        Reference imageRef = storage
-            .ref(FirebaseKeys.userImages)
-            .child(DateTime.now().toIso8601String());
+        Reference imageRef = storage.ref(FirebaseKeys.userImages).child(DateTime.now().toIso8601String());
         if (kIsWeb) {
-          await imageRef.putData(
-            await file.readAsBytes(),
-            SettableMetadata(contentType: 'image/jpeg}'),
-          );
+          await imageRef.putData(await file.readAsBytes(), SettableMetadata(contentType: 'image/jpeg}'),);
         } else {
           await imageRef.putFile(File(file.path));
         }

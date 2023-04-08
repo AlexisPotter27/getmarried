@@ -63,11 +63,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
           }
           if (state is DeleteUserSuccessState) {
             showCustomToast('Account deleted');
-            Navigator.pushReplacement(
+            Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                   builder: (context) => SigninScreen(),
-                ));
+                ),(route) => false,);
           }
         },
         child: Padding(
@@ -245,7 +245,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               MaterialPageRoute(
                                 builder: (context) => SigninScreen(),
                               ),
-                              (route) => true);
+                              (route) => false);
                         },
                       );
                     },

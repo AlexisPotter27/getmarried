@@ -4,7 +4,6 @@ import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/profile_settings_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/settings_screen.dart';
-import 'package:getmarried/widgets/profile_tab/card_tile.dart';
 import 'package:getmarried/widgets/profile_tab/features_tile.dart';
 import 'package:getmarried/widgets/profile_tab/subscription_card.dart';
 
@@ -39,7 +38,7 @@ class _ProfileTabState extends State<ProfileTab> {
             SliverAppBar(
               title: Center(
                 child: Image.asset(
-                  'assets/logo.png',
+                  'assets/ilogo.png',
                   height: 40,
                   width: 50,
                 ),

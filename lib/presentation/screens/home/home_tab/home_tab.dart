@@ -150,7 +150,7 @@ class _HomeTabState extends State<HomeTab> {
                                       SizedBox(
                                         width: 100,
                                         child: PrimaryButton(
-                                          padding: EdgeInsets.all(8),
+                                          padding: EdgeInsets.all(5),
                                           onPressed: () {
                                             chatBloc.add(GetUsersEvent());
                                           },
@@ -298,7 +298,8 @@ class _HomeTabState extends State<HomeTab> {
 
     setState(() {
       items = fetchedUsers
-          .where((element) => element.gender != user.gender)
+          .where((element) =>
+              element.gender != null && (element.gender != user.gender))
           .toList();
     });
   }

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +38,7 @@ class _ChatTabState extends State<ChatTab> {
       appBar: AppBar(
         title: Center(
           child: Image.asset(
-            'assets/logo.png',
+            'assets/ilogo.png',
             height: 40,
             width: 50,
           ),

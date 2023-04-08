@@ -197,9 +197,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       // AddPhotosScreen(),
                     ],
                   )),
-                  SizedBox(height:  kIsWeb? 35:0,)
-
-
+                  SizedBox(
+                    height: kIsWeb ? 35 : 0,
+                  )
                 ],
               ),
             ),

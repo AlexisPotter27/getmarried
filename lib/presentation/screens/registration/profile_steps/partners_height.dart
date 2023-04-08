@@ -98,7 +98,8 @@ class _PartnersHeightState extends State<PartnersHeight> {
                                 )),
                             Text(
                               heights[index],
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 13),
                             ),
                           ],
                         ),

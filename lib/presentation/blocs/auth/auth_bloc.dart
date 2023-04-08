@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -9,6 +8,7 @@ import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/data/repositories/remote/auth/auth_repository.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 part 'auth_event.dart';
 
@@ -191,6 +191,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     } on FirebaseAuthException catch (e) {
       emit(AppleSignInFailureState(e.code));
+    } on SignInWithAppleAuthorizationException catch (e) {
+      emit(AppleSignInFailureState(e.message));
     } catch (e) {
       emit(AppleSignInFailureState(e.toString()));
     }
