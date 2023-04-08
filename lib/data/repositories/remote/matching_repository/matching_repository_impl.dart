@@ -35,10 +35,14 @@ class MatchingRepositoryImpl extends MatchingRepository {
     throw UnimplementedError();
   }
 
-  List<UserData> suggest(UserData user, List<UserData> users) {
+  List<UserData> suggest(UserData currentUser, List<UserData> users) {
+    List<UserData> suggestions = [];
 
-    
+    bool conditionIsmet(UserData userData) {
+      return false;
+    }
 
+    users.where(conditionIsmet);
 
     return [];
   }
