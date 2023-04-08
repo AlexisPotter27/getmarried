@@ -4,7 +4,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:getmarried/presentation/screens/registration/privacy_screen.dart';
 import 'package:getmarried/widgets/button.dart';
 import '../../../di/injector.dart';
-import '../../../helper/toastMessage.dart';
 import '../../../models/user.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../blocs/cache_cubit/cache_cubit.dart';
@@ -17,7 +16,6 @@ class Location extends StatefulWidget {
 }
 
 class _LocationState extends State<Location> {
-
   AuthBloc authBloc = AuthBloc(getIt.get());
   UserData? cachedUser = getIt.get<CacheCubit>().user;
 
@@ -52,7 +50,7 @@ class _LocationState extends State<Location> {
 
   Future<void> getAddressFromLatLng(Position position) async {
     List<Placemark> placemark =
-    await placemarkFromCoordinates(position.latitude, position.longitude);
+        await placemarkFromCoordinates(position.latitude, position.longitude);
     print(placemark);
 
     Placemark place = placemark[0];
@@ -68,7 +66,11 @@ class _LocationState extends State<Location> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title:  Image.asset('assets/ilogo.png', width: 60, height: 60,),
+        title: Image.asset(
+          'assets/ilogo.png',
+          width: 60,
+          height: 60,
+        ),
         elevation: 0,
         backgroundColor: Colors.indigoAccent,
       ),
@@ -135,7 +137,8 @@ class _LocationState extends State<Location> {
                         //_getCurrentPosition();
                         Position position = await _determinePosition();
                         print(position.latitude);
-                        location = '${position.latitude}, ${position.longitude}';
+                        location =
+                            '${position.latitude}, ${position.longitude}';
                         getAddressFromLatLng(position);
 
                         Navigator.pushReplacement(
