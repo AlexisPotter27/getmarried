@@ -42,7 +42,7 @@ class MatchingRepositoryImpl extends MatchingRepository {
       final snapshot = await swipedDocumentReference.get();
       UserData userdata =
           UserData.fromJson(snapshot.data() as Map<String, dynamic>);
-      swipedDocumentReference.update({'like_me': userdata.likes});
+      swipedDocumentReference.update({'like_me': userdata.likeMe!..add(me.uid)});
       // userDocumentReference.update({'like_me': me.likeMe!..add(uid)});
 
       if (match) {
