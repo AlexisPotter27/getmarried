@@ -5,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/data/repositories/remote/chat/chat_repository_impl.dart';
 import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/blocs/chat/chat_bloc.dart';
+import 'package:getmarried/presentation/blocs/matching/matching_bloc.dart';
 import 'package:getmarried/presentation/blocs/swipe_controller/swipe_bloc.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/home/match_card.dart';
@@ -24,6 +26,8 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   ChatBloc chatBloc = ChatBloc(ChatRepositoryImpl());
   SwipeController swipeBloc = SwipeController();
+  UserData cachedUser = getIt.get<CacheCubit>().user!;
+  MatchingBloc _matchingBloc = MatchingBloc(getIt.get());
 
   @override
   void initState() {
@@ -168,6 +172,7 @@ class _HomeTabState extends State<HomeTab> {
                                 final controller = SwipeController();
                                 return SwipableCard(
                                   onLiked: () {
+                                    likeUser(items[index]);
                                     setState(() {
                                       items.removeLast();
                                     });
@@ -302,5 +307,23 @@ class _HomeTabState extends State<HomeTab> {
               element.gender != null && (element.gender != user.gender))
           .toList();
     });
+  }
+
+  void likeUser(UserData swipedUser) {
+    UserData user = getIt.get<CacheCubit>().user!;
+
+    _matchingBloc.add(
+        LikeUserEvent(uid: swipedUser.uid!, match: userHasLikedMe(swipedUser)));
+    if (userHasLikedMe(swipedUser)) {
+      // TODO: MATCH USER AND LIKE
+      showCustomToast('Matched');
+    } else {
+      //TODO: LIKE USER
+    }
+  }
+
+  bool userHasLikedMe(UserData userData) {
+    UserData me = getIt.get<CacheCubit>().user!;
+    return userData.likes!.contains(me.uid);
   }
 }
