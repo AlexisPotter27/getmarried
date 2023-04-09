@@ -353,10 +353,10 @@ class UserData {
         "languages": languages == null
             ? []
             : List<dynamic>.from(languages!.map((x) => x)),
-        "likes": languages == null
+        "likes": likes == null
             ? []
             : List<dynamic>.from(languages!.map((x) => x)),
-        "like_me": languages == null
+        "like_me": likeMe == null
             ? []
             : List<dynamic>.from(languages!.map((x) => x)),
         "location": location,

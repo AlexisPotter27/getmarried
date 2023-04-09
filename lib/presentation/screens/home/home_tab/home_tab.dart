@@ -324,6 +324,6 @@ class _HomeTabState extends State<HomeTab> {
 
   bool userHasLikedMe(UserData userData) {
     UserData me = getIt.get<CacheCubit>().user!;
-    return userData.likes!.contains(me.uid);
+    return userData.likeMe!.contains(me.uid);
   }
 }
