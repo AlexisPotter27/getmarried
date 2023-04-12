@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,8 +25,12 @@ class MatchingBloc extends Bloc<MatchingEvent, MatchingState> {
       LikeUserEvent event, Emitter<MatchingState> emit) async {
     emit(LikeUserLoadingState());
     try {
+      log('loading');
+
       ApiResponse response =
           await _matchingRepository.like(match: event.match, uid: event.uid);
+      log(response.data);
+
       if (response.error == null) {
         emit(LikeUserSuccessState());
       }

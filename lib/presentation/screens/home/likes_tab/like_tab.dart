@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:getmarried/widgets/likes/liker_item.dart';
 import 'package:purchases_flutter/models/customer_info_wrapper.dart';
 import 'package:purchases_flutter/models/offerings_wrapper.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
@@ -113,12 +112,12 @@ class _LikeTabState extends State<LikeTab> {
                     height: 20,
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       performPayment();
                     },
                     child: Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 5),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16)),
@@ -273,19 +272,19 @@ class _LikeTabState extends State<LikeTab> {
                   const SizedBox(
                     height: 20,
                   ),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    itemCount: 6,
-                    padding: EdgeInsets.zero,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => const LikerItem(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.80,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10),
-                  ),
+                  // GridView.builder(
+                  //   shrinkWrap: true,
+                  //   itemCount: 6,
+                  //   padding: EdgeInsets.zero,
+                  //   physics: const NeverScrollableScrollPhysics(),
+                  //   itemBuilder: (context, index) => const LikerItem(),
+                  //   gridDelegate:
+                  //       const SliverGridDelegateWithFixedCrossAxisCount(
+                  //           crossAxisCount: 2,
+                  //           childAspectRatio: 0.80,
+                  //           mainAxisSpacing: 10,
+                  //           crossAxisSpacing: 10),
+                  // ),
                 ],
               ),
             )
@@ -331,10 +330,10 @@ class _LikeTabState extends State<LikeTab> {
             builder: (BuildContext context) {
               return StatefulBuilder(
                   builder: (BuildContext context, StateSetter setModalState) {
-                    return Paywall(
-                      offering: offerings.current!,
-                    );
-                  });
+                return Paywall(
+                  offering: offerings.current!,
+                );
+              });
             },
           );
         } else {

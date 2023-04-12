@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/data/models/chat_message.dart';
 import 'package:getmarried/data/models/conversation.dart';
-import 'package:getmarried/models/user.dart';
 
 abstract class ChatRepository {
   Future<ApiResponse> startConversation(
@@ -18,6 +17,7 @@ abstract class ChatRepository {
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getUserConversations(
       String userId);
+  Stream<QuerySnapshot<Map<String, dynamic>>> getUsersStream();
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getMessages({
     String conversationId,

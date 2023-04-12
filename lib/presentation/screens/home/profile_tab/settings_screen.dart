@@ -35,7 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   bool _isLoading = false;
 
-  String ? locate;
+  String? locate;
   String Address = 'Locating...';
 
   Future<Position> _determinePosition() async {
@@ -72,9 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Address = '${place.subLocality}, ${place.isoCountryCode} ';
     cachedUser?.location = Address;
     authBloc.add(UpdateUserEvent(cachedUser!));
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
@@ -114,10 +112,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           if (state is DeleteUserSuccessState) {
             showCustomToast('Account deleted');
             Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SigninScreen(),
-                ),(route) => false,);
+              context,
+              MaterialPageRoute(
+                builder: (context) => SigninScreen(),
+              ),
+              (route) => false,
+            );
           }
         },
         child: Padding(
@@ -215,14 +215,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 SettingsTile(
                   text: 'Current location',
-                 onPressed: () async {
+                  onPressed: () async {
                     Position position = await _determinePosition();
                     print(position.latitude);
                     locate = '${position.latitude}, ${position.longitude}';
                     getAddressFromLatLng(position);
-                    setState(() {
-
-                    });
+                    setState(() {});
                   },
                   tittle: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
@@ -232,11 +230,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     height: 25,
                     child: Row(
                       children: [
-                        Text(getIt
-                            .get<CacheCubit>()
-                            .user!
-                            .location
-                            .toString(),),
+                        Text(
+                          getIt.get<CacheCubit>().user!.location.toString(),
+                        ),
                         SizedBox(
                           width: 8,
                         ),
@@ -272,23 +268,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                SettingsTile(
-                  text: 'Notification settings',
-                  onPressed: () {},
-                ),
+                // SettingsTile(
+                //   text: 'Notification settings',
+                //   onPressed: () {},
+                // ),
                 const SizedBox(
                   height: 10,
                 ),
                 SettingsTile(
                   text: 'Contact & FAQ',
-                  onPressed: () {},
+                  onPressed: () {
+                    launchUrlLink('https://app.getmarried.com/contact');
+                  },
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 SettingsTile(
-                  text: 'Security & Privacy',
-                  onPressed: () {},
+                  text: 'Privacy',
+                  onPressed: () {
+                    launchUrlLink('https://app.getmarried.com/privacy');
+                  },
                 ),
                 const SizedBox(
                   height: 10,
@@ -390,5 +390,4 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _isLoading = false;
     });
   }
-
 }

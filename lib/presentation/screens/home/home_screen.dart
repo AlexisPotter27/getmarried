@@ -4,10 +4,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/presentation/screens/home/chat/chat_tab.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/home_tab.dart';
-import 'package:getmarried/presentation/screens/home/likes_tab/like_refractor.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/profile_tab.dart';
 import 'package:getmarried/widgets/home/connection_menu_item.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+
+import 'likes_tab/new_like_tab.dart';
 
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey(); //
@@ -58,7 +59,8 @@ class _HomeScreenState extends State<HomeScreen>
         children: const [
           ProfileTab(),
           HomeTab(),
-          LikeRefractor(),
+          NewLikeTab(),
+          // LikeRefractor(),
           ChatTab(),
         ],
       ),

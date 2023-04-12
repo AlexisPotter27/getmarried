@@ -214,24 +214,14 @@ class _HomeTabState extends State<HomeTab> {
                               offset: Offset(disLikeButtonOffset.dx - 10, 0),
                               child: Transform.scale(
                                 scale: likeScale,
-                                child: Stack(
-                                  children: const [
-                                    Center(
-                                      child: Icon(
-                                        Icons.favorite,
-                                        color: primaryColour,
-                                        size: 50,
-                                      ),
-                                    ),
-                                    Center(
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                        size: 10,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                child:  CircleAvatar(
+                                    backgroundColor: Colors.white.withOpacity(0.5),
+                                    radius: 30,
+                                    child: Icon(
+                                      Icons.favorite,
+                                      size: 25,
+                                      color: primaryColour,
+                                    )),
                               ),
                             ),
                           ),
@@ -240,13 +230,14 @@ class _HomeTabState extends State<HomeTab> {
                               offset: Offset(likeButtonOffset.dx + 10, 0),
                               child: Transform.scale(
                                 scale: disLikeScale,
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.thumb_down,
-                                    color: Colors.redAccent,
-                                    size: 50,
-                                  ),
-                                ),
+                                child:  CircleAvatar(
+                                    backgroundColor: Colors.white.withOpacity(0.5),
+                                    radius: 30,
+                                    child: Icon(
+                                      Icons.thumb_down,
+                                      size: 25,
+                                      color: Colors.red,
+                                    )),
                               ),
                             ),
                           ),
@@ -263,7 +254,7 @@ class _HomeTabState extends State<HomeTab> {
                                 const SizedBox(
                                   height: 100,
                                 ),
-                                const Text('You have not matches yet,'),
+                                const Text('You have no matches yet,'),
                                 const SizedBox(
                                   height: 16,
                                 ),
@@ -273,7 +264,10 @@ class _HomeTabState extends State<HomeTab> {
                                     onPressed: () {
                                       chatBloc.add(GetUsersEvent());
                                     },
-                                    child: const Text('Refresh'),
+                                    child: const Text(
+                                      'Refresh',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                   ),
                                 )
                               ],
@@ -304,7 +298,9 @@ class _HomeTabState extends State<HomeTab> {
     setState(() {
       items = fetchedUsers
           .where((element) =>
-              element.gender != null && (element.gender != user.gender))
+      element.gender != user.gender &&
+          element.uid != user.uid &&
+          !element.matches!.contains(user.uid))
           .toList();
     });
   }
@@ -316,7 +312,7 @@ class _HomeTabState extends State<HomeTab> {
         LikeUserEvent(uid: swipedUser.uid!, match: userHasLikedMe(swipedUser)));
     if (userHasLikedMe(swipedUser)) {
       // TODO: MATCH USER AND LIKE
-      showCustomToast('Matched');
+      showMatchedDialog(context, swipedUser, user);
     } else {
       //TODO: LIKE USER
     }

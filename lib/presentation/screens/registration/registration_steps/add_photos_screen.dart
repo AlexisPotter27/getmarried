@@ -184,59 +184,59 @@ class _AddPhotosScreenState extends State<AddPhotosScreen>
                       height: 16,
                     ),
                     //facebook
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 16),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
-                              'Add from Facebook',
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                            Icon(
-                              Icons.facebook,
-                              color: Colors.blue,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    //Instagram
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 16),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
-                              'Add from Instagram',
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                            Image(
-                              image: AssetImage(
-                                'assets/instagram.png',
-                              ),
-                              width: 20,
-                              height: 30,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {},
+                    //   child: Container(
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 16, vertical: 16),
+                    //     decoration: BoxDecoration(
+                    //         color: Colors.white,
+                    //         borderRadius: BorderRadius.circular(10)),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: const [
+                    //         Text(
+                    //           'Add from Facebook',
+                    //           style: TextStyle(fontWeight: FontWeight.w500),
+                    //         ),
+                    //         Icon(
+                    //           Icons.facebook,
+                    //           color: Colors.blue,
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   height: 16,
+                    // ),
+                    // //Instagram
+                    // GestureDetector(
+                    //   onTap: () {},
+                    //   child: Container(
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 16, vertical: 16),
+                    //     decoration: BoxDecoration(
+                    //         color: Colors.white,
+                    //         borderRadius: BorderRadius.circular(10)),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: const [
+                    //         Text(
+                    //           'Add from Instagram',
+                    //           style: TextStyle(fontWeight: FontWeight.w500),
+                    //         ),
+                    //         Image(
+                    //           image: AssetImage(
+                    //             'assets/instagram.png',
+                    //           ),
+                    //           width: 20,
+                    //           height: 30,
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

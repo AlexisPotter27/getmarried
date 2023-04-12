@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/data/models/chat_message.dart';
 import 'package:getmarried/data/models/conversation.dart';
@@ -17,6 +18,7 @@ part 'chat_state.dart';
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   StreamSubscription? conversationSubscription;
   StreamSubscription? messagesSubscription;
+  StreamSubscription? usersSubscription;
   final ChatRepository chatRepository;
 
   ChatBloc(this.chatRepository) : super(ChatInitial()) {
@@ -29,11 +31,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<GetMessagesEvent>(_mapGetMessagesEventToState);
     on<GetMessageWithIdEvent>(_mapGetMessagesWithIdEvent);
     on<MessagesFetchedEvent>(_mapMessageFetchedEventToState);
+    on<UsersFetchedEvent>(_mapUserFetchedEventToState);
   }
 
   FutureOr<void> _mapGetConversationEventsToState(
       GetConversationEvent event, Emitter<ChatState> emit) async {
-    // emit();
+    emit(ConversationLoadingState());
     log('loading');
 
     try {
@@ -61,16 +64,23 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       GetUsersEvent event, Emitter<ChatState> emit) async {
     emit(UsersLoadingState());
 
+    log('loading');
+
     try {
-      ApiResponse response = await chatRepository.getUsers();
-      if (response.error == null) {
-        emit(UsersFetchedState(response.data));
-      } else {
-        emit(UsersErrorState(response.error.toString()));
-      }
+      usersSubscription?.cancel();
+      usersSubscription =
+          chatRepository.getUsersStream().asBroadcastStream().listen((event) {
+        add(UsersFetchedEvent(
+            event.docs.map((e) => UserData.fromJson(e.data())).toList()));
+        // log(event.docs[0].data().toString());
+      });
     } on FirebaseException catch (e) {
+      log('failed${e.code}');
+
       emit(UsersErrorState(e.code));
-    } catch (e) {
+    } catch (e, stack) {
+      log('failed${stack.toString()}');
+
       emit(UsersErrorState(e.toString()));
     }
   }
@@ -143,6 +153,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   FutureOr<void> _mapMessageFetchedEventToState(
       MessagesFetchedEvent event, Emitter<ChatState> emit) async {
     emit(MessagesFetchedState(event.messages));
+  }
+
+  FutureOr<void> _mapUserFetchedEventToState(
+      UsersFetchedEvent event, Emitter<ChatState> emit) async {
+    emit(UsersFetchedState(event.fetchedUsers));
   }
 
   FutureOr<void> _mapSendMessageEventToState(

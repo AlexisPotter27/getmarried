@@ -33,7 +33,7 @@ class _ConversationItemState extends State<ConversationItem> {
         child: Row(
           children: [
             CircleAvatar(
-              radius: 30,
+              radius: 25,
               backgroundColor: primaryColour,
               backgroundImage: NetworkImage(otherUser().photos[0]),
             ),

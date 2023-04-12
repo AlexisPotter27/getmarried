@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:getmarried/constants/firebase_keys.dart';
 import 'package:getmarried/data/models/api_response.dart';
@@ -42,15 +44,26 @@ class MatchingRepositoryImpl extends MatchingRepository {
       final snapshot = await swipedDocumentReference.get();
       UserData userdata =
           UserData.fromJson(snapshot.data() as Map<String, dynamic>);
-      swipedDocumentReference.update({'like_me': userdata.likeMe!..add(me.uid)});
-      // userDocumentReference.update({'like_me': me.likeMe!..add(uid)});
 
-      if (match) {
-        userDocumentReference.update({'matches': me.likeMe!..add(uid)});
+      // Checking if user already liked the swiped user
+      if (!(userdata.likeMe!.contains(me.uid))) {
         swipedDocumentReference
-            .update({'matches': userdata.likeMe!..add(me.uid)});
+            .update({'like_me': userdata.likeMe!..add(me.uid)});
+      }
+      // Checking if user already liked the swiped user
+      if (!(me.likes!.contains(userdata.uid))) {
+        userDocumentReference.update({'likes': me.likes!..add(userdata.uid)});
       }
 
+      //adding the user id of both users to their list of matches
+      if (match) {
+        //TODO : CHECK IF USERS ARE MATCHED ALREADY
+        userDocumentReference.update({'matches': me.matches!..add(uid)});
+        swipedDocumentReference
+            .update({'matches': userdata.matches!..add(me.uid)});
+      }
+
+      log('Completed =====>');
       // List<UserData> suggestedUsers = suggest(user, users);
 
       return ApiResponse(data: true, error: null);

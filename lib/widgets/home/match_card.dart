@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polygon/flutter_polygon.dart';
@@ -8,9 +7,7 @@ import 'package:getmarried/presentation/screens/home/chat/messaging_screen.dart'
 import 'package:getmarried/widgets/home/about_chip.dart';
 import 'package:getmarried/widgets/secondary_widget.dart';
 
-import '../../di/injector.dart';
-import '../../presentation/blocs/cache_cubit/cache_cubit.dart';
-import '../primary_button.dart';
+
 
 class MatchCard extends StatefulWidget {
   const MatchCard(
@@ -235,23 +232,23 @@ class _MatchCardState extends State<MatchCard> {
                             width: MediaQuery.of(context).size.width,
                           ),
                         ),
-                        Row(
-                          children: [
-                            Icon(Icons.share_location),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "${getIt.get<CacheCubit>().user!.firstname.toString()}'s location",
-                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.grey.shade200),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              "${getIt.get<CacheCubit>().user!.location.toString()}",
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     Icon(Icons.share_location),
+                        //     SizedBox(
+                        //       width: 10,
+                        //     ),
+                        //     Text(
+                        //       "${getIt.get<CacheCubit>().user!.firstname.toString()}'s location",
+                        //       style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.grey.shade200),
+                        //     ),
+                        //     SizedBox(height: 10,),
+                        //     Text(
+                        //       "${getIt.get<CacheCubit>().user!.location.toString()}",
+                        //       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+                        //     ),
+                        //   ],
+                        // ),
                         const SizedBox(
                           height: 8,
                         ),
@@ -285,7 +282,7 @@ class _MatchCardState extends State<MatchCard> {
                                         backgroundColor: primaryColour,
                                         child: Icon(
                                           Icons.close,
-                                          color: Colors.black,
+                                          color: Colors.white,
                                         ),
                                       ),
                                     ),
@@ -298,7 +295,7 @@ class _MatchCardState extends State<MatchCard> {
                                         backgroundColor: primaryColour,
                                         child: Icon(
                                           Icons.check,
-                                          color: Colors.black,
+                                          color: Colors.white,
                                         ),
                                       ),
                                     ),
@@ -336,6 +333,7 @@ class _MatchCardState extends State<MatchCard> {
                             onPressed: () {
                               showModalBottomSheet(
                                 context: context,
+                                backgroundColor: Colors.transparent,
                                 builder: (context) => ReportWidget(),
                               );
                             },
@@ -354,13 +352,13 @@ class _MatchCardState extends State<MatchCard> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: PrimaryButton(
-                      onPressed: () {},
-                      child: const Text('Recommend to a friend'),
-                    ),
-                  )
+                  // Padding(
+                  //   padding: const EdgeInsets.all(16.0),
+                  //   child: PrimaryButton(
+                  //     onPressed: () {},
+                  //     child: const Text('Recommend to a friend'),
+                  //   ),
+                  // )
                 ],
               ),
             ),

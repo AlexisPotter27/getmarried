@@ -292,8 +292,8 @@ List<FeatureModel> features = [
 List<String> languages = [
   'English',
   'Spanish',
-  'German'
-      'Portuguese',
+  'German',
+  'Portuguese',
   'French',
   'Italian',
   'Japanese',

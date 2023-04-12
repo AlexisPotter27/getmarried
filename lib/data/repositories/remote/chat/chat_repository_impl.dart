@@ -132,4 +132,9 @@ class ChatRepositoryImpl extends ChatRepository {
       return ApiResponse(data: null, error: e.toString());
     }
   }
+
+  @override
+  Stream<QuerySnapshot<Map<String, dynamic>>> getUsersStream() {
+    return db.collection(FirebaseKeys.users).snapshots();
+  }
 }

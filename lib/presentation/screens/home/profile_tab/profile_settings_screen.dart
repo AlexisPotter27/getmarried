@@ -10,7 +10,6 @@ import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/languages_screen.dart';
 import 'package:getmarried/widgets/profile_tab/basics_section.dart';
-import 'package:getmarried/widgets/profile_tab/connect_account_widget.dart';
 import 'package:getmarried/widgets/profile_tab/chips_box.dart';
 import 'package:getmarried/widgets/profile_tab/edit_photo_staggered_view.dart';
 import 'package:getmarried/widgets/profile_tab/more_about_section.dart';
@@ -305,7 +304,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                     const SizedBox(
                       height: 16,
                     ),
-                    const ConnectAccountWidget(),
+                    // const ConnectAccountWidget(),
                     const SizedBox(
                       height: 16,
                     ),
