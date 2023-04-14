@@ -373,7 +373,7 @@ class UserData {
       bodyType,
       children,
       education,
-      educationColledge,
+      educationCollege,
       ethnicity,
       email,
       gender,
