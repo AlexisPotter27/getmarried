@@ -28,7 +28,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           decoration: BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('assets/jpeg/onboard1.jpg'))),
+                  image: AssetImage('assets/jpeg/getmarried.jpeg'))),
           child: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(

@@ -8,12 +8,36 @@
     <uses-permission
         android:name="com.google.android.gms.permission.AD_ID"
         tools:node="remove" />
+<!--    <uses-permission android:name="android.permission.INTERNET"/>-->
+
+    <!--#docregion android-queries-->
+    <!-- Provide required visibility configuration for API level 30 and above -->
+
+    <!--#enddocregion android-queries-->
 
 
     <!--    <queries>-->
     <!--        <package android:name="com.facebook.katana" />-->
     <!--    </queries>-->
     <queries>
+        <!-- If your app checks for SMS support -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="sms" />
+        </intent>
+        <!-- If your app checks for call support -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="tel" />
+        </intent>
+        <!--#enddocregion android-queries-->
+        <!-- The "https" scheme is only required for integration tests of this package.
+             It shouldn't be needed in most actual apps, or show up in the README! -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <!--#docregion android-queries-->
         <provider android:authorities="com.facebook.katana.provider.PlatformProvider" /> <!-- allows app to access Facebook app features -->
         <provider android:authorities="com.facebook.orca.provider.PlatformProvider" /> <!-- allows sharing to Messenger app -->
     </queries>

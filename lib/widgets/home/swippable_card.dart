@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
-import 'package:getmarried/presentation/blocs/swipe/swipe_bloc.dart';
+import 'package:getmarried/presentation/blocs/swipe_controller/swipe_bloc.dart';
 
 class SwipableCard extends StatefulWidget {
   const SwipableCard(
@@ -21,7 +21,7 @@ class SwipableCard extends StatefulWidget {
   final VoidCallback onDisLike;
   final Color color;
   final Widget child;
-  final SwipeBloc swipeController;
+  final SwipeController swipeController;
   final Function(DragUpdateDetails details) onPanUpdated;
   final Function() onSwipeEnded;
 
@@ -43,7 +43,7 @@ class _SwipableCardState extends State<SwipableCard>
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SwipeBloc, SwipeState>(
+    return BlocListener<SwipeController, SwipeState>(
       bloc: widget.swipeController,
       listener: (context, state) {
         if (state is SwipedState) {

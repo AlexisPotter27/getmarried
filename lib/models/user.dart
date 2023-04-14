@@ -63,6 +63,9 @@ class UserData {
     this.likes,
     this.location,
     this.country,
+    this.likes,
+    this.likeMe,
+    this.matches,
   });
 
   String? uid;
@@ -116,6 +119,9 @@ class UserData {
   List<dynamic>? likes;
   String? location;
   String? country;
+  List<dynamic>? likes;
+  List<dynamic>? likeMe;
+  List<dynamic>? matches;
 
   UserData copyWith({
     String? uid,
@@ -170,6 +176,58 @@ class UserData {
     String? location,
     String? country,
   }) =>
+  UserData copyWith(
+          {String? uid,
+          String? firstname,
+          String? age,
+          String? dateOfBirth,
+          String? gender,
+          String? relationshipMode,
+          String? dateMatch,
+          String? email,
+          List<dynamic>? interests,
+          String? height,
+          String? workout,
+          String? starSign,
+          String? education,
+          String? drinking,
+          String? smoking,
+          String? children,
+          String? religion,
+          String? political,
+          String? about,
+          String? phoneNumber,
+          String? idealPartnerHeight,
+          bool? acceptedPrivacy,
+          String? accountCreated,
+          String? lookingFor,
+          String? bodyType,
+          String? partnerBodyType,
+          String? partnerAttractiveness,
+          String? drugs,
+          String? partnerReligion,
+          String? ethnicity,
+          String? partnerEthnicity,
+          String? potentialEvent,
+          String? understanding,
+          String? outgoing,
+          String? ambitious,
+          String? athletic,
+          String? startingAndFinishing,
+          String? sexInRelationship,
+          String? monogamy,
+          String? creativity,
+          String? moreAbout,
+          bool? policyAgreed,
+          int? regStatus,
+          DateFilters? dateFilters,
+          List<dynamic>? photos,
+          List<dynamic>? occupations,
+          List<dynamic>? educationColledge,
+          List<dynamic>? languages,
+          String? location,
+          List<dynamic>? likes,
+          List<dynamic>? likeMe}) =>
       UserData(
         uid: uid ?? this.uid,
         firstname: firstname ?? this.firstname,
@@ -223,6 +281,9 @@ class UserData {
         likes: likes ?? this.likes,
         location: location ?? this.location,
         country: country ?? this.country,
+        likes: likes ?? this.likes,
+        likeMe: likeMe ?? this.likeMe,
+        matches: matches ?? this.matches,
       );
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
@@ -289,6 +350,15 @@ class UserData {
         likes: json["likes"] == null
             ? []
             : List<dynamic>.from(json["likes"]!.map((x) => x)),
+        likes: json["likes"] == null
+            ? []
+            : List<dynamic>.from(json["likes"]!.map((x) => x)),
+        likeMe: json["like_me"] == null
+            ? []
+            : List<dynamic>.from(json["like_me"]!.map((x) => x)),
+        matches: json["matches"] == null
+            ? []
+            : List<dynamic>.from(json["matches"]!.map((x) => x)),
         location: json["location"],
         country: json["country"],
       );
@@ -354,9 +424,23 @@ class UserData {
         "likes": likes == null
             ? []
             : List<dynamic>.from(likes!.map((x) => x)),
+        "likes":
+            likes == null ? [] : List<dynamic>.from(languages!.map((x) => x)),
+        "like_me":
+            likeMe == null ? [] : List<dynamic>.from(languages!.map((x) => x)),
+        "matches":
+            matches == null ? [] : List<dynamic>.from(matches!.map((x) => x)),
         "location": location,
         "country": country,
       };
+
+  ChatUser toChatUser() => ChatUser(
+      id: this.uid!,
+      name: this.firstname!,
+      photos: this.photos!,
+      about: this.about??'');
+
+  static generateData() {}
 
   String getPercentage() {
     List all = [
@@ -407,16 +491,4 @@ class UserData {
 
     return '${percentage.toString()}%';
   }
-
-
-  ChatUser toChatUser() => ChatUser(
-      id: this.uid!,
-      name: this.firstname!,
-      photos: this.photos!,
-      about: this.about!);
-
-  static generateData() {
-    // Null
-  }
-
 }

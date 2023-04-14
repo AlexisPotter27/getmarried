@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
-import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
-import 'package:getmarried/widgets/primary_button.dart';
 
 class LikeRefractor extends StatefulWidget {
   const LikeRefractor({Key? key}) : super(key: key);
@@ -36,7 +34,7 @@ class _LikeRefractorState extends State<LikeRefractor> {
               pinned: true,
               centerTitle: true,
               title: Image.asset(
-                'assets/logo.png',
+                'assets/ilogo.png',
                 height: 40,
                 width: 50,
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/helper/toastMessage.dart';
 import 'package:getmarried/presentation/paywall.dart';
 import 'package:getmarried/widgets/upgrade_button.dart';
@@ -69,7 +70,8 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0.1),
             child: UpgradeButton(
                 onPressed: () {
-                  performPayment();
+                  // performPayment();
+                  showCustomToast('These feature is free for the first 500 users Enjoy');
                 },
                 child: Text(widget.buttonText)),
           )

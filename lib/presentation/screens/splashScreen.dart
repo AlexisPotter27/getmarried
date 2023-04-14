@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:getmarried/constants/constant.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({Key? key, required this.firstScreen}) : super(key: key);
@@ -22,7 +23,7 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigoAccent,
+      backgroundColor:primaryColour,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

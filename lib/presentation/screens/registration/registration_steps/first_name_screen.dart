@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/helper/app_utils.dart';
-import 'package:getmarried/helper/toastMessage.dart';
 import 'package:getmarried/widgets/reigistration/form_field.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
@@ -59,20 +58,22 @@ class _FirstNameScreenState extends State<FirstNameScreen>
           ),
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
           children: [
-            Row(
-              children: const [
-                Icon(Icons.remove_red_eye, color: Colors.white),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'This will be shown on your profile',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500, color: Colors.white),
-                )
-              ],
+            Expanded(
+              child: Row(
+                children: const [
+                  Icon(Icons.remove_red_eye, color: Colors.white),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    'This will be shown on your profile',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500, color: Colors.white),
+                  )
+                ],
+              ),
             ),
             NextButton(onPressed: () {
               if (_firstNameController.text.isEmpty) {

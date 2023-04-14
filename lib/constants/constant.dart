@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/data/models/chip_choice_mode.dart';
 import 'package:getmarried/data/models/feature_model.dart';
 
-// const Color primaryColour = Color(0xFF856DFD);
-const Color primaryColour = Colors.indigoAccent;
+const Color primaryColour = Color(0xFF645CBB);
+// const Color primaryColour = Colors.indigoAccent;
 const Color ksecond = Color(0XFFf38321);
 const String introText =
-    'Is designed to all that are seriously looking to GetMarried! The first 500 subscribers are FREE NOW!. Join us today ! Once the first 500 are added the subscription will cost a yearly flat fee of \$250';
+    'Is designed to all that are seriously looking to GetMarried! The first 500 subscribers are FREE NOW!. \nJoin us today ! Once the first 500 are added the subscription will cost a yearly flat fee of \$250';
 
 InputDecoration inputDecoration(BuildContext context) => InputDecoration(
       hintStyle: TextStyle(
@@ -292,8 +292,8 @@ List<FeatureModel> features = [
 List<String> languages = [
   'English',
   'Spanish',
-  'German'
-      'Portuguese',
+  'German',
+  'Portuguese',
   'French',
   'Italian',
   'Japanese',

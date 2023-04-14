@@ -82,10 +82,10 @@ class _VerifyState extends State<Verify> {
 
             updateCache();
 
-            Navigator.pushReplacement(
+            Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => getNextScreen(state.userData)));
+                    builder: (context) => getNextScreen(state.userData)),(route)=>false);
           }
           if (state is PhoneAuthFailureState) {
             Navigator.pop(context);
@@ -98,103 +98,105 @@ class _VerifyState extends State<Verify> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  const Text(
-                    "Verify your number",
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    'Enter the 6 digit verification code sent to your phone number',
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
-                    textAlign: TextAlign.start,
-                  ),
-                  Row(
-                    children: [
-                      Text(num),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Phone()));
-                          },
-                          child: const Text(
-                            'change',
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          ))
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 100,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
-                        child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 10),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  num,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(color: Colors.grey),
-                                ),
-                              ],
-                            )),
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      Container(
-                        width: 200,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
-                        child: TextFormField(
-                          textInputAction: TextInputAction.done,
-                          autofocus: true,
-                          cursorColor: primaryColour,
-                          onFieldSubmitted: (val){
-                            verifyCode(
-                                verificationId: widget.verificationId,
-                                smsCode: phoneController.text);
-                          },
-                          onChanged: (val) {
-                            setState(() {});
-                          },
-                          decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.all(10),
-                              hintText: 'XXXXXX',
-                              hintStyle: TextStyle(color: Colors.grey),
-                              border: InputBorder.none),
-                          keyboardType: TextInputType.number,
-                          controller: phoneController,
+                Expanded(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    const Text(
+                      "Verify your number",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      'Enter the 6 digit verification code sent to your phone number',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white),
+                      textAlign: TextAlign.start,
+                    ),
+                    Row(
+                      children: [
+                        Text(num),
+                        const SizedBox(
+                          width: 10,
                         ),
-                      )
-                    ],
-                  ),
-                ]),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Phone()));
+                            },
+                            child: const Text(
+                              'change',
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
+                            ))
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 100,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(5))),
+                          child: Padding(
+                              padding: const EdgeInsets.only(left: 20, right: 10),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    num,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(color: Colors.grey),
+                                  ),
+                                ],
+                              )),
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        Container(
+                          width: 200,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(5))),
+                          child: TextFormField(
+                            textInputAction: TextInputAction.done,
+                            autofocus: true,
+                            cursorColor: primaryColour,
+                            onFieldSubmitted: (val){
+                              verifyCode(
+                                  verificationId: widget.verificationId,
+                                  smsCode: phoneController.text);
+                            },
+                            onChanged: (val) {
+                              setState(() {});
+                            },
+                            decoration: const InputDecoration(
+                                contentPadding: EdgeInsets.all(10),
+                                hintText: 'XXXXXX',
+                                hintStyle: TextStyle(color: Colors.grey),
+                                border: InputBorder.none),
+                            keyboardType: TextInputType.number,
+                            controller: phoneController,
+                          ),
+                        )
+                      ],
+                    ),
+                  ]),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

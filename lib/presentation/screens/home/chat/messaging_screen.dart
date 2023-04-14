@@ -188,12 +188,12 @@ class _AppBarActionsWidget extends StatelessWidget {
               Icons.report,
               color: Colors.red,
             )),
-        TextButton(
-            onPressed: () {},
-            child: Text(
-              'Unmatched',
-              style: TextStyle(color: Colors.orange),
-            ))
+        // TextButton(
+        //     onPressed: () {},
+        //     child: Text(
+        //       'Unmatched',
+        //       style: TextStyle(color: Colors.orange),
+        //     ))
       ],
     );
   }
@@ -277,15 +277,19 @@ class _ReportWidgetState extends State<ReportWidget> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+          color: Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            'Report',
-            style: TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          ),
+          // Text(
+          //   'Report',
+          //   style: TextStyle(
+          //       fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
+          // ),
           Text(
             'Why do you wish to report this user. ?',
             style: TextStyle(
@@ -301,6 +305,7 @@ class _ReportWidgetState extends State<ReportWidget> {
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: TextField(
               maxLines: 4,
+              textInputAction: TextInputAction.done,
               decoration: inputDecoration(context).copyWith(
                   fillColor: Colors.grey.shade300,
                   hintStyle: TextStyle(color: Colors.grey),
@@ -311,11 +316,15 @@ class _ReportWidgetState extends State<ReportWidget> {
             height: 16,
           ),
           PrimaryButton(
+            padding: EdgeInsets.all(18),
             onPressed: () {
               Navigator.pop(context);
               showCustomToast('Report sent');
             },
-            child: Text('Report'),
+            child: Text(
+              'Report',
+              style: TextStyle(color: Colors.white),
+            ),
           )
         ],
       ),

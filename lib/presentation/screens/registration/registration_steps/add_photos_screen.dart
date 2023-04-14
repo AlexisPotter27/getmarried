@@ -1,11 +1,8 @@
-import 'dart:developer';
-import 'dart:io' as io;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
-import 'package:getmarried/presentation/screens/number.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 import 'package:getmarried/widgets/reigistration/not_sure_widget.dart';
 import 'package:image_picker/image_picker.dart';
@@ -169,7 +166,7 @@ class _AddPhotosScreenState extends State<AddPhotosScreen>
                                 height: 400,
                                 color: Colors.white,
                                 alignment: Alignment.center,
-                                child: imageUrls.length>1
+                                child: imageUrls.length > 1
                                     ? Image.network(
                                         imageUrls[1],
                                         fit: BoxFit.cover,
@@ -187,59 +184,59 @@ class _AddPhotosScreenState extends State<AddPhotosScreen>
                       height: 16,
                     ),
                     //facebook
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 16),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
-                              'Add from Facebook',
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                            Icon(
-                              Icons.facebook,
-                              color: Colors.blue,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    //Instagram
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 16),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
-                              'Add from Instagram',
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                            Image(
-                              image: AssetImage(
-                                'assets/instagram.png',
-                              ),
-                              width: 20,
-                              height: 30,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {},
+                    //   child: Container(
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 16, vertical: 16),
+                    //     decoration: BoxDecoration(
+                    //         color: Colors.white,
+                    //         borderRadius: BorderRadius.circular(10)),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: const [
+                    //         Text(
+                    //           'Add from Facebook',
+                    //           style: TextStyle(fontWeight: FontWeight.w500),
+                    //         ),
+                    //         Icon(
+                    //           Icons.facebook,
+                    //           color: Colors.blue,
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   height: 16,
+                    // ),
+                    // //Instagram
+                    // GestureDetector(
+                    //   onTap: () {},
+                    //   child: Container(
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 16, vertical: 16),
+                    //     decoration: BoxDecoration(
+                    //         color: Colors.white,
+                    //         borderRadius: BorderRadius.circular(10)),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: const [
+                    //         Text(
+                    //           'Add from Instagram',
+                    //           style: TextStyle(fontWeight: FontWeight.w500),
+                    //         ),
+                    //         Image(
+                    //           image: AssetImage(
+                    //             'assets/instagram.png',
+                    //           ),
+                    //           width: 20,
+                    //           height: 30,
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -260,7 +257,7 @@ class _AddPhotosScreenState extends State<AddPhotosScreen>
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: NextButton(onPressed: () {
-                        if (image1 != null || image2 != null) {
+                        if (image1 == null || image2 == null) {
                           showCustomToast('Upload two images');
                           widget.onComplete(imageUrls);
                         } else {

@@ -5,15 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/data/repositories/remote/chat/chat_repository_impl.dart';
 import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/blocs/chat/chat_bloc.dart';
-import 'package:getmarried/presentation/blocs/swipe/swipe_bloc.dart';
+import 'package:getmarried/presentation/blocs/matching/matching_bloc.dart';
+import 'package:getmarried/presentation/blocs/swipe_controller/swipe_bloc.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/home/match_card.dart';
 import 'package:getmarried/widgets/home/swippable_card.dart';
 import 'package:getmarried/widgets/primary_button.dart';
-
 import '../../../blocs/auth/auth_bloc.dart';
 
 class HomeTab extends StatefulWidget {
@@ -33,6 +34,9 @@ class _HomeTabState extends State<HomeTab> {
 
   //final String currentUserId = currentUserId?.id;
   SwipeBloc swipeBloc = SwipeBloc();
+  SwipeController swipeBloc = SwipeController();
+  UserData cachedUser = getIt.get<CacheCubit>().user!;
+  MatchingBloc _matchingBloc = MatchingBloc(getIt.get());
 
   @override
   void initState() {
@@ -174,9 +178,10 @@ class _HomeTabState extends State<HomeTab> {
                                 ),
                               ),
                               ...List.generate(items.length, (index) {
-                                final controller = SwipeBloc();
+                                final controller = SwipeController();
                                 return SwipableCard(
                                   onLiked: () {
+                                    likeUser(items[index]);
                                     setState(() {
                                       items.removeLast();
                                     });
@@ -218,24 +223,14 @@ class _HomeTabState extends State<HomeTab> {
                               offset: Offset(disLikeButtonOffset.dx - 10, 0),
                               child: Transform.scale(
                                 scale: likeScale,
-                                child: Stack(
-                                  children: const [
-                                    Center(
-                                      child: Icon(
-                                        Icons.favorite,
-                                        color: primaryColour,
-                                        size: 50,
-                                      ),
-                                    ),
-                                    Center(
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                        size: 10,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                child:  CircleAvatar(
+                                    backgroundColor: Colors.white.withOpacity(0.5),
+                                    radius: 30,
+                                    child: Icon(
+                                      Icons.favorite,
+                                      size: 25,
+                                      color: primaryColour,
+                                    )),
                               ),
                             ),
                           ),
@@ -244,13 +239,14 @@ class _HomeTabState extends State<HomeTab> {
                               offset: Offset(likeButtonOffset.dx + 10, 0),
                               child: Transform.scale(
                                 scale: disLikeScale,
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.thumb_down,
-                                    color: Colors.redAccent,
-                                    size: 50,
-                                  ),
-                                ),
+                                child:  CircleAvatar(
+                                    backgroundColor: Colors.white.withOpacity(0.5),
+                                    radius: 30,
+                                    child: Icon(
+                                      Icons.thumb_down,
+                                      size: 25,
+                                      color: Colors.red,
+                                    )),
                               ),
                             ),
                           ),
@@ -267,7 +263,7 @@ class _HomeTabState extends State<HomeTab> {
                                 const SizedBox(
                                   height: 100,
                                 ),
-                                const Text('You have not matches yet,'),
+                                const Text('You have no matches yet,'),
                                 const SizedBox(
                                   height: 16,
                                 ),
@@ -277,7 +273,10 @@ class _HomeTabState extends State<HomeTab> {
                                     onPressed: () {
                                       chatBloc.add(GetUsersEvent());
                                     },
-                                    child: const Text('Refresh'),
+                                    child: const Text(
+                                      'Refresh',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                   ),
                                 )
                               ],
@@ -307,11 +306,32 @@ class _HomeTabState extends State<HomeTab> {
 
     setState(() {
       items = fetchedUsers
-          .where((element) => element.gender != user.gender)
+          .where((element) =>
+      element.gender != user.gender &&
+          element.uid != user.uid &&
+          !element.matches!.contains(user.uid))
           .toList();
       items = fetchedUsers
           .where((element) => element.country !=user.country)
           .toList();
     });
+  }
+
+  void likeUser(UserData swipedUser) {
+    UserData user = getIt.get<CacheCubit>().user!;
+
+    _matchingBloc.add(
+        LikeUserEvent(uid: swipedUser.uid!, match: userHasLikedMe(swipedUser)));
+    if (userHasLikedMe(swipedUser)) {
+      // TODO: MATCH USER AND LIKE
+      showMatchedDialog(context, swipedUser, user);
+    } else {
+      //TODO: LIKE USER
+    }
+  }
+
+  bool userHasLikedMe(UserData userData) {
+    UserData me = getIt.get<CacheCubit>().user!;
+    return userData.likes!.contains(me.uid);
   }
 }

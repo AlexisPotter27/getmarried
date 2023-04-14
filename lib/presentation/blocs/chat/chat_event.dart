@@ -77,3 +77,12 @@ class GetMessageWithIdEvent extends ChatEvent {
   @override
   List<Object?> get props => [user1, user2];
 }
+class UsersFetchedEvent extends ChatEvent {
+ final List<UserData> fetchedUsers;
+
+ UsersFetchedEvent(this.fetchedUsers);
+
+  @override
+  List<Object?> get props => [fetchedUsers];
+}
+

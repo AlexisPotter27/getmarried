@@ -65,6 +65,7 @@ dependencies:
   purchases_flutter: ^4.11.0
   sign_in_with_apple: ^4.3.0
   crypto: ^3.0.2
+  url_launcher: ^6.1.10
 
 
 

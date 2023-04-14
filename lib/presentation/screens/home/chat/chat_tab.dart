@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +38,7 @@ class _ChatTabState extends State<ChatTab> {
       appBar: AppBar(
         title: Center(
           child: Image.asset(
-            'assets/logo.png',
+            'assets/ilogo.png',
             height: 40,
             width: 50,
           ),
@@ -108,9 +107,15 @@ class _ChatTabState extends State<ChatTab> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('Mutual matches'),
+                          Text(
+                            'Your matches',
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: primaryColour),
+                          ),
                           SizedBox(
-                            height: 25,
+                            height: 16,
                           ),
                           SizedBox(
                             height: 70,
@@ -129,8 +134,7 @@ class _ChatTabState extends State<ChatTab> {
                                           ),
                                         ));
                                   },
-                                  child: UserChatItem(
-                                      userData: state.users[index])),
+                                  child: UserChatItem(userData: items[index])),
                             ),
                           ),
                         ],
@@ -140,33 +144,41 @@ class _ChatTabState extends State<ChatTab> {
                   return SizedBox();
                 },
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: inputDecoration(context).copyWith(
-                          fillColor: Colors.grey.shade200,
-                          hintText: 'Search message',
-                          prefixIcon: const Icon(
-                            Icons.search,
-                          ),
-                          hintStyle: const TextStyle(color: Colors.grey),
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 8)),
-                    ),
-                  ),
-                  // const Padding(
-                  //   padding: EdgeInsets.all(10.0),
-                  //   child: Icon(
-                  //     Icons.edit_note_outlined,
-                  //     size: 30,
-                  //     color: Colors.grey,
-                  //   ),
-                  // )
-                ],
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: TextField(
+              //         decoration: inputDecoration(context).copyWith(
+              //             fillColor: Colors.grey.shade200,
+              //             hintText: 'Search message',
+              //             prefixIcon: const Icon(
+              //               Icons.search,
+              //             ),
+              //             hintStyle: const TextStyle(color: Colors.grey),
+              //             contentPadding: const EdgeInsets.symmetric(
+              //                 horizontal: 10, vertical: 8)),
+              //       ),
+              //     ),
+              //     // const Padding(
+              //     //   padding: EdgeInsets.all(10.0),
+              //     //   child: Icon(
+              //     //     Icons.edit_note_outlined,
+              //     //     size: 30,
+              //     //     color: Colors.grey,
+              //     //   ),
+              //     // )
+              //   ],
+              // ),
+
+              Text(
+                'Messages',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: primaryColour),
               ),
-              const SizedBox(
-                height: 16,
+              SizedBox(
+                height: 8,
               ),
               Expanded(
                 child: BlocBuilder<ChatBloc, ChatState>(
@@ -206,7 +218,10 @@ class _ChatTabState extends State<ChatTab> {
                                   height: 10,
                                 ),
                                 PrimaryButton(
-                                    child: Text('Refresh'),
+                                    child: Text(
+                                      'Refresh',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                     onPressed: () {
                                       chatBloc.add(
                                           GetConversationEvent(userData.uid!));
@@ -240,7 +255,9 @@ class _ChatTabState extends State<ChatTab> {
     setState(() {
       items = fetchedUsers
           .where((element) =>
-              element.gender != user.gender && element.uid != user.uid)
+              element.gender != user.gender &&
+              element.uid != user.uid &&
+              element.matches!.contains(user.uid))
           .toList();
     });
   }

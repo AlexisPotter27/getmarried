@@ -1,4 +1,4 @@
-import 'dart:io' show Platform;
+// import 'dart:io' show Platform;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,14 +22,15 @@ import 'helper/storage_helper.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   injector.init();
   // await Firebase.initializeApp(
   //
   // );
   // Future.delayed(const Duration(milliseconds: 300));
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
   CacheCubit cubit = getIt.get<CacheCubit>();
   cubit.getCachedUser();
   // Future.delayed(const Duration(milliseconds: 500));

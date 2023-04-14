@@ -45,7 +45,7 @@ class AuthRepositoryImpl extends AuthRepository {
         ConfirmationResult result = await auth
             .signInWithPhoneNumber(
               number,
-          // RecaptchaVerifier(auth: )
+              // RecaptchaVerifier(auth: )
             )
             .onError((error, stackTrace) => onVerificationFailed(
                 FirebaseAuthException(code: error.toString())));
@@ -58,7 +58,7 @@ class AuthRepositoryImpl extends AuthRepository {
       }
 
       // result.confirm(verificationCode)
-    }else{
+    } else {
       auth.verifyPhoneNumber(
           phoneNumber: number,
           // autoRetrievedSmsCodeForTesting: ,
@@ -89,7 +89,6 @@ class AuthRepositoryImpl extends AuthRepository {
             onCodeAutoRetrievalTimeout(verificationID);
           });
     }
-
   }
 
   @override

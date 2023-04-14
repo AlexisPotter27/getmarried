@@ -18,8 +18,12 @@ class _UserChatItemState extends State<UserChatItem> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CircleAvatar(
-            radius: 25,
-            backgroundImage: NetworkImage(widget.userData.photos!.isNotEmpty ?widget.userData.photos![0]:''),
+            radius: 30,
+            backgroundColor: Colors.orange,
+            child: CircleAvatar(
+              radius: 25,
+              backgroundImage: NetworkImage(widget.userData.photos!.isNotEmpty ?widget.userData.photos![0]:''),
+            ),
           ),
           // Text(widget.userData.firstname!)
         ],

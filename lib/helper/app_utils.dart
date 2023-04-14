@@ -5,7 +5,10 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:getmarried/models/user.dart';
+import 'package:getmarried/widgets/home/matched_dialog.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Generates a cryptographically secure random nonce, to be included in a
 /// credential request.
@@ -23,6 +26,7 @@ String sha256ofString(String input) {
   final digest = sha256.convert(bytes);
   return digest.toString();
 }
+
 void showCustomToast(String msg, [Color? bgColor, Color? textColor]) =>
     Fluttertoast.showToast(
         msg: msg,
@@ -304,3 +308,22 @@ void showConfirmDialog(BuildContext context,
 // return [];
 // }
 // }
+
+void showMatchedDialog(BuildContext context, final UserData swipedUser,
+    final UserData loggedInUser) {
+  showGeneralDialog(
+    context: context,
+    pageBuilder: (context, animation, secondaryAnimation) => MatchedDialog(
+      swipedUser: swipedUser,
+      loggedInUser: loggedInUser,
+    ),
+  );
+}
+
+Future<void> launchUrlLink(String url) async {
+  final Uri _url = Uri.parse(url);
+  if (!await launchUrl(_url,mode: LaunchMode.externalApplication)) {
+    throw Exception('Could not launch $_url.');
+  }
+}
+
