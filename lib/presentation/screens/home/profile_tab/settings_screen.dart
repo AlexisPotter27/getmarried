@@ -13,6 +13,7 @@ import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
 import 'package:getmarried/presentation/screens/registration/signin_screen.dart';
 import 'package:getmarried/widgets/date/settings_tile.dart';
 import 'package:getmarried/widgets/secondary_widget.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import '../../../../models/singletons_data.dart';
 import '../../../../models/user.dart';
@@ -305,6 +306,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onConfirm: () {
                           StorageHelper.setBoolean(
                               StorageKeys.isUserLoggedIn, false);
+                          GoogleSignIn().disconnect();
+                          FirebaseAuth.instance.signOut();
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(

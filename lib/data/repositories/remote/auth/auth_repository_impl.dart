@@ -118,23 +118,20 @@ class AuthRepositoryImpl extends AuthRepository {
     try {
       debugPrint('RETRIEVING USER DETAILS');
 
-      QuerySnapshot<Map<String, dynamic>> snapshots =
-          await db.collection(FirebaseKeys.users).get();
+      QuerySnapshot<Map<String, dynamic>> snapshots = await db.collection(FirebaseKeys.users).get();
 
-      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs =
-          snapshots.docs.where((element) => element.id == uid).toList();
-
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs = snapshots.docs.where((element) => element.id == uid).toList();
+      log(docs.length.toString());
+      // log('LOGGED IN USER ${docs.first.data().toString()}');
       if (docs.isNotEmpty) {
-        log('LOGGED IN USER ${docs.first.data().toString()}');
-        return ApiResponse(
-            data: UserData.fromJson(docs.first.data()), error: null);
+        return ApiResponse(data: UserData.fromJson(docs.first.data()), error: null);
       } else {
         // log(docs.first.id);
         DocumentReference userRef = db.collection(FirebaseKeys.users).doc(uid);
         // debugPrint(' ADDING USER ${docs.first.id}');
-        await userRef.set(UserData(
-          uid: uid,
-        ).toJson());
+        // await userRef.set(UserData(
+        //   uid: uid,
+        // ).toJson());
         // debugPrint(' USER ${docs.first.id} ADDED');
 
         return ApiResponse(data: UserData(uid: uid), error: null);
@@ -178,13 +175,26 @@ class AuthRepositoryImpl extends AuthRepository {
     }
 
     try {
-      db
-          .collection(FirebaseKeys.users)
-          .doc(userData.uid)
-          .update(
-            userData.toJson(),
-          )
-          .then((val) => {log('Finished uploading')});
+      QuerySnapshot<Map<String, dynamic>> snapshots =
+          await db.collection(FirebaseKeys.users).get();
+      var docRef = db.collection(FirebaseKeys.users).doc(userData.uid);
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs = snapshots.docs
+          .where((element) => element.id == userData.uid)
+          .toList();
+
+      if (docs.isNotEmpty) {
+        docRef
+            .update(
+              userData.toJson(),
+            )
+            .then((val) => {log('Finished uploading')});
+      } else {
+        docRef
+            .set(
+              userData.toJson(),
+            )
+            .then((val) => {log('Finished uploading')});
+      }
 
       // WriteBatch batch = db.batch();
       // DocumentReference reference =

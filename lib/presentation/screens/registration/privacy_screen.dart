@@ -131,16 +131,16 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   PrimaryButton(
                     bgColor: Colors.white,
                       onPressed: () {
-                        if (userData != null) {
-                          authBloc.add(UpdateUserEvent(userData!
-                              .copyWith(acceptedPrivacy: true, regStatus: 0)));
-                        } else {
-                          showCustomToast('An error occurred, please retry ');
-                          getIt.get<CacheCubit>().getCachedUser();
-                        }
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //   builder: (context) => const RegistrationScreen(),
-                        // ));
+                        // if (userData != null) {
+                        //   authBloc.add(UpdateUserEvent(userData!
+                        //       .copyWith(acceptedPrivacy: true, regStatus: 0)));
+                        // } else {
+                        //   showCustomToast('An error occurred, please retry ');
+                        //   getIt.get<CacheCubit>().getCachedUser();
+                        // }
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const RegistrationScreen(),
+                        ));
                       },
                       child: const Text(
                         'Accept',

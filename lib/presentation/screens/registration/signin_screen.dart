@@ -38,7 +38,6 @@ class SigninScreen extends StatelessWidget {
           if (state is GoogleSignInSuccessState) {
             getIt.get<CacheCubit>().updateUser(state.user);
             getIt.get<CacheCubit>().getCachedUser();
-
             updateCache();
 
             Navigator.pushReplacement(

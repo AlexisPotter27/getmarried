@@ -98,9 +98,7 @@ Future<Widget> getFirstScreen() async {
     if (stayLogin) {
       if (regStatus == null) {
         return const PrivacyScreen();
-      } else if (regStatus == '0') {
-        return const RegistrationScreen();
-      } else if (regStatus == '1') {
+      }  else if (regStatus == '1') {
         return const BuildProfileOnboard();
       } else {
         return const HomeScreen();

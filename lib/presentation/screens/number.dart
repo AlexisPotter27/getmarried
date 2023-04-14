@@ -142,17 +142,17 @@ class _PhoneState extends State<Phone> {
                                     disableLengthCheck: true,
                                     //  initialCountryCode: 'US',
 
-                                    //  onCountryChanged: (),
+                                     onCountryChanged: (coun){},
                                     onChanged: (phone) {
                                       print(
                                           'FullNumber: ${phone.completeNumber}');
                                       number = phone.completeNumber;
                                       print(number);
                                     },
-                                    onCountryChanged: (country) {
-                                      // countryCode.text = '+${country.dialCode}';
-                                      // print('Code:${countryCode.text}');
-                                    },
+                                    // onCountryChanged: (country) {
+                                    //   // countryCode.text = '+${country.dialCode}';
+                                    //   // print('Code:${countryCode.text}');
+                                    // },
                                   ),
                                 )),
                               ),

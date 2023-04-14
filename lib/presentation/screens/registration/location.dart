@@ -135,12 +135,7 @@ class _LocationState extends State<Location> {
                       title: 'Enable location',
                       ontap: () async {
                         //_getCurrentPosition();
-                        Position position = await _determinePosition();
-                        print(position.latitude);
-                        location =
-                            '${position.latitude}, ${position.longitude}';
-                        getAddressFromLatLng(position);
-
+                        requestForLocation();
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -157,5 +152,11 @@ class _LocationState extends State<Location> {
         ),
       ),
     );
+  }
+  void requestForLocation()async{
+    Position position = await _determinePosition();
+    print(position.latitude);
+    location = '${position.latitude}, ${position.longitude}';
+    getAddressFromLatLng(position);
   }
 }

@@ -257,11 +257,10 @@ class _AddPhotosScreenState extends State<AddPhotosScreen>
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: NextButton(onPressed: () {
-                        if (image1 == null || image2 == null) {
+                        if (imageUrls.length < 2) {
                           showCustomToast('Upload two images');
-                          widget.onComplete(imageUrls);
                         } else {
-                          widget.onComplete([]);
+                          widget.onComplete(imageUrls);
                         }
                       }),
                     ),

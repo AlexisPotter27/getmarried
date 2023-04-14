@@ -87,25 +87,25 @@ class _BasicsSectionState extends State<BasicsSection> {
         const SizedBox(
           height: 16,
         ),
-        ProfileListTile(
-            preffix: const Icon(
-              Icons.location_on,
-              size: 20,
-            ),
-            tittle: 'Location',
-            value: null,
-            onTap: () {}),
-        const SizedBox(
-          height: 16,
-        ),
-        ProfileListTile(
-            preffix: const Icon(
-              Icons.home_filled,
-              size: 20,
-            ),
-            tittle: 'Hometown',
-            value: null,
-            onTap: () {}),
+        // ProfileListTile(
+        //     preffix: const Icon(
+        //       Icons.location_on,
+        //       size: 20,
+        //     ),
+        //     tittle: 'Location',
+        //     value: null,
+        //     onTap: () {}),
+        // const SizedBox(
+        //   height: 16,
+        // ),
+        // ProfileListTile(
+        //     preffix: const Icon(
+        //       Icons.home_filled,
+        //       size: 20,
+        //     ),
+        //     tittle: 'Hometown',
+        //     value: null,
+        //     onTap: () {}),
         const SizedBox(
           height: 16,
         ),

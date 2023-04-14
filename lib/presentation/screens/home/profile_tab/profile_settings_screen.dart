@@ -143,31 +143,31 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                     const SizedBox(
                       height: 16,
                     ),
-                    ProfileListTile(
-                      preffix: const Icon(
-                        Icons.image,
-                        size: 20,
-                      ),
-                      tittle: 'Best Photo',
-                      value: 'On',
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    ProfileListTile(
-                      preffix: const Icon(
-                        Icons.shield_moon,
-                        size: 20,
-                        color: Colors.blueAccent,
-                      ),
-                      tittle: 'Verify my profile',
-                      value: 'Verified',
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
+                    // ProfileListTile(
+                    //   preffix: const Icon(
+                    //     Icons.image,
+                    //     size: 20,
+                    //   ),
+                    //   tittle: 'Best Photo',
+                    //   value: 'On',
+                    //   onTap: () {},
+                    // ),
+                    // const SizedBox(
+                    //   height: 16,
+                    // ),
+                    // ProfileListTile(
+                    //   preffix: const Icon(
+                    //     Icons.shield_moon,
+                    //     size: 20,
+                    //     color: Colors.blueAccent,
+                    //   ),
+                    //   tittle: 'Verify my profile',
+                    //   value: 'Verified',
+                    //   onTap: () {},
+                    // ),
+                    // const SizedBox(
+                    //   height: 16,
+                    // ),
                     const Text(
                       'My interests',
                       style:

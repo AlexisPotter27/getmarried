@@ -173,6 +173,7 @@ class _HomeTabState extends State<HomeTab> {
                                 return SwipableCard(
                                   onLiked: () {
                                     likeUser(items[index]);
+
                                     setState(() {
                                       items.removeLast();
                                     });
@@ -191,6 +192,7 @@ class _HomeTabState extends State<HomeTab> {
                                     endSwipe();
                                   },
                                   onDisLike: () {
+                                    dislikeUser(items[index]);
                                     setState(() {
                                       items.removeLast();
                                     });
@@ -199,9 +201,11 @@ class _HomeTabState extends State<HomeTab> {
                                   child: MatchCard(
                                     user: items[index],
                                     onLiked: () {
+                                      likeUser(items[index]);
                                       controller.add(LikeEvent());
                                     },
                                     onDisLiked: () {
+                                      dislikeUser(items[index]);
                                       controller.add(DisLikeEvent());
                                     },
                                   ),
@@ -214,8 +218,9 @@ class _HomeTabState extends State<HomeTab> {
                               offset: Offset(disLikeButtonOffset.dx - 10, 0),
                               child: Transform.scale(
                                 scale: likeScale,
-                                child:  CircleAvatar(
-                                    backgroundColor: Colors.white.withOpacity(0.5),
+                                child: CircleAvatar(
+                                    backgroundColor:
+                                        Colors.white.withOpacity(0.5),
                                     radius: 30,
                                     child: Icon(
                                       Icons.favorite,
@@ -230,8 +235,9 @@ class _HomeTabState extends State<HomeTab> {
                               offset: Offset(likeButtonOffset.dx + 10, 0),
                               child: Transform.scale(
                                 scale: disLikeScale,
-                                child:  CircleAvatar(
-                                    backgroundColor: Colors.white.withOpacity(0.5),
+                                child: CircleAvatar(
+                                    backgroundColor:
+                                        Colors.white.withOpacity(0.5),
                                     radius: 30,
                                     child: Icon(
                                       Icons.thumb_down,
@@ -298,11 +304,26 @@ class _HomeTabState extends State<HomeTab> {
     setState(() {
       items = fetchedUsers
           .where((element) =>
-      element.gender != user.gender &&
-          element.uid != user.uid &&
-          !element.matches!.contains(user.uid))
-          .toList();
+              (element.gender != user.gender && element.uid != user.uid) && (!element.matches!.contains(user.uid))
+      ).toList();
+
+      items = items.where((element) => ( !element.likeMe!.contains(user.uid))).toList();
+      log(items.length.toString());
+      items = items.where((element) => !element.dislikes!.contains(user.uid.toString())).toList();
     });
+    // log(fetchedUsers
+    //     .where((element) => (!element.dislikes!.contains(user.uid.toString())) && (!element.likeMe!.contains(user.uid)))
+    //     .length
+    //     .toString());
+    // log(fetchedUsers
+    //     .where((element) => (!element.matches!.contains(user.uid)))
+    //     .length
+    //     .toString());
+    // log(fetchedUsers
+    //     .where((element) =>
+    //         (element.gender != user.gender && element.uid != user.uid))
+    //     .length
+    //     .toString());
   }
 
   void likeUser(UserData swipedUser) {
@@ -315,6 +336,15 @@ class _HomeTabState extends State<HomeTab> {
       showMatchedDialog(context, swipedUser, user);
     } else {
       //TODO: LIKE USER
+    }
+  }
+
+  void dislikeUser(UserData swipedUser) {
+    UserData user = getIt.get<CacheCubit>().user!;
+    if (!swipedUser.dislikes!.contains(user.uid)) {
+      _matchingBloc.add(DisLikeUserEvent(
+        swipedUser.uid!,
+      ));
     }
   }
 
