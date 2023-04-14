@@ -8,6 +8,7 @@ import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/blocs/chat/chat_bloc.dart';
+import 'package:getmarried/presentation/blocs/swipe/swipe_bloc.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/home/match_card.dart';
 import 'package:getmarried/widgets/home/swippable_card.dart';
@@ -31,6 +32,7 @@ class _HomeTabState extends State<HomeTab> {
   List<String>? likedUser;
 
   //final String currentUserId = currentUserId?.id;
+  SwipeBloc swipeBloc = SwipeBloc();
 
   @override
   void initState() {
@@ -135,45 +137,47 @@ class _HomeTabState extends State<HomeTab> {
                 );
               }
               return Expanded(
-                child: items.isNotEmpty? Stack(
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(),
-                          alignment: Alignment.center,
-                          child: Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const SizedBox(
-                                  height: 100,
-                                ),
-                                const Text('You are caught up'),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                SizedBox(
-                                  width: 100,
-                                  child: PrimaryButton(
-                                    
-                                    padding: EdgeInsets.all(8),
-                                    onPressed: () {
-                                      chatBloc.add(GetUsersEvent());
-                                    },
-                                    child: const Text('Refresh',style: TextStyle(fontSize: 13),),
+                child: items.isNotEmpty
+                    ? Stack(
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
+                                decoration: const BoxDecoration(),
+                                alignment: Alignment.center,
+                                child: Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const SizedBox(
+                                        height: 100,
+                                      ),
+                                      const Text('You are caught up'),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      SizedBox(
+                                        width: 100,
+                                        child: PrimaryButton(
+                                          padding: EdgeInsets.all(8),
+                                          onPressed: () {
+                                            chatBloc.add(GetUsersEvent());
+                                          },
+                                          child: const Text(
+                                            'Refresh',
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        ...List.generate(
-                            items.length,
-                            (index) => SwipableCard(
+                                ),
+                              ),
+                              ...List.generate(items.length, (index) {
+                                final controller = SwipeBloc();
+                                return SwipableCard(
                                   onLiked: () {
                                     setState(() {
-                                      likedUsers();
                                       items.removeLast();
                                     });
                                   },
@@ -187,7 +191,7 @@ class _HomeTabState extends State<HomeTab> {
                                       disLikeScale -= details.delta.dx * 0.01;
                                     });
                                   },
-                                  onSwipeEnded: (details) {
+                                  onSwipeEnded: () {
                                     endSwipe();
                                   },
                                   onDisLike: () {
@@ -195,81 +199,92 @@ class _HomeTabState extends State<HomeTab> {
                                       items.removeLast();
                                     });
                                   },
+                                  swipeController: controller,
                                   child: MatchCard(
                                     user: items[index],
+                                    onLiked: () {
+                                      controller.add(LikeEvent());
+                                    },
+                                    onDisLiked: () {
+                                      controller.add(DisLikeEvent());
+                                    },
                                   ),
-                                )).reversed.toList().reversed.toList(),
-                      ],
-                    ),
-                    Center(
-                      child: Transform.translate(
-                        offset: Offset(disLikeButtonOffset.dx - 10, 0),
-                        child: Transform.scale(
-                          scale: likeScale,
-                          child: Stack(
-                            children: const [
-                              Center(
-                                child: Icon(
-                                  Icons.favorite,
-                                  color: primaryColour,
-                                  size: 50,
-                                ),
-                              ),
-                              Center(
-                                child: Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                  size: 10,
-                                ),
-                              ),
+                                );
+                              }).reversed.toList().reversed.toList(),
                             ],
                           ),
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Transform.translate(
-                        offset: Offset(likeButtonOffset.dx + 10, 0),
-                        child: Transform.scale(
-                          scale: disLikeScale,
-                          child: const Center(
-                            child: Icon(
-                              Icons.thumb_down,
-                              color: Colors.redAccent,
-                              size: 50,
+                          Center(
+                            child: Transform.translate(
+                              offset: Offset(disLikeButtonOffset.dx - 10, 0),
+                              child: Transform.scale(
+                                scale: likeScale,
+                                child: Stack(
+                                  children: const [
+                                    Center(
+                                      child: Icon(
+                                        Icons.favorite,
+                                        color: primaryColour,
+                                        size: 50,
+                                      ),
+                                    ),
+                                    Center(
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                        size: 10,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: Transform.translate(
+                              offset: Offset(likeButtonOffset.dx + 10, 0),
+                              child: Transform.scale(
+                                scale: disLikeScale,
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.thumb_down,
+                                    color: Colors.redAccent,
+                                    size: 50,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Center(
+                        child: Container(
+                          decoration: const BoxDecoration(),
+                          alignment: Alignment.center,
+                          child: Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const SizedBox(
+                                  height: 100,
+                                ),
+                                const Text('You have not matches yet,'),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                SizedBox(
+                                  width: 100,
+                                  child: PrimaryButton(
+                                    onPressed: () {
+                                      chatBloc.add(GetUsersEvent());
+                                    },
+                                    child: const Text('Refresh'),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ):Center(child:   Container(
-                  decoration: const BoxDecoration(),
-                  alignment: Alignment.center,
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(
-                          height: 100,
-                        ),
-                        const Text('You have not matches yet,'),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        SizedBox(
-                          width: 100,
-                          child: PrimaryButton(
-                            onPressed: () {
-                              chatBloc.add(GetUsersEvent());
-                            },
-                            child: const Text('Refresh'),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ) ,),
               );
             },
           )
@@ -298,12 +313,5 @@ class _HomeTabState extends State<HomeTab> {
           .where((element) => element.country !=user.country)
           .toList();
     });
-  }
-  likedUsers () {
-   // bool isLiked = likes[currentUserId] = true;
-    UserData user;
-
-    userData?.likes = likedUser;
-    print(likedUser);
   }
 }

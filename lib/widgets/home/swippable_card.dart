@@ -2,7 +2,9 @@ import 'dart:developer' as d;
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/presentation/blocs/swipe/swipe_bloc.dart';
 
 class SwipableCard extends StatefulWidget {
   const SwipableCard(
@@ -12,14 +14,16 @@ class SwipableCard extends StatefulWidget {
       required this.onPanUpdated,
       required this.onSwipeEnded,
       required this.onDisLike,
-      required this.child})
+      required this.child,
+      required this.swipeController})
       : super(key: key);
   final VoidCallback onLiked;
   final VoidCallback onDisLike;
   final Color color;
   final Widget child;
+  final SwipeBloc swipeController;
   final Function(DragUpdateDetails details) onPanUpdated;
-  final Function(DragEndDetails details) onSwipeEnded;
+  final Function() onSwipeEnded;
 
   @override
   State<SwipableCard> createState() => _SwipableCardState();
@@ -39,43 +43,56 @@ class _SwipableCardState extends State<SwipableCard>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onPanStart: (details) {},
-      onPanUpdate: (details) {
-        setState(() {
-          isDragging = true;
-          position += details.delta;
-          updateAngle();
-        });
-
-        widget.onPanUpdated(details);
-      },
-      onPanEnd: (details) async {
-        if (position.dx >= 95) {
-          dislike(details);
-        } else if (position.dx <= -95) {
-          like(details);
-        } else {
-          reset(details);
+    return BlocListener<SwipeBloc, SwipeState>(
+      bloc: widget.swipeController,
+      listener: (context, state) {
+        if (state is SwipedState) {
+          if (state.swipeState == SwipeStates.liked) {
+            like();
+          }
+          if (state.swipeState == SwipeStates.disliked) {
+            dislike();
+          }
         }
       },
-      child: LayoutBuilder(builder: (context, constraints) {
-        final center = constraints.biggest.bottomCenter(Offset.zero);
-        angle = angle * pi / 180;
-        final rotatedMatrix = Matrix4.identity()
-          ..translate(center.dx, center.dy)
-          ..rotateZ(angle)
-          ..translate(-center.dx, -center.dy);
-        return AnimatedContainer(
-          duration: Duration(milliseconds: isDragging ? 0 : 400),
-          transform: rotatedMatrix..translate(position.dx, 0),
-          child: Container(
-            width: deviceWidth(),
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 18),
-            child: widget.child,
-          ),
-        );
-      }),
+      child: GestureDetector(
+        onPanStart: (details) {},
+        onPanUpdate: (details) {
+          setState(() {
+            isDragging = true;
+            position += details.delta;
+            updateAngle();
+          });
+
+          widget.onPanUpdated(details);
+        },
+        onPanEnd: (details) async {
+          if (position.dx >= 95) {
+            dislike();
+          } else if (position.dx <= -95) {
+            like();
+          } else {
+            reset(details);
+          }
+        },
+        child: LayoutBuilder(builder: (context, constraints) {
+          final center = constraints.biggest.bottomCenter(Offset.zero);
+          angle = angle * pi / 180;
+          final rotatedMatrix = Matrix4.identity()
+            ..translate(center.dx, center.dy)
+            ..rotateZ(angle)
+            ..translate(-center.dx, -center.dy);
+          return AnimatedContainer(
+            duration: Duration(milliseconds: isDragging ? 0 : 800),
+            transform: rotatedMatrix..translate(position.dx, 0),
+            child: Container(
+              width: deviceWidth(),
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 18),
+              child: widget.child,
+            ),
+          );
+        }),
+      ),
     );
   }
 
@@ -87,7 +104,7 @@ class _SwipableCardState extends State<SwipableCard>
   }
 
   void reset(DragEndDetails details) {
-    widget.onSwipeEnded(details);
+    widget.onSwipeEnded();
     setState(() {
       isDragging = false;
       position = Offset.zero;
@@ -95,22 +112,22 @@ class _SwipableCardState extends State<SwipableCard>
     });
   }
 
-  Future<void> like(DragEndDetails details) async {
-    d.log('finished');
+  Future<void> dislike() async {
+    d.log('liked');
     isDragging = false;
     angle = -80;
     position = Offset(-(getDeviceSize().width / 2), -20);
-    widget.onSwipeEnded(details);
+    widget.onSwipeEnded();
     await Future.delayed(const Duration(milliseconds: 300));
     widget.onLiked();
   }
 
-  Future<void> dislike(DragEndDetails details) async {
-    d.log('finished');
+  Future<void> like() async {
+    d.log('disliked');
     isDragging = false;
     angle = 100;
     position = Offset((getDeviceSize().width / 2), 0);
-    widget.onSwipeEnded(details);
+    widget.onSwipeEnded();
     await Future.delayed(const Duration(milliseconds: 300));
     widget.onLiked();
   }

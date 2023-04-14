@@ -58,36 +58,38 @@ class AuthRepositoryImpl extends AuthRepository {
       }
 
       // result.confirm(verificationCode)
+    }else{
+      auth.verifyPhoneNumber(
+          phoneNumber: number,
+          // autoRetrievedSmsCodeForTesting: ,
+          //  timeout: const Duration(seconds: 20),
+          verificationCompleted: (PhoneAuthCredential credential) async {
+            log('VERIFIED');
+            onVerificationCompleted(credential);
+
+            // await auth.signInWithCredential(credential).then((value) {
+            //   // ToastMessage.showToast('Verification successful.',);
+            //   phoneController.clear();
+            //   countryCode.clear();
+            //   log("You are logged in successfully");
+            // });
+
+            log('verified');
+          },
+          verificationFailed: (FirebaseAuthException exception) {
+            // ToastMessage.showToast('Verification failed.');
+            onVerificationFailed(exception);
+            log(exception.message!);
+          },
+          codeSent: (String verificationID, int? resendToken) {
+            verificationIDReceived = verificationID;
+            onCodeSent(verificationID, resendToken);
+          },
+          codeAutoRetrievalTimeout: (String verificationID) {
+            onCodeAutoRetrievalTimeout(verificationID);
+          });
     }
-    auth.verifyPhoneNumber(
-        phoneNumber: number,
-        // autoRetrievedSmsCodeForTesting: ,
-        //  timeout: const Duration(seconds: 20),
-        verificationCompleted: (PhoneAuthCredential credential) async {
-          log('VERIFIED');
-          onVerificationCompleted(credential);
 
-          // await auth.signInWithCredential(credential).then((value) {
-          //   // ToastMessage.showToast('Verification successful.',);
-          //   phoneController.clear();
-          //   countryCode.clear();
-          //   log("You are logged in successfully");
-          // });
-
-          log('verified');
-        },
-        verificationFailed: (FirebaseAuthException exception) {
-          // ToastMessage.showToast('Verification failed.');
-          onVerificationFailed(exception);
-          log(exception.message!);
-        },
-        codeSent: (String verificationID, int? resendToken) {
-          verificationIDReceived = verificationID;
-          onCodeSent(verificationID, resendToken);
-        },
-        codeAutoRetrievalTimeout: (String verificationID) {
-          onCodeAutoRetrievalTimeout(verificationID);
-        });
   }
 
   @override

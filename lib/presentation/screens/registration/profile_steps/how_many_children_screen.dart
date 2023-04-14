@@ -48,7 +48,7 @@ class _HowManyChildrenScreenState extends State<HowManyChildrenScreen> {
               const Text(
                 'How many children do you want',
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

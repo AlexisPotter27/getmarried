@@ -358,6 +358,57 @@ class UserData {
         "country": country,
       };
 
+  String getPercentage() {
+    List all = [
+      firstname,
+      height,
+      drugs,
+      drinking,
+      age,
+      about,
+      ambitious,
+      athletic,
+      acceptedPrivacy,
+      accountCreated,
+      bodyType,
+      children,
+      education,
+      educationColledge,
+      ethnicity,
+      email,
+      gender,
+      height,
+      idealPartnerHeight,
+      lookingFor,
+      languages,
+      monogamy,
+      moreAbout,
+      occupations,
+      outgoing,
+      phoneNumber,
+      potentialEvent,
+      partnerEthnicity,
+      political,
+      partnerReligion,
+      partnerAttractiveness,
+      partnerBodyType,
+      religion,
+      sexInRelationship,
+      startingAndFinishing,
+      smoking,
+      starSign,
+      understanding,
+      workout,
+    ];
+
+    int completed = all.where((element) => element != null).toList().length;
+
+    int percentage = ((completed / all.length) * 100).round();
+
+    return '${percentage.toString()}%';
+  }
+
+
   ChatUser toChatUser() => ChatUser(
       id: this.uid!,
       name: this.firstname!,
@@ -367,4 +418,5 @@ class UserData {
   static generateData() {
     // Null
   }
+
 }

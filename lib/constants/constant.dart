@@ -5,6 +5,8 @@ import 'package:getmarried/data/models/feature_model.dart';
 // const Color primaryColour = Color(0xFF856DFD);
 const Color primaryColour = Colors.indigoAccent;
 const Color ksecond = Color(0XFFf38321);
+const String introText =
+    'Is designed to all that are seriously looking to GetMarried! The first 500 subscribers are FREE NOW!. Join us today ! Once the first 500 are added the subscription will cost a yearly flat fee of \$250';
 
 InputDecoration inputDecoration(BuildContext context) => InputDecoration(
       hintStyle: TextStyle(
@@ -177,7 +179,6 @@ List<String> timeForChildrenOptions = [
   "After 3 years of marriage.",
   "Whenever it happens",
   "Not sure yet",
-
 ];
 List<String> doYouhaveChildrenOptions = [
   "Yes",
@@ -254,9 +255,9 @@ List<String> nonBinaryGenders = [
 List<FeatureModel> features = [
   FeatureModel(
       feature: 'Unlimited', description: '', plans: ['premium', 'boost']),
-  FeatureModel(feature: 'Beeline', description: '', plans: [
-    'premium',
-  ]),
+  // FeatureModel(feature: 'Beeline', description: '', plans: [
+  //   'premium',
+  // ]),
   FeatureModel(feature: 'Advanced filters', description: '', plans: [
     'premium',
   ]),
@@ -292,12 +293,10 @@ List<String> languages = [
   'English',
   'Spanish',
   'German'
-  'Portuguese',
+      'Portuguese',
   'French',
-
   'Italian',
   'Japanese',
-
 ];
 
 List<ChipChoiceModel> myLanguage = [

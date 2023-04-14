@@ -5,11 +5,11 @@ import 'package:getmarried/constants/constant.dart';
 
 class OnboardingItem extends StatefulWidget {
   const OnboardingItem(
-      {Key? key, required this.text, required this.header, required this.img})
+      {Key? key, required this.text, required this.header, this.img})
       : super(key: key);
   final String text;
   final String header;
-  final String img;
+  final String? img;
 
   @override
   _OnboardingItemState createState() => _OnboardingItemState();
@@ -25,32 +25,29 @@ class _OnboardingItemState extends State<OnboardingItem> {
           ),
       child: Container(
         decoration: const BoxDecoration(),
-        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         height: MediaQuery.of(context).size.height * 0.75,
         width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.end,
-          children:  [
-            Expanded(child: Center(child: Image.asset(widget.img))),
+          children: [
+            // Expanded(child: Center(child: Image.asset(widget.img))),
+            Spacer(),
             Text(widget.header,
                 style: const TextStyle(
                   fontFamily: 'Segoe',
                   color: primaryColour,
-
-                  fontSize:kIsWeb ? 30:25,
+                  fontSize: kIsWeb ? 30 : 25,
                   fontWeight: FontWeight.w600,
                 )),
-             Text(widget.text,
+            Text(widget.text,
                 style: const TextStyle(
-                    fontFamily: 'Segoe',
-                    fontSize: 16,
-                    )),
+                    fontFamily: 'Segoe', fontSize: 16, color: Colors.white)),
             // SizedBox(
             //   height: 8,
             // ),
-
           ],
         ),
       ),

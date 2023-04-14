@@ -77,9 +77,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Poppins',
       ),
-      home: Splashscreen(
-        firstScreen: firstScreen,
-      ),
+      home: kIsWeb
+          ? firstScreen
+          : Splashscreen(
+              firstScreen: firstScreen,
+            ),
     );
   }
 }
@@ -88,10 +90,10 @@ Future<Widget> getFirstScreen() async {
   bool stayLogin =
       await StorageHelper.getBoolean(StorageKeys.isUserLoggedIn, false);
   bool isFirstTime =
-  await StorageHelper.getBoolean(StorageKeys.isFirstTime, true);
+      await StorageHelper.getBoolean(StorageKeys.isFirstTime, true);
   String? regStatus = await StorageHelper.getString(StorageKeys.regStatus);
 
-  if(!isFirstTime){
+  if (!isFirstTime) {
     if (stayLogin) {
       if (regStatus == null) {
         return const PrivacyScreen();
@@ -105,7 +107,7 @@ Future<Widget> getFirstScreen() async {
     } else {
       return ChooseModeScreen(onComplete: () {});
     }
-  }else{
+  } else {
     return OnboardingScreen();
   }
 }
