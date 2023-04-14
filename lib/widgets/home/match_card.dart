@@ -62,7 +62,8 @@ class _MatchCardState extends State<MatchCard> {
                                       widget.user.photos!.isNotEmpty
                                           ? widget.user.photos![0]
                                           : ''),
-                                  fit: BoxFit.cover)),
+                                  fit: BoxFit.cover)
+                          ),
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 16),
@@ -243,16 +244,14 @@ class _MatchCardState extends State<MatchCard> {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
+
                         /*const Text(
                           'Owerri, Imo state ',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),*/
                         SizedBox(
-                          height: 60,
+                          height: 50,
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),

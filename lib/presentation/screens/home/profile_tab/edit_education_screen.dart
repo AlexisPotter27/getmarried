@@ -68,10 +68,10 @@ class _EditEducationScreenState extends State<EditEducationScreen> {
             height: 16,
           ),
           ListView.builder(
-            itemCount: user!.educationColledge!.length,
+            itemCount: user!.educationCollege!.length,
             shrinkWrap: true,
             itemBuilder: (context, index) => BasicDetailItem(
-              value: user!.educationColledge![index],
+              value: user!.educationCollege![index],
             ),
           )
         ],

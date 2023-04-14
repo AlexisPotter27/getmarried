@@ -31,7 +31,7 @@ class _AddEducationScreenState extends State<AddEducationScreen> {
           IconButton(
               onPressed: canUpdate
                   ? () {
-                      user?.educationColledge?.add(institutionController.text);
+                      user?.educationCollege?.add(institutionController.text);
                       authBloc.add(UpdateUserEvent(user!));
                     }
                   : null,

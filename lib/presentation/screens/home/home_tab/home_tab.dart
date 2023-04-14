@@ -13,6 +13,8 @@ import 'package:getmarried/widgets/home/match_card.dart';
 import 'package:getmarried/widgets/home/swippable_card.dart';
 import 'package:getmarried/widgets/primary_button.dart';
 
+import '../../../blocs/auth/auth_bloc.dart';
+
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
 
@@ -22,6 +24,13 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   ChatBloc chatBloc = ChatBloc(ChatRepositoryImpl());
+  UserData? userData = getIt.get<CacheCubit>().user;
+  AuthBloc authBloc = AuthBloc(getIt.get());
+ // final UserData user;
+
+  List<String>? likedUser;
+
+  //final String currentUserId = currentUserId?.id;
 
   @override
   void initState() {
@@ -164,6 +173,7 @@ class _HomeTabState extends State<HomeTab> {
                             (index) => SwipableCard(
                                   onLiked: () {
                                     setState(() {
+                                      likedUsers();
                                       items.removeLast();
                                     });
                                   },
@@ -284,6 +294,16 @@ class _HomeTabState extends State<HomeTab> {
       items = fetchedUsers
           .where((element) => element.gender != user.gender)
           .toList();
+      items = fetchedUsers
+          .where((element) => element.country !=user.country)
+          .toList();
     });
+  }
+  likedUsers () {
+   // bool isLiked = likes[currentUserId] = true;
+    UserData user;
+
+    userData?.likes = likedUser;
+    print(likedUser);
   }
 }

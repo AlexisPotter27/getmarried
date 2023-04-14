@@ -57,10 +57,12 @@ class UserData {
     this.regStatus,
     this.photos,
     this.occupations,
-    this.educationColledge,
+    this.educationCollege,
     this.languages,
     this.dateFilters,
+    this.likes,
     this.location,
+    this.country,
   });
 
   String? uid;
@@ -109,9 +111,11 @@ class UserData {
   DateFilters? dateFilters;
   List<dynamic>? photos;
   List<dynamic>? occupations;
-  List<dynamic>? educationColledge;
+  List<dynamic>? educationCollege;
   List<dynamic>? languages;
+  List<dynamic>? likes;
   String? location;
+  String? country;
 
   UserData copyWith({
     String? uid,
@@ -160,9 +164,11 @@ class UserData {
     DateFilters? dateFilters,
     List<dynamic>? photos,
     List<dynamic>? occupations,
-    List<dynamic>? educationColledge,
+    List<dynamic>? educationCollege,
     List<dynamic>? languages,
+    List<dynamic>? likes,
     String? location,
+    String? country,
   }) =>
       UserData(
         uid: uid ?? this.uid,
@@ -211,10 +217,12 @@ class UserData {
         regStatus: regStatus ?? this.regStatus,
         photos: photos ?? this.photos,
         occupations: occupations ?? this.occupations,
-        educationColledge: educationColledge ?? this.educationColledge,
+        educationCollege: educationCollege ?? this.educationCollege,
         languages: languages ?? this.languages,
         dateFilters: dateFilters ?? this.dateFilters,
+        likes: likes ?? this.likes,
         location: location ?? this.location,
+        country: country ?? this.country,
       );
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
@@ -272,13 +280,17 @@ class UserData {
         occupations: json["occupations"] == null
             ? []
             : List<dynamic>.from(json["occupations"]!.map((x) => x)),
-        educationColledge: json["educationColledge"] == null
+        educationCollege: json["educationCollege"] == null
             ? []
-            : List<dynamic>.from(json["educationColledge"]!.map((x) => x)),
-        languages: json["laguages"] == null
+            : List<dynamic>.from(json["educationCollege"]!.map((x) => x)),
+        languages: json["languages"] == null
             ? []
             : List<dynamic>.from(json["languages"]!.map((x) => x)),
+        likes: json["likes"] == null
+            ? []
+            : List<dynamic>.from(json["likes"]!.map((x) => x)),
         location: json["location"],
+        country: json["country"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -333,13 +345,17 @@ class UserData {
         "occupations": occupations == null
             ? []
             : List<dynamic>.from(occupations!.map((x) => x)),
-        "educationColledge": educationColledge == null
+        "educationCollege": educationCollege == null
             ? []
-            : List<dynamic>.from(educationColledge!.map((x) => x)),
+            : List<dynamic>.from(educationCollege!.map((x) => x)),
         "languages": languages == null
             ? []
             : List<dynamic>.from(languages!.map((x) => x)),
+        "likes": likes == null
+            ? []
+            : List<dynamic>.from(likes!.map((x) => x)),
         "location": location,
+        "country": country,
       };
 
   ChatUser toChatUser() => ChatUser(

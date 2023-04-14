@@ -23,6 +23,7 @@ class _LocationState extends State<Location> {
 
   String location = 'Null';
   String? Address;
+  String? Country;
 
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
@@ -57,8 +58,10 @@ class _LocationState extends State<Location> {
 
     Placemark place = placemark[0];
     Address = '${place.subLocality}, ${place.isoCountryCode} ';
+    Country = '${place.country}';
     print('Location:: ${Address}');
     cachedUser?.location = Address;
+    cachedUser?.country = Country;
     authBloc.add(UpdateUserEvent(cachedUser!));
   }
 
