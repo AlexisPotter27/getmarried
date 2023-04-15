@@ -63,6 +63,7 @@ class UserData {
     this.location,
     this.country,
     this.likeMe,
+    this.dislikes,
     this.matches,
   });
 
@@ -117,6 +118,7 @@ class UserData {
   String? location;
   String? country;
   List<dynamic>? likeMe;
+  List<dynamic>? dislikes;
   List<dynamic>? matches;
 
   /*UserData copyWith({
@@ -222,6 +224,8 @@ class UserData {
           List<dynamic>? educationCollege,
           List<dynamic>? languages,
           String? location,
+          List<dynamic>? likes,
+          List<dynamic>? dislikes,
           List<dynamic>? likeMe}) =>
       UserData(
         uid: uid ?? this.uid,
@@ -277,6 +281,7 @@ class UserData {
         country: country ?? this.country,
 
         likeMe: likeMe ?? this.likeMe,
+        dislikes: dislikes ?? this.dislikes,
         matches: matches ?? this.matches,
       );
 
@@ -344,6 +349,9 @@ class UserData {
         likeMe: json["like_me"] == null
             ? []
             : List<dynamic>.from(json["like_me"]!.map((x) => x)),
+        dislikes: json["dislikes"] == null
+            ? []
+            : List<dynamic>.from(json["dislikes"]!.map((x) => x)),
         matches: json["matches"] == null
             ? []
             : List<dynamic>.from(json["matches"]!.map((x) => x)),
@@ -409,8 +417,11 @@ class UserData {
         "languages": languages == null
             ? []
             : List<dynamic>.from(languages!.map((x) => x)),
+        "likes": likes == null ? [] : List<dynamic>.from(likes!.map((x) => x)),
         "like_me":
-            likeMe == null ? [] : List<dynamic>.from(languages!.map((x) => x)),
+            likeMe == null ? [] : List<dynamic>.from(likeMe!.map((x) => x)),
+        "dislikes":
+            dislikes == null ? [] : List<dynamic>.from(dislikes!.map((x) => x)),
         "matches":
             matches == null ? [] : List<dynamic>.from(matches!.map((x) => x)),
         "location": location,
@@ -421,7 +432,7 @@ class UserData {
       id: this.uid!,
       name: this.firstname!,
       photos: this.photos!,
-      about: this.about??'');
+      about: this.about ?? '');
 
   static generateData() {}
 

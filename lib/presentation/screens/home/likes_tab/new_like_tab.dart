@@ -80,10 +80,10 @@ class _NewLikeTabState extends State<NewLikeTab> {
             ),
             BlocConsumer<ChatBloc, ChatState>(
               bloc: chatBloc,
-              buildWhen: (prev, curr) =>
-                  curr is UsersLoadingState ||
-                  curr is UsersFetchedState ||
-                  curr is UsersErrorState,
+              // buildWhen: (prev, curr) =>
+              //     curr is UsersLoadingState ||
+              //     curr is UsersFetchedState ||
+              //     curr is UsersErrorState,
               listener: (context, state) {
                 if (state is UsersFetchedState) {
                   sortUsers(state.users);
@@ -165,11 +165,8 @@ class _NewLikeTabState extends State<NewLikeTab> {
     UserData user = getIt.get<CacheCubit>().user!;
 
     setState(() {
-      items = fetchedUsers
-          .where((element) =>
-              element.gender != user.gender &&
-              element.uid != user.uid &&
-              element.likeMe!.contains(user.uid))
+
+      items = fetchedUsers.where((element) => (element.gender != user.gender && element.uid != user.uid) && (element.likes!.contains(user.uid)))
           .toList();
     });
   }

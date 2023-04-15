@@ -68,9 +68,10 @@ class _SwipableCardState extends State<SwipableCard>
         },
         onPanEnd: (details) async {
           if (position.dx >= 95) {
-            dislike();
-          } else if (position.dx <= -95) {
             like();
+          } else if (position.dx <= -95) {
+
+            dislike();
           } else {
             reset(details);
           }
@@ -113,17 +114,17 @@ class _SwipableCardState extends State<SwipableCard>
   }
 
   Future<void> dislike() async {
-    d.log('liked');
+    d.log('disliked');
     isDragging = false;
     angle = -80;
     position = Offset(-(getDeviceSize().width / 2), -20);
     widget.onSwipeEnded();
     await Future.delayed(const Duration(milliseconds: 300));
-    widget.onLiked();
+    widget.onDisLike();
   }
 
   Future<void> like() async {
-    d.log('disliked');
+    d.log('liked');
     isDragging = false;
     angle = 100;
     position = Offset((getDeviceSize().width / 2), 0);

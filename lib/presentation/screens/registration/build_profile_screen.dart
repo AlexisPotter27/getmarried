@@ -35,7 +35,6 @@ import 'package:getmarried/presentation/screens/registration/profile_steps/relat
 import 'package:getmarried/presentation/screens/registration/profile_steps/religion_screen.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/smoking_screen.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/star_sign_screen.dart';
-import 'package:getmarried/presentation/screens/registration/profile_steps/starting_and_finishing.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/time_for_children_screen.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/understanding.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/work_out.dart';
@@ -179,11 +178,13 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                         prevPage(8);
                       }, onComplete: (education) {
                         userData?.education = education;
+                        userData?.educationColledge = [education];
                         switchPage(10);
                       }),
                       DrinkingScreen(onPrev: () {
                         prevPage(9);
                       }, onComplete: (drinking) {
+                        userData?.drinking = drinking;
                         switchPage(11);
                       }),
                       SmokingScreen(onPrev: () {

@@ -27,3 +27,23 @@ class LikeUserFailureState extends MatchingState {
   @override
   List<Object> get props => [error];
 }
+
+
+class DisLikeUserLoadingState extends MatchingState {
+  @override
+  List<Object> get props => [];
+}
+
+class DisLikeUserSuccessState extends MatchingState {
+  @override
+  List<Object> get props => [];
+}
+
+class DisLikeUserFailureState extends MatchingState {
+  final String error;
+
+  DisLikeUserFailureState(this.error);
+
+  @override
+  List<Object> get props => [error];
+}

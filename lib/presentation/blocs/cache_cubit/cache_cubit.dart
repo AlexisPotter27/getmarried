@@ -19,4 +19,5 @@ class CacheCubit extends Cubit<CacheState> {
     user = await profileRepository.getLocalUserProfile();
     emit(ProfileUpdatedState(user!));
   }
+
 }

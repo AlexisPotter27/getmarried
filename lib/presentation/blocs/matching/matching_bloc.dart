@@ -19,6 +19,7 @@ class MatchingBloc extends Bloc<MatchingEvent, MatchingState> {
       // TODO: implement event handler
     });
     on<LikeUserEvent>(_mapLikeUserEventToState);
+    on<DisLikeUserEvent>(_mapDisLikeUserEventToState);
   }
 
   FutureOr<void> _mapLikeUserEventToState(
@@ -38,6 +39,25 @@ class MatchingBloc extends Bloc<MatchingEvent, MatchingState> {
       emit(LikeUserFailureState(e.code));
     } catch (e) {
       emit(LikeUserFailureState(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapDisLikeUserEventToState(
+      DisLikeUserEvent event, Emitter<MatchingState> emit) async {
+    emit(DisLikeUserLoadingState());
+    try {
+      log('loading');
+
+      ApiResponse response = await _matchingRepository.disLike(event.uid);
+      log(response.data);
+
+      if (response.error == null) {
+        emit(DisLikeUserSuccessState());
+      }
+    } on FirebaseException catch (e) {
+      emit(DisLikeUserFailureState(e.code));
+    } catch (e) {
+      emit(DisLikeUserFailureState(e.toString()));
     }
   }
 }
