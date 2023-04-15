@@ -417,7 +417,6 @@ class UserData {
         "languages": languages == null
             ? []
             : List<dynamic>.from(languages!.map((x) => x)),
-        "likes": likes == null ? [] : List<dynamic>.from(likes!.map((x) => x)),
         "like_me":
             likeMe == null ? [] : List<dynamic>.from(likeMe!.map((x) => x)),
         "dislikes":

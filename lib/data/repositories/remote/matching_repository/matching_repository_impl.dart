@@ -16,7 +16,7 @@ class MatchingRepositoryImpl extends MatchingRepository {
     try {
       UserData me = getIt.get<CacheCubit>().user!;
       DocumentReference swipedDocumentReference =
-          db.collection(FirebaseKeys.users).doc(uid);
+      db.collection(FirebaseKeys.users).doc(uid);
       final snapshot = await swipedDocumentReference.get();
       UserData swipedUserdata =
       UserData.fromJson(snapshot.data() as Map<String, dynamic>);
@@ -33,9 +33,9 @@ class MatchingRepositoryImpl extends MatchingRepository {
   Future<ApiResponse> getSuggestions(UserData user) async {
     try {
       QuerySnapshot<Map<String, dynamic>> snapshot =
-          await db.collection(FirebaseKeys.users).get();
+      await db.collection(FirebaseKeys.users).get();
       List<UserData> users =
-          snapshot.docs.map((e) => UserData.fromJson(e.data())).toList();
+      snapshot.docs.map((e) => UserData.fromJson(e.data())).toList();
       List<UserData> suggestedUsers = suggest(user, users);
       return ApiResponse(data: users, error: null);
     } on FirebaseException catch (e) {
@@ -50,10 +50,10 @@ class MatchingRepositoryImpl extends MatchingRepository {
     try {
       UserData me = getIt.get<CacheCubit>().user!;
       DocumentReference swipedDocumentReference =
-          await db.collection(FirebaseKeys.users).doc(uid);
+      await db.collection(FirebaseKeys.users).doc(uid);
 
       DocumentReference userDocumentReference =
-          await db.collection(FirebaseKeys.users).doc(me.uid);
+      await db.collection(FirebaseKeys.users).doc(me.uid);
 
 
       final userSnapShot = await userDocumentReference.get();
@@ -63,21 +63,18 @@ class MatchingRepositoryImpl extends MatchingRepository {
       // Retreiving the swiped users data
       final swipedUserSnapshot = await swipedDocumentReference.get();
       UserData swipedUserData =
-          UserData.fromJson(swipedUserSnapshot.data() as Map<String, dynamic>);
+      UserData.fromJson(swipedUserSnapshot.data() as Map<String, dynamic>);
 
       // Checking if user already liked the swiped user
       if (!(swipedUserData.likeMe!.contains(me.uid))) {
         swipedDocumentReference
             .update({'like_me': swipedUserData.likeMe!..add(me.uid)});
       }
-      // Checking if user already liked the swiped user
-      if (!(me.likeMe!.contains(userdata.uid))) {
-        userDocumentReference.update({'likes': me.likeMe!..add(userdata.uid)});
 
       // Checking if user already liked the swiped user(from the logged in users list of likes)
-      if (!(userData.likes!.contains(uid))) {
+      if (!(userData.likeMe!.contains(uid))) {
         log('NOT LIKED YET');
-        userDocumentReference.update({'likes': userData.likes!..add(uid)});
+        userDocumentReference.update({'likes': userData.likeMe!..add(uid)});
       }else{
         log('ALREADY LIKED');
 

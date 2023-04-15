@@ -178,7 +178,7 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                         prevPage(8);
                       }, onComplete: (education) {
                         userData?.education = education;
-                        userData?.educationColledge = [education];
+                        userData?.educationCollege = [education];
                         switchPage(10);
                       }),
                       DrinkingScreen(onPrev: () {

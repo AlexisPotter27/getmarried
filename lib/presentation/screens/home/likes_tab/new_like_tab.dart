@@ -166,7 +166,7 @@ class _NewLikeTabState extends State<NewLikeTab> {
 
     setState(() {
 
-      items = fetchedUsers.where((element) => (element.gender != user.gender && element.uid != user.uid) && (element.likes!.contains(user.uid)))
+      items = fetchedUsers.where((element) => (element.gender != user.gender && element.uid != user.uid) && (element.likeMe!.contains(user.uid)))
           .toList();
     });
   }
