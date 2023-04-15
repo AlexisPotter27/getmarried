@@ -51,8 +51,8 @@ class MatchingRepositoryImpl extends MatchingRepository {
             .update({'like_me': userdata.likeMe!..add(me.uid)});
       }
       // Checking if user already liked the swiped user
-      if (!(me.likes!.contains(userdata.uid))) {
-        userDocumentReference.update({'likes': me.likes!..add(userdata.uid)});
+      if (!(me.likeMe!.contains(userdata.uid))) {
+        userDocumentReference.update({'likes': me.likeMe!..add(userdata.uid)});
       }
 
       //adding the user id of both users to their list of matches

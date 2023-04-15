@@ -169,7 +169,7 @@ class _NewLikeTabState extends State<NewLikeTab> {
           .where((element) =>
               element.gender != user.gender &&
               element.uid != user.uid &&
-              element.likes!.contains(user.uid))
+              element.likeMe!.contains(user.uid))
           .toList();
     });
   }

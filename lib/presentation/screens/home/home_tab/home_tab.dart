@@ -33,7 +33,7 @@ class _HomeTabState extends State<HomeTab> {
   List<String>? likedUser;
 
   //final String currentUserId = currentUserId?.id;
-  SwipeBloc swipeBloc = SwipeBloc();
+//  SwipeBloc swipeBloc = SwipeBloc();
   SwipeController swipeBloc = SwipeController();
   UserData cachedUser = getIt.get<CacheCubit>().user!;
   MatchingBloc _matchingBloc = MatchingBloc(getIt.get());
@@ -332,6 +332,6 @@ class _HomeTabState extends State<HomeTab> {
 
   bool userHasLikedMe(UserData userData) {
     UserData me = getIt.get<CacheCubit>().user!;
-    return userData.likes!.contains(me.uid);
+    return userData.likeMe!.contains(me.uid);
   }
 }
