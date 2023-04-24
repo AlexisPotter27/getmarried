@@ -30,6 +30,8 @@ class _MessagingScreenState extends State<MessagingScreen> {
   List<ChatMessage> messages = [];
   UserData cachedUser = getIt.get<CacheCubit>().user!;
   String? convoId;
+  ScrollController _scrollController = new ScrollController();
+
 
   @override
   void initState() {
@@ -69,6 +71,11 @@ class _MessagingScreenState extends State<MessagingScreen> {
                     setState(() {
                       messages = state.chatMessages;
                     });
+                    _scrollController.animateTo(
+                        _scrollController.position.maxScrollExtent,
+                      curve: Curves.easeOut,
+                      duration: const Duration(milliseconds: 300),
+                    );
                   }
 
                   if (state is StartConvoSuccesState) {
@@ -95,6 +102,7 @@ class _MessagingScreenState extends State<MessagingScreen> {
                   }
                   return ListView.builder(
                     itemCount: messages.length,
+                    controller: _scrollController,
                     itemBuilder: (context, index) => MessageBox(
                       message: messages[index],
                     ),

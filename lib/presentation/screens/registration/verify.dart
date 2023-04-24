@@ -248,6 +248,8 @@ class _VerifyState extends State<Verify> {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: phoneController.text);
 
+
+
     authBloc.add(PhoneNumberSigninEvent(credential));
 
     // await auth.signInWithCredential(credential).then((value){

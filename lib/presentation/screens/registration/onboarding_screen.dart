@@ -61,7 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   },
                   children: const [
                     OnboardingItem(
-                      img: 'assets/connected2.png',
+                      img: 'assets/connected1.png',
                       header: 'Getmarried App',
                       text: introText,
                     ),

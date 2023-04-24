@@ -94,6 +94,7 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<ApiResponse> signinWithPhoneNumber(credential) async {
     debugPrint('Singing in with:${credential.smsCode}');
+
     try {
       UserCredential user = await auth.signInWithCredential(
         credential,
@@ -118,13 +119,16 @@ class AuthRepositoryImpl extends AuthRepository {
     try {
       debugPrint('RETRIEVING USER DETAILS');
 
-      QuerySnapshot<Map<String, dynamic>> snapshots = await db.collection(FirebaseKeys.users).get();
+      QuerySnapshot<Map<String, dynamic>> snapshots =
+          await db.collection(FirebaseKeys.users).get();
 
-      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs = snapshots.docs.where((element) => element.id == uid).toList();
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs =
+          snapshots.docs.where((element) => element.id == uid).toList();
       log(docs.length.toString());
       // log('LOGGED IN USER ${docs.first.data().toString()}');
       if (docs.isNotEmpty) {
-        return ApiResponse(data: UserData.fromJson(docs.first.data()), error: null);
+        return ApiResponse(
+            data: UserData.fromJson(docs.first.data()), error: null);
       } else {
         // log(docs.first.id);
         DocumentReference userRef = db.collection(FirebaseKeys.users).doc(uid);
@@ -271,8 +275,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
       // Obtain the auth details from the request
       if (googleUser != null) {
-        final GoogleSignInAuthentication? googleAuth =
-            await googleUser.authentication;
+        final GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
 
         final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth?.accessToken,
