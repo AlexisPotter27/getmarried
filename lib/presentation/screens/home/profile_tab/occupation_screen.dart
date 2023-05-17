@@ -64,11 +64,13 @@ class _OccupationPageState extends State<OccupationPage> {
           SizedBox(
             height: 16,
           ),
-          ListView.builder(
-            itemCount: user!.occupations!.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) => BasicDetailItem(
-              value: user!.occupations![index],
+          Expanded(
+            child: ListView.builder(
+              itemCount: user!.occupations!.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) => BasicDetailItem(
+                value: user!.occupations![index],
+              ),
             ),
           )
         ],

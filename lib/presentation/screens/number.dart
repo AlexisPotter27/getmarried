@@ -29,7 +29,7 @@ class _PhoneState extends State<Phone> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigoAccent,
+      backgroundColor: primaryColour,
       appBar: AppBar(
         centerTitle: true,
         title: Padding(
@@ -41,7 +41,7 @@ class _PhoneState extends State<Phone> {
           ),
         ),
         elevation: 0,
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor: primaryColour,
         leading: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -250,43 +250,22 @@ class _PhoneState extends State<Phone> {
                                                 BorderRadius.circular(20),
                                           ),
                                           child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
+                                            padding: const EdgeInsets.all(10.0),
                                             child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                const Text(
-                                                  'We need to verify your number',
+                                                 Text(
+                                                  'We need to verify your number, We need to make sure that $number is your number',
                                                   style: TextStyle(
                                                       fontSize: 16,
                                                       fontWeight:
                                                           FontWeight.w500),
-                                                  textAlign: TextAlign.center,
+
                                                 ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                const Text(
-                                                  'We need to make sure that',
-                                                  style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                Text(
-                                                  '$number is your number',
-                                                  style: const TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                const SizedBox(
-                                                  height: 16,
-                                                ),
+
+                                                SizedBox(height: 16,),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
@@ -310,9 +289,7 @@ class _PhoneState extends State<Phone> {
                                                     ),
                                                     GestureDetector(
                                                         onTap: () {
-                                                          phoneController
-                                                              .clear();
-                                                          countryCode.clear();
+
                                                           Navigator.pop(
                                                               context);
                                                           authBloc.add(

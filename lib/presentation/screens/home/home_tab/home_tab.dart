@@ -12,9 +12,11 @@ import 'package:getmarried/presentation/blocs/chat/chat_bloc.dart';
 import 'package:getmarried/presentation/blocs/matching/matching_bloc.dart';
 import 'package:getmarried/presentation/blocs/swipe_controller/swipe_bloc.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
+import 'package:getmarried/widgets/error_widget.dart';
 import 'package:getmarried/widgets/home/match_card.dart';
 import 'package:getmarried/widgets/home/swippable_card.dart';
 import 'package:getmarried/widgets/primary_button.dart';
+import 'package:iconsax/iconsax.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -67,8 +69,8 @@ class _HomeTabState extends State<HomeTab> {
                 children: [
                   Image.asset(
                     'assets/ilogo.png',
-                    height: 50,
-                    width: 50,
+                    height: 55,
+                    width: 55,
                   ),
                   /*const Text(
                         'Get Married',
@@ -87,7 +89,7 @@ class _HomeTabState extends State<HomeTab> {
                     ));
                   },
                   icon: const Icon(
-                    Icons.tune,
+                    Iconsax.filter,
                     size: 30,
                   )),
             ],
@@ -225,7 +227,7 @@ class _HomeTabState extends State<HomeTab> {
                                     child: Icon(
                                       Icons.favorite,
                                       size: 25,
-                                      color: primaryColour,
+                                      color: Colors.red,
                                     )),
                               ),
                             ),
@@ -250,36 +252,14 @@ class _HomeTabState extends State<HomeTab> {
                         ],
                       )
                     : Center(
-                        child: Container(
-                          decoration: const BoxDecoration(),
-                          alignment: Alignment.center,
-                          child: Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const SizedBox(
-                                  height: 100,
-                                ),
-                                const Text('You have no matches yet,'),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                SizedBox(
-                                  width: 100,
-                                  child: PrimaryButton(
-                                    onPressed: () {
-                                      chatBloc.add(GetUsersEvent());
-                                    },
-                                    child: const Text(
-                                      'Refresh',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                        child: AppPromptWidget(
+                            canTryAgain: true,
+                            isSvgResource: false,
+                            imagePath: 'assets/no_match.png',
+                            message: 'You have no match currently',
+                            onTap: () {
+                              chatBloc.add(GetUsersEvent());
+                            }),
                       ),
               );
             },
@@ -304,12 +284,17 @@ class _HomeTabState extends State<HomeTab> {
     setState(() {
       items = fetchedUsers
           .where((element) =>
-              (element.gender != user.gender && element.uid != user.uid) && (!element.matches!.contains(user.uid))
-      ).toList();
+              (element.gender != user.gender && element.uid != user.uid) &&
+              (!element.matches!.contains(user.uid)))
+          .toList();
 
-      items = items.where((element) => ( !element.likeMe!.contains(user.uid))).toList();
+      items = items
+          .where((element) => (!element.likeMe!.contains(user.uid)))
+          .toList();
       log(items.length.toString());
-      items = items.where((element) => !element.dislikes!.contains(user.uid.toString())).toList();
+      items = items
+          .where((element) => !element.dislikes!.contains(user.uid.toString()))
+          .toList();
     });
     // log(fetchedUsers
     //     .where((element) => (!element.dislikes!.contains(user.uid.toString())) && (!element.likeMe!.contains(user.uid)))

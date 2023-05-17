@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/constants/storage_keys.dart';
+import 'package:getmarried/data/models/date_filters.dart';
 import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/helper/storage_helper.dart';
@@ -34,7 +35,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.indigoAccent,
+      backgroundColor: primaryColour,
       body: BlocConsumer<AuthBloc, AuthState>(
         bloc: authBloc,
         listener: (context, state) {
@@ -46,7 +47,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             Navigator.pop(context);
             getIt.get<CacheCubit>().updateUser(state.userData);
 
-            Navigator.pushReplacement(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const BuildProfileOnboard(),
@@ -169,7 +170,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           prevPage(3);
                         },
                         onComplete: (date) {
-                          cachedUser?.dateMatch = date;
+                          cachedUser = cachedUser?.copyWith(
+                              dateFilters: DateFilters(lookingFor: date));
                           switchPage(5);
                         },
                       ),
@@ -184,7 +186,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         },
                         onComplete: (email) {
                           cachedUser?.email = email;
-
                           authBloc.add(UpdateUserEvent(cachedUser!));
                           // Navigator.of(context).pushReplacement(MaterialPageRoute(
                           //   builder: (context) => const BuildProfileOnboard(),

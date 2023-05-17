@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/profile_settings_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/settings_screen.dart';
 import 'package:getmarried/widgets/profile_tab/features_tile.dart';
+import 'package:getmarried/widgets/profile_tab/new_subscription_card.dart';
 import 'package:getmarried/widgets/profile_tab/subscription_card.dart';
+import 'package:iconsax/iconsax.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({Key? key}) : super(key: key);
@@ -16,6 +19,7 @@ class ProfileTab extends StatefulWidget {
 
 class _ProfileTabState extends State<ProfileTab> {
   int _selectedIndex = 0;
+  var cachedUser = getIt.get<CacheCubit>().user!;
 
   @override
   void initState() {
@@ -39,8 +43,8 @@ class _ProfileTabState extends State<ProfileTab> {
               title: Center(
                 child: Image.asset(
                   'assets/ilogo.png',
-                  height: 40,
-                  width: 50,
+                  height: 55,
+                  width: 55,
                 ),
               ),
 
@@ -53,6 +57,7 @@ class _ProfileTabState extends State<ProfileTab> {
               //       color: Colors.grey,
               //       size: 25,
               //     )),
+
               elevation: 0,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               pinned: true,
@@ -69,9 +74,9 @@ class _ProfileTabState extends State<ProfileTab> {
                     child: const Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Icon(
-                        Icons.settings,
-                        color: Colors.grey,
-                        size: 25,
+                        Iconsax.setting,
+                        color: Colors.black,
+                        size: 30,
                       ),
                     )),
               ],
@@ -82,21 +87,13 @@ class _ProfileTabState extends State<ProfileTab> {
                   background: Column(
                     children: [
                       const SizedBox(
-                        height: 50,
+                        height: 60,
                       ),
                       Center(
                         child: CircleAvatar(
-                          backgroundColor: primaryColour,
-                          radius: 63,
-                          child: CircleAvatar(
-                            radius: 60,
-                            backgroundImage: NetworkImage(
-                              getIt
-                                  .get<CacheCubit>()
-                                  .user!
-                                  .photos![0]
-                                  .toString(),
-                            ),
+                          radius: 60,
+                          backgroundImage: NetworkImage(
+                            getIt.get<CacheCubit>().user!.photos![0].toString(),
                           ),
                         ),
                       ),
@@ -114,7 +111,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                   .firstname
                                   .toString(),
                               style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
+                                  fontSize: 18, fontWeight: FontWeight.w500),
                             ),
                             const SizedBox(
                               width: 10,
@@ -153,122 +150,162 @@ class _ProfileTabState extends State<ProfileTab> {
                     ],
                   )),
             ),
+
             SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Center(
                 child: Column(
                   children: [
-                    // Row(
-                    //   children: const [
-                    //     Expanded(child: CardTile()),
-                    //     SizedBox(
-                    //       width: 10,
-                    //     ),
-                    //     Expanded(child: CardTile())
-                    //   ],
-                    // ),
-                    const SizedBox(
-                      height: 16,
+                    Image.asset(
+                      'assets/lovers.png',
+                      height: 200,
                     ),
                     SizedBox(
-                      height: 160,
-                      child: PageView(
-                        onPageChanged: (index) {
-                          setState(() {
-                            _selectedIndex = index;
-                          });
-                        },
-                        controller: _controller,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: SubscriptionCard(
-                              tittle: '50% off Premium',
-                              description: 'Free for first 500 users',
-                              // bgImage: 'assets/upgrade_bg.jpeg',
-                              buttonText: 'Upgrade for ONLY \$45 /mo.',
-                            ),
-                          ),
-                          SubscriptionCard(
-                            tittle: 'Boost',
-                            gradient: LinearGradient(
-                                end: Alignment.bottomRight,
-                                begin: Alignment.topLeft,
-                                colors: [
-                                  Colors.cyan.shade200,
-                                  Colors.cyan.shade400,
-                                  Colors.cyan,
-                                  Colors.cyan,
-                                ]),
-                            description: 'Free for first 500 users',
-                            buttonText: 'Upgrade for ONLY \$45 /mo.',
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'What you will get:',
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                        Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _selectedIndex = 0;
-                                  _controller.jumpToPage(0);
-                                });
-                              },
-                              child: const Text(
-                                'Premium',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _selectedIndex = 1;
-                                  _controller.jumpToPage(1);
-                                });
-                              },
-                              child: const Text(
-                                'Boost',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
+                    Text(
+                      'Get married is free for the first 500 users',
+                      style: TextStyle(fontSize: 16),
+                    )
                   ],
                 ),
               ),
-            ),
-            // const FlexibleSpaceBar(),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: FeaturesTile(
-                    featureModel: features[index],
-                    selectedFeature: _selectedIndex,
-                  ),
-                ),
-                childCount: features.length,
-              ),
-            ),
+            )
+
+            // SliverToBoxAdapter(
+            //   child: Padding(
+            //     padding: const EdgeInsets.symmetric(horizontal: 16),
+            //     child: Column(
+            //       children: [
+            //         // Row(
+            //         //   children: const [
+            //         //     Expanded(child: CardTile()),
+            //         //     SizedBox(
+            //         //       width: 10,
+            //         //     ),
+            //         //     Expanded(child: CardTile())
+            //         //   ],
+            //         // ),
+            //         const SizedBox(
+            //           height: 16,
+            //         ),
+            //         SizedBox(
+            //           height: 150,
+            //           child: PageView(
+            //             padEnds: false,
+            //             physics: BouncingScrollPhysics(),
+            //             onPageChanged: (index) {
+            //               setState(() {
+            //                 _selectedIndex = index;
+            //               });
+            //             },
+            //             controller: _controller,
+            //             children: [
+            //               Padding(
+            //                 padding: EdgeInsets.only(right: 10),
+            //                 child: NewSubscriptionCard(
+            //                   tittle: 'Premium',
+            //                   description: 'Free for first 500 users',
+            //                   // bgImage: 'assets/upgrade_bg.jpeg',
+            //                   gradient: LinearGradient(
+            //                       end: Alignment.centerLeft,
+            //                       begin: Alignment.bottomRight,
+            //                       colors: [
+            //                         Colors.indigo.shade300,
+            //                         Colors.indigo.shade400,
+            //                         Colors.indigo.shade400,
+            //                         Colors.indigo,
+            //                       ]),
+            //                   buttonText: 'Upgrade for ONLY \$2,500/year.',
+            //                   price: '\$2,500',
+            //                 ),
+            //               ),
+            //               NewSubscriptionCard(
+            //                   buttonTextColor: Colors.cyan,
+            //                   tittle: 'Boost',
+            //                   gradient: LinearGradient(
+            //                       end: Alignment.centerLeft,
+            //                       begin: Alignment.centerRight,
+            //                       colors: [
+            //                         Colors.cyan.shade300,
+            //                         Colors.cyan.shade300,
+            //                         Colors.cyan.shade400,
+            //                         Colors.cyan,
+            //                       ]),
+            //                   description: 'Free for first 500 users',
+            //                   buttonText: 'Upgrade for ONLY \$2,500/year.',
+            //                   price: '\$2,500'),
+            //             ],
+            //           ),
+            //         ),
+            //         const SizedBox(
+            //           height: 20,
+            //         ),
+            //         cachedUser.getPercentage() >= 75
+            //             ? Row(
+            //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                 children: [
+            //                   const Text(
+            //                     'What you will get:',
+            //                     style: TextStyle(fontWeight: FontWeight.w500),
+            //                   ),
+            //                   Row(
+            //                     children: [
+            //                       GestureDetector(
+            //                         onTap: () {
+            //                           setState(() {
+            //                             _selectedIndex = 0;
+            //                             _controller.jumpToPage(0);
+            //                           });
+            //                         },
+            //                         child: const Text(
+            //                           'Premium',
+            //                           style: TextStyle(
+            //                               fontWeight: FontWeight.w500),
+            //                         ),
+            //                       ),
+            //                       const SizedBox(
+            //                         width: 16,
+            //                       ),
+            //                       GestureDetector(
+            //                         onTap: () {
+            //                           setState(() {
+            //                             _selectedIndex = 1;
+            //                             _controller.jumpToPage(1);
+            //                           });
+            //                         },
+            //                         child: const Text(
+            //                           'Boost',
+            //                           style: TextStyle(
+            //                               fontWeight: FontWeight.w500),
+            //                         ),
+            //                       ),
+            //                     ],
+            //                   )
+            //                 ],
+            //               )
+            //             : SizedBox(),
+            //         const SizedBox(
+            //           height: 16,
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            // // const FlexibleSpaceBar(),
+            // cachedUser.getPercentage() >= 75
+            //     ? SliverList(
+            //         delegate: SliverChildBuilderDelegate(
+            //           (context, index) => Padding(
+            //             padding: const EdgeInsets.symmetric(horizontal: 16),
+            //             child: FeaturesTile(
+            //               featureModel: features[index],
+            //               selectedFeature: _selectedIndex,
+            //             ),
+            //           ),
+            //           childCount: features.length,
+            //         ),
+            //       )
+            //     : SliverToBoxAdapter(),
           ],
         ),
       ),

@@ -37,7 +37,6 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
   DateFilters? filters = getIt.get<CacheCubit>().user!.dateFilters;
   AuthBloc authBloc = getIt.get<AuthBloc>();
   bool verifiedOnly = true;
-
   bool _isLoading = false;
   late Offerings offerings;
 
@@ -88,46 +87,46 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                     const SizedBox(
                       height: 50,
                     ),
-                    SettingsTile(
-                      text: 'Verified profiles only',
-                      prefixIcon: const Icon(
-                        Icons.health_and_safety_rounded,
-                        color: Colors.black45,
-                      ),
-                      suffixIcon: SizedBox(
-                          height: 25,
-                          child: Transform.scale(
-                            scale: 0.8,
-                            child: CupertinoSwitch(
-                              value: filters!.verifiedOnly ?? false,
-                              onChanged: (val) {
-                                setState(() {
-                                  filters!.verifiedOnly = val;
-                                });
-                              },
-                              activeColor: primaryColour,
-                            ),
-                          )),
-                      onPressed: () {},
-                      tittle: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
-                              'Have they verified themselves ?',
-                              style: TextStyle(fontSize: 13),
-                            ),
-                            Text(
-                              'What\'s this',
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  fontSize: 13),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // SettingsTile(
+                    //   text: 'Verified profiles only',
+                    //   prefixIcon: const Icon(
+                    //     Icons.health_and_safety_rounded,
+                    //     color: Colors.black45,
+                    //   ),
+                    //   suffixIcon: SizedBox(
+                    //       height: 25,
+                    //       child: Transform.scale(
+                    //         scale: 0.8,
+                    //         child: CupertinoSwitch(
+                    //           value: filters!.verifiedOnly ?? false,
+                    //           onChanged: (val) {
+                    //             setState(() {
+                    //               filters!.verifiedOnly = val;
+                    //             });
+                    //           },
+                    //           activeColor: primaryColour,
+                    //         ),
+                    //       )),
+                    //   onPressed: () {},
+                    //   tittle: Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: const [
+                    //         Text(
+                    //           'Have they verified themselves ?',
+                    //           style: TextStyle(fontSize: 13),
+                    //         ),
+                    //         Text(
+                    //           'What\'s this',
+                    //           style: TextStyle(
+                    //               decoration: TextDecoration.underline,
+                    //               fontSize: 13),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                     // const SizedBox(
                     //   height: 8,
                     // ),
@@ -185,6 +184,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                                     // Navigator.pop(context);
                                     setState(() {
                                       filters!.excercise = exercise;
+                                      updateFilters();
                                     });
                                     // authBloc.add(UpdateUserEvent());
                                   },
@@ -223,6 +223,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                                   onEducationSelected: (String excerise) {
                                     setState(() {
                                       filters!.education = excerise;
+                                      updateFilters();
                                     });
                                   },
                                   value: filters!.education,
@@ -260,6 +261,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                                   onSelected: (String value) {
                                     setState(() {
                                       filters!.drink = value;
+                                      updateFilters();
                                     });
                                   },
                                   value: filters!.drink,
@@ -299,6 +301,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                                   onSelected: (String value) {
                                     setState(() {
                                       filters!.smoke = value;
+                                      updateFilters();
                                     });
                                   },
                                   value: filters!.smoke,
@@ -377,6 +380,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                                   onSelected: (String value) {
                                     setState(() {
                                       filters!.children = value;
+                                      updateFilters();
                                     });
                                   },
                                   value: filters!.children,
@@ -416,6 +420,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                                   onSelected: (String value) {
                                     setState(() {
                                       filters!.startSign = value;
+                                      updateFilters();
                                     });
                                   },
                                   value: filters!.startSign,
@@ -453,6 +458,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                                   onSelected: (String value) {
                                     setState(() {
                                       filters!.topics = value;
+                                      updateFilters();
                                     });
                                   },
                                   value: filters!.topics,
@@ -492,6 +498,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                                   onSelected: (String value) {
                                     setState(() {
                                       filters!.religion = value;
+                                      updateFilters();
                                     });
                                   },
                                   value: filters!.religion,
@@ -517,7 +524,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                 child: Center(
                   child: TextButton(
                     onPressed: () {
-                      performPayment();
+                      // performPayment();
                     },
                     style: TextButton.styleFrom(
                         shape: const StadiumBorder(),
@@ -539,6 +546,15 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
   /*
     We should check if subscription active and if not, display the paywall.
   */
+
+  void updateFilters(){
+    UserData userData = getIt.get<CacheCubit>().user!.copyWith(dateFilters: filters);
+    getIt.get<CacheCubit>().updateUser(userData);
+    getIt.get<AuthBloc>().add(UpdateUserEvent(userData));
+
+  }
+
+
   void performPayment() async {
     setState(() {
       _isLoading = true;

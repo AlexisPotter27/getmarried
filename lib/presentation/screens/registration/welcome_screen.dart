@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
+import 'package:getmarried/presentation/screens/registration/wrapper.dart';
 import 'package:getmarried/widgets/reigistration/welcome_text_widget.dart';
 
 
@@ -59,7 +60,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
+                        builder: (context) => const Wrapper(),
                       ));
                 },
                 style: TextButton.styleFrom(

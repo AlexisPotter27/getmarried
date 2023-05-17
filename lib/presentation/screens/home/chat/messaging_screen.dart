@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:getmarried/admin/data/models/report.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/data/models/chat_message.dart';
 import 'package:getmarried/data/models/conversation.dart';
@@ -11,6 +12,8 @@ import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/blocs/chat/chat_bloc.dart';
+import 'package:getmarried/presentation/blocs/matching/matching_bloc.dart';
+import 'package:getmarried/presentation/screens/home/home_tab/user_details_screen.dart';
 import 'package:getmarried/widgets/chat/message_box.dart';
 import 'package:getmarried/widgets/primary_button.dart';
 
@@ -30,11 +33,12 @@ class _MessagingScreenState extends State<MessagingScreen> {
   List<ChatMessage> messages = [];
   UserData cachedUser = getIt.get<CacheCubit>().user!;
   String? convoId;
-  ScrollController _scrollController = new ScrollController();
-
+  late ScrollController _scrollController;
 
   @override
   void initState() {
+    _scrollController = new ScrollController();
+
     convoId = widget.conversationId;
 
     if (convoId != null) {
@@ -54,7 +58,11 @@ class _MessagingScreenState extends State<MessagingScreen> {
         foregroundColor: Colors.black,
         elevation: 1,
         titleSpacing: 0,
-        actions: const [_AppBarActionsWidget()],
+        actions: [
+          _AppBarActionsWidget(
+            user: widget.userData!,
+          )
+        ],
         title: _AppBarTittleWidget(
           user: widget.userData!,
         ),
@@ -66,22 +74,20 @@ class _MessagingScreenState extends State<MessagingScreen> {
             Expanded(
               child: BlocConsumer<ChatBloc, ChatState>(
                 bloc: chatBloc,
-                listener: (context, state) {
+                listener: (context, state) async {
                   if (state is MessagesFetchedState) {
                     setState(() {
-                      messages = state.chatMessages;
+                      messages = state.chatMessages.reversed.toList();
                     });
-                    _scrollController.animateTo(
-                        _scrollController.position.maxScrollExtent,
-                      curve: Curves.easeOut,
-                      duration: const Duration(milliseconds: 300),
-                    );
+
+                    // await Future.delayed(Duration(milliseconds: 1)).then((value) => _scrollDown());
                   }
 
                   if (state is StartConvoSuccesState) {
                     setState(() {
                       convoId = state.conversation.id;
                     });
+                    _scrollDown();
                     log(state.conversation.id);
                   }
                 },
@@ -103,6 +109,9 @@ class _MessagingScreenState extends State<MessagingScreen> {
                   return ListView.builder(
                     itemCount: messages.length,
                     controller: _scrollController,
+                    shrinkWrap: true,
+                    reverse: true,
+                    restorationId: 'a',
                     itemBuilder: (context, index) => MessageBox(
                       message: messages[index],
                     ),
@@ -126,6 +135,13 @@ class _MessagingScreenState extends State<MessagingScreen> {
       ),
     );
   }
+
+  void _scrollDown() {
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(0.0,
+          duration: Duration(microseconds: 1), curve: Curves.ease);
+    }
+  }
 }
 
 class _AppBarTittleWidget extends StatefulWidget {
@@ -141,9 +157,19 @@ class _AppBarTittleWidgetState extends State<_AppBarTittleWidget> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(
-          backgroundImage: NetworkImage(
-              widget.user.photos.isEmpty ? '' : widget.user.photos[0]),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserDetailsScreen(
+                      userId: widget.user.id, showMesageButton: false),
+                ));
+          },
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(
+                widget.user.photos.isEmpty ? '' : widget.user.photos[0]),
+          ),
         ),
         const SizedBox(
           width: 10,
@@ -167,7 +193,8 @@ class _AppBarTittleWidgetState extends State<_AppBarTittleWidget> {
 }
 
 class _AppBarActionsWidget extends StatelessWidget {
-  const _AppBarActionsWidget({Key? key}) : super(key: key);
+  const _AppBarActionsWidget({Key? key, required this.user}) : super(key: key);
+  final ChatUser user;
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +216,9 @@ class _AppBarActionsWidget extends StatelessWidget {
             onPressed: () {
               showModalBottomSheet(
                 context: context,
-                builder: (context) => ReportWidget(),
+                builder: (context) => ReportWidget(
+                  user: user,
+                ),
               );
             },
             icon: Icon(
@@ -274,13 +303,19 @@ class _InputBoxState extends State<_InputBox> {
 }
 
 class ReportWidget extends StatefulWidget {
-  const ReportWidget({Key? key}) : super(key: key);
+  ReportWidget({Key? key, required this.user}) : super(key: key);
+  final ChatUser user;
 
   @override
   State<ReportWidget> createState() => _ReportWidgetState();
 }
 
 class _ReportWidgetState extends State<ReportWidget> {
+  var _formKey = GlobalKey<FormState>();
+  var _controller = TextEditingController();
+  final MatchingBloc bloc = MatchingBloc(getIt.get());
+  final userData = getIt.get<CacheCubit>().user;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -289,53 +324,91 @@ class _ReportWidgetState extends State<ReportWidget> {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8), topRight: Radius.circular(8)),
           color: Colors.white),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Text(
-          //   'Report',
-          //   style: TextStyle(
-          //       fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          // ),
-          Text(
-            'Why do you wish to report this user. ?',
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey,
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Text(
+            //   'Report',
+            //   style: TextStyle(
+            //       fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
+            // ),
+            Text(
+              'Why do you wish to report this user. ?',
+              style: TextStyle(
+                fontSize: 13,
+                color: Colors.grey,
+              ),
             ),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: TextField(
-              maxLines: 4,
-              textInputAction: TextInputAction.done,
-              decoration: inputDecoration(context).copyWith(
-                  fillColor: Colors.grey.shade300,
-                  hintStyle: TextStyle(color: Colors.grey),
-                  hintText: 'Reason for report.'),
+            SizedBox(
+              height: 8,
             ),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          PrimaryButton(
-            padding: EdgeInsets.all(18),
-            onPressed: () {
-              Navigator.pop(context);
-              showCustomToast('Report sent');
-            },
-            child: Text(
-              'Report',
-              style: TextStyle(color: Colors.white),
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: TextFormField(
+                maxLines: 4,
+                validator: (val) {
+                  if (val == null) {
+                    return 'Enter reason';
+                  }
+                  return null;
+                },
+                controller: _controller,
+                textInputAction: TextInputAction.done,
+                decoration: inputDecoration(context).copyWith(
+                    fillColor: Colors.grey.shade300,
+                    hintStyle: TextStyle(color: Colors.grey),
+                    hintText: 'Reason for report.'),
+              ),
             ),
-          )
-        ],
+            SizedBox(
+              height: 16,
+            ),
+            PrimaryButton(
+              padding: EdgeInsets.all(18),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  bloc.add(SendReportEvent(ReportModel(
+                      message: _controller.text,
+                      reporter: widget.user.id,
+                      victim: userData!.uid)));
+                }
+                // Navigator.pop(context);
+                // showCustomToast('Report sent');
+              },
+              child: BlocConsumer<MatchingBloc, MatchingState>(
+                bloc: bloc,
+                listener: _listenToMatchingBloc,
+                builder: (context, state) {
+                  return state is SendReportLoadingState
+                      ? SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator.adaptive(strokeWidth: 3,))
+                      : Text(
+                          'Report',
+                          style: TextStyle(color: Colors.white),
+                        );
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
+  }
+
+  void _listenToMatchingBloc(BuildContext context, MatchingState state) {
+    if (state is SendReportSuccessState) {
+      Navigator.pop(context);
+      showCustomToast('Report sent', Colors.green);
+    }
+    if (state is SendReportFailureState) {
+      Navigator.pop(context);
+      showCustomToast(state.error, Colors.red);
+    }
   }
 }

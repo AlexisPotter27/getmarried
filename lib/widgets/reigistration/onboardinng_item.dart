@@ -37,14 +37,14 @@ class _OnboardingItemState extends State<OnboardingItem> {
             Spacer(),
             Text(widget.header,
                 style: const TextStyle(
-                  fontFamily: 'Segoe',
+                  fontFamily: 'Poppins',
                   color: primaryColour,
                   fontSize: kIsWeb ? 30 : 25,
                   fontWeight: FontWeight.w600,
                 )),
             Text(widget.text,
                 style: const TextStyle(
-                    fontFamily: 'Segoe', fontSize: 16, color: Colors.white)),
+                    fontFamily: 'Poppins', fontSize: 16, color: Colors.white)),
             // SizedBox(
             //   height: 8,
             // ),

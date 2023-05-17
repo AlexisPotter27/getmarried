@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/screens/home/chat/messaging_screen.dart';
+import 'package:getmarried/presentation/screens/home/home_tab/user_details_screen.dart';
 
 class LikerItem extends StatefulWidget {
   const LikerItem({Key? key, required this.userData}) : super(key: key);
@@ -21,7 +22,9 @@ class _LikerItemState extends State<LikerItem> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MessagingScreen(userData: widget.userData.toChatUser(),),
+              builder: (context) => UserDetailsScreen(
+                userId: widget.userData.uid!,
+              ),
             ));
       },
       child: ClipRRect(

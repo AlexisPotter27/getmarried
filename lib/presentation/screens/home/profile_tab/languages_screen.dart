@@ -1,12 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/widgets/primary_button.dart';
 
 class LanguagesScreen extends StatefulWidget {
-  const LanguagesScreen({Key? key, required this.onLanguagesSelected})
+  LanguagesScreen(
+      {Key? key,
+      required this.onLanguagesSelected,
+      this.selectedLanguages = const []})
       : super(key: key);
-  final Function(List) onLanguagesSelected;
+  final Function(List<String>) onLanguagesSelected;
+  List<String> selectedLanguages;
 
   @override
   State<LanguagesScreen> createState() => _LanguagesScreenState();
@@ -15,12 +21,15 @@ class LanguagesScreen extends StatefulWidget {
 class _LanguagesScreenState extends State<LanguagesScreen> {
   List<String> selectedLanguages = [];
   List<String> sortedLanguages = [];
+  List<dynamic> usersLanguages =
+      getIt.get<CacheCubit>().user!.dateFilters!.langiages!;
   bool showOthers = false;
 
   @override
   void initState() {
     super.initState();
     sortedLanguages = languages;
+    selectedLanguages = widget.selectedLanguages.map((e) => e.toString()).toList();
   }
 
   @override

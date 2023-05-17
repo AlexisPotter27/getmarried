@@ -6,6 +6,7 @@ import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/blocs/chat/chat_bloc.dart';
+import 'package:getmarried/widgets/error_widget.dart';
 import 'package:getmarried/widgets/likes/liker_item.dart';
 import 'package:getmarried/widgets/primary_button.dart';
 
@@ -41,15 +42,15 @@ class _NewLikeTabState extends State<NewLikeTab> {
             Center(
               child: Image.asset(
                 'assets/ilogo.png',
-                height: 40,
-                width: 50,
+                height: 55,
+                width: 55,
               ),
             ),
             Row(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Likes',
+                  'Liked',
                   style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w500,
@@ -72,7 +73,7 @@ class _NewLikeTabState extends State<NewLikeTab> {
               height: 10,
             ),
             Text(
-              'This is the list of people who have like your profile, you can select a user to start up a conversation with them.',
+              'These are the list of people who have liked your profile, you can select a user to start up a conversation.',
               style: TextStyle(color: Colors.grey),
             ),
             SizedBox(
@@ -119,36 +120,11 @@ class _NewLikeTabState extends State<NewLikeTab> {
                       ),
                     );
                   }
-                  return Center(
-                    child: Container(
-                      decoration: const BoxDecoration(),
-                      alignment: Alignment.center,
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const SizedBox(
-                              height: 100,
-                            ),
-                            const Text('You have no likes yet,'),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            SizedBox(
-                              width: 100,
-                              child: PrimaryButton(
-                                onPressed: () {
-                                  chatBloc.add(GetUsersEvent());
-                                },
-                                child: const Text(
-                                  'Refresh',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                  return Expanded(
+                    child: Center(
+                      child: AppPromptWidget(canTryAgain: true,message: 'No one liked you recently',onTap: (){
+                        chatBloc.add(GetUsersEvent());
+                      }),
                     ),
                   );
                 }
@@ -165,10 +141,10 @@ class _NewLikeTabState extends State<NewLikeTab> {
     UserData user = getIt.get<CacheCubit>().user!;
 
     setState(() {
-
-
-
-      items = fetchedUsers.where((element) => (element.gender != user.gender && element.uid != user.uid) && (element.likes!.contains(user.uid)))
+      items = fetchedUsers
+          .where((element) =>
+              (element.gender != user.gender && element.uid != user.uid) &&
+              (element.likes!.contains(user.uid)) && (!element.matches!.contains(user.uid)))
           .toList();
     });
   }

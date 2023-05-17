@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/constants/storage_keys.dart';
 import 'package:getmarried/data/models/date_filters.dart';
 import 'package:getmarried/di/injector.dart';
@@ -38,6 +39,7 @@ import 'package:getmarried/presentation/screens/registration/profile_steps/star_
 import 'package:getmarried/presentation/screens/registration/profile_steps/time_for_children_screen.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/understanding.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/work_out.dart';
+import 'package:getmarried/presentation/screens/registration/wrapper.dart';
 
 class BuildProfileScreen extends StatefulWidget {
   const BuildProfileScreen({Key? key}) : super(key: key);
@@ -51,7 +53,6 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
   double progress = 0.09;
   UserData? userData = getIt.get<CacheCubit>().user;
   AuthBloc authBloc = AuthBloc(getIt.get());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,10 +65,10 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
           height: 70,
         )),
         elevation: 0,
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor: primaryColour,
       ),
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.indigoAccent,
+      backgroundColor: primaryColour,
       body: BlocConsumer<AuthBloc, AuthState>(
         bloc: authBloc,
         listener: (context, state) {
@@ -82,7 +83,7 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const HomeScreen(),
+                  builder: (context) => const Wrapper(),
                 ));
           }
           if (state is UpdateUserFailureState) {
@@ -112,13 +113,15 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                   Expanded(
                       child: PageView(
                     controller: _pageController,
-                    // physics: const NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       InterestScreen(
                         onComplete: (interests) {
                           userData?.interests = interests;
                           switchPage(1);
-                        },
+                        }, onPrev: () {
+                        Navigator.pop(context);
+                      },
                       ),
                       HeightScreen(
                         onComplete: (height) {
@@ -325,9 +328,9 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                       }, onComplete: (about) {
                         userData?.about = about;
                         authBloc.add(UpdateUserEvent(userData!.copyWith(
-                            regStatus: 2,
-                            languages: ['English'],
-                            dateFilters: DateFilters())));
+                          regStatus: 2,
+                          languages: ['English'],
+                        )));
                         // Navigator.of(context).push(MaterialPageRoute(
                         //   builder: (context) => const WelcomeScreen(),
                         // ));

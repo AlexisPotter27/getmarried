@@ -33,7 +33,7 @@ class _AboutYouScreenState extends State<AboutYouScreen> {
               const Text(
                 'Tell us more about yourself?',
                 style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

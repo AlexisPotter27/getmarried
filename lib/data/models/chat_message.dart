@@ -37,7 +37,7 @@ class ChatMessage {
         id: json["id"],
         senderId: json["senderId"],
         text: json["text"],
-        timeSent: DateTime.fromMicrosecondsSinceEpoch(json['timeSent']),
+        timeSent: DateTime.fromMicrosecondsSinceEpoch(json['timeSent']*1000),
       );
 
   Map<String, dynamic> toJson() => {

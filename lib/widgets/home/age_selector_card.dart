@@ -45,6 +45,7 @@ class _AgeSelectorCardState extends State<AgeSelectorCard> {
                     activeTrackColor: primaryColour,
                     trackShape: CustomTrackShape(),
                     inactiveTrackColor: primaryColour.withOpacity(0.5),
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20,disabledThumbRadius: 20),
                     thumbColor: primaryColour),
                 child: RangeSlider(
                   values: rangeValues,

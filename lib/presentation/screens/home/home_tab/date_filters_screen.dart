@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/models/user.dart';
+import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/advanced_filters_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/languages_screen.dart';
 import 'package:getmarried/widgets/home/age_selector_card.dart';
 import 'package:getmarried/widgets/home/date_option_card.dart';
 import 'package:getmarried/widgets/date/settings_tile.dart';
+import 'package:getmarried/widgets/home/location_range_selector.dart';
 
 class DateFiltersScreen extends StatefulWidget {
   const DateFiltersScreen({Key? key}) : super(key: key);
@@ -39,7 +41,7 @@ class _DateFiltersScreenState extends State<DateFiltersScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/logo.png',
+              'assets/ilogo.png',
               height: 40,
               width: 50,
             ),
@@ -64,10 +66,12 @@ class _DateFiltersScreenState extends State<DateFiltersScreen> {
                 DateOptionCard(
                   onValueChanged: (dates) {
                     setState(() {
-                      user.lookingFor = dates;
+                      user.dateFilters!.lookingFor = dates;
+                      getIt.get<CacheCubit>().updateUser(user);
+                      getIt.get<AuthBloc>().add(UpdateUserEvent(user));
                     });
                   },
-                  value: user.lookingFor ?? 'man',
+                  value: user.dateFilters!.lookingFor?.toLowerCase() ?? 'men',
                 ),
                 const SizedBox(
                   height: 16,
@@ -76,12 +80,22 @@ class _DateFiltersScreenState extends State<DateFiltersScreen> {
                 const SizedBox(
                   height: 16,
                 ),
+                const LocationRangeSelector(),
+                const SizedBox(
+                  height: 16,
+                ),
+
                 SettingsTile(
                   text: 'Select languages',
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => LanguagesScreen(
-                        onLanguagesSelected: (List<dynamic> language) {},
+                        selectedLanguages: user.dateFilters!.langiages!,
+                        onLanguagesSelected: (List<String> language) {
+                          user.dateFilters?.langiages = language;
+                          getIt.get<CacheCubit>().updateUser(user);
+                          getIt.get<AuthBloc>().add(UpdateUserEvent(user));
+                        },
                       ),
                     ));
                   },

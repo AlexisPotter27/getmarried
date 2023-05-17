@@ -4,7 +4,7 @@ abstract class AuthState extends Equatable {
   const AuthState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class AuthInitial extends AuthState {}
@@ -200,4 +200,29 @@ class AppleSignInFailureState extends AuthState {
   List<Object> get props => [error];
 
   const AppleSignInFailureState(this.error);
+}
+
+
+class AuthStateChangedState extends AuthState{
+  String? uid;
+  @override
+  List<Object?> get props => [uid];
+
+  AuthStateChangedState(this.uid);
+}
+
+class AccountDisabledState extends AuthState{
+  String? uid;
+  @override
+  List<Object?> get props => [uid];
+
+  AccountDisabledState(this.uid);
+}
+
+class AccountDeletedState extends AuthState{
+  String? uid;
+  @override
+  List<Object?> get props => [uid];
+
+  AccountDeletedState(this.uid);
 }

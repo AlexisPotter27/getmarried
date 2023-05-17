@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:getmarried/admin/data/models/report.dart';
 import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/data/repositories/remote/matching_repository/matching_repository.dart';
 
@@ -20,6 +21,7 @@ class MatchingBloc extends Bloc<MatchingEvent, MatchingState> {
     });
     on<LikeUserEvent>(_mapLikeUserEventToState);
     on<DisLikeUserEvent>(_mapDisLikeUserEventToState);
+    on<SendReportEvent>(_mapSendReportEventToState);
   }
 
   FutureOr<void> _mapLikeUserEventToState(
@@ -58,6 +60,26 @@ class MatchingBloc extends Bloc<MatchingEvent, MatchingState> {
       emit(DisLikeUserFailureState(e.code));
     } catch (e) {
       emit(DisLikeUserFailureState(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapSendReportEventToState(
+      SendReportEvent event, Emitter<MatchingState> emit) async {
+    emit(SendReportLoadingState());
+    try {
+      log('loading');
+      ApiResponse response =
+          await _matchingRepository.reportUser(event.reportModel);
+
+      if (response.error == null) {
+        emit(SendReportSuccessState());
+      } else {
+        emit(SendReportFailureState(response.error));
+      }
+    } on FirebaseException catch (e) {
+      emit(SendReportFailureState(e.code.toString()));
+    } catch (e) {
+      emit(SendReportFailureState(e.toString()));
     }
   }
 }

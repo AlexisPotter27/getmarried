@@ -2,6 +2,7 @@
 //
 //     final userData = userDataFromJson(jsonString);
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:getmarried/data/models/conversation.dart';
 import 'package:getmarried/data/models/date_filters.dart';
@@ -65,10 +66,14 @@ class UserData {
     this.likeMe,
     this.dislikes,
     this.matches,
+    this.deviceId,
+    this.accountDisabled,
   });
 
   String? uid;
+  String? deviceId;
   String? firstname;
+  bool? accountDisabled;
   String? age;
   String? dateOfBirth;
   String? gender;
@@ -114,7 +119,7 @@ class UserData {
   List<dynamic>? photos;
   List<dynamic>? occupations;
   List<dynamic>? educationColledge;
-  List<dynamic>? languages;
+  List<String>? languages;
   String? location;
   List<dynamic>? likes;
   List<dynamic>? likeMe;
@@ -162,17 +167,18 @@ class UserData {
           String? sexInRelationship,
           String? monogamy,
           String? creativity,
-          String? moreAbout,
+          String? deviceId,
           bool? policyAgreed,
           int? regStatus,
           DateFilters? dateFilters,
           List<dynamic>? photos,
           List<dynamic>? occupations,
           List<dynamic>? educationColledge,
-          List<dynamic>? languages,
+          List<String>? languages,
           String? location,
           List<dynamic>? likes,
           List<dynamic>? dislikes,
+          bool? accountDisabled,
           List<dynamic>? likeMe}) =>
       UserData(
         uid: uid ?? this.uid,
@@ -225,10 +231,12 @@ class UserData {
         languages: languages ?? this.languages,
         dateFilters: dateFilters ?? this.dateFilters,
         location: location ?? this.location,
+        deviceId: deviceId ?? this.deviceId,
         likes: likes ?? this.likes,
         likeMe: likeMe ?? this.likeMe,
         dislikes: dislikes ?? this.dislikes,
         matches: matches ?? this.matches,
+        accountDisabled: accountDisabled ?? this.accountDisabled,
       );
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
@@ -277,6 +285,8 @@ class UserData {
         moreAbout: json["more_about"],
         policyAgreed: json["policy_agreed"],
         regStatus: json["reg_status"],
+        deviceId: json["device_id"],
+        accountDisabled: json["account_disabled"] ?? false,
         dateFilters: json["date_filters"] == null
             ? null
             : DateFilters.fromJson(json['date_filters']),
@@ -289,9 +299,9 @@ class UserData {
         educationColledge: json["educationColledge"] == null
             ? []
             : List<dynamic>.from(json["educationColledge"]!.map((x) => x)),
-        languages: json["laguages"] == null
+        languages: json["languages"] == null
             ? []
-            : List<dynamic>.from(json["languages"]!.map((x) => x)),
+            : List<String>.from(json["languages"]!.map((x) => x)),
         likes: json["likes"] == null
             ? []
             : List<dynamic>.from(json["likes"]!.map((x) => x)),
@@ -353,6 +363,7 @@ class UserData {
         "more_about": moreAbout,
         "policy_agreed": policyAgreed,
         "reg_status": regStatus,
+        "account_disabled": accountDisabled,
         "date_filters": dateFilters?.toJson(),
         "photos":
             photos == null ? [] : List<dynamic>.from(photos!.map((x) => x)),
@@ -373,6 +384,7 @@ class UserData {
         "matches":
             matches == null ? [] : List<dynamic>.from(matches!.map((x) => x)),
         "location": location,
+        "device_id": deviceId,
       };
 
   ChatUser toChatUser() => ChatUser(
@@ -383,53 +395,45 @@ class UserData {
 
   static generateData() {}
 
-  String getPercentage() {
+  int getPercentage() {
     List all = [
       firstname,
-      height,
-      drugs,
+      // height,
+      // drugs,
       drinking,
       age,
       about,
-      ambitious,
-      athletic,
+      // ambitious,
+      // athletic,
       acceptedPrivacy,
       accountCreated,
-      bodyType,
-      children,
+      // bodyType,
+      // children,
       education,
-      educationColledge,
-      ethnicity,
       email,
       gender,
       height,
-      idealPartnerHeight,
+      about,
       lookingFor,
       languages,
-      monogamy,
-      moreAbout,
-      occupations,
-      outgoing,
-      phoneNumber,
-      potentialEvent,
-      partnerEthnicity,
+      photos,
+      // occupations,
+      // outgoing,
+      // phoneNumber,
       political,
-      partnerReligion,
-      partnerAttractiveness,
-      partnerBodyType,
       religion,
-      sexInRelationship,
-      startingAndFinishing,
       smoking,
       starSign,
-      understanding,
-      workout,
+      // workout,
     ];
 
     int completed = all.where((element) => element != null).toList().length;
 
+    log("Completed${completed.toString()}");
+    log("All${all.length.toString()}");
+
     int percentage = ((completed / all.length) * 100).round();
 
-    return '${percentage.toString()}%';
+    return percentage;
   }
 }

@@ -59,6 +59,7 @@ class _ChoiceWidgetState extends State<ChoiceWidget> {
           ChipsChoice<ChipChoiceModel>.multiple(
               value: selectedOptions,
               wrapped: true,
+
               onChanged: (values) {
                 setState(() {
                   selectedOptions = values;
@@ -136,7 +137,7 @@ class _ChoiceLabelBuilder extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        Text(label)
+        Text(label,style: TextStyle(fontSize: 12),)
       ],
     );
   }

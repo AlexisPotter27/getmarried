@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/widgets/reigistration/about_gender_dialog.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-
-
 class ChooseDateScreen extends StatefulWidget {
-  const ChooseDateScreen({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
+  const ChooseDateScreen(
+      {Key? key, required this.onComplete, required this.onPrev})
+      : super(key: key);
   final Function(String date) onComplete;
   final Function onPrev;
 
@@ -15,12 +17,24 @@ class ChooseDateScreen extends StatefulWidget {
   State<ChooseDateScreen> createState() => _ChooseDateScreenState();
 }
 
-List<String> options = ['Men', 'Women', ];
-String radioValue = 'Men';
+List<String> options = [
+  'Men',
+  'Women',
+];
 
 class _ChooseDateScreenState extends State<ChooseDateScreen> {
+  String radioValue = '';
+
+  @override
+  void initState() {
+
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    radioValue = getIt.get<CacheCubit>().user!.gender == 'Man' ? 'Women' : 'Men';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -33,12 +47,14 @@ class _ChooseDateScreenState extends State<ChooseDateScreen> {
               ),
               const Text(
                 "I'm looking for...",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 30,
               ),
-
               ListView.builder(
                 itemCount: options.length,
                 shrinkWrap: true,
@@ -56,7 +72,7 @@ class _ChooseDateScreenState extends State<ChooseDateScreen> {
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
                           context: context,
-                          builder: (context) =>  AboutGenderSheet(
+                          builder: (context) => AboutGenderSheet(
                             options: aboutOptions(options[index]),
                           ),
                         );
@@ -86,7 +102,6 @@ class _ChooseDateScreenState extends State<ChooseDateScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: NextButton(

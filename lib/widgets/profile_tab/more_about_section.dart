@@ -128,7 +128,7 @@ class _MoreAboutSectionState extends State<MoreAboutSection> {
               size: 20,
             ),
             tittle: 'Looking for',
-            value: widget.user.dateMatch,
+            value: widget.user.lookingFor,
             onTap: () {
               Navigator.push(
                   context,

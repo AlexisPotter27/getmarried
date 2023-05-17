@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getmarried/widgets/primary_button.dart';
+import 'package:getmarried/widgets/reigistration/next_button.dart';
 import 'build_profile_screen.dart';
 
 class BuildProfileOnboard extends StatefulWidget {
@@ -15,7 +16,12 @@ class _BuildProfileOnboardState extends State<BuildProfileOnboard> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title:  Center(child: Image.asset('assets/ilogo.png', width: 50, height: 50,)),
+        title: Center(
+            child: Image.asset(
+          'assets/ilogo.png',
+          width: 50,
+          height: 50,
+        )),
         elevation: 0,
         backgroundColor: Colors.blue,
       ),
@@ -41,7 +47,9 @@ class _BuildProfileOnboardState extends State<BuildProfileOnboard> {
                       const Text(
                         'You are here for Marriage!',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                            color: Colors.white),
                       ),
                       const SizedBox(
                         height: 16,
@@ -54,16 +62,40 @@ class _BuildProfileOnboardState extends State<BuildProfileOnboard> {
                   ),
                 ),
               ),
-              PrimaryButton(
-                bgColor: Colors.white,
-                onPressed: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const BuildProfileScreen(),
-                      ));
-                },
-                child: const Text('Build my profile', style: TextStyle(color: Colors.blue)),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: NextButton(
+                        isNext: false,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        }),
+                  ),
+                  Spacer(),
+                  // PrimaryButton(
+                  //   bgColor: Colors.white,
+                  //   onPressed: () {
+                  //     Navigator.pushReplacement(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) => const BuildProfileScreen(),
+                  //         ));
+                  //   },
+                  //   child: const Text('Build my profile',
+                  //       style: TextStyle(color: Colors.blue)),
+                  // ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: NextButton(onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BuildProfileScreen(),
+                          ));
+                    }),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 20,

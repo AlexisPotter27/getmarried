@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/models/user.dart';
@@ -30,6 +31,13 @@ abstract class AuthRepository {
   Future<ApiResponse> updateUser(UserData userData,List<XFile>? images);
 
   Future<ApiResponse> uploadUserImages(List<XFile>? files);
+
+  Future<ApiResponse> updateUserToken(String uid,);
+  Stream<User?> authState();
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>> userStream(String uid);
+
+
 
 // Future void signinWithPhoneNumber
 
