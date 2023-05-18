@@ -17,7 +17,7 @@ class DateOptionCard extends StatefulWidget {
 
 class _DateOptionCardState extends State<DateOptionCard> {
   List dates = [];
-  String date = 'man';
+  String date = 'men';
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ class _DateOptionCardState extends State<DateOptionCard> {
               // ),
 
               RadioListTile<String>(
-                  value: 'man',
+                  value: 'men',
                   groupValue: widget.value,
                   controlAffinity: ListTileControlAffinity.trailing,
                   contentPadding: EdgeInsets.zero,
@@ -77,12 +77,12 @@ class _DateOptionCardState extends State<DateOptionCard> {
                   onChanged: (val) {
                    widget.onValueChanged(val!);
                   },
-                  title: const Text('Man', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),)),
+                  title: const Text('Men', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),)),
               const Divider(
                 thickness: 1,
               ),
               RadioListTile<String>(
-                  value: 'woman',
+                  value: 'women',
                   groupValue: widget.value,
                   controlAffinity: ListTileControlAffinity.trailing,
                   contentPadding: EdgeInsets.zero,
@@ -91,7 +91,7 @@ class _DateOptionCardState extends State<DateOptionCard> {
                     widget.onValueChanged(val!);
 
                   },
-                  title: const Text('Woman', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),)),
+                  title: const Text('Women', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),)),
               // CheckBoxTile(
               //     text: 'Men',
               //     isChecked: menChecked,

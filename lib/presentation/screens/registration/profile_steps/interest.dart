@@ -8,8 +8,9 @@ import 'package:getmarried/widgets/reigistration/choice_widget.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 class InterestScreen extends StatefulWidget {
-  const InterestScreen({Key? key, required this.onComplete}) : super(key: key);
+  const InterestScreen({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
   final Function(List<String>? interest) onComplete;
+  final Function() onPrev;
 
   @override
   State<InterestScreen> createState() => _InterestScreenState();
@@ -136,45 +137,42 @@ class _InterestScreenState extends State<InterestScreen>
         ),
         Row(
           children: [
+
             Expanded(
-              child: Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    GestureDetector(
-                      child: const Text(
-                        'Skip',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      ),
-                      onTap: () {
-                        // widget.onComplete();
-                      },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: NextButton(
+                        isNext: false,
+                        onPressed: () {
+                          widget.onPrev();
+                        }),
+                  ),
+                  GestureDetector(
+                    child: const Text(
+                      'Skip',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white),
                     ),
-                  ],
-                ),
+                    onTap: () {
+                      widget.onComplete([]);
+                    },
+                  ),
+
+                  NextButton(onPressed: () {
+                    if (allInterests.isEmpty) {
+                      showCustomToast('Select atleast one interest');
+                    } else {
+                      log(allInterests.length.toString());
+                      widget.onComplete(allInterests);
+                    }
+                  })
+                ],
               ),
-            ),
-            Row(
-              children: [
-                // Text(
-                //   '${selectedCategories()}/5 selected',
-                //   style: TextStyle(
-                //       fontSize: 14,
-                //       fontWeight: FontWeight.w500,
-                //       color: Colors.white),
-                // ),
-                NextButton(onPressed: () {
-                  if (allInterests.isEmpty) {
-                    showCustomToast('Select atleast one interest');
-                  } else {
-                    log(allInterests.length.toString());
-                    widget.onComplete(allInterests);
-                  }
-                })
-              ],
             )
           ],
         )

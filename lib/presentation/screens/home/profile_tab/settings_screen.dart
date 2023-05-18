@@ -87,7 +87,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/logo.png',
+              'assets/ilogo.png',
               height: 40,
               width: 50,
             ),
@@ -111,6 +111,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             showAnimatedProgressDialog(context, title: 'Deleting Account.');
           }
           if (state is DeleteUserSuccessState) {
+            signout();
             showCustomToast('Account deleted');
             Navigator.pushAndRemoveUntil(
               context,
@@ -129,104 +130,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                SettingsTile(
-                  text: 'Choose mode',
-                  onPressed: () {},
-                  suffixIcon: Row(
-                    children: [
-                      const Text('Date'),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 20,
-                        color: Colors.grey.shade300,
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                SettingsTile(
-                  text: 'Date mode',
-                  onPressed: () {},
-                  suffixIcon: SizedBox(
-                    height: 25,
-                    child: Transform.scale(
-                      scale: 0.8,
-                      child: CupertinoSwitch(
-                        value: false,
-                        onChanged: (val) {},
-                        activeColor: primaryColour,
-                      ),
-                    ),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    'Hide your profile in Data and just use BFF or Biz, If you do this, you\'ll lose your connections and chats in Date.',
-                    style: TextStyle(fontSize: 13),
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                SettingsTile(
-                  text: 'Snooze',
-                  onPressed: () {},
-                  suffixIcon: const SizedBox.shrink(),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 5),
-                  child: Text(
-                    'Temporarily hide your profile from all modes, If you do this, you will lose all your connections and chats',
-                    style: TextStyle(fontSize: 13),
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                SettingsTile(
-                  text: 'Incognito mode',
-                  onPressed: () {},
-                  suffixIcon: SizedBox(
-                    height: 25,
-                    child: Transform.scale(
-                      scale: 0.8,
-                      child: CupertinoSwitch(
-                        value: false,
-                        onChanged: (val) {},
-                        activeColor: primaryColour,
-                      ),
-                    ),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    'Enable incognito mode so no one sees you unless you want them to. Only people you swipe right on will be able to view your profile',
-                    style: TextStyle(fontSize: 13),
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
+
                 SettingsTile(
                   text: 'Current location',
                   onPressed: () async {
-                    Position position = await _determinePosition();
-                    print(position.latitude);
-                    locate = '${position.latitude}, ${position.longitude}';
-                    getAddressFromLatLng(position);
-                    setState(() {});
+                 requestForLocation();
                   },
-                  tittle: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                    child: Text('Location'),
-                  ),
+                  // tittle: const Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                  //   child: Text('Location'),
+                  // ),
                   suffixIcon: SizedBox(
                     height: 25,
                     child: Row(
@@ -273,13 +186,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 //   text: 'Notification settings',
                 //   onPressed: () {},
                 // ),
-                const SizedBox(
-                  height: 10,
-                ),
+
                 SettingsTile(
                   text: 'Contact & FAQ',
                   onPressed: () {
-                    launchUrlLink('https://app.getmarried.com/contact');
+                    launchUrlLink('https://app.getmarriedapp.com/contact');
                   },
                 ),
                 const SizedBox(
@@ -288,12 +199,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SettingsTile(
                   text: 'Privacy',
                   onPressed: () {
-                    launchUrlLink('https://app.getmarried.com/privacy');
+                    launchUrlLink('https://app.getmarriedapp.com/privacy');
                   },
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
+
                 TextButton(
                     style: TextButton.styleFrom(
                         shape: const StadiumBorder(),
@@ -304,10 +216,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         context,
                         tittle: 'Are you sure you want to sign out ?',
                         onConfirm: () {
-                          StorageHelper.setBoolean(
-                              StorageKeys.isUserLoggedIn, false);
-                          GoogleSignIn().disconnect();
-                          FirebaseAuth.instance.signOut();
+                          signout();
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
@@ -348,17 +257,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                TransaparentButton(
-                    child: Text('Restore Purchases'),
-                    onPressed: () {
-                      _manageUser('restore', null);
-                    })
+                // TransaparentButton(
+                //     child: Text('Restore Purchases'),
+                //     onPressed: () {
+                //       _manageUser('restore', null);
+                //     })
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  void signout() {
+    StorageHelper.clear();
+    GoogleSignIn().disconnect();
+    GoogleSignIn().signOut();
+    FirebaseAuth.instance.signOut();
   }
 
   _manageUser(String task, String? newAppUserID) async {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/constants/storage_keys.dart';
 import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/helper/app_utils.dart';
@@ -27,7 +28,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigoAccent,
+      backgroundColor: primaryColour,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Image.asset(
@@ -37,7 +38,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
         ),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor: primaryColour,
       ),
       resizeToAvoidBottomInset: false,
       body: BlocConsumer<AuthBloc, AuthState>(

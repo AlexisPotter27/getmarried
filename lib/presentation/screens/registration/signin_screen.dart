@@ -14,6 +14,7 @@ import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/registration/location.dart';
 import 'package:getmarried/presentation/screens/registration/registration_screen.dart';
+import 'package:getmarried/presentation/screens/registration/wrapper.dart';
 import 'package:getmarried/widgets/button.dart';
 import '../../../widgets/social_button.dart';
 import '../number.dart';
@@ -92,8 +93,8 @@ class SigninScreen extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('assets/jpeg/onboard1.jpg'))),
+                        fit: BoxFit.fitHeight,
+                        image: AssetImage('assets/jpeg/married.jpg'))),
                 child: Container(
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -272,7 +273,7 @@ class SigninScreen extends StatelessWidget {
       return const BuildProfileScreen();
     } else {
       StorageHelper.setString(StorageKeys.regStatus, '2');
-      return const HomeScreen();
+      return const Wrapper();
     }
   }
 

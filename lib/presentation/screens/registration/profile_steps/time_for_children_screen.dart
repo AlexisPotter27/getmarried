@@ -48,7 +48,7 @@ class _TimeForChildrenScreenState extends State<TimeForChildrenScreen> {
               const Text(
                 'When do you want children ?',
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

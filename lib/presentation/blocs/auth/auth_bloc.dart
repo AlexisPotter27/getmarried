@@ -6,7 +6,10 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/data/repositories/remote/auth/auth_repository.dart';
+import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/models/user.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
+import 'package:getmarried/services/push_notification_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -20,6 +23,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   AuthBloc(this.authRepository) : super(AuthInitial()) {
+    startListeningToUserData();
+
     on<AuthEvent>((event, emit) {});
 
     on<SendOtpEvent>(_mapSendOtpEventToState);
@@ -35,6 +40,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<UpdateUserEvent>(_mapUpdateUserEventToState);
     on<DeleteUserEvent>(_mapDeleteUserEventToState);
     on<UpdateUserImageEvent>(_mapUpdateUserImageEventToState);
+    on<UpdateUserTokenEvent>(_mapUpdateUserTokenEventToState);
+    on<ListenToUserAccountEvent>(_mapListenToUserAccountEventToState);
+    on<AccountDeletedEvent>((event, emit) => emit(AccountDeletedState(event.uid)));
+    on<AccountDisabledEvent>((event, emit) => emit(AccountDisabledState(event.uid)));
   }
 
   FutureOr<void> _mapSendOtpEventToState(
@@ -60,7 +69,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           onCodeAutoRetrievalTimeout: (verificationId) {});
     } on Exception catch (e) {
       // emit(const SendSmsFailedState('Something went wrong please retry'));
-
     }
   }
 
@@ -93,8 +101,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(const UpdateUserLoadingState());
 
     try {
-      ApiResponse response =
-          await authRepository.updateUser(event.userData, event.images);
+      var deviceId = await PushNotificationService.getDeviceToken();
+
+      ApiResponse response = await authRepository.updateUser(
+          event.userData.copyWith(deviceId: deviceId), event.images);
 
       if (response.error == null) {
         emit(UpdateUserSuccessState(response.data));
@@ -196,5 +206,44 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(AppleSignInFailureState(e.toString()));
     }
+  }
+
+  FutureOr<void> _mapUpdateUserTokenEventToState(
+      UpdateUserTokenEvent event, Emitter<AuthState> emit) async {
+    try {
+      ApiResponse response = await authRepository.updateUserToken(event.uid);
+    } on Exception catch (e) {
+      log(e.toString());
+    }
+  }
+
+  void startListeningToUserData() {
+    authRepository.authState().listen((event) {
+      if (event?.uid != null) {
+        log('USER ${'LISTENING : EVENT ID IS NOT  NULL'}${event!.uid}');
+        add((AuthStateChangedEvent(event.uid)));
+      } else if (event?.uid == null) {
+        log('USER ${'LISTENING :EVENT ID IS  NULL'}');
+        add((AuthStateChangedEvent(null)));
+      }
+    });
+  }
+
+  FutureOr<void> _mapListenToUserAccountEventToState(
+      ListenToUserAccountEvent listenEvent, Emitter<AuthState> emit) {
+    log('STARTED LISTENING TO USER ACCOUNT');
+    authRepository.userStream(auth.currentUser!.uid).listen((event) {
+      log(event.exists.toString());
+      if (event.exists) {
+        UserData userData = UserData.fromJson(event.data()!);
+        if (userData.accountDisabled! == false) {
+          getIt.get<CacheCubit>().updateUser(userData);
+        } else {
+          add(AccountDisabledEvent(listenEvent.uid));
+        }
+      } else {
+        getIt.get<AuthBloc>().add(AccountDeletedEvent(listenEvent.uid));
+      }
+    });
   }
 }

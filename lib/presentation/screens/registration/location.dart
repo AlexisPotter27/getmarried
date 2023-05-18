@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/constants/storage_keys.dart';
+import 'package:getmarried/helper/app_utils.dart';
+import 'package:getmarried/helper/storage_helper.dart';
 import 'package:getmarried/presentation/screens/registration/privacy_screen.dart';
 import 'package:getmarried/widgets/button.dart';
 import '../../../di/injector.dart';
@@ -21,46 +25,19 @@ class _LocationState extends State<Location> {
 
   String location = 'Null';
   String? Address;
-  String? Country;
 
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
 
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      await Geolocator.openLocationSettings();
-      return Future.error('Location Service are disabled');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    return await Geolocator.getCurrentPosition();
-  }
 
   Future<void> getAddressFromLatLng(Position position) async {
     List<Placemark> placemark =
         await placemarkFromCoordinates(position.latitude, position.longitude);
     print(placemark);
-
+    bool isLogedIn = await StorageHelper.getBoolean(StorageKeys.isUserLoggedIn, false);
     Placemark place = placemark[0];
     Address = '${place.subLocality}, ${place.isoCountryCode} ';
-    Country = '${place.country}';
     print('Location:: ${Address}');
-    cachedUser?.location = Address;
-    cachedUser?.country = Country;
-    authBloc.add(UpdateUserEvent(cachedUser!));
+    cachedUser?.location = place.name;
+    getIt.get<CacheCubit>().updateUser(cachedUser!);
   }
 
   @override
@@ -75,9 +52,9 @@ class _LocationState extends State<Location> {
           height: 60,
         ),
         elevation: 0,
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor:primaryColour,
       ),
-      backgroundColor: Colors.indigoAccent,
+      backgroundColor: primaryColour,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -156,10 +133,6 @@ class _LocationState extends State<Location> {
       ),
     );
   }
-  void requestForLocation()async{
-    Position position = await _determinePosition();
-    print(position.latitude);
-    location = '${position.latitude}, ${position.longitude}';
-    getAddressFromLatLng(position);
-  }
+
+
 }

@@ -1,15 +1,20 @@
+import 'dart:developer';
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:getmarried/constants/constant.dart';
+import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/helper/app_utils.dart';
+import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/presentation/screens/home/chat/chat_tab.dart';
 import 'package:getmarried/presentation/screens/home/home_tab/home_tab.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/profile_tab.dart';
 import 'package:getmarried/widgets/home/connection_menu_item.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 import 'likes_tab/new_like_tab.dart';
-
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey(); //
 
@@ -24,19 +29,21 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   int _currentIndex = 1;
 
-
   @override
   void initState() {
-    initPlatformState();
+    _setUp();
     super.initState();
   }
-    bool enabled = true;
+
+  bool enabled = true;
+
   Future<void> initPlatformState() async {
     await Purchases.setLogLevel(LogLevel.debug);
 
     PurchasesConfiguration? configuration;
     if (Platform.isAndroid) {
-      configuration = PurchasesConfiguration('goog_VolvlJikxUaeRLgdQMSokvUSyWZ');
+      configuration =
+          PurchasesConfiguration('goog_VolvlJikxUaeRLgdQMSokvUSyWZ');
       //String config = configuration as String;
       /*if (buildingForAmazon) {
         // use your preferred way to determine if this build is for Amazon store
@@ -44,7 +51,8 @@ class _HomeScreenState extends State<HomeScreen>
         configuration = AmazonConfiguration(<public_amazon_api_key>);
       }*/
     } else if (Platform.isIOS) {
-      configuration = PurchasesConfiguration('appl_XWZlhcEkesNwkmyPmcxJNMkJkkX');
+      configuration =
+          PurchasesConfiguration('appl_XWZlhcEkesNwkmyPmcxJNMkJkkX');
     }
     await Purchases.configure(configuration!);
   }
@@ -73,28 +81,32 @@ class _HomeScreenState extends State<HomeScreen>
           currentIndex: _currentIndex,
           fixedColor: primaryColour,
           type: BottomNavigationBarType.fixed,
-          unselectedIconTheme:
-               IconThemeData(color: Colors.black45, size: 20),
+          unselectedIconTheme: IconThemeData(color: Colors.black, size: 28),
           onTap: (index) {
             setState(() {
               _currentIndex = index;
             });
           },
           selectedIconTheme:
-              const IconThemeData(color: primaryColour, size: 20),
+              const IconThemeData(color: primaryColour, size: 28),
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.person),
+              icon: Icon(Iconsax.profile_tick),
               label: 'Profile',
             ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home_filled), label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.solidHeart), label: 'Like'),
-            BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.solidMessage), label: 'Chat'),
+            BottomNavigationBarItem(icon: Icon(Iconsax.home), label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Iconsax.heart), label: 'Like'),
+            BottomNavigationBarItem(icon: Icon(Iconsax.message), label: 'Chat'),
           ]),
     );
+  }
+
+  void _setUp() {
+    initPlatformState();
+    requestForLocation();
+    getIt.get<AuthBloc>().add(UpdateUserTokenEvent(
+        uid: getIt.get<CacheCubit>().user!.uid.toString()));
+
   }
 }
 

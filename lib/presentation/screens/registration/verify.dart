@@ -11,11 +11,11 @@ import 'package:getmarried/helper/toastMessage.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
-import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/number.dart';
 import 'package:getmarried/presentation/screens/registration/build_profile_screen.dart';
 import 'package:getmarried/presentation/screens/registration/location.dart';
 import 'package:getmarried/presentation/screens/registration/registration_screen.dart';
+import 'package:getmarried/presentation/screens/registration/wrapper.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 class Verify extends StatefulWidget {
@@ -35,7 +35,7 @@ class _VerifyState extends State<Verify> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigoAccent,
+      backgroundColor: primaryColour,
       appBar: AppBar(
         centerTitle: true,
         title: Padding(
@@ -47,7 +47,7 @@ class _VerifyState extends State<Verify> {
           ),
         ),
         elevation: 0,
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor: primaryColour,
         leading: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -129,10 +129,7 @@ class _VerifyState extends State<Verify> {
                             ),
                             GestureDetector(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const Phone()));
+                                  Navigator.pop(context);
                                 },
                                 child: const Text(
                                   'change',
@@ -148,31 +145,7 @@ class _VerifyState extends State<Verify> {
                         ),
                         Row(
                           children: [
-                            Container(
-                              height: 50,
-                              width: 100,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5))),
-                              child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20, right: 10),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        num,
-                                        overflow: TextOverflow.ellipsis,
-                                        style:
-                                            const TextStyle(color: Colors.grey),
-                                      ),
-                                    ],
-                                  )),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
+
                             Container(
                               width: 200,
                               decoration: const BoxDecoration(
@@ -224,7 +197,7 @@ class _VerifyState extends State<Verify> {
                         verifyCode(
                             verificationId: widget.verificationId,
                             smsCode: phoneController.text);
-                        phoneController.clear();
+
                       } else {
                         ToastMessage.showToast(
                             'Please enter a invalid phone number.');
@@ -248,6 +221,8 @@ class _VerifyState extends State<Verify> {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: phoneController.text);
 
+
+
     authBloc.add(PhoneNumberSigninEvent(credential));
 
     // await auth.signInWithCredential(credential).then((value){
@@ -265,7 +240,7 @@ class _VerifyState extends State<Verify> {
       return const BuildProfileScreen();
     } else {
       StorageHelper.setString(StorageKeys.regStatus, '2');
-      return const HomeScreen();
+      return const Wrapper();
     }
   }
 

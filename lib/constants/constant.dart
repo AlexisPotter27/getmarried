@@ -6,7 +6,7 @@ const Color primaryColour = Color(0xFF645CBB);
 // const Color primaryColour = Colors.indigoAccent;
 const Color ksecond = Color(0XFFf38321);
 const String introText =
-    'Is designed to all that are seriously looking to GetMarried! The first 500 subscribers are FREE NOW!. \nJoin us today ! Once the first 500 are added the subscription will cost a yearly flat fee of \$250';
+    'Is designed to all that are seriously looking to GetMarried! The first 500 subscribers are FREE NOW!. \nJoin us today ! Once the first 500 are added the subscription will cost a yearly flat fee of \$2,500';
 
 InputDecoration inputDecoration(BuildContext context) => InputDecoration(
       hintStyle: TextStyle(
@@ -61,7 +61,7 @@ List<ChipChoiceModel> sports = [
   ChipChoiceModel(label: 'BasketBall', icon: Icons.sports_score),
   ChipChoiceModel(label: 'Soccer', icon: Icons.sports_score),
   ChipChoiceModel(label: 'Volleyball', icon: Icons.sports_score),
-  ChipChoiceModel(label: 'Weights', icon: Icons.sports_score),
+  ChipChoiceModel(label: 'PickleBall', icon: Icons.sports_score),
   ChipChoiceModel(label: 'Swimming', icon: Icons.sports_score),
   ChipChoiceModel(label: 'None', icon: Icons.sports_score),
 ];
@@ -168,10 +168,10 @@ List<String> drugsOptions = [
 
 List<String> havChildrenOptions = [
   "Want someday",
-  "Don't want",
   'Have and want more',
   "Have and don't want more",
   'Not sure yet',
+  "Don't want",
 ];
 List<String> timeForChildrenOptions = [
   "Within 1 year of marriage. ",
@@ -194,7 +194,7 @@ List<String> howManyChildrenOptions = [
 List<String> religions = [
   'Agnostic',
   'Atheist',
-  'Buddhist',
+  'Episcopalian',
   'Catholic',
   'Christian',
   'Hindu',
@@ -206,7 +206,7 @@ List<String> religions = [
 List<String> partnersReligions = [
   'Agnostic',
   'Atheist',
-  'Buddhist',
+  'Episcopalian ',
   'Catholic',
   'Christian',
   'Hindu',

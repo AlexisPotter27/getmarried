@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_polygon/flutter_polygon.dart';
@@ -8,8 +9,6 @@ import 'package:getmarried/widgets/home/about_chip.dart';
 import 'package:getmarried/widgets/secondary_widget.dart';
 import '../../di/injector.dart';
 import '../../presentation/blocs/cache_cubit/cache_cubit.dart';
-
-
 
 class MatchCard extends StatefulWidget {
   const MatchCard(
@@ -70,8 +69,7 @@ class _MatchCardState extends State<MatchCard> {
                                       widget.user.photos!.isNotEmpty
                                           ? widget.user.photos![0]
                                           : ''),
-                                  fit: BoxFit.cover)
-                          ),
+                                  fit: BoxFit.cover)),
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 16),
@@ -235,31 +233,33 @@ class _MatchCardState extends State<MatchCard> {
                             width: MediaQuery.of(context).size.width,
                           ),
                         ),
-                        Row(
-                          children: [
-                            Icon(Icons.share_location),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "${getIt.get<CacheCubit>().user!.firstname.toString()}'s location",
-                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.grey.shade200),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              "${getIt.get<CacheCubit>().user!.location.toString()}",
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
-                            ),
-                          ],
+                        // Row(
+                        //   children: [
+                        //     Icon(Icons.share_location),
+                        //     SizedBox(
+                        //       width: 10,
+                        //     ),
+                        //     Text(
+                        //       "${getIt.get<CacheCubit>().user!.firstname.toString()}'s location",
+                        //       style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.grey.shade200),
+                        //     ),
+                        //     SizedBox(height: 10,),
+                        //     Text(
+                        //       "${getIt.get<CacheCubit>().user!.location.toString()}",
+                        //       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+                        //     ),
+                        //   ],
+                        // ),
+                        const SizedBox(
+                          height: 8,
                         ),
-
                         /*const Text(
                           'Owerri, Imo state ',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),*/
                         SizedBox(
-                          height: 50,
+                          height: 60,
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -335,7 +335,8 @@ class _MatchCardState extends State<MatchCard> {
                               showModalBottomSheet(
                                 context: context,
                                 backgroundColor: Colors.transparent,
-                                builder: (context) => ReportWidget(),
+                                builder: (context) => ReportWidget(
+                                    user: widget.user.toChatUser()),
                               );
                             },
                             child: const Text(

@@ -12,6 +12,7 @@ import 'package:getmarried/data/models/api_response.dart';
 import 'package:getmarried/helper/app_utils.dart' as utils;
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/screens/number.dart';
+import 'package:getmarried/services/push_notification_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -52,7 +53,6 @@ class AuthRepositoryImpl extends AuthRepository {
         onCodeSent(result.verificationId, 0);
 
         // await  result.confirm(verificationCode);
-
       } on Exception catch (e) {
         // TODO
       }
@@ -94,6 +94,7 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<ApiResponse> signinWithPhoneNumber(credential) async {
     debugPrint('Singing in with:${credential.smsCode}');
+
     try {
       UserCredential user = await auth.signInWithCredential(
         credential,
@@ -118,16 +119,19 @@ class AuthRepositoryImpl extends AuthRepository {
     try {
       debugPrint('RETRIEVING USER DETAILS');
 
-      QuerySnapshot<Map<String, dynamic>> snapshots = await db.collection(FirebaseKeys.users).get();
+      QuerySnapshot<Map<String, dynamic>> snapshots =
+          await db.collection(FirebaseKeys.users).get();
 
-      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs = snapshots.docs.where((element) => element.id == uid).toList();
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs =
+          snapshots.docs.where((element) => element.id == uid).toList();
       log(docs.length.toString());
       // log('LOGGED IN USER ${docs.first.data().toString()}');
       if (docs.isNotEmpty) {
-        return ApiResponse(data: UserData.fromJson(docs.first.data()), error: null);
+        return ApiResponse(
+            data: UserData.fromJson(docs.first.data()), error: null);
       } else {
         // log(docs.first.id);
-        DocumentReference userRef = db.collection(FirebaseKeys.users).doc(uid);
+        // DocumentReference userRef = db.collection(FirebaseKeys.users).doc(uid);
         // debugPrint(' ADDING USER ${docs.first.id}');
         // await userRef.set(UserData(
         //   uid: uid,
@@ -157,6 +161,9 @@ class AuthRepositoryImpl extends AuthRepository {
       }
       return ApiResponse(data: null, error: 'Something went wrong');
     } on FirebaseException catch (e) {
+      await GoogleSignIn().signOut();
+      await auth.signOut();
+
       return ApiResponse(data: null, error: e.code);
     } on Exception catch (e, stack) {
       utils.showCustomToast(stack.toString());
@@ -291,6 +298,8 @@ class AuthRepositoryImpl extends AuthRepository {
         return ApiResponse(data: null, error: 'Unsuccessful');
       }
     } on FirebaseAuthException catch (e) {
+      await GoogleSignIn().signOut();
+
       log('FIREBASE ERROR${e.message.toString()}');
       return ApiResponse(data: null, error: e.code);
     }
@@ -372,5 +381,34 @@ class AuthRepositoryImpl extends AuthRepository {
       log('FIREBASE ERROR${e.message.toString()}');
       return ApiResponse(data: null, error: e.code);
     }
+  }
+
+  @override
+  Future<ApiResponse> updateUserToken(
+    String uid,
+  ) async {
+    try {
+      String? deviceId = await PushNotificationService.getDeviceToken();
+      if (deviceId != null) {
+        await db.collection('users').doc(uid).update({'device_id': deviceId});
+      }
+      log(uid);
+      return ApiResponse(data: 'Updated', error: null);
+    } on FirebaseException catch (e) {
+      log('FIREBASE ERROR${e.code.toString()}');
+      return ApiResponse(data: null, error: e.code);
+    } on Exception catch (e) {
+      return ApiResponse(data: null, error: e.toString());
+    }
+  }
+
+  @override
+  Stream<User?> authState() {
+    return auth.authStateChanges();
+  }
+
+  @override
+  Stream<DocumentSnapshot<Map<String, dynamic>>> userStream(String uid) {
+    return db.collection('users').doc(uid).snapshots();
   }
 }

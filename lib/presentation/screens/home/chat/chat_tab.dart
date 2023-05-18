@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
@@ -11,7 +10,8 @@ import 'package:getmarried/presentation/screens/home/chat/messaging_screen.dart'
 import 'package:getmarried/presentation/screens/home/home_tab/date_filters_screen.dart';
 import 'package:getmarried/widgets/chat/conversation_item.dart';
 import 'package:getmarried/widgets/chat/user_chat_item.dart';
-import 'package:getmarried/widgets/primary_button.dart';
+import 'package:getmarried/widgets/error_widget.dart';
+import 'package:iconsax/iconsax.dart';
 
 class ChatTab extends StatefulWidget {
   const ChatTab({Key? key}) : super(key: key);
@@ -39,8 +39,8 @@ class _ChatTabState extends State<ChatTab> {
         title: Center(
           child: Image.asset(
             'assets/ilogo.png',
-            height: 40,
-            width: 50,
+            height: 55,
+            width: 55,
           ),
         ),
 
@@ -68,8 +68,8 @@ class _ChatTabState extends State<ChatTab> {
               child: const Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Icon(
-                  Icons.tune,
-                  color: Colors.grey,
+                  Iconsax.sort,
+                  color: Colors.black,
                   size: 25,
                 ),
               )),
@@ -207,29 +207,14 @@ class _ChatTabState extends State<ChatTab> {
                           ),
                         );
                       } else {
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text('You have no conversations'),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                PrimaryButton(
-                                    child: Text(
-                                      'Refresh',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    onPressed: () {
-                                      chatBloc.add(
-                                          GetConversationEvent(userData.uid!));
-                                    })
-                              ],
-                            ),
-                          ),
-                        );
+                        return AppPromptWidget(
+                            canTryAgain: true,
+                            isSvgResource: false,
+                            imagePath: 'assets/no_message.png',
+                            message: 'You have no conversations currently',
+                            onTap: () {
+                              chatBloc.add(GetConversationEvent(userData.uid!));
+                            });
                       }
                     }
                     if (state is ConversationErrorState) {

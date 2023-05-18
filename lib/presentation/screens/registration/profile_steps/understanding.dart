@@ -38,7 +38,7 @@ class _UnderstandingState extends State<Understanding> {
               ),
               const Text(
                 "I’m an understanding person",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(
                 height: 20,

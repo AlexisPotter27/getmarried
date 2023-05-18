@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
@@ -28,7 +29,7 @@ class _CallState extends State<Call> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigoAccent,
+      backgroundColor: primaryColour,
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -38,7 +39,7 @@ class _CallState extends State<Call> {
           height: 50,
         ),
         elevation: 0,
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor:primaryColour,
       ),
       body: BlocConsumer<AuthBloc, AuthState>(
         bloc: authBloc,
@@ -63,12 +64,12 @@ class _CallState extends State<Call> {
                 Center(
                   child: Column(
                     children: [
-                      Container(
-                          height: 50,
-                          width: 50,
-                          decoration: const BoxDecoration(
-                              color: Colors.white, shape: BoxShape.circle),
-                          child: const Icon(FontAwesomeIcons.phone)),
+                      // Container(
+                      //     height: 50,
+                      //     width: 50,
+                      //     decoration: const BoxDecoration(
+                      //         color: Colors.white, shape: BoxShape.circle),
+                      //     child: const Icon(FontAwesomeIcons.phone)),
                       const SizedBox(
                         height: 20,
                       ),

@@ -49,8 +49,8 @@ class _BasicsSectionState extends State<BasicsSection> {
               size: 20,
             ),
             tittle: 'Education',
-            value: widget.user.educationCollege!.isNotEmpty
-                ? widget.user.educationCollege![0]
+            value: widget.user.educationColledge!.isNotEmpty
+                ? widget.user.educationColledge![0].toString()
                 : null,
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(

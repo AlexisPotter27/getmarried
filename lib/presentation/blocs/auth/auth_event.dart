@@ -4,7 +4,7 @@ abstract class AuthEvent extends Equatable {
   const AuthEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class SendOtpEvent extends AuthEvent {
@@ -84,4 +84,46 @@ class FacebookSigninEvent extends AuthEvent {
 
 class AppleSigninEvent extends AuthEvent {
   AppleSigninEvent();
+}
+
+class UpdateUserTokenEvent extends AuthEvent {
+  String uid;
+
+  UpdateUserTokenEvent({required this.uid});
+}
+
+class AuthStateChangedEvent extends AuthEvent {
+  String? uid;
+
+  @override
+  List<Object?> get props => [uid];
+
+  AuthStateChangedEvent(this.uid);
+}
+
+class ListenToUserAccountEvent extends AuthEvent {
+  String? uid;
+
+  @override
+  List<Object?> get props => [uid];
+
+  ListenToUserAccountEvent(this.uid);
+}
+
+class AccountDisabledEvent extends AuthEvent {
+  String? uid;
+
+  @override
+  List<Object?> get props => [uid];
+
+  AccountDisabledEvent(this.uid);
+}
+
+class AccountDeletedEvent extends AuthEvent {
+  String? uid;
+
+  @override
+  List<Object?> get props => [uid];
+
+  AccountDeletedEvent(this.uid);
 }

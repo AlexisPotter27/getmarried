@@ -5,7 +5,11 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/models/user.dart';
+import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:getmarried/widgets/home/matched_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -325,5 +329,48 @@ Future<void> launchUrlLink(String url) async {
   if (!await launchUrl(_url,mode: LaunchMode.externalApplication)) {
     throw Exception('Could not launch $_url.');
   }
+}
+Future<void> getAddressFromLatLng(Position position) async {
+  UserData? cachedUser = getIt.get<CacheCubit>().user;
+  List<Placemark> placemark =
+  await placemarkFromCoordinates(position.latitude, position.longitude);
+  print(placemark);
+  Placemark place = placemark[0];
+  cachedUser?.location = place.locality;
+  getIt.get<CacheCubit>().updateUser(cachedUser!);
+}
+
+
+void requestForLocation() async {
+  Position position = await _determinePosition();
+  print(position.latitude);
+
+  getAddressFromLatLng(position);
+}
+
+Future<Position> _determinePosition() async {
+  bool serviceEnabled;
+  LocationPermission permission;
+
+  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    await Geolocator.openLocationSettings();
+    return Future.error('Location Service are disabled');
+  }
+
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      return Future.error('Location permissions are denied');
+    }
+  }
+
+  if (permission == LocationPermission.deniedForever) {
+    return Future.error(
+        'Location permissions are permanently denied, we cannot request permissions.');
+  }
+
+  return await Geolocator.getCurrentPosition();
 }
 

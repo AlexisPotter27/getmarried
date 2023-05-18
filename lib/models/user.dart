@@ -2,6 +2,7 @@
 //
 //     final userData = userDataFromJson(jsonString);
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:getmarried/data/models/conversation.dart';
 import 'package:getmarried/data/models/date_filters.dart';
@@ -57,18 +58,22 @@ class UserData {
     this.regStatus,
     this.photos,
     this.occupations,
-    this.educationCollege,
+    this.educationColledge,
     this.languages,
     this.dateFilters,
     this.location,
-    this.country,
+    this.likes,
     this.likeMe,
     this.dislikes,
     this.matches,
+    this.deviceId,
+    this.accountDisabled,
   });
 
   String? uid;
+  String? deviceId;
   String? firstname;
+  bool? accountDisabled;
   String? age;
   String? dateOfBirth;
   String? gender;
@@ -113,67 +118,14 @@ class UserData {
   DateFilters? dateFilters;
   List<dynamic>? photos;
   List<dynamic>? occupations;
-  List<dynamic>? educationCollege;
-  List<dynamic>? languages;
+  List<dynamic>? educationColledge;
+  List<String>? languages;
   String? location;
-  String? country;
+  List<dynamic>? likes;
   List<dynamic>? likeMe;
   List<dynamic>? dislikes;
   List<dynamic>? matches;
 
-  /*UserData copyWith({
-    String? uid,
-    String? firstname,
-    String? age,
-    String? dateOfBirth,
-    String? gender,
-    String? relationshipMode,
-    String? dateMatch,
-    String? email,
-    List<dynamic>? interests,
-    String? height,
-    String? workout,
-    String? starSign,
-    String? education,
-    String? drinking,
-    String? smoking,
-    String? children,
-    String? religion,
-    String? political,
-    String? about,
-    String? phoneNumber,
-    String? idealPartnerHeight,
-    bool? acceptedPrivacy,
-    String? accountCreated,
-    String? lookingFor,
-    String? bodyType,
-    String? partnerBodyType,
-    String? partnerAttractiveness,
-    String? drugs,
-    String? partnerReligion,
-    String? ethnicity,
-    String? partnerEthnicity,
-    String? potentialEvent,
-    String? understanding,
-    String? outgoing,
-    String? ambitious,
-    String? athletic,
-    String? startingAndFinishing,
-    String? sexInRelationship,
-    String? monogamy,
-    String? creativity,
-    String? moreAbout,
-    bool? policyAgreed,
-    int? regStatus,
-    DateFilters? dateFilters,
-    List<dynamic>? photos,
-    List<dynamic>? occupations,
-    List<dynamic>? educationCollege,
-    List<dynamic>? languages,
-    List<dynamic>? likes,
-    String? location,
-    String? country,
-  }) =>*/
   UserData copyWith(
           {String? uid,
           String? firstname,
@@ -215,17 +167,18 @@ class UserData {
           String? sexInRelationship,
           String? monogamy,
           String? creativity,
-          String? moreAbout,
+          String? deviceId,
           bool? policyAgreed,
           int? regStatus,
           DateFilters? dateFilters,
           List<dynamic>? photos,
           List<dynamic>? occupations,
-          List<dynamic>? educationCollege,
-          List<dynamic>? languages,
+          List<dynamic>? educationColledge,
+          List<String>? languages,
           String? location,
           List<dynamic>? likes,
           List<dynamic>? dislikes,
+          bool? accountDisabled,
           List<dynamic>? likeMe}) =>
       UserData(
         uid: uid ?? this.uid,
@@ -274,15 +227,16 @@ class UserData {
         regStatus: regStatus ?? this.regStatus,
         photos: photos ?? this.photos,
         occupations: occupations ?? this.occupations,
-        educationCollege: educationCollege ?? this.educationCollege,
+        educationColledge: educationColledge ?? this.educationColledge,
         languages: languages ?? this.languages,
         dateFilters: dateFilters ?? this.dateFilters,
         location: location ?? this.location,
-        country: country ?? this.country,
-
+        deviceId: deviceId ?? this.deviceId,
+        likes: likes ?? this.likes,
         likeMe: likeMe ?? this.likeMe,
         dislikes: dislikes ?? this.dislikes,
         matches: matches ?? this.matches,
+        accountDisabled: accountDisabled ?? this.accountDisabled,
       );
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
@@ -331,6 +285,8 @@ class UserData {
         moreAbout: json["more_about"],
         policyAgreed: json["policy_agreed"],
         regStatus: json["reg_status"],
+        deviceId: json["device_id"],
+        accountDisabled: json["account_disabled"] ?? false,
         dateFilters: json["date_filters"] == null
             ? null
             : DateFilters.fromJson(json['date_filters']),
@@ -340,12 +296,15 @@ class UserData {
         occupations: json["occupations"] == null
             ? []
             : List<dynamic>.from(json["occupations"]!.map((x) => x)),
-        educationCollege: json["educationCollege"] == null
+        educationColledge: json["educationColledge"] == null
             ? []
-            : List<dynamic>.from(json["educationCollege"]!.map((x) => x)),
+            : List<dynamic>.from(json["educationColledge"]!.map((x) => x)),
         languages: json["languages"] == null
             ? []
-            : List<dynamic>.from(json["languages"]!.map((x) => x)),
+            : List<String>.from(json["languages"]!.map((x) => x)),
+        likes: json["likes"] == null
+            ? []
+            : List<dynamic>.from(json["likes"]!.map((x) => x)),
         likeMe: json["like_me"] == null
             ? []
             : List<dynamic>.from(json["like_me"]!.map((x) => x)),
@@ -356,7 +315,6 @@ class UserData {
             ? []
             : List<dynamic>.from(json["matches"]!.map((x) => x)),
         location: json["location"],
-        country: json["country"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -405,18 +363,20 @@ class UserData {
         "more_about": moreAbout,
         "policy_agreed": policyAgreed,
         "reg_status": regStatus,
+        "account_disabled": accountDisabled,
         "date_filters": dateFilters?.toJson(),
         "photos":
             photos == null ? [] : List<dynamic>.from(photos!.map((x) => x)),
         "occupations": occupations == null
             ? []
             : List<dynamic>.from(occupations!.map((x) => x)),
-        "educationCollege": educationCollege == null
+        "educationColledge": educationColledge == null
             ? []
-            : List<dynamic>.from(educationCollege!.map((x) => x)),
+            : List<dynamic>.from(educationColledge!.map((x) => x)),
         "languages": languages == null
             ? []
             : List<dynamic>.from(languages!.map((x) => x)),
+        "likes": likes == null ? [] : List<dynamic>.from(likes!.map((x) => x)),
         "like_me":
             likeMe == null ? [] : List<dynamic>.from(likeMe!.map((x) => x)),
         "dislikes":
@@ -424,7 +384,7 @@ class UserData {
         "matches":
             matches == null ? [] : List<dynamic>.from(matches!.map((x) => x)),
         "location": location,
-        "country": country,
+        "device_id": deviceId,
       };
 
   ChatUser toChatUser() => ChatUser(
@@ -435,53 +395,45 @@ class UserData {
 
   static generateData() {}
 
-  String getPercentage() {
+  int getPercentage() {
     List all = [
       firstname,
-      height,
-      drugs,
+      // height,
+      // drugs,
       drinking,
       age,
       about,
-      ambitious,
-      athletic,
+      // ambitious,
+      // athletic,
       acceptedPrivacy,
       accountCreated,
-      bodyType,
-      children,
+      // bodyType,
+      // children,
       education,
-      educationCollege,
-      ethnicity,
       email,
       gender,
       height,
-      idealPartnerHeight,
+      about,
       lookingFor,
       languages,
-      monogamy,
-      moreAbout,
-      occupations,
-      outgoing,
-      phoneNumber,
-      potentialEvent,
-      partnerEthnicity,
+      photos,
+      // occupations,
+      // outgoing,
+      // phoneNumber,
       political,
-      partnerReligion,
-      partnerAttractiveness,
-      partnerBodyType,
       religion,
-      sexInRelationship,
-      startingAndFinishing,
       smoking,
       starSign,
-      understanding,
-      workout,
+      // workout,
     ];
 
     int completed = all.where((element) => element != null).toList().length;
 
+    log("Completed${completed.toString()}");
+    log("All${all.length.toString()}");
+
     int percentage = ((completed / all.length) * 100).round();
 
-    return '${percentage.toString()}%';
+    return percentage;
   }
 }

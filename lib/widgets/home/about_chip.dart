@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AboutChip extends StatelessWidget {
-  const AboutChip({Key? key, required this.label}) : super(key: key);
+  const AboutChip({Key? key, required this.label, this.bgColor}) : super(key: key);
  final  String label;
+ final  Color? bgColor;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class AboutChip extends StatelessWidget {
           Text(label,style:const TextStyle(fontSize: 13),),
         ],
       ),
-      backgroundColor: Colors.indigo.shade200,
+      backgroundColor:bgColor ?? Colors.indigo.shade200,
     );
   }
 }

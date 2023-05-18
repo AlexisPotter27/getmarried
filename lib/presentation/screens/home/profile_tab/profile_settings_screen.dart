@@ -1,4 +1,6 @@
 // import 'dart:mirrors';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
@@ -13,7 +15,6 @@ import 'package:getmarried/widgets/profile_tab/basics_section.dart';
 import 'package:getmarried/widgets/profile_tab/chips_box.dart';
 import 'package:getmarried/widgets/profile_tab/edit_photo_staggered_view.dart';
 import 'package:getmarried/widgets/profile_tab/more_about_section.dart';
-import 'package:getmarried/widgets/profile_tab/profile_list_tile.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileSettingsScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Image.asset(
-          'assets/logo.png',
+          'assets/ilogo.png',
           height: 40,
           width: 50,
         ),
@@ -100,14 +101,14 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '${cachedUser.getPercentage()} complete',
+                              '${cachedUser.getPercentage()}% complete',
                               style: TextStyle(fontSize: 16),
                             ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              color: Colors.grey.shade300,
-                              size: 20,
-                            )
+                            // Icon(
+                            //   Icons.arrow_forward_ios,
+                            //   color: Colors.grey.shade300,
+                            //   size: 20,
+                            // )
                           ],
                         ),
                       ),
@@ -288,10 +289,15 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => LanguagesScreen(
+                            selectedLanguages:  cachedUser.languages!,
                             onLanguagesSelected: (languages) {
                               setState(() {
                                 cachedUser.languages = languages;
+
                               });
+                              getIt.get<AuthBloc>().add(UpdateUserEvent(cachedUser));
+                              getIt.get<CacheCubit>().updateUser(cachedUser);
+
                               // authBloc.add(UpdateUserEvent(cachedUser))
                             },
                           ),
@@ -319,17 +325,23 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   }
 }
 
-class _LanguagesWidget extends StatelessWidget {
+class _LanguagesWidget extends StatefulWidget {
   const _LanguagesWidget({Key? key, required this.user}) : super(key: key);
   final UserData user;
 
   @override
+  State<_LanguagesWidget> createState() => _LanguagesWidgetState();
+}
+
+class _LanguagesWidgetState extends State<_LanguagesWidget> {
+  @override
   Widget build(BuildContext context) {
+    log(widget.user.languages!.length.toString());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Language i know',
+          'Language',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(
@@ -338,7 +350,7 @@ class _LanguagesWidget extends StatelessWidget {
         SizedBox(
             width: MediaQuery.of(context).size.width,
             child: ChipsBox(
-              items: user.languages!
+              items: widget.user.languages!
                   .map((e) => ChipChoiceModel(
                       label: e.toString(), icon: Icons.language))
                   .toList(),

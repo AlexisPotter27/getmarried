@@ -71,21 +71,21 @@ class _AddEducationScreenState extends State<AddEducationScreen> {
               SizedBox(
                 height: 2,
               ),
-              InkWell(
-                onTap: () {},
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        color: Colors.white,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                        child: Text('Graduation year'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // InkWell(
+              //   onTap: () {},
+              //   child: Row(
+              //     children: [
+              //       Expanded(
+              //         child: Container(
+              //           color: Colors.white,
+              //           padding:
+              //               EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              //           child: Text('Graduation year'),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           );
         },

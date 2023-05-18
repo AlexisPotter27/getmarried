@@ -47,3 +47,23 @@ class DisLikeUserFailureState extends MatchingState {
   @override
   List<Object> get props => [error];
 }
+
+
+class SendReportLoadingState extends MatchingState {
+  @override
+  List<Object> get props => [];
+}
+
+class SendReportSuccessState extends MatchingState {
+  @override
+  List<Object> get props => [];
+}
+
+class SendReportFailureState extends MatchingState {
+  final String error;
+
+  SendReportFailureState(this.error);
+
+  @override
+  List<Object> get props => [error];
+}

@@ -3,11 +3,10 @@ import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/widgets/reigistration/custom_radio_tile.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
-
-
-
 class WorkoutScreen extends StatefulWidget {
-  const WorkoutScreen({Key? key, required this.onComplete, required this.onPrev}) : super(key: key);
+  const WorkoutScreen(
+      {Key? key, required this.onComplete, required this.onPrev})
+      : super(key: key);
   final Function(String? workout) onComplete;
   final Function onPrev;
 
@@ -40,7 +39,10 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               ),
               const Text(
                 'Do you work out ?',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
@@ -48,9 +50,24 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               CustomRadioTile<String>(
                 onSubtitleClicked: () {},
                 toggleSubtitle: false,
-                value: 'regularly / daily',
+                value: 'regularly',
                 groupValue: value,
-                tittle: 'Regularly / Daily',
+                tittle: 'Regularly',
+                onChanged: (val) {
+                  setState(() {
+                    value = val;
+                  });
+                },
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              CustomRadioTile<String>(
+                onSubtitleClicked: () {},
+                toggleSubtitle: false,
+                value: 'daily',
+                groupValue: value,
+                tittle: 'Daily',
                 onChanged: (val) {
                   setState(() {
                     value = val;
@@ -99,19 +116,22 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   widget.onPrev();
                 }),
             GestureDetector(
-                child: const Text(
-              'Skip',
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w500, ),
-            ),onTap: (){
-                  widget.onComplete(null);
-            },),
+              child: const Text(
+                'Skip',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              onTap: () {
+                widget.onComplete(null);
+              },
+            ),
             NextButton(onPressed: () {
-              if(value.isEmpty){
+              if (value.isEmpty) {
                 showCustomToast('Select an option');
-              }else{
+              } else {
                 widget.onComplete(value);
-
               }
             }),
           ],

@@ -28,7 +28,7 @@ class DateFilters {
 
   String? date;
   String? age;
-  List<dynamic>? langiages;
+  List<String>? langiages;
   bool? verifiedOnly;
   String? height;
   String? excercise;
@@ -44,7 +44,7 @@ class DateFilters {
   DateFilters copyWith({
     String? date,
     String? age,
-    List<dynamic>? langiages,
+    List<String>? langiages,
     bool? verifiedOnly,
     String? height,
     String? excercise,
@@ -77,7 +77,7 @@ class DateFilters {
   factory DateFilters.fromJson(Map<String, dynamic> json) => DateFilters(
     date: json["date"],
     age: json["age"],
-    langiages: json["langiages"] == null ? [] : List<dynamic>.from(json["langiages"]!.map((x) => x)),
+    langiages: json["langiages"] == null ? [] : List<String>.from(json["langiages"]!.map((x) => x)),
     verifiedOnly: json["verified_only"],
     height: json["height"],
     excercise: json["excercise"],
