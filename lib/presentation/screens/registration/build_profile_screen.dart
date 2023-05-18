@@ -1,27 +1,24 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/constants/storage_keys.dart';
-import 'package:getmarried/data/models/date_filters.dart';
 import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/helper/storage_helper.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
-import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/about_you_screen.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/ambitious.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/athletic.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/attractive.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/body_type.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/children_concent_screen.dart';
+import 'package:getmarried/presentation/screens/registration/profile_steps/do_you_have_children_screen.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/drinking_screen.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/education_status_screen.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/ethnic_group.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/height_screen.dart';
-import 'package:getmarried/presentation/screens/registration/profile_steps/do_you_have_children_screen.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/how_many_children_screen.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/interest.dart';
 import 'package:getmarried/presentation/screens/registration/profile_steps/monogamy.dart';
@@ -53,6 +50,7 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
   double progress = 0.09;
   UserData? userData = getIt.get<CacheCubit>().user;
   AuthBloc authBloc = AuthBloc(getIt.get());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,9 +117,10 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                         onComplete: (interests) {
                           userData?.interests = interests;
                           switchPage(1);
-                        }, onPrev: () {
-                        Navigator.pop(context);
-                      },
+                        },
+                        onPrev: () {
+                          Navigator.pop(context);
+                        },
                       ),
                       HeightScreen(
                         onComplete: (height) {
@@ -181,7 +180,7 @@ class _BuildProfileScreenState extends State<BuildProfileScreen> {
                         prevPage(8);
                       }, onComplete: (education) {
                         userData?.education = education;
-                        userData?.educationCollege = [education];
+                        userData?.educationColledge = [education];
                         switchPage(10);
                       }),
                       DrinkingScreen(onPrev: () {

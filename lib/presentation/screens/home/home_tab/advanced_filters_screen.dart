@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:getmarried/constants/constant.dart';
@@ -15,9 +14,8 @@ import 'package:getmarried/widgets/date/settings_tile.dart';
 import 'package:getmarried/widgets/date/smoke_bottomsheet.dart';
 import 'package:getmarried/widgets/date/star_sign_bottomsheet.dart';
 import 'package:getmarried/widgets/date/topics_bottomsheet.dart';
-import 'package:purchases_flutter/models/customer_info_wrapper.dart';
-import 'package:purchases_flutter/models/offerings_wrapper.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+
 import '../../../../constant.dart';
 import '../../../../helper/toastMessage.dart';
 import '../../../../models/singletons_data.dart';
@@ -524,12 +522,12 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                 child: Center(
                   child: TextButton(
                     onPressed: () {
-                      // performPayment();
+                      performPayment();
                     },
                     style: TextButton.styleFrom(
+                        foregroundColor: Colors.black,
                         shape: const StadiumBorder(),
-                        backgroundColor: primaryColour,
-                        primary: Colors.black),
+                        backgroundColor: primaryColour),
                     child: const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Text('Upgrade for advanced filters'),
@@ -543,17 +541,17 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
       ),
     );
   }
+
   /*
     We should check if subscription active and if not, display the paywall.
   */
 
-  void updateFilters(){
-    UserData userData = getIt.get<CacheCubit>().user!.copyWith(dateFilters: filters);
+  void updateFilters() {
+    UserData userData =
+        getIt.get<CacheCubit>().user!.copyWith(dateFilters: filters);
     getIt.get<CacheCubit>().updateUser(userData);
     getIt.get<AuthBloc>().add(UpdateUserEvent(userData));
-
   }
-
 
   void performPayment() async {
     setState(() {
@@ -575,7 +573,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
           _isLoading = false;
         });
         Offerings offerings = await Purchases.getOfferings();
-        if (offerings != null && offerings.current != null) {
+        if (offerings.current != null) {
           await showModalBottomSheet(
             useRootNavigator: true,
             isDismissible: true,
@@ -588,10 +586,10 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
             builder: (BuildContext context) {
               return StatefulBuilder(
                   builder: (BuildContext context, StateSetter setModalState) {
-                    return Paywall(
-                      offering: offerings.current!,
-                    );
-                  });
+                return Paywall(
+                  offering: offerings.current!,
+                );
+              });
             },
           );
         } else {
