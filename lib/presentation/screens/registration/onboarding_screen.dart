@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/constants/storage_keys.dart';
 import 'package:getmarried/helper/storage_helper.dart';
+import 'package:getmarried/presentation/screens/registration/registration_steps/choose_mode.dart';
 import 'package:getmarried/presentation/screens/registration/signin_screen.dart';
 import 'package:getmarried/widgets/reigistration/onboading_button.dart';
 import 'package:getmarried/widgets/reigistration/onboardinng_item.dart';
@@ -109,7 +110,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => SigninScreen(),
+          builder: (context) => ChooseModeScreen(onComplete: (){}),
         ));
     StorageHelper.setBoolean(StorageKeys.isFirstTime, false);
 

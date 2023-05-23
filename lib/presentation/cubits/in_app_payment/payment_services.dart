@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:creative_movers/blocs/cache/cache_cubit.dart';
-import 'package:creative_movers/di/injector.dart';
+
 import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
@@ -10,7 +9,7 @@ class PaymentServices {
   PaymentServices();
 
   Future<void> init() async {
-    int? userId = getIt.get<CacheCubit>().user?.uid;
+    int? userId = 2;
 
     String? email = getIt.get<CacheCubit>().user?.email;
     String? displayName = getIt.get<CacheCubit>().user?.firstname;

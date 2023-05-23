@@ -9,7 +9,7 @@ class PaymentServices {
    PaymentServices();
 
   Future<void> init() async {
-    int? userId = getIt.get<CacheCubit>().user?.uid;
+    int? userId = 2;
 
     String? email = getIt.get<CacheCubit>().user?.email;
     String? displayName = getIt.get<CacheCubit>().user?.firstname;

@@ -20,7 +20,7 @@ class NewSubscriptionCard extends StatefulWidget {
         required this.description,
         required this.buttonText,
         this.gradient, this.bgImage, required this.price,
-        this.buttonTextColor})
+        this.buttonTextColor, this.onTap})
       : super(key: key);
   final String tittle;
   final String description;
@@ -29,6 +29,7 @@ class NewSubscriptionCard extends StatefulWidget {
   final Gradient? gradient;
   final String? bgImage;
   final Color? buttonTextColor;
+  final VoidCallback? onTap;
 
   @override
   State<NewSubscriptionCard> createState() => _NewSubscriptionCardState();
@@ -112,8 +113,8 @@ class _NewSubscriptionCardState extends State<NewSubscriptionCard> {
                         backgroundColor: Colors.white,padding: EdgeInsets.symmetric(horizontal: 16,),),
 
                     onPressed: () {
-                      // performPayment();
-                      showCustomToast('These feature is free for the first 500 users Enjoy');
+                      performPayment();
+                      // showCustomToast('These feature is free for the first 500 users Enjoy');
                     },
                     child: Text('Upgrade',style: TextStyle(color: widget.buttonTextColor??primaryColour),)),
                 SizedBox(width: 10,),
