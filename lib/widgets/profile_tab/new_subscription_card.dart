@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:getmarried/constants/constant.dart';
-import 'package:getmarried/helper/app_utils.dart';
 import 'package:getmarried/helper/toastMessage.dart';
 import 'package:getmarried/presentation/paywall.dart';
-import 'package:getmarried/widgets/upgrade_button.dart';
-import 'package:purchases_flutter/models/customer_info_wrapper.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+
 import '../../constant.dart';
 import '../../models/singletons_data.dart';
 import '../../models/styles.dart';
@@ -16,11 +14,14 @@ import '../native_dialog.dart';
 class NewSubscriptionCard extends StatefulWidget {
   const NewSubscriptionCard(
       {Key? key,
-        required this.tittle,
-        required this.description,
-        required this.buttonText,
-        this.gradient, this.bgImage, required this.price,
-        this.buttonTextColor, this.onTap})
+      required this.tittle,
+      required this.description,
+      required this.buttonText,
+      this.gradient,
+      this.bgImage,
+      required this.price,
+      this.buttonTextColor,
+      this.onTap})
       : super(key: key);
   final String tittle;
   final String description;
@@ -43,11 +44,17 @@ class _NewSubscriptionCardState extends State<NewSubscriptionCard> {
   Widget build(BuildContext context) {
     return Container(
       width: deviceWidth(),
-      padding: const EdgeInsets.symmetric(horizontal: 13,vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
       decoration: BoxDecoration(
-        color: widget.bgImage == null?primaryColour:null,
+        color: widget.bgImage == null ? primaryColour : null,
         borderRadius: BorderRadius.circular(5),
-        image: widget.bgImage != null? DecorationImage(image: AssetImage(widget.bgImage!,),fit: BoxFit.cover):null,
+        image: widget.bgImage != null
+            ? DecorationImage(
+                image: AssetImage(
+                  widget.bgImage!,
+                ),
+                fit: BoxFit.cover)
+            : null,
         gradient: widget.gradient,
       ),
       child: Center(
@@ -55,81 +62,78 @@ class _NewSubscriptionCardState extends State<NewSubscriptionCard> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-
-
-
             Row(
               children: [
                 Expanded(
                   child: Column(
-
                     children: [
                       Text(
                         widget.tittle,
                         style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.white
-                        ),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: Colors.white),
                       ),
                       Text(
                         '365 days',
-                        style: const TextStyle(
-
-                            fontSize: 13,
-                            color: Colors.white
-                        ),
+                        style:
+                            const TextStyle(fontSize: 13, color: Colors.white),
                       ),
                     ],
                     crossAxisAlignment: CrossAxisAlignment.start,
                   ),
                 ),
-                Row(children: [
-                  Text(
-                    '${widget.price}/',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: Colors.white
+                Row(
+                  children: [
+                    Text(
+                      '${widget.price}/',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: Colors.white),
                     ),
-                  ),
-                  Text(
-                   'year',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
+                    Text(
+                      'year',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-
-                ],)
+                  ],
+                )
               ],
             ),
-          Spacer(),
+            Spacer(),
             Row(
               children: [
                 TextButton(
-                      style: TextButton.styleFrom(
-
-                        backgroundColor: Colors.white,padding: EdgeInsets.symmetric(horizontal: 16,),),
-
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+                    ),
                     onPressed: () {
                       performPayment();
                       // showCustomToast('These feature is free for the first 500 users Enjoy');
                     },
-                    child: Text('Upgrade',style: TextStyle(color: widget.buttonTextColor??primaryColour),)),
-                SizedBox(width: 10,),
+                    child: Text(
+                      'Upgrade',
+                      style: TextStyle(
+                          color: widget.buttonTextColor ?? primaryColour),
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
                 Text(
                   widget.description,
-
-                  style: const TextStyle(fontSize: 14,color: Colors.white),
+                  style: const TextStyle(fontSize: 14, color: Colors.white),
                 ),
               ],
             ),
-
             const SizedBox(
               height: 5,
             ),
-
           ],
         ),
       ),
@@ -154,13 +158,13 @@ class _NewSubscriptionCardState extends State<NewSubscriptionCard> {
         _isLoading = false;
       });
     } else {
-      //Offerings? offerings;
+      Offerings? offerings;
       try {
         setState(() {
           _isLoading = false;
         });
         Offerings offerings = await Purchases.getOfferings();
-        if (offerings != null && offerings.current != null) {
+        if (offerings.current != null) {
           await showModalBottomSheet(
             useRootNavigator: true,
             isDismissible: true,
@@ -173,10 +177,10 @@ class _NewSubscriptionCardState extends State<NewSubscriptionCard> {
             builder: (BuildContext context) {
               return StatefulBuilder(
                   builder: (BuildContext context, StateSetter setModalState) {
-                    return Paywall(
-                      offering: offerings.current!,
-                    );
-                  });
+                return Paywall(
+                  offering: offerings.current!,
+                );
+              });
             },
           );
         } else {
