@@ -23,7 +23,7 @@ List<String> options = [
 ];
 
 class _ChooseDateScreenState extends State<ChooseDateScreen> {
-  String radioValue = '';
+  String radioValue = getIt.get<CacheCubit>().user!.gender == 'Man' ? 'Women' : 'Men';
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _ChooseDateScreenState extends State<ChooseDateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    radioValue = getIt.get<CacheCubit>().user!.gender == 'Man' ? 'Women' : 'Men';
+    // radioValue = getIt.get<CacheCubit>().user!.gender == 'Man' ? 'Women' : 'Men';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -84,6 +84,7 @@ class _ChooseDateScreenState extends State<ChooseDateScreen> {
                       onChanged: (val) {
                         setState(() {
                           radioValue = val;
+
                         });
                       },
                     ),

@@ -26,15 +26,16 @@ class _FeaturesTileState extends State<FeaturesTile> {
               Expanded(
                 flex: 2,
                 child: Row(
-                  children:  [
+                  children: [
                     Text(
                       widget.featureModel.feature,
-                      style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 13),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 13),
                     ),
-                    const   SizedBox(
+                    const SizedBox(
                       width: 8,
                     ),
-                    const   Icon(
+                    const Icon(
                       Icons.info_outline_rounded,
                       size: 16,
                       color: Colors.grey,
@@ -56,7 +57,6 @@ class _FeaturesTileState extends State<FeaturesTile> {
                             ? primaryColour
                             : Colors.grey,
                       ),
-
                       Visibility(
                         visible: widget.featureModel.plans.contains('boost'),
                         child: Icon(
@@ -67,7 +67,6 @@ class _FeaturesTileState extends State<FeaturesTile> {
                               : Colors.grey,
                         ),
                       ),
-
                     ],
                   ),
                 ),

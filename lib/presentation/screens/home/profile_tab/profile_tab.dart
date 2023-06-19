@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/constant.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/di/injector.dart';
@@ -8,9 +9,11 @@ import 'package:getmarried/models/singletons_data.dart';
 import 'package:getmarried/models/styles.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
+import 'package:getmarried/presentation/cubits/in_app_payment/in_app_payment_cubit.dart';
 import 'package:getmarried/presentation/paywall.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/profile_settings_screen.dart';
 import 'package:getmarried/presentation/screens/home/profile_tab/settings_screen.dart';
+import 'package:getmarried/widgets/error_widget.dart';
 import 'package:getmarried/widgets/native_dialog.dart';
 import 'package:getmarried/widgets/profile_tab/features_tile.dart';
 import 'package:getmarried/widgets/profile_tab/new_subscription_card.dart';
@@ -30,12 +33,18 @@ class _ProfileTabState extends State<ProfileTab> {
   var cachedUser = getIt.get<CacheCubit>().user!;
   late Offerings offerings;
   bool _isLoading = false;
+  final List<String> _subIds = [
+    'gm_premium_monthly',
+    'gm_premium_monthly',
+  ];
+
+  String? _selectedProductId;
+  final InAppPaymentCubit _appPaymentCubit = InAppPaymentCubit(getIt.get());
 
   @override
   void initState() {
-    // showCustomToast(getIt.get<CacheCubit>().user!.photos!.length.toString());
-    // log();
     super.initState();
+    _selectedProductId = _subIds.first;
   }
 
   final _controller = PageController(
@@ -198,60 +207,46 @@ class _ProfileTabState extends State<ProfileTab> {
                     const SizedBox(
                       height: 16,
                     ),
-                    SizedBox(
-                      height: 150,
-                      child: PageView(
-                        padEnds: false,
-                        physics: BouncingScrollPhysics(),
-                        onPageChanged: (index) {
-                          setState(() {
-                            _selectedIndex = index;
-                          });
-                        },
-                        controller: _controller,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(right: 10),
-                            child: NewSubscriptionCard(
-                              tittle: 'Premium',
-                              description: 'Free for first 500 users',
-                              // bgImage: 'assets/upgrade_bg.jpeg',
+                    BlocBuilder<InAppPaymentCubit, InAppPaymentState>(
+                      bloc: _appPaymentCubit..fetchOfferings(),
+                      builder: (context, state) {
+                        if (state is OfferingsFetched) {
+                          return SizedBox(
+                            height: 150,
+                            child: PageView.builder(
+                              itemCount: state.offerings.all.length,
+                              itemBuilder: (context, index) =>Padding(
+                                padding: EdgeInsets.only(right: 10),
+                                child: NewSubscriptionCard(
+                                  tittle: 'Premium',
+                                  description: 'Free for first 500 users',
+                                  // bgImage: 'assets/upgrade_bg.jpeg',
 
-                              gradient: LinearGradient(
-                                  end: Alignment.centerLeft,
-                                  begin: Alignment.bottomRight,
-                                  colors: [
-                                    Colors.indigo.shade300,
-                                    Colors.indigo.shade400,
-                                    Colors.indigo.shade400,
-                                    Colors.indigo,
-                                  ]),
-                              buttonText: 'Upgrade for ONLY \$2,500/year.',
-                              price: '\$2,500',
+                                  offering: state.offerings.current!, color: gradientColors[index],
+                                ),
+                              ),
+                              padEnds: false,
+                              physics: BouncingScrollPhysics(),
+                              onPageChanged: (index) {
+                                setState(() {
+                                  _selectedIndex = index;
+                                });
+                              },
+                              controller: _controller,
+
                             ),
-                          ),
-                          NewSubscriptionCard(
-                              buttonTextColor: Colors.cyan,
-                              tittle: 'Boost',
-                              gradient: LinearGradient(
-                                  end: Alignment.centerLeft,
-                                  begin: Alignment.centerRight,
-                                  colors: [
-                                    Colors.cyan.shade300,
-                                    Colors.cyan.shade300,
-                                    Colors.cyan.shade400,
-                                    Colors.cyan,
-                                  ]),
-                              description: 'Free for first 500 users',
-                              buttonText: 'Upgrade for ONLY \$2,500/year.',
-                              price: '\$2,500'),
-                        ],
-                      ),
+                          );
+                        }
+
+                        return AppPromptWidget(onTap: (){
+                          _appPaymentCubit.fetchOfferings();
+                        },);
+                      },
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    cachedUser.getPercentage() >= 75
+                    cachedUser.getPercentage() >= 65
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -303,7 +298,7 @@ class _ProfileTabState extends State<ProfileTab> {
               ),
             ),
             // const FlexibleSpaceBar(),
-            cachedUser.getPercentage() >= 75
+            cachedUser.getPercentage() >= 65
                 ? SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) => Padding(
@@ -356,9 +351,7 @@ class _ProfileTabState extends State<ProfileTab> {
             builder: (BuildContext context) {
               return StatefulBuilder(
                   builder: (BuildContext context, StateSetter setModalState) {
-                return Paywall(
-                  offering: offerings.current!,
-                );
+                return Container();
               });
             },
           );

@@ -4,9 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getmarried/data/models/server_error_model.dart';
-import 'package:getmarried/presentation/cubits/in_app_payment/payment_services.dart';
-// import 'package:in_app_purchase/in_app_purchase.dart';
-// import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
+import 'package:getmarried/services/payment_services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 part 'in_app_payment_state.dart';
@@ -22,7 +20,6 @@ class InAppPaymentCubit extends Cubit<InAppPaymentState> {
     try {
       // var customerInfo = await Purchases.getCustomerInfo();
       // log(customerInfo.originalAppUserId);
-
       emit(InAppPaymentLoading());
       final available = await Purchases.canMakePayments();
       if (!available) {
@@ -33,18 +30,21 @@ class InAppPaymentCubit extends Cubit<InAppPaymentState> {
       }
 
       var offerings = await Purchases.getOfferings();
+
       Offering? currentOffering = offerings.current;
       if (currentOffering == null) {
         emit(const InAppPaymentFetchError(ServerErrorModel(
             errorMessage: "No offerings available", statusCode: 400)));
         return;
       }
+
       // final products = await Purchases.getProducts([
       //   Constants.coinProfitExpertMonthly,
       //   Constants.coinProfitLeaderMonthly
       // ], type: PurchaseType.subs);
       // log("$products");
-      emit(UpgradProductsFetched(currentOffering.availablePackages));
+
+      emit(OfferingsFetched(offerings));
     } on PlatformException catch (e) {
       emit(InAppPaymentFetchError(
           ServerErrorModel(errorMessage: "${e.message}", statusCode: 400)));

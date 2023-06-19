@@ -30,6 +30,15 @@ class UpgradProductsFetched extends InAppPaymentState {
   @override
   List<Object> get props => [packages];
 }
+
+class OfferingsFetched extends InAppPaymentState {
+  final Offerings offerings;
+
+  const OfferingsFetched(this.offerings);
+
+  @override
+  List<Object> get props => [offerings];
+}
 class ProductsFetched extends InAppPaymentState {
   final StoreProduct product;
 

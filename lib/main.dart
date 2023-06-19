@@ -6,7 +6,6 @@ import 'package:getmarried/admin/presentation/screens/admin_login_screen.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/di/injector.dart' as injector;
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
-import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/registration/build_profile_onboard.dart';
 import 'package:getmarried/presentation/screens/registration/onboarding_screen.dart';
 import 'package:getmarried/presentation/screens/registration/privacy_screen.dart';
@@ -53,6 +52,7 @@ void main() async {
       apiKey: googleApiKey,
     );
   }*/
+
   if (defaultTargetPlatform == TargetPlatform.android) {
     StoreConfig(
       store: Store.googlePlay,

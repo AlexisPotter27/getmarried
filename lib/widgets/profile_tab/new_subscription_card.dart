@@ -1,36 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:getmarried/constants/constant.dart';
-import 'package:getmarried/helper/toastMessage.dart';
+import 'package:getmarried/di/injector.dart';
+import 'package:getmarried/presentation/cubits/in_app_payment/in_app_payment_cubit.dart';
 import 'package:getmarried/presentation/paywall.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
-import '../../constant.dart';
-import '../../models/singletons_data.dart';
-import '../../models/styles.dart';
-import '../../models/user.dart';
-import '../native_dialog.dart';
 
 class NewSubscriptionCard extends StatefulWidget {
   const NewSubscriptionCard(
       {Key? key,
       required this.tittle,
       required this.description,
-      required this.buttonText,
       this.gradient,
-      this.bgImage,
-      required this.price,
       this.buttonTextColor,
-      this.onTap})
+      this.productId,
+      this.onTap,
+      required this.offering, required this.color})
       : super(key: key);
   final String tittle;
   final String description;
-  final String buttonText;
-  final String price;
+
+
   final Gradient? gradient;
-  final String? bgImage;
   final Color? buttonTextColor;
+  final MaterialColor color;
   final VoidCallback? onTap;
+  final String? productId;
+  final Offering offering;
 
   @override
   State<NewSubscriptionCard> createState() => _NewSubscriptionCardState();
@@ -38,7 +35,19 @@ class NewSubscriptionCard extends StatefulWidget {
 
 class _NewSubscriptionCardState extends State<NewSubscriptionCard> {
   bool _isLoading = false;
-  late Offerings offerings;
+
+  // final List<String> _subIds = [
+  //   'com.creativemovers.m7',
+  // ];
+
+  String? _selectedProductId;
+  final InAppPaymentCubit _appPaymentCubit = InAppPaymentCubit(getIt.get());
+
+  @override
+  void initState() {
+    super.initState();
+    // _selectedProductId = _subIds.first;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +55,19 @@ class _NewSubscriptionCardState extends State<NewSubscriptionCard> {
       width: deviceWidth(),
       padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
       decoration: BoxDecoration(
-        color: widget.bgImage == null ? primaryColour : null,
+
         borderRadius: BorderRadius.circular(5),
-        image: widget.bgImage != null
-            ? DecorationImage(
-                image: AssetImage(
-                  widget.bgImage!,
-                ),
-                fit: BoxFit.cover)
-            : null,
-        gradient: widget.gradient,
+
+        gradient: LinearGradient(
+            end: Alignment.centerLeft,
+            begin: Alignment.bottomRight,
+            colors: [
+             widget.color.shade300,
+              widget.color.shade400,
+              widget.color.shade400,
+              widget.color,
+            ]
+        ),
       ),
       child: Center(
         child: Column(
@@ -68,14 +80,14 @@ class _NewSubscriptionCardState extends State<NewSubscriptionCard> {
                   child: Column(
                     children: [
                       Text(
-                        widget.tittle,
+                        '${widget.offering.monthly?.storeProduct.title}',
                         style: const TextStyle(
                             fontWeight: FontWeight.w600,
-                            fontSize: 16,
+                            fontSize: 12,
                             color: Colors.white),
                       ),
                       Text(
-                        '365 days',
+                        '30 days',
                         style:
                             const TextStyle(fontSize: 13, color: Colors.white),
                       ),
@@ -86,19 +98,19 @@ class _NewSubscriptionCardState extends State<NewSubscriptionCard> {
                 Row(
                   children: [
                     Text(
-                      '${widget.price}/',
+               '${widget.offering.monthly?.storeProduct.priceString}',
                       style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                           color: Colors.white),
                     ),
-                    Text(
-                      'year',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                      ),
-                    ),
+                    // Text(
+                    //   'year',
+                    //   style: const TextStyle(
+                    //     color: Colors.white,
+                    //     fontSize: 14,
+                    //   ),
+                    // ),
                   ],
                 )
               ],
@@ -114,7 +126,7 @@ class _NewSubscriptionCardState extends State<NewSubscriptionCard> {
                       ),
                     ),
                     onPressed: () {
-                      performPayment();
+                      _pay();
                       // showCustomToast('These feature is free for the first 500 users Enjoy');
                     },
                     child: Text(
@@ -138,67 +150,89 @@ class _NewSubscriptionCardState extends State<NewSubscriptionCard> {
         ),
       ),
     );
+    ;
   }
 
   /*
     We should check if subscription active and if not, display the paywall.
   */
 
-  void performPayment() async {
-    setState(() {
-      _isLoading = true;
-    });
+  void _pay() {
+    showModalBottomSheet(
+      useRootNavigator: true,
+      isDismissible: true,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setModalState) {
+          return Paywall(
+            offering: widget.offering,
 
-    CustomerInfo customerInfo = await Purchases.getCustomerInfo();
-
-    if (customerInfo.entitlements.all[entitlementID] != null &&
-        customerInfo.entitlements.all[entitlementID]?.isActive == true) {
-      appData.currentData = UserData.generateData();
-      setState(() {
-        _isLoading = false;
-      });
-    } else {
-      Offerings? offerings;
-      try {
-        setState(() {
-          _isLoading = false;
-        });
-        Offerings offerings = await Purchases.getOfferings();
-        if (offerings.current != null) {
-          await showModalBottomSheet(
-            useRootNavigator: true,
-            isDismissible: true,
-            isScrollControlled: true,
-            backgroundColor: kColorBackground,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
-            ),
-            context: context,
-            builder: (BuildContext context) {
-              return StatefulBuilder(
-                  builder: (BuildContext context, StateSetter setModalState) {
-                return Paywall(
-                  offering: offerings.current!,
-                );
-              });
-            },
           );
-        } else {
-          // offerings are empty, show a message to your user
-          ToastMessage.showToast('There is no offering.');
-        }
-      } on PlatformException catch (e) {
-        await showDialog(
-            context: context,
-            builder: (BuildContext context) => ShowDialogToDismiss(
-                title: "Error",
-                content: e.message.toString(),
-                buttonText: 'OK'));
-      }
-
-      setState(() {
-        _isLoading = false;
-      });
-    }
+        });
+      },
+    );
   }
+
+// void performPayment() async {
+//   setState(() {
+//     _isLoading = true;
+//   });
+//
+//   CustomerInfo customerInfo = await Purchases.getCustomerInfo();
+//
+//   if (customerInfo.entitlements.all[entitlementID] != null &&
+//       customerInfo.entitlements.all[entitlementID]?.isActive == true) {
+//     appData.currentData = UserData.generateData();
+//     setState(() {
+//       _isLoading = false;
+//     });
+//   } else {
+//     Offerings? offerings;
+//     try {
+//       setState(() {
+//         _isLoading = false;
+//       });
+//       Offerings offerings = await Purchases.getOfferings();
+//       if (offerings.current != null) {
+//         await showModalBottomSheet(
+//           useRootNavigator: true,
+//           isDismissible: true,
+//           isScrollControlled: true,
+//           backgroundColor: kColorBackground,
+//           shape: const RoundedRectangleBorder(
+//             borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+//           ),
+//           context: context,
+//           builder: (BuildContext context) {
+//             return StatefulBuilder(
+//                 builder: (BuildContext context, StateSetter setModalState) {
+//               return Paywall(
+//                 offering: offerings.current!,
+//               );
+//             });
+//           },
+//         );
+//       } else {
+//         // offerings are empty, show a message to your user
+//         ToastMessage.showToast('There is no offering.');
+//       }
+//     } on PlatformException catch (e) {
+//       await showDialog(
+//           context: context,
+//           builder: (BuildContext context) => ShowDialogToDismiss(
+//               title: "Error",
+//               content: e.message.toString(),
+//               buttonText: 'OK'));
+//     }
+//
+//     setState(() {
+//       _isLoading = false;
+//     });
+//   }
+// }
 }

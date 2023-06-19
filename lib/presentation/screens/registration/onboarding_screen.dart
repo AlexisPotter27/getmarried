@@ -110,7 +110,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ChooseModeScreen(onComplete: (){}),
+          builder: (context) => ChooseModeScreen(onComplete: () {}),
         ));
     StorageHelper.setBoolean(StorageKeys.isFirstTime, false);
 

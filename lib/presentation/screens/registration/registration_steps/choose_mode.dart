@@ -163,7 +163,7 @@ class _ChooseModeScreenState extends State<ChooseModeScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                Spacer(),
+                  Spacer(),
                   NextButton(onPressed: () {
                     if (radioValue.isEmpty) {
                       showCustomToast('Please select an option');
@@ -189,6 +189,8 @@ void showPromptMessage(BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
     content: PromptMessageWidget(),
     backgroundColor: Colors.transparent,
+    shape: RoundedRectangleBorder(),
+    elevation: 0,
   ));
 }
 

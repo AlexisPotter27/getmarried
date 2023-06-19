@@ -42,8 +42,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<UpdateUserImageEvent>(_mapUpdateUserImageEventToState);
     on<UpdateUserTokenEvent>(_mapUpdateUserTokenEventToState);
     on<ListenToUserAccountEvent>(_mapListenToUserAccountEventToState);
-    on<AccountDeletedEvent>((event, emit) => emit(AccountDeletedState(event.uid)));
-    on<AccountDisabledEvent>((event, emit) => emit(AccountDisabledState(event.uid)));
+    on<AccountDeletedEvent>(
+        (event, emit) => emit(AccountDeletedState(event.uid)));
+    on<AccountDisabledEvent>(
+        (event, emit) => emit(AccountDisabledState(event.uid)));
   }
 
   FutureOr<void> _mapSendOtpEventToState(

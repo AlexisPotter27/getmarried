@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/constants/storage_keys.dart';
 import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/helper/app_utils.dart';
@@ -11,19 +10,26 @@ import 'package:getmarried/helper/storage_helper.dart';
 import 'package:getmarried/models/user.dart';
 import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
-import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/registration/location.dart';
 import 'package:getmarried/presentation/screens/registration/registration_screen.dart';
 import 'package:getmarried/presentation/screens/registration/wrapper.dart';
 import 'package:getmarried/widgets/button.dart';
+import 'package:getmarried/widgets/reigistration/terms_widget.dart';
 import '../../../widgets/social_button.dart';
 import '../number.dart';
 import 'build_profile_screen.dart';
 
-class SigninScreen extends StatelessWidget {
+class SigninScreen extends StatefulWidget {
   SigninScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SigninScreen> createState() => _SigninScreenState();
+}
+
+class _SigninScreenState extends State<SigninScreen> {
   AuthBloc authBloc = AuthBloc(getIt.get());
+
+  bool termsAccepted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,6 @@ class SigninScreen extends StatelessWidget {
             getIt.get<CacheCubit>().updateUser(state.user);
             getIt.get<CacheCubit>().getCachedUser();
             updateCache();
-
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -56,7 +61,6 @@ class SigninScreen extends StatelessWidget {
           if (state is FacebookSignInSuccessState) {
             getIt.get<CacheCubit>().updateUser(state.user);
             getIt.get<CacheCubit>().getCachedUser();
-
             updateCache();
 
             Navigator.pushReplacement(
@@ -74,7 +78,6 @@ class SigninScreen extends StatelessWidget {
           if (state is AppleSignInSuccessState) {
             getIt.get<CacheCubit>().updateUser(state.user);
             getIt.get<CacheCubit>().getCachedUser();
-
             updateCache();
 
             Navigator.pushReplacement(
@@ -154,7 +157,7 @@ class SigninScreen extends StatelessWidget {
                       flex: 0,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 26.0, vertical: 16.0),
+                            horizontal: 16.0, vertical: 16.0),
                         child: Center(
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -169,89 +172,100 @@ class SigninScreen extends StatelessWidget {
                                         children: [
                                           SocialButton(
                                               icons: const Icon(
-                                                FontAwesomeIcons.google,
-                                                color: Colors.white,
-                                                size: 16,
+                                                Icons.apple_rounded,
+                                                color: Colors.black,
                                               ),
-                                              colour: Colors.redAccent,
-                                              title: 'Continue with Google',
-                                              textcolour: Colors.white,
-                                              ontap: () {
-                                                authBloc
-                                                    .add(GoogleSigninEvent());
-                                                /*Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const Phone()));*/
+                                              colour: Colors.white,
+                                              title: 'Continue with Apple ID',
+                                              textcolour: Colors.black,
+                                              ontap: () async {
+                                                if (agreementAccepted()) {
+                                                  authBloc
+                                                      .add(AppleSigninEvent());
+                                                }
                                               }),
                                           const SizedBox(
                                             height: 8,
                                           ),
-                                          SocialButton(
-                                              icons: const Icon(
-                                                Icons.facebook,
-                                                color: Colors.white,
-                                              ),
-                                              colour: Colors.blue,
-                                              title: 'Continue with Facebook',
-                                              textcolour: Colors.white,
-                                              ontap: () async {
-                                                authBloc
-                                                    .add(FacebookSigninEvent());
-                                                /*Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Phone()));*/
-                                              }),
-                                          const SizedBox(
-                                            height: 16,
+                                          Text(
+                                            'Or',
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           ),
-                                          SocialButton(
-                                              icons: const Icon(
-                                                Icons.apple_rounded,
-                                                color: Colors.white,
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: SocialButton(
+                                                    icons: const Icon(
+                                                      FontAwesomeIcons.google,
+                                                      color: Colors.white,
+                                                      size: 13,
+                                                    ),
+                                                    fontSize: 12,
+                                                    colour: Colors.redAccent,
+                                                    title: 'Google signin',
+                                                    textcolour: Colors.white,
+                                                    ontap: () {
+                                                      if (agreementAccepted()) {
+                                                        authBloc.add(
+                                                            GoogleSigninEvent());
+                                                      }
+                                                    }),
                                               ),
-                                              colour: Colors.black38,
-                                              title: 'Continue with Apple ID',
-                                              textcolour: Colors.white,
-                                              ontap: () async {
-                                                authBloc
-                                                    .add(AppleSigninEvent());
-
-                                                // ignore: avoid_print
-
-                                                // This is the endpoint that will convert an authorization code obtained
-                                                // via Sign in with Apple into a session in your system
-
-                                                // final session = await http.Client().post(
-                                                //   signInWithAppleEndpoint,
-                                                // );
-
-                                                // showCustomToast('Coming soon');
-                                                /*Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Phone()));*/
-                                              }),
+                                              const SizedBox(
+                                                width: 8,
+                                              ),
+                                              Expanded(
+                                                child: SocialButton(
+                                                    icons: const Icon(
+                                                      Icons.facebook,
+                                                      color: Colors.white,
+                                                      size: 14,
+                                                    ),
+                                                    colour: Colors.blue,
+                                                    fontSize: 12,
+                                                    title: 'Facebook signin',
+                                                    textcolour: Colors.white,
+                                                    ontap: () async {
+                                                      if (agreementAccepted()) {
+                                                        authBloc.add(
+                                                            FacebookSigninEvent());
+                                                      }
+                                                    }),
+                                              ),
+                                            ],
+                                          ),
                                           const SizedBox(
                                             height: 8,
                                           ),
                                         ],
                                       ),
                                 Button(
-                                    colour: Colors.white,
+                                    colour: Colors.transparent,
                                     title: 'Use Mobile Number',
-                                    textcolour: Colors.black,
+                                    textcolour: Colors.white,
                                     ontap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const Phone()));
+                                      if (agreementAccepted()) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const Phone()));
+                                      }
                                     }),
                                 const SizedBox(
                                   height: 16,
                                 ),
+                                // TermsWidget(
+                                //   onAccept: (bool) {
+                                //     setState(() {
+                                //       termsAccepted = bool;
+                                //     });
+                                //   },
+                                // ),
                               ]),
                         ),
                       ))
@@ -279,5 +293,17 @@ class SigninScreen extends StatelessWidget {
 
   void updateCache() {
     StorageHelper.setBoolean(StorageKeys.isUserLoggedIn, true);
+  }
+
+  bool agreementAccepted() {
+
+    return true;
+    // if (termsAccepted) {
+    //   return true;
+    // } else {
+    //   showCustomToast(
+    //       'Please make sure you agree to the user agreement before you continue.');
+    //   return false;
+    // }
   }
 }

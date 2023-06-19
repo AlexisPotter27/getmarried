@@ -14,7 +14,7 @@ class Button extends StatelessWidget {
       onTap: ontap,
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: 40,
+        height: 50,
 
         decoration: BoxDecoration(
             color: colour,

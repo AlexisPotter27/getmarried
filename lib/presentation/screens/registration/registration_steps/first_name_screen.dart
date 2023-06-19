@@ -4,8 +4,9 @@ import 'package:getmarried/widgets/reigistration/form_field.dart';
 import 'package:getmarried/widgets/reigistration/next_button.dart';
 
 class FirstNameScreen extends StatefulWidget {
-  const FirstNameScreen({Key? key, required this.onComplete}) : super(key: key);
+  const FirstNameScreen({Key? key, required this.onComplete, this.name}) : super(key: key);
   final Function(String firstname) onComplete;
+  final String? name;
 
   @override
   State<FirstNameScreen> createState() => _FirstNameScreenState();
@@ -14,6 +15,15 @@ class FirstNameScreen extends StatefulWidget {
 class _FirstNameScreenState extends State<FirstNameScreen>
     with AutomaticKeepAliveClientMixin {
   final _firstNameController = TextEditingController();
+
+  @override
+  void initState() {
+
+    if(widget.name != null){
+      _firstNameController.text = widget.name!;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +68,6 @@ class _FirstNameScreenState extends State<FirstNameScreen>
           ),
         ),
         Row(
-
           children: [
             Expanded(
               child: Row(

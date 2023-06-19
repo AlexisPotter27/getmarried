@@ -55,13 +55,14 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
               height: 8,
             ),
             SizedBox(
-              width: 50,
-              height: 40,
+              width: 60,
+              height: 50,
               child: CustomFormField(
                 focusNode: dayFocusNode,
                 maxLenght: 2,
 
                 hintText: 'MM',
+
                 keyboardType: TextInputType.number,
                 controller: widget.monthController,
                 padding:
@@ -91,8 +92,8 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
               height: 8,
             ),
             SizedBox(
-              width: 50,
-              height: 40,
+              width: 60,
+              height: 50,
               child: CustomFormField(
                 focusNode: monthFocusNode,
                 maxLenght: 2,
@@ -127,7 +128,7 @@ class _BirthDateWidgetState extends State<BirthDateWidget> {
             ),
             SizedBox(
               width: 70,
-              height: 40,
+              height: 50,
               child: CustomFormField(
                 focusNode: yearFocusNode,
                 maxLenght: 4,

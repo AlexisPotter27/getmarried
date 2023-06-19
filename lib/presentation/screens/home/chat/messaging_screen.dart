@@ -212,7 +212,7 @@ class _AppBarActionsWidget extends StatelessWidget {
         //       Icons.call,
         //       color: Colors.grey.shade400,
         //     )),
-        IconButton(
+        TextButton(
             onPressed: () {
               showModalBottomSheet(
                 context: context,
@@ -221,9 +221,9 @@ class _AppBarActionsWidget extends StatelessWidget {
                 ),
               );
             },
-            icon: Icon(
-              Icons.report,
-              color: Colors.red,
+            child: Text(
+              'Bloc user',
+              style: TextStyle(color: Colors.red),
             )),
         // TextButton(
         //     onPressed: () {},
@@ -385,9 +385,11 @@ class _ReportWidgetState extends State<ReportWidget> {
                 builder: (context, state) {
                   return state is SendReportLoadingState
                       ? SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator.adaptive(strokeWidth: 3,))
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator.adaptive(
+                            strokeWidth: 3,
+                          ))
                       : Text(
                           'Report',
                           style: TextStyle(color: Colors.white),

@@ -4,7 +4,7 @@ import 'package:getmarried/constants/constant.dart';
 class PrimaryButton extends StatefulWidget {
   const PrimaryButton({Key? key, required this.child, required this.onPressed,  this.bgColor, this.padding}) : super(key: key);
   final Widget child;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color? bgColor;
   final EdgeInsetsGeometry? padding;
 

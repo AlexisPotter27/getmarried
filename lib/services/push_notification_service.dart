@@ -112,6 +112,6 @@ class PushNotificationService {
   }
 
   static Future<String?> getDeviceToken() async {
-    return await _fcm.getToken();
+    return await _fcm.getToken(vapidKey: "BAIH7H_B9mjrDHx1mfuCEz3ZTumdi-B26GGR7VyhIEsM9JS3LyRJg8CCu0R8331vR9GkseURLAvQn9O_c-AYR4A");
   }
 }

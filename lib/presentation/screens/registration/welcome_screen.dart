@@ -4,7 +4,6 @@ import 'package:getmarried/presentation/screens/home/home_screen.dart';
 import 'package:getmarried/presentation/screens/registration/wrapper.dart';
 import 'package:getmarried/widgets/reigistration/welcome_text_widget.dart';
 
-
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
@@ -18,7 +17,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title:  Image.asset('assets/ilogo.png', width: 50, height: 50,),
+        title: Image.asset(
+          'assets/ilogo.png',
+          width: 50,
+          height: 50,
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.indigoAccent,
@@ -30,7 +33,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             /* Row(
+              /* Row(
                 children: [
                   Expanded(
                       child: Row(
@@ -56,7 +59,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               TextButton(
                 onPressed: () {
-
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

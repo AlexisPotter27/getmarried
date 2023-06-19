@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -16,7 +15,6 @@ import 'package:getmarried/services/push_notification_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-
 import 'auth_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
@@ -115,15 +113,17 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<ApiResponse> signinUser(String uid) async {
+  Future<ApiResponse> signinUser(String uid,
+      {bool? emailVerified = false, String? email, String? name}) async {
     try {
-      debugPrint('RETRIEVING USER DETAILS');
+      // debugPrint('RETRIEVING USER DETAILS');
 
       QuerySnapshot<Map<String, dynamic>> snapshots =
           await db.collection(FirebaseKeys.users).get();
 
       List<QueryDocumentSnapshot<Map<String, dynamic>>> docs =
           snapshots.docs.where((element) => element.id == uid).toList();
+
       log(docs.length.toString());
       // log('LOGGED IN USER ${docs.first.data().toString()}');
       if (docs.isNotEmpty) {
@@ -138,7 +138,10 @@ class AuthRepositoryImpl extends AuthRepository {
         // ).toJson());
         // debugPrint(' USER ${docs.first.id} ADDED');
 
-        return ApiResponse(data: UserData(uid: uid), error: null);
+        // utils.showCustomToast('${email}${name}');
+        return ApiResponse(
+            data: UserData(uid: uid, email: email, firstname: name),
+            error: null);
       }
 
       for (var element in snapshots.docs) {
@@ -292,7 +295,10 @@ class AuthRepositoryImpl extends AuthRepository {
           return value;
         });
 
-        return signinUser(userCredential.user!.uid);
+        return signinUser(userCredential.user!.uid,
+            emailVerified: true,
+            email: userCredential.user!.email,
+            name: userCredential.user!.displayName);
       } else {
         log('not signed in');
         return ApiResponse(data: null, error: 'Unsuccessful');
@@ -372,7 +378,10 @@ class AuthRepositoryImpl extends AuthRepository {
           return value;
         });
 
-        return signinUser(userCredential.user!.uid);
+        return signinUser(userCredential.user!.uid,
+            emailVerified: true,
+            email: userCredential.user!.email,
+            name: credential.familyName ?? credential.givenName);
       } else {
         log('not signed in');
         return ApiResponse(data: null, error: 'Unsuccessful');

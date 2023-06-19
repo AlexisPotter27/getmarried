@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:getmarried/constant.dart';
 import 'package:getmarried/constants/constant.dart';
 import 'package:getmarried/constants/storage_keys.dart';
 import 'package:getmarried/di/injector.dart';
@@ -31,11 +32,11 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
       backgroundColor: primaryColour,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Image.asset(
-          'assets/ilogo.png',
-          width: 50,
-          height: 50,
-        ),
+        // title: Image.asset(
+        //   'assets/ilogo.png',
+        //   width: 50,
+        //   height: 50,
+        // ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: primaryColour,
@@ -79,9 +80,9 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                             height: 16,
                           ),
                           const Text(
-                            'We care about your privacy',
+                            'Our Terms and Privacy Information',
                             style: TextStyle(
-                                fontSize: 35,
+                                fontSize: 30,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white),
                           ),
@@ -92,7 +93,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                               text: const TextSpan(
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontFamily: 'Poppins',
                                       height: 1.3),
                                   children: [
@@ -112,25 +113,34 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                             text: const TextSpan(
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontFamily: 'Poppins',
                                     height: 1.3),
                                 children: [
                                   TextSpan(
                                       text:
-                                          'You can always make changes or opt out in your privacy settings. Find out more find out more in our '),
+                                          'You can always make changes or opt out in your privacy settings. Find out more '),
                                   TextSpan(
-                                      text: 'privacy policy',
+                                      text: 'privacy',
                                       style: TextStyle(
                                           decoration: TextDecoration.underline))
                                 ]),
                           ),
+                          SizedBox(height: 16,),
+                          Text(
+                            terms,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Poppins',
+                                height: 1.3),
+                          )
                         ],
                       ),
                     ),
                   ),
                   PrimaryButton(
-                    bgColor: Colors.white,
+                      bgColor: Colors.white,
                       onPressed: () {
                         // if (userData != null) {
                         //   authBloc.add(UpdateUserEvent(userData!
@@ -143,6 +153,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                           builder: (context) => const RegistrationScreen(),
                         ));
                       },
+                      padding: EdgeInsets.all(16),
                       child: const Text(
                         'Accept',
                         style: TextStyle(
@@ -153,7 +164,9 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                     height: 10,
                   ),
                   TransaparentButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showCustomToast('To continue you have to the user terms above.');
+                      },
                       child: const Text(
                         'Change or reject',
                         style: TextStyle(

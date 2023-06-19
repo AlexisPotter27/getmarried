@@ -117,8 +117,8 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
             builder: (BuildContext context) {
               return StatefulBuilder(
                   builder: (BuildContext context, StateSetter setModalState) {
-                    return Paywall(
-                      offering: offerings.current!,
+                        return Container(
+
                     );
                   });
             },

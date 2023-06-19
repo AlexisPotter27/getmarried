@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getmarried/constants/constant.dart';
 
 
 class PrivacyWidget extends StatefulWidget {
@@ -16,7 +17,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
       backgroundColor: Colors.white,
       child: Icon(
         Icons.lock,
-        color: Colors.black,
+        color: primaryColour,
         size: 30,
       ),
     );

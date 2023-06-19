@@ -7,6 +7,7 @@ import 'package:getmarried/data/repositories/remote/matching_repository/matching
 import 'package:getmarried/data/repositories/remote/matching_repository/matching_repository_impl.dart';
 import 'package:getmarried/data/repositories/remote/profile/profile_repository.dart';
 import 'package:getmarried/data/repositories/remote/profile/profile_repository_impl.dart';
+import 'package:getmarried/services/payment_services.dart';
 
 void setUp(GetIt getIt) {
   getIt.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl());
@@ -18,5 +19,8 @@ void setUp(GetIt getIt) {
   );
   getIt.registerSingleton<AdminRepository>(
     AdminRepositoryImpl(),
+  );
+  getIt.registerSingleton<PaymentServices>(
+    PaymentServices(),
   );
 }

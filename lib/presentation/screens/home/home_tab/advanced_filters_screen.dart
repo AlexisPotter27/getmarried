@@ -5,6 +5,7 @@ import 'package:getmarried/data/models/date_filters.dart';
 import 'package:getmarried/di/injector.dart';
 import 'package:getmarried/presentation/blocs/auth/auth_bloc.dart';
 import 'package:getmarried/presentation/blocs/cache_cubit/cache_cubit.dart';
+import 'package:getmarried/presentation/screens/home/payment/presentation/screens/subscription_screen.dart';
 import 'package:getmarried/widgets/date/children_bottomsheet.dart';
 import 'package:getmarried/widgets/date/drink_bottomsheet.dart';
 import 'package:getmarried/widgets/date/education_bottomsheet.dart';
@@ -522,7 +523,11 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
                 child: Center(
                   child: TextButton(
                     onPressed: () {
-                      performPayment();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SubscriptionScreen(),
+                          ));
                     },
                     style: TextButton.styleFrom(
                         foregroundColor: Colors.black,
@@ -586,9 +591,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
             builder: (BuildContext context) {
               return StatefulBuilder(
                   builder: (BuildContext context, StateSetter setModalState) {
-                return Paywall(
-                  offering: offerings.current!,
-                );
+                return Container();
               });
             },
           );

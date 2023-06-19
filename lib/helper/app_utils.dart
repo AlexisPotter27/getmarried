@@ -326,20 +326,20 @@ void showMatchedDialog(BuildContext context, final UserData swipedUser,
 
 Future<void> launchUrlLink(String url) async {
   final Uri _url = Uri.parse(url);
-  if (!await launchUrl(_url,mode: LaunchMode.externalApplication)) {
+  if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
     throw Exception('Could not launch $_url.');
   }
 }
+
 Future<void> getAddressFromLatLng(Position position) async {
   UserData? cachedUser = getIt.get<CacheCubit>().user;
   List<Placemark> placemark =
-  await placemarkFromCoordinates(position.latitude, position.longitude);
+      await placemarkFromCoordinates(position.latitude, position.longitude);
   print(placemark);
   Placemark place = placemark[0];
   cachedUser?.location = place.locality;
   getIt.get<CacheCubit>().updateUser(cachedUser!);
 }
-
 
 void requestForLocation() async {
   Position position = await _determinePosition();
@@ -373,4 +373,3 @@ Future<Position> _determinePosition() async {
 
   return await Geolocator.getCurrentPosition();
 }
-

@@ -47,7 +47,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
                     color: Colors.white),
               ),
               const SizedBox(
-                height: 20,
+                height: 16,
               ),
               BirthDateWidget(
                 dayController: dayController,
@@ -67,16 +67,16 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
                       onPressed: () {
                         widget.onPrev();
                       }),
-                  const Icon(Icons.lock, color: Colors.white),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  const Expanded(
-                      child: Text(
-                    'We only show your age to potential matches, not your birthday',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500, color: Colors.white),
-                  ))
+                  // const Icon(Icons.lock, color: Colors.white),
+                  // const SizedBox(
+                  //   width: 5,
+                  // ),
+                  // const Expanded(
+                  //     child: Text(
+                  //   'We only show your age to potential matches, not your birthday',
+                  //   style: TextStyle(
+                  //       fontWeight: FontWeight.w500, color: Colors.white),
+                  // ))
                 ],
               ),
             ),

@@ -330,8 +330,8 @@ class _LikeTabState extends State<LikeTab> {
             builder: (BuildContext context) {
               return StatefulBuilder(
                   builder: (BuildContext context, StateSetter setModalState) {
-                return Paywall(
-                  offering: offerings.current!,
+                return Container(
+
                 );
               });
             },

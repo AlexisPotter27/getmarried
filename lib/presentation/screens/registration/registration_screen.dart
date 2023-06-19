@@ -84,18 +84,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       //     switchPage(1);
                       //   },
                       // ),
-                      FirstNameScreen(onComplete: (name) {
-                        setState(() {
+
+                      FirstNameScreen(
+                        onComplete: (name) {
+                          switchPage();
+                          // setState(() {
                           cachedUser?.firstname = name;
-                        });
-                        switchPage(1);
-                      }),
+                          // });
+                        },
+                        name: cachedUser?.firstname,
+                      ),
+
                       AddPhotosScreen(
                         onComplete: (images) {
                           setState(() {
                             cachedUser!.photos = images;
                           });
-                          switchPage(2);
+                          switchPage();
                         },
                         onPrev: () {
                           prevPage(0);
@@ -140,7 +145,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     cachedUser?.dateOfBirth = dob.toString();
                                     cachedUser?.age = _getAge(dob);
                                     Navigator.pop(context);
-                                    switchPage(3);
+
+                                    switchPage();
                                   },
                                   child: const Text(
                                     'CONFIRM',
@@ -157,14 +163,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         },
                         onComplete: (gender) {
                           cachedUser?.gender = gender;
-                          switchPage(4);
+
+                          switchPage();
+                          // if (cachedUser!.email != null) {
+                          //   switchPage(3);
+                          // } else {
+                          //   switchPage(4);
+                          // }
                         },
                       ),
+
                       /*ShowGenderScreen(
                     onComplete: () {
                       switchPage(5);
                     },
                   ),*/
+
                       ChooseDateScreen(
                         onPrev: () {
                           prevPage(3);
@@ -172,26 +186,39 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         onComplete: (date) {
                           cachedUser = cachedUser?.copyWith(
                               dateFilters: DateFilters(lookingFor: date));
-                          switchPage(5);
+                          getIt.get<CacheCubit>().updateUser(cachedUser!);
+
+                          if (cachedUser!.email != null) {
+                            authBloc.add(UpdateUserEvent(cachedUser!));
+                          } else {
+                            switchPage();
+                          }
                         },
                       ),
+
                       /*ChooseReletionShipType(
                     onComplete: () {
                       switchPage(8);
                     },
                   ),*/
-                      EmailScreen(
-                        onPrev: () {
-                          prevPage(4);
-                        },
-                        onComplete: (email) {
-                          cachedUser?.email = email;
-                          authBloc.add(UpdateUserEvent(cachedUser!));
-                          // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          //   builder: (context) => const BuildProfileOnboard(),
-                          // ));
-                        },
-                      )
+
+                      ...cachedUser!.email != null
+                          ? []
+                          : [
+                              EmailScreen(
+                                onPrev: () {
+                                  prevPage(4);
+                                },
+                                onComplete: (email) {
+                                  cachedUser?.email = email;
+                                  authBloc.add(UpdateUserEvent(cachedUser!));
+                                  // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                  //   builder: (context) => const BuildProfileOnboard(),
+                                  // ));
+                                },
+                              )
+                            ]
+
                       // InterestScreen(),
                       // HeightScreen(),
                       // BirthdayScreen(),
@@ -210,16 +237,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  void switchPage(int to) {
+  void switchPage() {
     setState(() {
-      _pageController.jumpToPage(to);
+      _pageController.nextPage(
+          duration: Duration(milliseconds: 200), curve: Curves.easeIn);
       progress += 0.2;
     });
   }
 
   void prevPage(int to) {
     setState(() {
-      _pageController.jumpToPage(to);
+      _pageController.previousPage(
+          duration: Duration(milliseconds: 200), curve: Curves.easeIn);
       progress -= 0.2;
     });
   }
@@ -231,4 +260,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   _getAge(DateTime dob) {
     return (DateTime.now().year - dob.year).toString();
   }
+
+  _getNextIndex(int index) {}
 }

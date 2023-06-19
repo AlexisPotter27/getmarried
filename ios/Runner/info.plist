@@ -2,16 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>Getmarried</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    	<string>$(DEVELOPMENT_LANGUAGE)</string>
+    	<key>CFBundleDisplayName</key>
+    	<string>Testing</string>
+    	<key>CFBundleExecutable</key>
+    	<string>$(EXECUTABLE_NAME)</string>
+    	<key>CFBundleIdentifier</key>
+    	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -68,8 +66,11 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>This app need to access users camera so that a user can capture a photo on their profile, to help them get identified and matched in the app.</string>
+
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This app needs access to location when in the background so as to help users get matched with people around their location.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    	<string>This app needs access to location when in the background so as to help users get matched with people around their location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs access to location when open so as to help users get matched with people around their location.</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -104,6 +105,8 @@
 	<key>FirebaseAppDelegateProxyEnabled</key>
         <false/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 </dict>
 </plist>

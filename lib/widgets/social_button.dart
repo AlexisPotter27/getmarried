@@ -4,11 +4,12 @@ class SocialButton extends StatelessWidget {
   final Color colour;
   final Color textcolour;
   final String title;
+  final double? fontSize;
   final VoidCallback ontap;
   final Icon icons;
 
   const SocialButton(
-      {required this.colour, required this.title, required this.ontap, required this.textcolour, required this.icons});
+      {required this.colour, required this.title, required this.ontap, required this.textcolour, required this.icons,  this.fontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class SocialButton extends StatelessWidget {
                   const SizedBox(width: 10,),
                   Text(
                     title,
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500,
+                    style: TextStyle(fontSize: fontSize ?? 13, fontWeight: FontWeight.w500,
                       color: textcolour,),
                   ),
                 ],

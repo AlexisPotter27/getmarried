@@ -14,6 +14,7 @@ import 'package:getmarried/widgets/home/connection_menu_item.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
+import '../../../services/payment_services.dart';
 import 'likes_tab/new_like_tab.dart';
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey(); //
@@ -43,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen>
     PurchasesConfiguration? configuration;
     if (Platform.isAndroid) {
       configuration =
-          PurchasesConfiguration('goog_VolvlJikxUaeRLgdQMSokvUSyWZ');
+          PurchasesConfiguration('goog_twQhAeQSCVwEpeHUBaLPxPuUOSN');
       //String config = configuration as String;
       /*if (buildingForAmazon) {
         // use your preferred way to determine if this build is for Amazon store
@@ -52,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen>
       }*/
     } else if (Platform.isIOS) {
       configuration =
-          PurchasesConfiguration('appl_XWZlhcEkesNwkmyPmcxJNMkJkkX');
+          PurchasesConfiguration('appl_yHNSZTnUVotccExXDboTPdlGMkh');
     }
     await Purchases.configure(configuration!);
   }
@@ -102,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   void _setUp() {
-    initPlatformState();
+    getIt.get<PaymentServices>().init();
     requestForLocation();
     getIt.get<AuthBloc>().add(UpdateUserTokenEvent(
         uid: getIt.get<CacheCubit>().user!.uid.toString()));
